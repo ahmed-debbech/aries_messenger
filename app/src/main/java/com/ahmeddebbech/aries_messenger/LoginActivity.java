@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.switch_item);
+        setContentView(R.layout.activiy_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
