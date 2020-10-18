@@ -130,5 +130,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/login" />
+        app:menu="@menu/activity_login_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
