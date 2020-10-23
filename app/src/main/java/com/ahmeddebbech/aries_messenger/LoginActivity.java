@@ -58,16 +58,6 @@ public class LoginActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        //Auth stuff...
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.GoogleBuilder().build());
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                1);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -75,15 +65,19 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 1) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Toast toast = Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, "Welcome " + user.getDisplayName(), Toast.LENGTH_SHORT);
                 toast.show();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
+                Toast toast = Toast.makeText(this, "A problem occured while signin-in. Try again!\n" +
+                        response.getError(), Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }
@@ -95,5 +89,9 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
+    }
+    public void googleProviderOnClick(View v){
+        Auth auth = new Auth(this);
+        auth.showSignInIntent();
     }
 }
