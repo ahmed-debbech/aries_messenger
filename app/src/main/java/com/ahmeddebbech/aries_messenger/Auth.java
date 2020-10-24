@@ -1,8 +1,12 @@
 package com.ahmeddebbech.aries_messenger;
 
+import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,5 +25,12 @@ public class Auth {
                         .setAvailableProviders(providers)
                         .build(),
                 1);
+    }
+    public GoogleSignInAccount getLastSignedIn(){
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(cur_act);
+        if(account != null){
+            return account;
+        }
+        return null;
     }
 }
