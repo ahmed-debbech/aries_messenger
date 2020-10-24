@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.ahmeddebbech.aries_messenger.database.Database;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
@@ -70,9 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 loggedInUser = new LoggedInUser(FirebaseAuth.getInstance().getCurrentUser());
                 Toast toast = Toast.makeText(this, "Welcome " + loggedInUser.getFirebaseUserObject().getDisplayName(), Toast.LENGTH_SHORT);
                 toast.show();
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference username = database.getReference("/users/$uid");
-                username.setValue(loggedInUser.getFirebaseUserObject().getDisplayName());
+                Database.addUserToDatabase(loggedInUser);
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             } else {
