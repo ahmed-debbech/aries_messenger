@@ -20,8 +20,17 @@ public class Database {
     }
     public static void addUserToDatabase(LoggedInUser loggedInUser){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getFirebaseUserObject().getUid()+"/");
-        ref.
-        ref.setValue(loggedInUser.getFirebaseUserObject().getDisplayName());
+        //Uid
+        DatabaseReference refUid = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getFirebaseUserObject().getUid()+"/uid");
+        refUid.setValue(loggedInUser.getFirebaseUserObject().getUid());
+        //username
+        DatabaseReference refUsername = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getFirebaseUserObject().getUid()+"/username");
+        refUsername.setValue("@xxxx");
+        //display name
+        DatabaseReference refDisplayName = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getFirebaseUserObject().getUid()+"/display-name");
+        refDisplayName.setValue(loggedInUser.getFirebaseUserObject().getDisplayName());
+        //email
+        DatabaseReference refEmail = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getFirebaseUserObject().getUid()+"/email");
+        refEmail.setValue(loggedInUser.getFirebaseUserObject().getEmail());
     }
 }
