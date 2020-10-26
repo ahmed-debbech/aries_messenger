@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 loggedInUser = new LoggedInUser(FirebaseAuth.getInstance().getCurrentUser());
                 Toast toast = Toast.makeText(this, "Welcome " + loggedInUser.getFirebaseUserObject().getDisplayName(), Toast.LENGTH_SHORT);
                 toast.show();
-                Database.addUserToDatabase(loggedInUser);
+                Database.connectToSignup(loggedInUser);
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             } else {
