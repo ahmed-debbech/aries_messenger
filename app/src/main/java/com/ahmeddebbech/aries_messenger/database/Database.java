@@ -1,31 +1,27 @@
 package com.ahmeddebbech.aries_messenger.database;
 
-import android.provider.ContactsContract;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.ahmeddebbech.aries_messenger.LoggedInUser;
+import com.ahmeddebbech.aries_messenger.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class Database {
     Database(){
 
     }
-    public static void connectToSignup(LoggedInUser loggedInUser) {
+    public static void connectToSignup(LoggedInUser loggedInUser, LoginActivity la) {
         userExists(loggedInUser);
         //if the user doesn't exist then it adds it to Database internally in userExists method.
+        //show a loading interface
     }
     public static void userExists(LoggedInUser loggedInUser){
         FirebaseAuth fa = FirebaseAuth.getInstance();
