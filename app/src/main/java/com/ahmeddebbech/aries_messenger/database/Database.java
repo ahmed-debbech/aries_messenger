@@ -1,12 +1,15 @@
 package com.ahmeddebbech.aries_messenger.database;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.ahmeddebbech.aries_messenger.LoggedInUser;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
@@ -20,28 +23,24 @@ public class Database {
     Database(){
 
     }
-    public static void connectToSignup(LoggedInUser loggedInUser){
-        Database.userExists(loggedInUser);
-        /*if(Database.userExists(loggedInUser)){
-            return;
-        }else {
-            Database.addUserToDatabase(loggedInUser);
-        }*/
+    public static void connectToSignup(LoggedInUser loggedInUser) {
+        userExists(loggedInUser);
+        //if the user doesn't exist then it adds it to Database internally in userExists method.
     }
-    public static boolean userExists(LoggedInUser loggedInUser){
+    public static void userExists(LoggedInUser loggedInUser){
         FirebaseAuth fa = FirebaseAuth.getInstance();
+        final LoggedInUser lg = loggedInUser;
         fa.fetchSignInMethodsForEmail(loggedInUser.getFirebaseUserObject().getEmail())
-                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                        if(!task.getResult().getSignInMethods().isEmpty()){
-                            Log.d("#####", "found");
-                        }else{
-                            Log.d("####", "not found");
-                        }
-                    }
-                });
-        return true;
+            .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>(){
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                if(task.getResult().getSignInMethods().isEmpty()){
+                    Log.d("#####", "found");
+                }else{
+                    Database.addUserToDatabase(lg);
+                }
+            }
+        });
     }
     public static void addUserToDatabase(LoggedInUser loggedInUser){
         FirebaseDatabase database = FirebaseDatabase.getInstance();

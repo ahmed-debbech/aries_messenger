@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoggedInUser  {
     private FirebaseUser userRef;
-    public class User{
+    private class User{
         private String uid;
         private String username;
         private String displayName;
