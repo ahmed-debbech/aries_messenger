@@ -1,7 +1,9 @@
 package com.ahmeddebbech.aries_messenger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -68,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 loggedInUser = new LoggedInUser(FirebaseAuth.getInstance().getCurrentUser());
                 Toast toast = Toast.makeText(this, "Welcome " + loggedInUser.getFirebaseUserObject().getDisplayName(), Toast.LENGTH_SHORT);
                 toast.show();
-                Database.connectToSignup(loggedInUser, this);
+                Database.connectToSignup(loggedInUser,this);
             } else {
                 Toast toast = Toast.makeText(this, "A problem occured while signin-in. Try again!\n" +
                         response.getError(), Toast.LENGTH_SHORT);
@@ -78,5 +80,13 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void googleProviderOnClick(View v){
         auth.showSignInIntent();
+    }
+    public void showSignUpActivity(){
+        Intent intent = new Intent(this, NewUserActivity.class);
+        startActivity(intent);
+    }
+    public void passToMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

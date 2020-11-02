@@ -22,30 +22,36 @@ public class Database {
 
     }
     public static void connectToSignup(LoggedInUser loggedInUser, LoginActivity la) {
-        userExists(loggedInUser);
-
-        //if the user doesn't exist then it adds it to Database internally in userExists method.
-        //show a loading interface
+        userExists(loggedInUser, la);
     }
-    public static void userExists(final LoggedInUser loggedInUser){
+    public static void userExists(final LoggedInUser loggedInUser, final LoginActivity la){
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
         // Attach a listener to read the data at our posts reference
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            boolean founder = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                LoggedInUser.User u = new LoggedInUser.User();
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    if(ds.getValue(LoggedInUser.User.class).getEmail().equals(loggedInUser.getFirebaseUserObject().getEmail())){
-                        Log.d("LOGIN: ", "found");
-                    }
-                }
-                Log.d("Login:, ", "not found");
+                 LoggedInUser.User u = new LoggedInUser.User();
+                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                     if (ds.getValue(LoggedInUser.User.class).getEmail().equals(loggedInUser.getFirebaseUserObject().getEmail())) {
+                         Log.d("LOGIN: ", "found");
+                         founder = true;
+                     }
+                 }
+                 Log.d("LOGIN ", "not found");
+                 if (!founder) {
+                     la.showSignUpActivity();
+                 }else{
+                     Database.addUserToDatabase(loggedInUser);
+                     la.passToMainActivity();
+                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
+                founder = false;
             }
         });
     }
