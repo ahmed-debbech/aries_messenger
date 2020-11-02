@@ -19,6 +19,7 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        GoogleSignInAccount res = auth.getLastSignedIn();
+        FirebaseUser res = auth.getLastSignedIn();
         if(res != null){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         auth.showSignInIntent();
     }
     public void showSignUpActivity(){
+        FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, NewUserActivity.class);
         startActivity(intent);
     }
