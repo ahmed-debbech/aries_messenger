@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".NewUserActivity"
-            android:label="@string/title_activity_new_user" />
+            android:label="Register for Aries"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".LoginActivity"
             android:label="Aries Messenger"
