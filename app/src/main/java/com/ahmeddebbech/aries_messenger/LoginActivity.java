@@ -1,9 +1,7 @@
 package com.ahmeddebbech.aries_messenger;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -16,7 +14,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import com.ahmeddebbech.aries_messenger.database.Database;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -84,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void showSignUpActivity(){
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(this, NewUserActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
     public void passToMainActivity(){

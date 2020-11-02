@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".NewUserActivity"
+            android:name=".RegisterActivity"
             android:label="Register for Aries"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
