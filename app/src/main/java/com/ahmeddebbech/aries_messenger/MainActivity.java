@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,5 +27,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
             }
         });
+    }
+    public void signout(View v){
+        FirebaseAuth.getInstance().signOut();
     }
 }

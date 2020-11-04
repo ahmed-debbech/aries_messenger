@@ -38,7 +38,6 @@ public class Database {
                  if (!founder) {
                      la.showSignUpActivity();
                  }else{
-                     Database.addUserToDatabase(loggedInUser);
                      la.passToMainActivity();
                  }
             }
