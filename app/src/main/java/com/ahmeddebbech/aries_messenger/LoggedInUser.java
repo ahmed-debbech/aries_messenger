@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.Serializable;
-
 public class LoggedInUser implements Parcelable {
     private FirebaseUser userRef;
 

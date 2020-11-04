@@ -1,16 +1,10 @@
 package com.ahmeddebbech.aries_messenger.database;
 
-import android.content.Intent;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 
 import com.ahmeddebbech.aries_messenger.LoggedInUser;
 import com.ahmeddebbech.aries_messenger.LoginActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

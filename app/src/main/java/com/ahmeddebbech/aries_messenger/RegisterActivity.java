@@ -2,7 +2,6 @@ package com.ahmeddebbech.aries_messenger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,10 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ahmeddebbech.aries_messenger.database.Database;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectStreamClass;
-import java.io.Serializable;
 
 public class RegisterActivity extends AppCompatActivity {
      LoggedInUser liu;
