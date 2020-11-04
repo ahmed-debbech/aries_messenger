@@ -96,6 +96,7 @@
             android:layout_marginTop="56dp"
             android:background="@color/colorAccent"
             android:fontFamily="sans-serif-condensed"
+            android:onClick="onProceedClicked"
             android:text="Proceed"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

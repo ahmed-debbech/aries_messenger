@@ -1,10 +1,44 @@
 package com.ahmeddebbech.aries_messenger;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoggedInUser  {
+import java.io.Serializable;
+
+public class LoggedInUser implements Parcelable {
     private FirebaseUser userRef;
-    public static class User{
+
+    protected LoggedInUser(Parcel in) {
+        userRef = in.readParcelable(FirebaseUser.class.getClassLoader());
+        usr = in.readParcelable(User.class.getClassLoader());
+    }
+
+    public static final Creator<LoggedInUser> CREATOR = new Creator<LoggedInUser>() {
+        @Override
+        public LoggedInUser createFromParcel(Parcel in) {
+            return new LoggedInUser(in);
+        }
+
+        @Override
+        public LoggedInUser[] newArray(int size) {
+            return new LoggedInUser[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(userRef, flags);
+        dest.writeParcelable(usr, flags);
+    }
+
+    public static class User implements Parcelable {
         private String uid;
         private String username;
         private String displayName;
@@ -18,8 +52,48 @@ public class LoggedInUser  {
             this.displayName = display;
             this.email = email;
         }
+
+        protected User(Parcel in) {
+            uid = in.readString();
+            username = in.readString();
+            displayName = in.readString();
+            email = in.readString();
+        }
+
+        public static final Creator<User> CREATOR = new Creator<User>() {
+            @Override
+            public User createFromParcel(Parcel in) {
+                return new User(in);
+            }
+
+            @Override
+            public User[] newArray(int size) {
+                return new User[size];
+            }
+        };
+
         public String getEmail(){
             return email;
+        }
+
+        public void setDisplayName(String displayName) {
+            this.displayName = displayName;
+        }
+        public void setUsername(String username){
+            this.username = username;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(uid);
+            dest.writeString(username);
+            dest.writeString(displayName);
+            dest.writeString(email);
         }
     }
     private User usr;
@@ -29,5 +103,9 @@ public class LoggedInUser  {
     }
     public FirebaseUser getFirebaseUserObject(){
         return userRef;
+    }
+
+    public User getUsr() {
+        return usr;
     }
 }

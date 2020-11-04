@@ -57,17 +57,25 @@ public class Database {
     }
     public static void addUserToDatabase(LoggedInUser loggedInUser){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //Uid
+        /*//Uid
         DatabaseReference refUid = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getFirebaseUserObject().getUid()+"/uid");
         refUid.setValue(loggedInUser.getFirebaseUserObject().getUid());
         //username
         DatabaseReference refUsername = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getFirebaseUserObject().getUid()+"/username");
-        refUsername.setValue("@xxxx");
+        refUsername.setValue(loggedInUser.getUsr().getU);
         //display name
         DatabaseReference refDisplayName = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getFirebaseUserObject().getUid()+"/display-name");
         refDisplayName.setValue(loggedInUser.getFirebaseUserObject().getDisplayName());
         //email
         DatabaseReference refEmail = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getFirebaseUserObject().getUid()+"/email");
-        refEmail.setValue(loggedInUser.getFirebaseUserObject().getEmail());
+        refEmail.setValue(loggedInUser.getFirebaseUserObject().getEmail());*/
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/");
+        ref.setValue(loggedInUser.getUsr());
+        Log.d("###ERROR####", "3333333");
+    }
+    public static void connectToRegister(LoggedInUser loggedInUser){
+        Log.d("###ERROR####", "222222");
+        addUserToDatabase(loggedInUser);
+        Log.d("###ERROR####", "444444");
     }
 }
