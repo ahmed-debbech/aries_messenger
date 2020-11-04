@@ -28,16 +28,14 @@ public class RegisterActivity extends AppCompatActivity {
         String name = i.getStringExtra("display_name");
         TextView t = (TextView)findViewById(R.id.displayNameText);
         t.setText(name);
-        Bundle bundle = getIntent().getExtras();
-        liu = bundle.getParcelable("com.ahmeddebbech.aries_messenger.LoggedInUser");
+        liu = i.getParcelableExtra("logged_user");
     }
 
     public void onProceedClicked(View v){
-        Log.d("###ERROR####", "-1000000");
-        liu.getUsr().setDisplayName(((TextView)findViewById(R.id.displayNameText)).getText().toString());
-        liu.getUsr().setUsername(((TextView)findViewById(R.id.usernameText)).getText().toString());
-        Log.d("###ERROR####", "000000");
+        TextView t1 = findViewById(R.id.displayNameText);
+        TextView t2 = findViewById(R.id.usernameText);
+        liu.getUsr().setDisplayName(t1.getText().toString());
+        liu.getUsr().setUsername(t2.getText().toString());
         Database.connectToRegister(liu);
-        Log.d("###ERROR####", "1111111");
     }
 }
