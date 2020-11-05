@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
                 loggedInUser = new LoggedInUser(FirebaseAuth.getInstance().getCurrentUser());
-                Toast toast = Toast.makeText(this, "Welcome " + loggedInUser.getFirebaseUserObject().getDisplayName(), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, "Welcome " + loggedInUser.getFirebaseUserObject().getEmail(), Toast.LENGTH_SHORT);
                 toast.show();
                 Database.connectToSignup(loggedInUser,this);
             } else {
@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
     public void googleProviderOnClick(View v){
         auth.showSignInIntent();
     }
-    public void showSignUpActivity(){
+    public void showRegisterActivity(){
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, RegisterActivity.class);
         intent.putExtra("display_name", loggedInUser.getFirebaseUserObject().getDisplayName());

@@ -44,10 +44,10 @@ public class LoggedInUser implements Parcelable {
         public User(){
 
         }
-        public User(String uid, String username, String display, String email){
+        public User(String uid, String username, String displayName, String email){
             this.uid = uid;
             this.username = username;
-            this.displayName = display;
+            this.displayName = displayName;
             this.email = email;
         }
 
@@ -88,7 +88,12 @@ public class LoggedInUser implements Parcelable {
         public void setUsername(String username){
             this.username = username;
         }
-
+        public void setEmail(String email) {
+            this.email = email;
+        }
+        public void setUid(String uid){
+            this.uid = uid;
+        }
         @Override
         public int describeContents() {
             return 0;

@@ -29,6 +29,7 @@ public class Database {
             public void onDataChange(DataSnapshot dataSnapshot) {
                  LoggedInUser.User u = new LoggedInUser.User();
                  for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                     Log.d("$$$$$$$$$4", ds.getValue(LoggedInUser.User.class).getEmail());
                      if (ds.getValue(LoggedInUser.User.class).getEmail().equals(loggedInUser.getFirebaseUserObject().getEmail())) {
                          Log.d("LOGIN: ", "found");
                          founder = true;
@@ -36,9 +37,11 @@ public class Database {
                  }
                  Log.d("LOGIN ", "not found");
                  if (!founder) {
-                     la.showSignUpActivity();
+                     la.showRegisterActivity();
                  }else{
+                     Log.d("ggggggg", "eee0e");
                      la.passToMainActivity();
+                     Log.d("ggggggg", "999999999");
                  }
             }
             @Override
