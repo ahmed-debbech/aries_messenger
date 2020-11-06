@@ -1,8 +1,9 @@
-package com.ahmeddebbech.aries_messenger;
+package com.ahmeddebbech.aries_messenger.uicomponents;
 
 import android.os.Bundle;
 import android.view.View;
 
+import com.ahmeddebbech.aries_messenger.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -1,4 +1,4 @@
-package com.ahmeddebbech.aries_messenger;
+package com.ahmeddebbech.aries_messenger.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +13,7 @@ public class Auth {
     List<AuthUI.IdpConfig> providers;
     AppCompatActivity cur_act;
 
-    Auth(AppCompatActivity act){
+    public Auth(AppCompatActivity act){
         providers = Arrays.asList(new AuthUI.IdpConfig.GoogleBuilder().build());
         cur_act = act;
     }

@@ -1,4 +1,4 @@
-package com.ahmeddebbech.aries_messenger;
+package com.ahmeddebbech.aries_messenger.uicomponents;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
+import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.auth.Auth;
 import com.ahmeddebbech.aries_messenger.database.Database;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.navigation.NavigationView;

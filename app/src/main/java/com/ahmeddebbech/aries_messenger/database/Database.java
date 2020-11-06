@@ -3,9 +3,8 @@ package com.ahmeddebbech.aries_messenger.database;
 import android.util.Log;
 
 
-import com.ahmeddebbech.aries_messenger.LoggedInUser;
-import com.ahmeddebbech.aries_messenger.LoginActivity;
-import com.google.firebase.auth.FirebaseAuth;
+import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
+import com.ahmeddebbech.aries_messenger.uicomponents.LoginActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

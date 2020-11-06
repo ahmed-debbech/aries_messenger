@@ -1,4 +1,4 @@
-package com.ahmeddebbech.aries_messenger;
+package com.ahmeddebbech.aries_messenger.user;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -108,7 +108,7 @@ public class LoggedInUser implements Parcelable {
         }
     }
     private User usr;
-    LoggedInUser(FirebaseUser user){
+    public LoggedInUser(FirebaseUser user){
         userRef = user;
         usr = new User(userRef.getUid(),"@xxxx",userRef.getDisplayName(),userRef.getEmail());
     }

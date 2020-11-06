@@ -1,4 +1,4 @@
-package com.ahmeddebbech.aries_messenger;
+package com.ahmeddebbech.aries_messenger.uicomponents;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.database.Database;
+import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -24,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         TextView t = (TextView)findViewById(R.id.displayNameText);
         t.setText(name);
         liu = i.getParcelableExtra("logged_user");
+
     }
 
     public void onProceedClicked(View v){
