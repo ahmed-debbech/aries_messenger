@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.LoggedInUser;
 import com.ahmeddebbech.aries_messenger.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,14 +21,13 @@ public class Database {
     }
     public static void userExists(final LoggedInUser loggedInUser, final LoginActivity la){
         // Get a reference to our posts
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
         // Attach a listener to read the data at our posts reference
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             boolean founder = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 LoggedInUser.User u = new LoggedInUser.User();
                  for (DataSnapshot ds : dataSnapshot.getChildren()) {
                      Log.d("$$$$$$$$$4", ds.getValue(LoggedInUser.User.class).getEmail());
                      if (ds.getValue(LoggedInUser.User.class).getEmail().equals(loggedInUser.getFirebaseUserObject().getEmail())) {
@@ -53,7 +53,7 @@ public class Database {
     }
     public static void addUserToDatabase(LoggedInUser loggedInUser){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getUsr().getUid());
         ref.setValue(loggedInUser.getUsr());
     }
     public static void connectToRegister(LoggedInUser loggedInUser){
