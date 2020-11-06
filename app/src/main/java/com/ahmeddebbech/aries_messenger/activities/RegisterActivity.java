@@ -1,4 +1,4 @@
-package com.ahmeddebbech.aries_messenger.uicomponents;
+package com.ahmeddebbech.aries_messenger.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,14 +26,13 @@ public class RegisterActivity extends AppCompatActivity {
         TextView t = (TextView)findViewById(R.id.displayNameText);
         t.setText(name);
         liu = i.getParcelableExtra("logged_user");
-
     }
 
     public void onProceedClicked(View v){
         TextView t1 = findViewById(R.id.displayNameText);
         TextView t2 = findViewById(R.id.usernameText);
-        liu.getUsr().setDisplayName(t1.getText().toString());
-        liu.getUsr().setUsername(t2.getText().toString());
-        Database.connectToRegister(liu);
+        liu.getUserModel().setDisplayName(t1.getText().toString());
+        liu.getUserModel().setUsername(t2.getText().toString());
+        Database.connectToRegister(liu.getUserModel());
     }
 }

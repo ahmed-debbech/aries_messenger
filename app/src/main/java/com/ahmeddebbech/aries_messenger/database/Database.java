@@ -2,9 +2,8 @@ package com.ahmeddebbech.aries_messenger.database;
 
 import android.util.Log;
 
-
-import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
-import com.ahmeddebbech.aries_messenger.uicomponents.LoginActivity;
+import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.activities.LoginActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,10 +14,10 @@ public class Database {
     Database(){
 
     }
-    public static void connectToSignup(LoggedInUser loggedInUser, LoginActivity la) {
-        userExists(loggedInUser, la);
+    public static void connectToSignup(User user, LoginActivity la) {
+        userExists(user, la);
     }
-    public static void userExists(final LoggedInUser loggedInUser, final LoginActivity la){
+        public static void userExists(final User user, final LoginActivity la){
         // Get a reference to our posts
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
@@ -28,8 +27,7 @@ public class Database {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                  for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                     Log.d("$$$$$$$$$4", ds.getValue(LoggedInUser.User.class).getEmail());
-                     if (ds.getValue(LoggedInUser.User.class).getEmail().equals(loggedInUser.getFirebaseUserObject().getEmail())) {
+                     if (ds.getValue(User.class).getEmail().equals(user.getEmail())) {
                          Log.d("LOGIN: ", "found");
                          founder = true;
                      }
@@ -38,9 +36,7 @@ public class Database {
                  if (!founder) {
                      la.showRegisterActivity();
                  }else{
-                     Log.d("ggggggg", "eee0e");
                      la.passToMainActivity();
-                     Log.d("ggggggg", "999999999");
                  }
             }
             @Override
@@ -50,12 +46,12 @@ public class Database {
             }
         });
     }
-    public static void addUserToDatabase(LoggedInUser loggedInUser){
+    public static void addUserToDatabase(User user){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/"+loggedInUser.getUsr().getUid());
-        ref.setValue(loggedInUser.getUsr());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/"+user.getUid());
+        ref.setValue(user);
     }
-    public static void connectToRegister(LoggedInUser loggedInUser){
-        addUserToDatabase(loggedInUser);
+    public static void connectToRegister(User user){
+        addUserToDatabase(user);
     }
 }

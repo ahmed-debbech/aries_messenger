@@ -1,4 +1,4 @@
-package com.ahmeddebbech.aries_messenger.uicomponents;
+package com.ahmeddebbech.aries_messenger.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.ui.AppBarConfiguration;
 
-import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.auth.Auth;
 import com.ahmeddebbech.aries_messenger.database.Database;
+import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,8 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-    Auth auth;
-    LoggedInUser loggedInUser;
+    private Auth auth;
+    private LoggedInUser loggedInUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,9 +69,9 @@ public class LoginActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
                 loggedInUser = new LoggedInUser(FirebaseAuth.getInstance().getCurrentUser());
-                Toast toast = Toast.makeText(this, "Welcome " + loggedInUser.getFirebaseUserObject().getEmail(), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, "Welcome " + loggedInUser.getUserModel().getDisplayName(), Toast.LENGTH_SHORT);
                 toast.show();
-                Database.connectToSignup(loggedInUser,this);
+                Database.connectToSignup(loggedInUser.getUserModel(),this);
             } else {
                 Toast toast = Toast.makeText(this, "A problem occured while signin-in. Try again!\n" +
                         response.getError(), Toast.LENGTH_SHORT);
