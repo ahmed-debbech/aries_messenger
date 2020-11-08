@@ -69,7 +69,12 @@ public class LoginActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
                 loggedInUser = new LoggedInUser(FirebaseAuth.getInstance().getCurrentUser());
-                Toast toast = Toast.makeText(this, "Welcome " + loggedInUser.getUserModel().getDisplayName(), Toast.LENGTH_SHORT);
+                Toast toast;
+                if(loggedInUser.getUserModel().getDisplayName() == null) {
+                    toast = Toast.makeText(this, "Welcome" , Toast.LENGTH_SHORT);
+                }else{
+                    toast = Toast.makeText(this, "Welcome" + loggedInUser.getUserModel().getDisplayName() , Toast.LENGTH_SHORT);
+                }
                 toast.show();
                 Database.connectToSignup(loggedInUser.getUserModel(),this);
             } else {

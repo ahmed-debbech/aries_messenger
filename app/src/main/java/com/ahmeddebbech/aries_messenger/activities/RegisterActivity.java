@@ -68,13 +68,40 @@ public class RegisterActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
+        DisplayName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(InputFieldChecker.isLonger(s.toString(), 32)){
+                    DisplayName.setError("Your Display Name is too long!");
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 
     public void onProceedClicked(View v){
         TextView t1 = findViewById(R.id.displayNameText);
         TextView t2 = findViewById(R.id.usernameText);
-        liu.getUserModel().setDisplayName(t1.getText().toString());
-        liu.getUserModel().setUsername(t2.getText().toString());
-        Database.connectToRegister(liu.getUserModel());
+        boolean fine = true;
+        if(t1.getText().toString().equals("")){
+            t1.setError("This field should not be empty!");
+            fine =false;
+        }
+        if(t2.getText().toString().equals("")){
+            t2.setError("This field should not be empty!");
+            fine = false;
+        }
+        if(fine) {
+            liu.getUserModel().setDisplayName(t1.getText().toString());
+            liu.getUserModel().setUsername(t2.getText().toString());
+            Database.connectToRegister(liu.getUserModel());
+        }
     }
 }
