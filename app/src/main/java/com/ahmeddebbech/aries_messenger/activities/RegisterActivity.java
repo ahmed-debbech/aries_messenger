@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
             fine = false;
         }
         if(fine) {
-            liu.getUserModel().setDisplayName(t1.getText().toString());
+            liu.getUserModel().setDisplayName(t1.getText().toString().trim());
             liu.getUserModel().setUsername(t2.getText().toString());
             Database.connectToRegister(liu.getUserModel());
         }

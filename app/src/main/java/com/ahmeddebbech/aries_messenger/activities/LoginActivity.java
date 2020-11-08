@@ -2,6 +2,7 @@ package com.ahmeddebbech.aries_messenger.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("entered dd", "%%%%%5");
         setContentView(R.layout.activiy_login);
         auth = new Auth(this);
         final DrawerLayout dl = findViewById(R.id.drawer_layout);
@@ -96,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void passToMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("logged_user", loggedInUser);
         startActivity(intent);
     }
 }
