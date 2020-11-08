@@ -1,6 +1,14 @@
 package com.ahmeddebbech.aries_messenger.util;
 
+import android.util.Log;
+
 public class InputFieldChecker {
+    public static boolean noSpaces(String input){
+        if(input.contains(" ") == true){
+            return false;
+        }
+        return true;
+    }
     public static boolean startsWithAlt(String input){
         if(input.length() == 0){
             return false;
@@ -10,22 +18,24 @@ public class InputFieldChecker {
         }
         return false;
     }
-    public static boolean checkLength(String input, int maxLength){
+    public static boolean isLonger(String input, int maxLength){
         if(input.length() > maxLength){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
     public static boolean usesOnlyAllowedChars(String input, char allowedSpecialChars[]){
         //allowed chars : '-', '_', '.' and 0..9
         if(input.length() >= 1) {
-            for (int i = 0; i <= input.length() - 1; i++) {
-                if(('z' < input.charAt(i) || input.charAt(i) <'a')
-                && ('Z' < input.charAt(i) || input.charAt(i) < 'A')
-                && ('9' < input.charAt(i) || input.charAt(i) < '0')){
+            String g = input.substring(1);
+            Log.d("$$$$$$", g);
+            for (int i = 0; i <= g.length() - 1; i++) {
+                if(('z' < g.charAt(i) || g.charAt(i) <'a')
+                && ('Z' < g.charAt(i) || g.charAt(i) < 'A')
+                && ('9' < g.charAt(i) || g.charAt(i) < '0')){
                     boolean t = false;
                     for(int j=0; j<=allowedSpecialChars.length-1; j++){
-                        if(input.charAt(i) == allowedSpecialChars[j]){
+                        if(g.charAt(i) == allowedSpecialChars[j]){
                             t= true;
                         }
                     }
