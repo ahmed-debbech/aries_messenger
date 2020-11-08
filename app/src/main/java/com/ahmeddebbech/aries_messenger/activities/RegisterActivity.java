@@ -51,6 +51,9 @@ public class RegisterActivity extends AppCompatActivity {
                         }else{
                             if(!InputFieldChecker.usesOnlyAllowedChars(s.toString(), new char[]{'-','_','.'})){
                                 username.setError("Please use [A..Z], [a..z], [0..9], ['-','_','.'] only.");
+                            }else{
+                                //check if username exists
+                                Database.usernameExists(s.toString(), username);
                             }
                         }
                     }
