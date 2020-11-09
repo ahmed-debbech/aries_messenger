@@ -22,19 +22,18 @@ public class Database {
     public static void connectToSignup(User user, LoginActivity la) {
         userExists(user, la);
     }
+
     public static void trackUserExistence(final LoggedInUser log, final MainActivity ma){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
-        // Attach a listener to read the data at our posts reference
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.orderByChild("uid").equalTo(log.getUserModel().getUid()).addValueEventListener(new ValueEventListener() {
             boolean founder = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if (ds.getValue(User.class).getUid().equals(log.getFirebaseUserObject().getUid())) {
-                        founder = true;
-                    }
+                if(dataSnapshot.exists()){
+                    founder = true;
                 }
+                Log.d("$$$$$$$", String.valueOf(founder));
                 if (!founder) {
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(ma, LoginActivity.class);
@@ -48,6 +47,7 @@ public class Database {
             }
         });
     }
+
     public static void userExists(final User user, final LoginActivity la){
     // Get a reference to our posts
     FirebaseDatabase database = FirebaseDatabase.getInstance();
