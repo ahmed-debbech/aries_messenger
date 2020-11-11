@@ -4,11 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoggedInUser implements Parcelable {
     private FirebaseUser userRef;
     private User usr;
+
+    private static LoggedInUser loggedInUserInstance = null;
 
     protected LoggedInUser(Parcel in) {
         userRef = in.readParcelable(FirebaseUser.class.getClassLoader());
@@ -38,7 +41,7 @@ public class LoggedInUser implements Parcelable {
         dest.writeParcelable(usr, flags);
     }
 
-    public LoggedInUser(FirebaseUser user){
+    private LoggedInUser(FirebaseUser user){
         userRef = user;
         usr = new User(user);
     }
@@ -46,7 +49,18 @@ public class LoggedInUser implements Parcelable {
         return userRef;
     }
 
+    public static LoggedInUser getInstance(FirebaseUser user){
+        if(loggedInUserInstance == null){
+            loggedInUserInstance = new LoggedInUser(user);
+        }
+        return loggedInUserInstance;
+    }
     public User getUserModel() {
         return usr;
+    }
+    public void signOut(){
+        usr = null;
+        FirebaseAuth.getInstance().signOut();
+        userRef = null;
     }
 }

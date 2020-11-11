@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    private AppBarConfiguration mAppBarConfiguration;
+
     private Auth auth;
     private LoggedInUser loggedInUser;
     @Override
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser res = auth.getLastSignedIn();
         if(res != null){
-            loggedInUser = new LoggedInUser(res);
+            loggedInUser = LoggedInUser.getInstance(res);
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("logged_user", loggedInUser);
             startActivity(intent);
@@ -72,12 +72,12 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 1) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                loggedInUser = new LoggedInUser(FirebaseAuth.getInstance().getCurrentUser());
+                loggedInUser = LoggedInUser.getInstance(FirebaseAuth.getInstance().getCurrentUser());
                 Toast toast;
                 if(loggedInUser.getUserModel().getDisplayName() == null) {
                     toast = Toast.makeText(this, "Welcome" , Toast.LENGTH_SHORT);
                 }else{
-                    toast = Toast.makeText(this, "Welcome" + loggedInUser.getUserModel().getDisplayName() , Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(this, "Welcome " + loggedInUser.getUserModel().getDisplayName() , Toast.LENGTH_SHORT);
                 }
                 toast.show();
                 Database.connectToSignup(loggedInUser.getUserModel(),this);
@@ -87,6 +87,12 @@ public class LoginActivity extends AppCompatActivity {
                 toast.show();
             }
         }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        auth = null;
+        loggedInUser = null;
     }
     public void googleProviderOnClick(View v){
         auth.showSignInIntent();

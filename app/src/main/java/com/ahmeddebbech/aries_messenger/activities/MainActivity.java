@@ -16,7 +16,6 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
     LoggedInUser loggedInUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
         Database.trackUserExistence(loggedInUser, this);
     }
     public void signout(View v){
-        FirebaseAuth.getInstance().signOut();
+        loggedInUser.signOut();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

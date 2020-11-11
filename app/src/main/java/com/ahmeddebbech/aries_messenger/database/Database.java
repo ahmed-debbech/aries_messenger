@@ -99,12 +99,16 @@ public class Database {
             }
         });
     }
-    public static void addUserToDatabase(User user){
+
+    public static void connectToRegister(User user, LoginActivity la){
+        addUserToDatabase(user, la);
+    }
+
+    public static void addUserToDatabase(User user, LoginActivity la){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/"+user.getUid());
         ref.setValue(user);
+        la.passToMainActivity();
     }
-    public static void connectToRegister(User user){
-        addUserToDatabase(user);
-    }
+
 }

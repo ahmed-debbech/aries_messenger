@@ -22,8 +22,8 @@ import java.sql.SQLOutput;
 
 public class RegisterActivity extends AppCompatActivity {
      LoggedInUser liu;
-     EditText username;
-     EditText DisplayName;
+     private EditText username;
+     private EditText DisplayName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +101,14 @@ public class RegisterActivity extends AppCompatActivity {
         if(fine) {
             liu.getUserModel().setDisplayName(t1.getText().toString().trim());
             liu.getUserModel().setUsername(t2.getText().toString());
-            Database.connectToRegister(liu.getUserModel());
+           // Database.connectToRegister(liu.getUserModel(), LoginActivity);
         }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        liu=null;
+        username = null;
+        DisplayName = null;
     }
 }
