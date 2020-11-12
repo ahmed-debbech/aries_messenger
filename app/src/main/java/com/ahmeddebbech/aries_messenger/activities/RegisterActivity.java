@@ -101,7 +101,10 @@ public class RegisterActivity extends AppCompatActivity {
         if(fine) {
             liu.getUserModel().setDisplayName(t1.getText().toString().trim());
             liu.getUserModel().setUsername(t2.getText().toString());
-           // Database.connectToRegister(liu.getUserModel(), LoginActivity);
+            Database.connectToRegister(liu.getUserModel());
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("logged_user", LoggedInUser.getInstance());
+            startActivity(intent);
         }
     }
     @Override

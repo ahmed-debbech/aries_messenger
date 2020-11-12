@@ -8,13 +8,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoggedInUser implements Parcelable {
-    private FirebaseUser userRef;
     private User usr;
 
     private static LoggedInUser loggedInUserInstance = null;
 
     protected LoggedInUser(Parcel in) {
-        userRef = in.readParcelable(FirebaseUser.class.getClassLoader());
         usr = in.readParcelable(User.class.getClassLoader());
     }
 
@@ -37,21 +35,25 @@ public class LoggedInUser implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(userRef, flags);
         dest.writeParcelable(usr, flags);
     }
 
     private LoggedInUser(FirebaseUser user){
-        userRef = user;
         usr = new User(user);
     }
-    public FirebaseUser getFirebaseUserObject(){
-        return userRef;
+    public LoggedInUser(){
+
     }
 
     public static LoggedInUser getInstance(FirebaseUser user){
         if(loggedInUserInstance == null){
             loggedInUserInstance = new LoggedInUser(user);
+        }
+        return loggedInUserInstance;
+    }
+    public static LoggedInUser getInstance(){
+        if(loggedInUserInstance == null){
+            loggedInUserInstance = new LoggedInUser();
         }
         return loggedInUserInstance;
     }
@@ -61,6 +63,6 @@ public class LoggedInUser implements Parcelable {
     public void signOut(){
         usr = null;
         FirebaseAuth.getInstance().signOut();
-        userRef = null;
     }
+
 }

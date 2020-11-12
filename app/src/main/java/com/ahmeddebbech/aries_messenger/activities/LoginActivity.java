@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.activities;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.auth.Auth;
@@ -80,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     toast = Toast.makeText(this, "Welcome " + loggedInUser.getUserModel().getDisplayName() , Toast.LENGTH_SHORT);
                 }
                 toast.show();
-                Database.connectToSignup(loggedInUser.getUserModel(),this);
+                Database.connectToSignIn(loggedInUser.getUserModel(), this);
             } else {
                 Toast toast = Toast.makeText(this, "A problem occured while signin-in. Try again!\n" +
                         response.getError(), Toast.LENGTH_SHORT);
@@ -97,16 +98,17 @@ public class LoginActivity extends AppCompatActivity {
     public void googleProviderOnClick(View v){
         auth.showSignInIntent();
     }
-    public void showRegisterActivity(){
-        FirebaseAuth.getInstance().signOut();
+
+    public void redirectRegisterActivity(){
         Intent intent = new Intent(this, RegisterActivity.class);
-        intent.putExtra("display_name", loggedInUser.getFirebaseUserObject().getDisplayName());
-        intent.putExtra("logged_user", loggedInUser);
+        intent.putExtra("display_name", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        intent.putExtra("logged_user", LoggedInUser.getInstance());
         startActivity(intent);
+        FirebaseAuth.getInstance().signOut();
     }
-    public void passToMainActivity(){
+    public void redirectMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("logged_user", loggedInUser);
+        intent.putExtra("logged_user", LoggedInUser.getInstance());
         startActivity(intent);
     }
 }

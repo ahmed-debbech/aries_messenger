@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.database;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.EditText;
@@ -19,8 +20,8 @@ public class Database {
     Database(){
 
     }
-    public static void connectToSignup(User user, LoginActivity la) {
-        userExists(user, la);
+    public static void connectToSignIn(User user, LoginActivity loginActivity) {
+        userExists(user,loginActivity);
     }
 
     public static void trackUserExistence(final LoggedInUser log, final MainActivity ma){
@@ -35,7 +36,7 @@ public class Database {
                 }
                 Log.d("$$$$$$$", String.valueOf(founder));
                 if (!founder) {
-                    FirebaseAuth.getInstance().signOut();
+                    LoggedInUser.getInstance().signOut();
                     Intent intent = new Intent(ma, LoginActivity.class);
                     ma.startActivity(intent);
                 }
@@ -65,9 +66,9 @@ public class Database {
              }
              Log.d("LOGIN ", "not found");
              if (!founder) {
-                 la.showRegisterActivity();
+                 la.redirectRegisterActivity();
              }else{
-                 la.passToMainActivity();
+                 la.redirectMainActivity();
              }
         }
         @Override
@@ -100,15 +101,14 @@ public class Database {
         });
     }
 
-    public static void connectToRegister(User user, LoginActivity la){
-        addUserToDatabase(user, la);
+    public static void connectToRegister(User user){
+        addUserToDatabase(user);
     }
 
-    public static void addUserToDatabase(User user, LoginActivity la){
+    public static void addUserToDatabase(User user){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/"+user.getUid());
         ref.setValue(user);
-        la.passToMainActivity();
     }
 
 }
