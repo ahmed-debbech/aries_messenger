@@ -17,11 +17,7 @@ import com.ahmeddebbech.aries_messenger.database.Database;
 import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
 
-import java.sql.SQLOutput;
-
-
 public class RegisterActivity extends AppCompatActivity {
-     LoggedInUser liu;
      private EditText username;
      private EditText DisplayName;
     @Override
@@ -36,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
         String name = i.getStringExtra("display_name");
         TextView t = (TextView)findViewById(R.id.displayNameText);
         t.setText(name);
-        liu = i.getParcelableExtra("logged_user");
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -99,9 +94,9 @@ public class RegisterActivity extends AppCompatActivity {
             fine = false;
         }
         if(fine) {
-            liu.getUserModel().setDisplayName(t1.getText().toString().trim());
-            liu.getUserModel().setUsername(t2.getText().toString());
-            Database.connectToRegister(liu.getUserModel());
+            LoggedInUser.getInstance().getUserModel().setDisplayName(t1.getText().toString().trim());
+            LoggedInUser.getInstance().getUserModel().setUsername(t2.getText().toString());
+            Database.connectToRegister(LoggedInUser.getInstance().getUserModel());
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("logged_user", LoggedInUser.getInstance());
             startActivity(intent);
@@ -110,7 +105,6 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        liu=null;
         username = null;
         DisplayName = null;
     }

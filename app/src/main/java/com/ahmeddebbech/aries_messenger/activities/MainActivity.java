@@ -16,7 +16,6 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    LoggedInUser loggedInUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,17 +23,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        Intent i = getIntent();
-        loggedInUser = i.getParcelableExtra("logged_user");
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             }
         });
-        Database.trackUserExistence(loggedInUser, this);
+        Database.trackUserExistence(LoggedInUser.getInstance(), this);
     }
     public void signout(View v){
-        loggedInUser.signOut();
+            LoggedInUser.getInstance().signOut();
     }
 
     @Override
