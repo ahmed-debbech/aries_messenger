@@ -24,9 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-
     private Auth auth;
-    private LoggedInUser loggedInUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +60,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser res = auth.getLastSignedIn();
         if(res != null){
-            loggedInUser = LoggedInUser.getInstance(res);
+            LoggedInUser.getInstance(res);
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("logged_user", loggedInUser);
             startActivity(intent);
         }
     }
@@ -73,15 +71,15 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 1) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                loggedInUser = LoggedInUser.getInstance(FirebaseAuth.getInstance().getCurrentUser());
+                LoggedInUser.getInstance(FirebaseAuth.getInstance().getCurrentUser());
                 Toast toast;
-                if(loggedInUser.getUserModel().getDisplayName() == null) {
+                if(LoggedInUser.getInstance().getUserModel().getDisplayName() == null) {
                     toast = Toast.makeText(this, "Welcome" , Toast.LENGTH_SHORT);
                 }else{
-                    toast = Toast.makeText(this, "Welcome " + loggedInUser.getUserModel().getDisplayName() , Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(this, "Welcome " + LoggedInUser.getInstance().getUserModel().getDisplayName() , Toast.LENGTH_SHORT);
                 }
                 toast.show();
-                Database.connectToSignIn(loggedInUser.getUserModel(), this);
+                Database.connectToSignIn(LoggedInUser.getInstance().getUserModel(), this);
             } else {
                 Toast toast = Toast.makeText(this, "A problem occured while signin-in. Try again!\n" +
                         response.getError(), Toast.LENGTH_SHORT);
@@ -93,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         auth = null;
-        loggedInUser = null;
     }
     public void googleProviderOnClick(View v){
         auth.showSignInIntent();

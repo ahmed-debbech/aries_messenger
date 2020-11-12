@@ -27,7 +27,7 @@ public class Database {
     public static void trackUserExistence(final LoggedInUser log, final MainActivity ma){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
-        ref.orderByChild("uid").equalTo(log.getUserModel().getUid()).addValueEventListener(new ValueEventListener() {
+        ref.orderByChild("uid").equalTo(LoggedInUser.getInstance().getUserModel().getUid()).addValueEventListener(new ValueEventListener() {
             boolean founder = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

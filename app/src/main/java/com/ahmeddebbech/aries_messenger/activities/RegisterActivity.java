@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -97,9 +98,9 @@ public class RegisterActivity extends AppCompatActivity {
             LoggedInUser.getInstance().getUserModel().setDisplayName(t1.getText().toString().trim());
             LoggedInUser.getInstance().getUserModel().setUsername(t2.getText().toString());
             Database.connectToRegister(LoggedInUser.getInstance().getUserModel());
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("logged_user", LoggedInUser.getInstance());
-            startActivity(intent);
+            Toast toast = Toast.makeText(this, "Account created! Please login to your brand new account.", Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
         }
     }
     @Override
