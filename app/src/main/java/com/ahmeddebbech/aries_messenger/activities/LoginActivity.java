@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         intent.putExtra("display_name", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         startActivity(intent);
-        FirebaseAuth.getInstance().signOut();
+        LoggedInUser.getInstance().signOut();
     }
     public void redirectMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);

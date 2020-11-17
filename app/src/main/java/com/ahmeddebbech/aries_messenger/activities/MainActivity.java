@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
         });
         Database.trackUserExistence(LoggedInUser.getInstance(), this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Database.trackUserExistence(LoggedInUser.getInstance(), this);
+    }
+
     public void signout(View v){
             LoggedInUser.getInstance().signOut();
     }

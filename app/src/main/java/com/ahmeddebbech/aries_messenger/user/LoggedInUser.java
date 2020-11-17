@@ -32,7 +32,6 @@ public class LoggedInUser {
     }
 
     public void signOut(){
-        usr = null;
         FirebaseAuth.getInstance().signOut();
     }
 
