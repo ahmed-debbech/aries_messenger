@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.database.Database;
 import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Database.trackUserExistence(LoggedInUser.getInstance(), this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        NavigationView n = findViewById(R.id.nav_view);
+        View header = n.getHeaderView(0);
+        TextView dis = (TextView) header.findViewById(R.id.sideDisplayName);
+        TextView usr = (TextView) header.findViewById(R.id.sideUsername);
+        dis.setText(LoggedInUser.getInstance().getUserModel().getDisplayName());
+        usr.setText(LoggedInUser.getInstance().getUserModel().getUsername());
     }
 
     @Override

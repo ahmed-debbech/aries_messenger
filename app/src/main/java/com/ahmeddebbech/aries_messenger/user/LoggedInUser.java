@@ -31,6 +31,9 @@ public class LoggedInUser {
         return usr;
     }
 
+    public void setUserModel(User user){
+        this.usr = user;
+    }
     public void signOut(){
         FirebaseAuth.getInstance().signOut();
     }
