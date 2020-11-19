@@ -17,6 +17,7 @@ import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.database.Database;
 import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
      private EditText username;
@@ -97,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(fine) {
             LoggedInUser.getInstance().getUserModel().setDisplayName(t1.getText().toString().trim());
             LoggedInUser.getInstance().getUserModel().setUsername(t2.getText().toString());
+            LoggedInUser.getInstance().getUserModel().setPhoto(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
             Database.connectToRegister(LoggedInUser.getInstance().getUserModel());
             Toast toast = Toast.makeText(this, "Account created! Please login to your brand new account.", Toast.LENGTH_SHORT);
             toast.show();

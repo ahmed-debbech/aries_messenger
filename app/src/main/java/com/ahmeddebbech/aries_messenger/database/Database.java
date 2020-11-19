@@ -9,6 +9,7 @@ import com.ahmeddebbech.aries_messenger.activities.MainActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.activities.LoginActivity;
 import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

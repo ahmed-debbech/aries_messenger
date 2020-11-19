@@ -1,5 +1,8 @@
 package com.ahmeddebbech.aries_messenger.model;
 
+import android.net.Uri;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class User {
@@ -7,7 +10,7 @@ public class User {
     private String username;
     private String displayName;
     private String email;
-
+    private Uri photo;
     public User(){
 
     }
@@ -16,12 +19,14 @@ public class User {
         this.username = username;
         this.displayName = displayName;
         this.email = email;
+        this.setPhoto(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
     }
     public User(FirebaseUser fb){
         this.uid  = fb.getUid();
         this.username = "";
         this.displayName = fb.getDisplayName();
         this.email = fb.getEmail();
+        this.setPhoto(fb.getPhotoUrl());
     }
 
     public String getEmail(){
@@ -54,5 +59,13 @@ public class User {
 
     public void setUid(String uid){
         this.uid = uid;
+    }
+
+    public Uri getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Uri photo) {
+        this.photo = photo;
     }
 }

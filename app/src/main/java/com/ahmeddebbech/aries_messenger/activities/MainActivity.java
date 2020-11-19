@@ -1,9 +1,13 @@
 package com.ahmeddebbech.aries_messenger.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
@@ -17,10 +21,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         TextView usr = (TextView) header.findViewById(R.id.sideUsername);
         dis.setText(LoggedInUser.getInstance().getUserModel().getDisplayName());
         usr.setText(LoggedInUser.getInstance().getUserModel().getUsername());
+        ImageView ig = header.findViewById(R.id.sidePhoto);
+        Picasso.get().load(LoggedInUser.getInstance().getUserModel().getPhoto()).into(ig);
     }
 
     @Override
