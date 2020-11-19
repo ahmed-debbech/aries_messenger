@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         dis.setText(LoggedInUser.getInstance().getUserModel().getDisplayName());
         usr.setText(LoggedInUser.getInstance().getUserModel().getUsername());
         ImageView ig = header.findViewById(R.id.sidePhoto);
-        Picasso.get().load(LoggedInUser.getInstance().getUserModel().getPhoto()).into(ig);
+        Picasso.get().load(LoggedInUser.getInstance().getUserModel().getPhotoURL()).into(ig);
     }
 
     @Override

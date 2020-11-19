@@ -10,7 +10,7 @@ public class User {
     private String username;
     private String displayName;
     private String email;
-    private Uri photo;
+    private String photoURL;
     public User(){
 
     }
@@ -19,14 +19,14 @@ public class User {
         this.username = username;
         this.displayName = displayName;
         this.email = email;
-        this.setPhoto(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
+        this.photoURL= FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString();
     }
     public User(FirebaseUser fb){
         this.uid  = fb.getUid();
         this.username = "";
         this.displayName = fb.getDisplayName();
         this.email = fb.getEmail();
-        this.setPhoto(fb.getPhotoUrl());
+        this.photoURL = fb.getPhotoUrl().toString();
     }
 
     public String getEmail(){
@@ -61,11 +61,11 @@ public class User {
         this.uid = uid;
     }
 
-    public Uri getPhoto() {
-        return photo;
+    public String getPhotoURL() {
+        return photoURL;
     }
 
-    public void setPhoto(Uri photo) {
-        this.photo = photo;
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
     }
 }

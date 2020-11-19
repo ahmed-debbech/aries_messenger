@@ -98,7 +98,8 @@ public class RegisterActivity extends AppCompatActivity {
         if(fine) {
             LoggedInUser.getInstance().getUserModel().setDisplayName(t1.getText().toString().trim());
             LoggedInUser.getInstance().getUserModel().setUsername(t2.getText().toString());
-            LoggedInUser.getInstance().getUserModel().setPhoto(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
+            Log.d("%%%%", LoggedInUser.getInstance().getUserModel().getPhotoURL());
+            LoggedInUser.getInstance().getUserModel().setPhotoURL(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
             Database.connectToRegister(LoggedInUser.getInstance().getUserModel());
             Toast toast = Toast.makeText(this, "Account created! Please login to your brand new account.", Toast.LENGTH_SHORT);
             toast.show();
