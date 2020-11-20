@@ -3,8 +3,11 @@ package com.ahmeddebbech.aries_messenger.database;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
+import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.activities.MainActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.activities.LoginActivity;
@@ -39,6 +42,9 @@ public class Database {
                     LoggedInUser.getInstance().signOut();
                     Intent intent = new Intent(ma, LoginActivity.class);
                     ma.startActivity(intent);
+                }else{
+                    ProgressBar pb = ma.findViewById(R.id.wait_loop);
+                    pb.setVisibility(View.INVISIBLE);
                 }
             }
             @Override

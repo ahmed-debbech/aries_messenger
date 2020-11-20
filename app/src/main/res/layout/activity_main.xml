@@ -7,9 +7,11 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -31,22 +33,24 @@
                 android:orientation="horizontal"
                 android:paddingStart="1dp"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <ImageView
                     android:id="@+id/hamburger1"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_menu" />
+
                 <TextView
                     android:id="@+id/textLogo1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="3dp"
                     android:layout_width="230dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Aries Messenger"
                     android:textAlignment="gravity"
-                    android:textSize="25dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF"
+                    android:textSize="25dp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -74,7 +78,7 @@
             android:layout_width="161dp"
             android:layout_height="56dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Your Connections"
+            android:text="Your Contacts:"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,6 +87,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintVertical_bias="0.011" />
+
+        <ProgressBar
+            android:id="@+id/wait_loop"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="130dp"
+            android:layout_height="142dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -106,7 +121,19 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0">
+
+        </GridView>
+
+        <LinearLayout
+            android:id="@+id/frag_container"
+            android:layout_width="411dp"
+            android:layout_height="680dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"></LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView
