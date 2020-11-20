@@ -74,7 +74,7 @@
             android:layout_width="161dp"
             android:layout_height="56dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Your Contacts:"
+            android:text="Your Connections"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
