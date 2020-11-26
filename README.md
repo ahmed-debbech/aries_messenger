@@ -1,5 +1,5 @@
-# aries_messenger
-The Aries Messenger Project - a new experience for messaging apps!
+# Aries Messenger
+The Aries Messenger Project - try a new messaging era!
 
 # Original Author:
 * Ahmed Debbech
