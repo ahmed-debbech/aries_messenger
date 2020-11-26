@@ -8,7 +8,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.database.Database;
 import com.ahmeddebbech.aries_messenger.database.Synchronizer;
 import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,19 +34,20 @@ public class MainActivity extends AppCompatActivity {
         });
         ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
+
         Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);
 
         NavigationView nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch(menuItem.getItemId()){
-                    case R.id.profile_nav:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ProfileFragment())
-                                .addToBackStack(null).commit();
-                        break;
-                }
-                return false;
+            switch(menuItem.getItemId()){
+                case R.id.profile_nav:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ProfileFragment())
+                            .addToBackStack(null).commit();
+                    break;
+            }
+            return false;
             }
         });
     }

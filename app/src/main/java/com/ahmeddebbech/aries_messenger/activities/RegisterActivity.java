@@ -16,12 +16,14 @@ import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.database.Database;
 import com.ahmeddebbech.aries_messenger.database.DatabaseConnector;
 import com.ahmeddebbech.aries_messenger.database.Utilities;
+import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
 
 public class RegisterActivity extends AppCompatActivity {
      private EditText username;
      private EditText DisplayName;
+     User model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +33,9 @@ public class RegisterActivity extends AppCompatActivity {
         DisplayName = (EditText)findViewById(R.id.register_disp_name);
         setSupportActionBar(toolbar);
         Intent i = getIntent();
-        String name = i.getStringExtra("display_name");
+        model = i.getParcelableExtra("user");
         TextView t = (TextView)findViewById(R.id.register_disp_name);
-        t.setText(name);
+        t.setText(model.getDisplayName());
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -96,9 +98,9 @@ public class RegisterActivity extends AppCompatActivity {
             fine = false;
         }
         if(fine) {
-            LoggedInUser.getInstance().getUserModel().setDisplayName(t1.getText().toString().trim());
-            LoggedInUser.getInstance().getUserModel().setUsername(t2.getText().toString());
-            DatabaseConnector.connectToRegister(LoggedInUser.getInstance().getUserModel());
+            model.setDisplayName(t1.getText().toString().trim());
+            model.setUsername(t2.getText().toString());
+            DatabaseConnector.connectToRegister(model);
             Toast toast = Toast.makeText(this, "Account created! Please login to your brand new account.", Toast.LENGTH_SHORT);
             toast.show();
             finish();

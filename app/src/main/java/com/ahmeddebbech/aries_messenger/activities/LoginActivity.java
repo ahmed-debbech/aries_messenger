@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void redirectRegisterActivity(){
         Intent intent = new Intent(this, RegisterActivity.class);
-        intent.putExtra("display_name", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        intent.putExtra("user", LoggedInUser.getInstance().getUserModel());
         startActivity(intent);
         LoggedInUser.getInstance().signOut();
     }

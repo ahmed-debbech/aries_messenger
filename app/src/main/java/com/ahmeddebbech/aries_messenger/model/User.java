@@ -1,11 +1,13 @@
 package com.ahmeddebbech.aries_messenger.model;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class User {
+public class User implements Parcelable {
     private String uid;
     private String username;
     private String displayName;
@@ -28,6 +30,26 @@ public class User {
         this.email = fb.getEmail();
         this.photoURL = fb.getPhotoUrl().toString();
     }
+
+    protected User(Parcel in) {
+        uid = in.readString();
+        username = in.readString();
+        displayName = in.readString();
+        email = in.readString();
+        photoURL = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getEmail(){
         return email;
@@ -67,5 +89,19 @@ public class User {
 
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uid);
+        dest.writeString(username);
+        dest.writeString(displayName);
+        dest.writeString(email);
+        dest.writeString(photoURL);
     }
 }
