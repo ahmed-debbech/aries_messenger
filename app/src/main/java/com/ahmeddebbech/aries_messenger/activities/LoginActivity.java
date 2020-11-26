@@ -1,7 +1,5 @@
 package com.ahmeddebbech.aries_messenger.activities;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.auth.Auth;
-import com.ahmeddebbech.aries_messenger.database.Database;
+import com.ahmeddebbech.aries_messenger.database.DatabaseConnector;
 import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.navigation.NavigationView;
@@ -79,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     toast = Toast.makeText(this, "Welcome " + LoggedInUser.getInstance().getUserModel().getDisplayName() , Toast.LENGTH_SHORT);
                 }
                 toast.show();
-                Database.connectToSignIn(LoggedInUser.getInstance().getUserModel(), this);
+                DatabaseConnector.connectToSignIn(LoggedInUser.getInstance().getUserModel(), this);
             } else {
                 Toast toast = Toast.makeText(this, "A problem occured while signin-in. Try again!\n" +
                         response.getError(), Toast.LENGTH_SHORT);

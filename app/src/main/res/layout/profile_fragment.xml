@@ -6,13 +6,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/profile_photo"
+        android:layout_width="185dp"
+        android:layout_height="165dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/profile_disp_name"
+        android:layout_width="378dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="disp_name"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="@+id/profile_photo"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/profile_photo"
+        app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
+
+    <TextView
+        android:id="@+id/profile_username"
+        android:layout_width="275dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="usrname"
+        android:textAlignment="center"
+        android:textColor="@color/naturalText"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/profile_disp_name"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/profile_disp_name"
+        app:layout_constraintTop_toBottomOf="@+id/profile_disp_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

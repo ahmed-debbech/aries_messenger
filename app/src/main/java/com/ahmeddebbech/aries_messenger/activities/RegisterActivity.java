@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,9 +14,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.database.Database;
+import com.ahmeddebbech.aries_messenger.database.DatabaseConnector;
+import com.ahmeddebbech.aries_messenger.database.Utilities;
 import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
      private EditText username;
@@ -27,12 +27,12 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        username  = (EditText)findViewById(R.id.usernameText);
-        DisplayName = (EditText)findViewById(R.id.displayNameText);
+        username  = (EditText)findViewById(R.id.register_username);
+        DisplayName = (EditText)findViewById(R.id.register_disp_name);
         setSupportActionBar(toolbar);
         Intent i = getIntent();
         String name = i.getStringExtra("display_name");
-        TextView t = (TextView)findViewById(R.id.displayNameText);
+        TextView t = (TextView)findViewById(R.id.register_disp_name);
         t.setText(name);
         username.addTextChangedListener(new TextWatcher() {
             @Override
@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 username.setError("Please use [A..Z], [a..z], [0..9], ['-','_','.'] only.");
                             }else{
                                 //check if username exists
-                                Database.usernameExists(s.toString(), username);
+                                Utilities.usernameExists(s.toString(), username);
                             }
                         }
                     }
@@ -84,8 +84,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onProceedClicked(View v){
-        TextView t1 = findViewById(R.id.displayNameText);
-        TextView t2 = findViewById(R.id.usernameText);
+        TextView t1 = findViewById(R.id.register_disp_name);
+        TextView t2 = findViewById(R.id.register_username);
         boolean fine = true;
         if(t1.getText().toString().equals("")){
             t1.setError("This field should not be empty!");
@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
         if(fine) {
             LoggedInUser.getInstance().getUserModel().setDisplayName(t1.getText().toString().trim());
             LoggedInUser.getInstance().getUserModel().setUsername(t2.getText().toString());
-            Database.connectToRegister(LoggedInUser.getInstance().getUserModel());
+            DatabaseConnector.connectToRegister(LoggedInUser.getInstance().getUserModel());
             Toast toast = Toast.makeText(this, "Account created! Please login to your brand new account.", Toast.LENGTH_SHORT);
             toast.show();
             finish();

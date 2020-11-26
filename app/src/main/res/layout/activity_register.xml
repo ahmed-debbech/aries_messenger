@@ -78,7 +78,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/usernameText"
+                android:id="@+id/register_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Username"
@@ -99,7 +99,7 @@
             app:layout_constraintVertical_chainStyle="spread">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/displayNameText"
+                android:id="@+id/register_disp_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
