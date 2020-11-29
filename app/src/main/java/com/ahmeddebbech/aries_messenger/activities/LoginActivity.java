@@ -27,8 +27,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("entered dd", "%%%%%5");
         setContentView(R.layout.activiy_login);
+
         auth = new Auth(this);
         final DrawerLayout dl = findViewById(R.id.drawer_layout);
         findViewById(R.id.hamburger).setOnClickListener(new View.OnClickListener(){
@@ -59,8 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser res = auth.getLastSignedIn();
         if(res != null){
             LoggedInUser.getInstance(res);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            DatabaseConnector.connectToSignIn(LoggedInUser.getInstance().getUserModel(), this);
         }
     }
     @Override
@@ -79,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 toast.show();
                 DatabaseConnector.connectToSignIn(LoggedInUser.getInstance().getUserModel(), this);
             } else {
-                Toast toast = Toast.makeText(this, "A problem occured while signin-in. Try again!\n" +
+                Toast toast = Toast.makeText(this, "A problem occured while signing-in. Try again!\n" +
                         response.getError(), Toast.LENGTH_SHORT);
                 toast.show();
             }

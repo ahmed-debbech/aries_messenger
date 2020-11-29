@@ -12,12 +12,20 @@ public class LoggedInUser {
     private LoggedInUser(FirebaseUser user){
         usr = new User(user);
     }
-
+    private LoggedInUser(String uid){
+        usr = new User(uid);
+    }
     private  LoggedInUser(){}
 
     public static LoggedInUser getInstance(FirebaseUser user){
         if(loggedInUserInstance == null){
             loggedInUserInstance = new LoggedInUser(user);
+        }
+        return loggedInUserInstance;
+    }
+    public static LoggedInUser getInstance(String uid){
+        if(loggedInUserInstance == null){
+            loggedInUserInstance = new LoggedInUser(uid);
         }
         return loggedInUserInstance;
     }

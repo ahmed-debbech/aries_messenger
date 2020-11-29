@@ -7,7 +7,7 @@ public class DatabaseConnector {
 
 
     public static void connectToSignIn(User user, LoginActivity loginActivity) {
-        Utilities.userExists(user,loginActivity);
+        UtilDB.userExists(user,loginActivity);
     }
     public static void connectToRegister(User user){
         Database.addUserToDatabase(user);

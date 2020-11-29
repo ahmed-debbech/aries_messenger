@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
             }
         });
-        ProgressBar pb = findViewById(R.id.wait_loop);
+        /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
 
-        Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);
+        Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);*/
 
         NavigationView nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ProgressBar pb = findViewById(R.id.wait_loop);
+        /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
-        Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);
+        Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);*/
     }
 
     public void signout(View v){

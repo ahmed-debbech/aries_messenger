@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Utilities {
+public class UtilDB {
 
 
     public static void userExists(final User user, final LoginActivity la){
@@ -64,6 +64,26 @@ public class Utilities {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+    public static void getUserData(final String uid){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users");
+        ref.orderByChild("uid").equalTo(uid).addValueEventListener(new ValueEventListener() {
+            boolean founder = false;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    LoggedInUser.getInstance().setUserModel(dataSnapshot.getValue(User.class));
+                }else{
+                    Log.d("MISSING USER", "MS");
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+                founder = false;
             }
         });
     }

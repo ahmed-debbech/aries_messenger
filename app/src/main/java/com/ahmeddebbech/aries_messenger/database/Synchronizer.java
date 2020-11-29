@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Synchronizer {
 
-    public static void trackUserExistence(final LoggedInUser log, final MainActivity ma){
+    /*public static void trackUserExistence(final LoggedInUser log, final MainActivity ma){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
         ref.orderByChild("uid").equalTo(LoggedInUser.getInstance().getUserModel().getUid()).addValueEventListener(new ValueEventListener() {
@@ -27,7 +27,6 @@ public class Synchronizer {
                 if(dataSnapshot.exists()){
                     founder = true;
                 }
-                Log.d("$$$$$$$", String.valueOf(founder));
                 if (!founder) {
                     LoggedInUser.getInstance().signOut();
                     Intent intent = new Intent(ma, LoginActivity.class);
@@ -43,5 +42,5 @@ public class Synchronizer {
                 founder = false;
             }
         });
-    }
+    }*/
 }

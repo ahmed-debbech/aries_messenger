@@ -13,11 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.database.Database;
 import com.ahmeddebbech.aries_messenger.database.DatabaseConnector;
-import com.ahmeddebbech.aries_messenger.database.Utilities;
+import com.ahmeddebbech.aries_messenger.database.UtilDB;
 import com.ahmeddebbech.aries_messenger.model.User;
-import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -52,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 username.setError("Please use [A..Z], [a..z], [0..9], ['-','_','.'] only.");
                             }else{
                                 //check if username exists
-                                Utilities.usernameExists(s.toString(), username);
+                                UtilDB.usernameExists(s.toString(), username);
                             }
                         }
                     }
