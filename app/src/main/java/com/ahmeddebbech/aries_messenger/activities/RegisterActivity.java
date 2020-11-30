@@ -1,6 +1,5 @@
 package com.ahmeddebbech.aries_messenger.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,11 +16,12 @@ import com.ahmeddebbech.aries_messenger.database.DatabaseConnector;
 import com.ahmeddebbech.aries_messenger.database.UtilDB;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
      private EditText username;
      private EditText DisplayName;
-     User model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +29,11 @@ public class RegisterActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         username  = (EditText)findViewById(R.id.register_username);
         DisplayName = (EditText)findViewById(R.id.register_disp_name);
+
         setSupportActionBar(toolbar);
-        Intent i = getIntent();
-        model = i.getParcelableExtra("user");
+
         TextView t = (TextView)findViewById(R.id.register_disp_name);
-        t.setText(model.getDisplayName());
+        t.setText(User.getInstance().getDisplayName());
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -96,9 +96,11 @@ public class RegisterActivity extends AppCompatActivity {
             fine = false;
         }
         if(fine) {
-            model.setDisplayName(t1.getText().toString().trim());
-            model.setUsername(t2.getText().toString());
-            DatabaseConnector.connectToRegister(model);
+            User.getInstance().setDisplayName(t1.getText().toString().trim());
+            User.getInstance().setUsername(t2.getText().toString());
+
+            DatabaseConnector.connectToRegister(User.getInstance());
+
             Toast toast = Toast.makeText(this, "Account created! Please login to your brand new account.", Toast.LENGTH_SHORT);
             toast.show();
             finish();

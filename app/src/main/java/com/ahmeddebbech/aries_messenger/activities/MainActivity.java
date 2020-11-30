@@ -1,7 +1,6 @@
 package com.ahmeddebbech.aries_messenger.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,10 +8,10 @@ import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.database.Database;
-import com.ahmeddebbech.aries_messenger.database.UtilDB;
-import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
+import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -62,19 +61,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Database.getUserData(LoggedInUser.getInstance().getUserModel().getUid());
+    public void setupUi(){
         NavigationView n = findViewById(R.id.nav_view);
         View header = n.getHeaderView(0);
         TextView dis = (TextView) header.findViewById(R.id.sideDisplayName);
         TextView usr = (TextView) header.findViewById(R.id.sideUsername);
-        dis.setText(LoggedInUser.getInstance().getUserModel().getDisplayName());
-        usr.setText(LoggedInUser.getInstance().getUserModel().getUsername());
+        dis.setText(User.getInstance().getDisplayName());
+        usr.setText(User.getInstance().getUsername());
         ImageView ig = header.findViewById(R.id.sidePhoto);
-        Picasso.get().load(LoggedInUser.getInstance().getUserModel().getPhotoURL()).into(ig);
+        Picasso.get().load(User.getInstance().getPhotoURL()).into(ig);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Database.getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signout(View v){
-            LoggedInUser.getInstance().signOut();
+        FirebaseAuth.getInstance().signOut();
     }
 
     @Override

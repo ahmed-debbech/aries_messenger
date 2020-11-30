@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
+import com.ahmeddebbech.aries_messenger.model.User;
 
 public class ProfileFragment extends Fragment {
     TextView disp;
@@ -29,7 +29,7 @@ public class ProfileFragment extends Fragment {
         disp = getView().findViewById(R.id.profile_disp_name);
         usr = getView().findViewById(R.id.profile_username);
 
-        disp.setText(LoggedInUser.getInstance().getUserModel().getDisplayName());
-        usr.setText(LoggedInUser.getInstance().getUserModel().getUsername());
+        disp.setText(User.getInstance().getDisplayName());
+        usr.setText(User.getInstance().getUsername());
     }
 }

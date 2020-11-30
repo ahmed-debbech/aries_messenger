@@ -5,7 +5,7 @@ import android.widget.EditText;
 
 import com.ahmeddebbech.aries_messenger.activities.LoginActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
-import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,7 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 public class UtilDB {
 
 
-    public static void userExists(final User user, final LoginActivity la){
+    public static void userExists(final FirebaseUser user, final LoginActivity la){
         // Get a reference to our posts
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
@@ -27,7 +27,7 @@ public class UtilDB {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     if (ds.getValue(User.class).getEmail().equals(user.getEmail())) {
                         Log.d("LOGIN: ", "found");
-                        LoggedInUser.getInstance().setUserModel(ds.getValue(User.class)); //set model
+                        User.getInstance(ds.getValue(User.class)); //set model
                         founder = true;
                     }
                 }

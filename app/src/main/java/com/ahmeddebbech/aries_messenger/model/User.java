@@ -1,29 +1,28 @@
 package com.ahmeddebbech.aries_messenger.model;
 
-import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.ahmeddebbech.aries_messenger.database.Database;
-import com.ahmeddebbech.aries_messenger.database.UtilDB;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class User implements Parcelable {
+//This is a singleton class
+
+public class User {
     private String uid;
     private String username;
     private String displayName;
     private String email;
     private String photoURL;
+
+    private static User single_instance;
+
     public User(){
 
     }
-    public User(String uid, String username, String displayName, String email){
+    public User(String uid, String username, String displayName, String email, String photoURL){
         this.uid = uid;
         this.username = username;
         this.displayName = displayName;
         this.email = email;
-        this.photoURL= FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString();
+        this.photoURL= photoURL;
     }
     public User(FirebaseUser fb){
         this.uid  = fb.getUid();
@@ -31,26 +30,30 @@ public class User implements Parcelable {
         this.email = fb.getEmail();
         this.photoURL = fb.getPhotoUrl().toString();
     }
-    protected User(Parcel in) {
-        uid = in.readString();
-        username = in.readString();
-        displayName = in.readString();
-        email = in.readString();
-        photoURL = in.readString();
+    private User(User u){
+        this.username = u.username;
+        this.displayName = u.displayName;
+        this.email = u.email;
+        this.photoURL = u.photoURL;
     }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
+    public static User getInstance(User u){
+        if(single_instance == null){
+            single_instance = new User(u);
         }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
+        return single_instance;
+    }
+    public static User getInstance(FirebaseUser u){
+        if(single_instance == null){
+            single_instance = new User(u);
         }
-    };
-
+        return single_instance;
+    }
+    public static User getInstance(){
+        if(single_instance == null){
+            single_instance = new User();
+        }
+        return single_instance;
+    }
     public String getEmail(){
         return email;
     }
@@ -91,17 +94,4 @@ public class User implements Parcelable {
         this.photoURL = photoURL;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(uid);
-        dest.writeString(username);
-        dest.writeString(displayName);
-        dest.writeString(email);
-        dest.writeString(photoURL);
-    }
 }

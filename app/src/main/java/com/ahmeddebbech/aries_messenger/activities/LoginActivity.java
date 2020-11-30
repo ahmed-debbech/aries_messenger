@@ -14,7 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.auth.Auth;
 import com.ahmeddebbech.aries_messenger.database.DatabaseConnector;
-import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
+import com.ahmeddebbech.aries_messenger.model.User;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser res = auth.getLastSignedIn();
         if(res != null){
-            LoggedInUser.getInstance(res);
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
         }
@@ -68,15 +67,15 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 1) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                LoggedInUser.getInstance(FirebaseAuth.getInstance().getCurrentUser());
+                User.getInstance(FirebaseAuth.getInstance().getCurrentUser());
                 Toast toast;
-                if(LoggedInUser.getInstance().getUserModel().getDisplayName() == null) {
+                if(FirebaseAuth.getInstance().getCurrentUser().getDisplayName() == null) {
                     toast = Toast.makeText(this, "Welcome" , Toast.LENGTH_SHORT);
                 }else{
-                    toast = Toast.makeText(this, "Welcome " + LoggedInUser.getInstance().getUserModel().getDisplayName() , Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(this, "Welcome " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName() , Toast.LENGTH_SHORT);
                 }
                 toast.show();
-                DatabaseConnector.connectToSignIn(LoggedInUser.getInstance().getUserModel(), this);
+                DatabaseConnector.connectToSignIn(FirebaseAuth.getInstance().getCurrentUser(), this);
             } else {
                 Toast toast = Toast.makeText(this, "A problem occured while signing-in. Try again!\n" +
                         response.getError(), Toast.LENGTH_SHORT);
@@ -95,9 +94,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void redirectRegisterActivity(){
         Intent intent = new Intent(this, RegisterActivity.class);
-        intent.putExtra("user", LoggedInUser.getInstance().getUserModel());
         startActivity(intent);
-        LoggedInUser.getInstance().signOut();
+        FirebaseAuth.getInstance().signOut();
     }
     public void redirectMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
