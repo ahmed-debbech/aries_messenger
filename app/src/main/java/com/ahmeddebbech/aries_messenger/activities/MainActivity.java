@@ -1,14 +1,15 @@
 package com.ahmeddebbech.aries_messenger.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.database.Synchronizer;
+import com.ahmeddebbech.aries_messenger.database.Database;
+import com.ahmeddebbech.aries_messenger.database.UtilDB;
 import com.ahmeddebbech.aries_messenger.user.LoggedInUser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -17,6 +18,8 @@ import com.squareup.picasso.Picasso;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            }
+        });
+        final DrawerLayout dl = findViewById(R.id.drawer_layout1);
+        findViewById(R.id.hamburger1).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                dl.openDrawer(GravityCompat.START);
             }
         });
         /*ProgressBar pb = findViewById(R.id.wait_loop);
@@ -47,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
                             .addToBackStack(null).commit();
                     break;
             }
-            return false;
+                dl.closeDrawer(GravityCompat.START);
+                return false;
             }
         });
     }
@@ -55,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Database.getUserData(LoggedInUser.getInstance().getUserModel().getUid());
         NavigationView n = findViewById(R.id.nav_view);
         View header = n.getHeaderView(0);
         TextView dis = (TextView) header.findViewById(R.id.sideDisplayName);

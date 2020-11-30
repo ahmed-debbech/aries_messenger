@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.ahmeddebbech.aries_messenger.database.Database;
 import com.ahmeddebbech.aries_messenger.database.UtilDB;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,10 +30,6 @@ public class User implements Parcelable {
         this.displayName = fb.getDisplayName();
         this.email = fb.getEmail();
         this.photoURL = fb.getPhotoUrl().toString();
-    }
-    public User(String uid){
-        this.uid = uid;
-        UtilDB.getUserData(uid);
     }
     protected User(Parcel in) {
         uid = in.readString();

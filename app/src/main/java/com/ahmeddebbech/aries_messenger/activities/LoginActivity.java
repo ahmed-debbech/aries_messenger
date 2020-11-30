@@ -2,7 +2,6 @@ package com.ahmeddebbech.aries_messenger.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -59,7 +58,8 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser res = auth.getLastSignedIn();
         if(res != null){
             LoggedInUser.getInstance(res);
-            DatabaseConnector.connectToSignIn(LoggedInUser.getInstance().getUserModel(), this);
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
         }
     }
     @Override
