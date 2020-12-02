@@ -1,102 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollview1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="47dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/profile_photo"
-            android:layout_width="185dp"
-            android:layout_height="165dp"
-            android:layout_marginTop="52dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="411dp"
+            android:layout_height="731dp">
 
-        <TextView
-            android:id="@+id/profile_disp_name"
-            android:layout_width="378dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="28dp"
-            android:fontFamily="sans-serif-condensed"
-            android:text="disp_name"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="36sp"
-            app:layout_constraintEnd_toEndOf="@+id/profile_photo"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/profile_photo"
-            app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
+            <ImageView
+                android:id="@+id/profile_photo"
+                android:layout_width="185dp"
+                android:layout_height="165dp"
+                android:layout_marginTop="52dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/profile_username"
-            android:layout_width="275dp"
-            android:layout_height="31dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-condensed"
-            android:text="usrname"
-            android:textAlignment="center"
-            android:textColor="@color/naturalText"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/profile_disp_name"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="@+id/profile_disp_name"
-            app:layout_constraintTop_toBottomOf="@+id/profile_disp_name" />
+            <TextView
+                android:id="@+id/profile_disp_name"
+                android:layout_width="378dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="disp_name"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toEndOf="@+id/profile_photo"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="@+id/profile_photo"
+                app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
 
-        <TextView
-            android:id="@+id/profile_numconnect"
-            android:layout_width="150dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            android:text="Your connections:"
-            android:textColor="@color/naturalText"
-            app:layout_constraintEnd_toEndOf="@+id/profile_username"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="@+id/profile_username"
-            app:layout_constraintTop_toBottomOf="@+id/profile_username" />
+            <TextView
+                android:id="@+id/profile_username"
+                android:layout_width="275dp"
+                android:layout_height="31dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="usrname"
+                android:textAlignment="center"
+                android:textColor="@color/naturalText"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/profile_disp_name"
+                app:layout_constraintHorizontal_bias="0.504"
+                app:layout_constraintStart_toStartOf="@+id/profile_disp_name"
+                app:layout_constraintTop_toBottomOf="@+id/profile_disp_name" />
 
-        <TextView
-            android:id="@+id/profile_bio"
-            android:layout_width="345dp"
-            android:layout_height="82dp"
-            android:layout_marginTop="40dp"
-            android:text="BIO... this is my bio guys i am ahmed i created aries for fun."
-            android:textColor="@color/naturalText"
-            app:layout_constraintEnd_toEndOf="@+id/profile_numconnect"
-            app:layout_constraintHorizontal_bias="0.506"
-            app:layout_constraintStart_toStartOf="@+id/profile_numconnect"
-            app:layout_constraintTop_toBottomOf="@+id/profile_numconnect" />
+            <TextView
+                android:id="@+id/profile_numconnect"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:text="Your connections:"
+                android:textColor="@color/naturalText"
+                app:layout_constraintEnd_toEndOf="@+id/profile_username"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="@+id/profile_username"
+                app:layout_constraintTop_toBottomOf="@+id/profile_username" />
 
-        <Button
-            android:id="@+id/profile_editDispName"
-            android:layout_width="374dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="28dp"
-            android:fontFamily="sans-serif"
-            android:text="Edit Display Name"
-            app:layout_constraintEnd_toEndOf="@+id/profile_bio"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toStartOf="@+id/profile_bio"
-            app:layout_constraintTop_toBottomOf="@+id/profile_bio" />
+            <TextView
+                android:id="@+id/profile_bio"
+                android:layout_width="345dp"
+                android:layout_height="82dp"
+                android:layout_marginTop="40dp"
+                android:text="BIO... this is my bio guys i am ahmed i created aries for fun."
+                android:textColor="@color/naturalText"
+                app:layout_constraintEnd_toEndOf="@+id/profile_numconnect"
+                app:layout_constraintHorizontal_bias="0.506"
+                app:layout_constraintStart_toStartOf="@+id/profile_numconnect"
+                app:layout_constraintTop_toBottomOf="@+id/profile_numconnect" />
 
-        <Button
-            android:id="@+id/profile_editBio"
-            android:layout_width="374dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif"
-            android:text="Edit Bio"
-            app:layout_constraintEnd_toEndOf="@+id/profile_editDispName"
-            app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
-            app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/profile_editDispName"
+                android:layout_width="374dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="sans-serif"
+                android:text="Edit Display Name"
+                app:layout_constraintEnd_toEndOf="@+id/profile_bio"
+                app:layout_constraintHorizontal_bias="0.483"
+                app:layout_constraintStart_toStartOf="@+id/profile_bio"
+                app:layout_constraintTop_toBottomOf="@+id/profile_bio" />
+
+            <Button
+                android:id="@+id/profile_editBio"
+                android:layout_width="374dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif"
+                android:text="Edit Bio"
+                app:layout_constraintEnd_toEndOf="@+id/profile_editDispName"
+                app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
+                app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
+
+            <Button
+                android:layout_width="374dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="108dp"
+                android:fontFamily="sans-serif"
+                android:text="Edit Bio"
+                app:layout_constraintEnd_toEndOf="@+id/profile_editDispName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
+                app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
+
+            <Button
+                android:layout_width="374dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="108dp"
+                android:fontFamily="sans-serif"
+                android:text="Edit Bio"
+                app:layout_constraintEnd_toEndOf="@+id/profile_editDispName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
+                app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
+
+            <Button
+                android:layout_width="374dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="84dp"
+                android:fontFamily="sans-serif"
+                android:text="Edit Bio"
+                app:layout_constraintEnd_toEndOf="@+id/profile_editDispName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
+                app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </ScrollView>
