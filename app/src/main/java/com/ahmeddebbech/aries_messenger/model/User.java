@@ -37,9 +37,7 @@ public class User {
         this.photoURL = u.photoURL;
     }
     public static User getInstance(User u){
-        if(single_instance == null){
-            single_instance = new User(u);
-        }
+        single_instance = new User(u);
         return single_instance;
     }
     public static User getInstance(FirebaseUser u){
