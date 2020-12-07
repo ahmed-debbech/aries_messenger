@@ -12,9 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.EditDispName"
+            android:label="@string/title_activity_edit_disp_name"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activities.MainActivity$EditDispName" />
+        <activity
             android:name=".activities.RegisterActivity"
             android:label="Register for Aries"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginActivity"
             android:label="Aries Messenger"
