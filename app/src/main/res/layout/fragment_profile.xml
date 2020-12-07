@@ -103,38 +103,6 @@
                 app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
                 app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
 
-            <Button
-                android:layout_width="374dp"
-                android:layout_height="47dp"
-                android:layout_marginTop="108dp"
-                android:fontFamily="sans-serif"
-                android:text="Edit Bio"
-                app:layout_constraintEnd_toEndOf="@+id/profile_editDispName"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
-                app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
-
-            <Button
-                android:layout_width="374dp"
-                android:layout_height="47dp"
-                android:layout_marginTop="108dp"
-                android:fontFamily="sans-serif"
-                android:text="Edit Bio"
-                app:layout_constraintEnd_toEndOf="@+id/profile_editDispName"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
-                app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
-
-            <Button
-                android:layout_width="374dp"
-                android:layout_height="47dp"
-                android:layout_marginTop="84dp"
-                android:fontFamily="sans-serif"
-                android:text="Edit Bio"
-                app:layout_constraintEnd_toEndOf="@+id/profile_editDispName"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
-                app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </ScrollView>

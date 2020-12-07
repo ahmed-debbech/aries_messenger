@@ -38,6 +38,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
         });
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
+
+
+
+
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -52,6 +57,9 @@ public class LoginActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+
     }
     @Override
     protected void onStart() {
