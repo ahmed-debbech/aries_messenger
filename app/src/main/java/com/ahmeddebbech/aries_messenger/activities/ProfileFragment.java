@@ -1,9 +1,12 @@
 package com.ahmeddebbech.aries_messenger.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +32,16 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Button btn = getView().findViewById(R.id.profile_editDispName);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditDispName.class);
+                startActivity(intent);
+            }
+        });
+
         disp = getView().findViewById(R.id.profile_disp_name);
         usr = getView().findViewById(R.id.profile_username);
 
@@ -39,5 +52,4 @@ public class ProfileFragment extends Fragment {
         Picasso.get().load(User.getInstance().getPhotoURL()).into(ig);
 
     }
-
 }
