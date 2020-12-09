@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.SQLOutput;
+
 public class Database {
     Database(){
 
@@ -38,5 +40,11 @@ public class Database {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+    }
+    public static void modifyUser(User user){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        System.out.println(user.getUid());
+        DatabaseReference ref = database.getReference("/Users/"+user.getUid());
+        ref.setValue(user);
     }
 }

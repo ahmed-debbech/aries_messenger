@@ -3,9 +3,12 @@ package com.ahmeddebbech.aries_messenger.activities;
 import android.os.Bundle;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.database.Database;
+import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +36,10 @@ public class EditDispName extends AppCompatActivity {
                 }else{
                     if(tv.getText().length() == 0){
                         tv.setError("Please enter your new display name.");
+                    }else{
+                        User.getInstance().setDisplayName(tv.getText().toString());
+                        System.out.println(User.getInstance().getEmail());
+                        Database.modifyUser(User.getInstance());
                     }
                 }
             }

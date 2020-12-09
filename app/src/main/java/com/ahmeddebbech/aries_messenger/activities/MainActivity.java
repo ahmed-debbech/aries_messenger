@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Database.getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
+        System.out.println(User.getInstance().getDisplayName());
     }
 
     @Override
