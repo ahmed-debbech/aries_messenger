@@ -31,10 +31,11 @@ public class User {
         this.photoURL = fb.getPhotoUrl().toString();
     }
     private User(User u){
-        this.username = u.username;
-        this.displayName = u.displayName;
-        this.email = u.email;
-        this.photoURL = u.photoURL;
+        this.uid = u.getUid();
+        this.username = u.getUsername();
+        this.displayName = u.getDisplayName();
+        this.email = u.getEmail();
+        this.photoURL = u.getPhotoURL();
     }
     public static User getInstance(User u){
         single_instance = new User(u);

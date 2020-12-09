@@ -29,6 +29,7 @@ public class Database {
             public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
                         User u = dataSnapshot.getValue(User.class);
+                        System.out.println(u.getDisplayName());
                         User.getInstance(u);
                         act.setupUi();
                     }else {
