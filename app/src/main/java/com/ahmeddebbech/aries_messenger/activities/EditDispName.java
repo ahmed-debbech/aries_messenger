@@ -6,9 +6,6 @@ import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.database.Database;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditDispName extends AppCompatActivity {
 
@@ -40,6 +38,9 @@ public class EditDispName extends AppCompatActivity {
                         User.getInstance().setDisplayName(tv.getText().toString());
                         System.out.println(User.getInstance().getEmail());
                         Database.modifyUser(User.getInstance());
+                        Toast toast = Toast.makeText(getApplicationContext(), "Display name updated successfully!", Toast.LENGTH_SHORT);
+                        toast.show();
+                        finish();
                     }
                 }
             }

@@ -11,18 +11,20 @@ public class User {
     private String displayName;
     private String email;
     private String photoURL;
+    private String bio;
 
     private static User single_instance;
 
     public User(){
 
     }
-    public User(String uid, String username, String displayName, String email, String photoURL){
+    public User(String uid, String username, String displayName, String email, String photoURL, String bio){
         this.uid = uid;
         this.username = username;
         this.displayName = displayName;
         this.email = email;
         this.photoURL= photoURL;
+        this.bio = bio;
     }
     public User(FirebaseUser fb){
         this.uid  = fb.getUid();
@@ -36,6 +38,7 @@ public class User {
         this.displayName = u.getDisplayName();
         this.email = u.getEmail();
         this.photoURL = u.getPhotoURL();
+        this.bio = u.getBio();
     }
     public static User getInstance(User u){
         single_instance = new User(u);
@@ -93,4 +96,11 @@ public class User {
         this.photoURL = photoURL;
     }
 
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 }

@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 public class ProfileFragment extends Fragment {
     TextView disp;
     TextView usr;
+    TextView bio;
 
     @Nullable
     @Override
@@ -41,6 +42,14 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        Button btn1 = getView().findViewById(R.id.profile_editBio);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditBio.class);
+                startActivity(intent);
+            }
+        });
 
         disp = getView().findViewById(R.id.profile_disp_name);
         usr = getView().findViewById(R.id.profile_username);
@@ -51,5 +60,7 @@ public class ProfileFragment extends Fragment {
         ImageView ig = getView().findViewById(R.id.profile_photo);
         Picasso.get().load(User.getInstance().getPhotoURL()).into(ig);
 
+        bio = getView().findViewById(R.id.profile_bio);
+        bio.setText(User.getInstance().getBio());
     }
 }
