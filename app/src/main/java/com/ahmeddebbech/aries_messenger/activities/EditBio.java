@@ -2,11 +2,11 @@ package com.ahmeddebbech.aries_messenger.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,6 +25,10 @@ public class EditBio extends AppCompatActivity {
         setContentView(R.layout.activity_edit_bio);
 
         TextView tv = findViewById(R.id.edit_bio_input);
+        Intent i = getIntent();
+        String curBio = (String) getIntent().getStringExtra("bio");
+        System.out.println(curBio);
+        tv.setText(curBio);
         tv.addTextChangedListener(new TextWatcher() {
 
             TextView counter = findViewById(R.id.edit_bio_counter);

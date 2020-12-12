@@ -34,6 +34,18 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        disp = getView().findViewById(R.id.profile_disp_name);
+        usr = getView().findViewById(R.id.profile_username);
+
+        disp.setText(User.getInstance().getDisplayName());
+        usr.setText(User.getInstance().getUsername());
+
+        ImageView ig = getView().findViewById(R.id.profile_photo);
+        Picasso.get().load(User.getInstance().getPhotoURL()).into(ig);
+
+        bio = getView().findViewById(R.id.profile_bio);
+        bio.setText(User.getInstance().getBio());
+
         Button btn = getView().findViewById(R.id.profile_editDispName);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,20 +59,10 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditBio.class);
+                intent.putExtra("bio", bio.getText().toString());
                 startActivity(intent);
             }
         });
 
-        disp = getView().findViewById(R.id.profile_disp_name);
-        usr = getView().findViewById(R.id.profile_username);
-
-        disp.setText(User.getInstance().getDisplayName());
-        usr.setText(User.getInstance().getUsername());
-
-        ImageView ig = getView().findViewById(R.id.profile_photo);
-        Picasso.get().load(User.getInstance().getPhotoURL()).into(ig);
-
-        bio = getView().findViewById(R.id.profile_bio);
-        bio.setText(User.getInstance().getBio());
     }
 }
