@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
         Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);*/
+
     }
 
     public void signout(View v){
