@@ -56,14 +56,20 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             switch(menuItem.getItemId()){
                 case R.id.profile_nav:
+                    NavigationView nv = findViewById(R.id.nav_view);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ProfileFragment())
                             .addToBackStack(null).commit();
                     nv.setCheckedItem(R.id.profile_nav);
                     break;
                 case R.id.connections_nav:
+                    nv = findViewById(R.id.nav_view);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
                             .addToBackStack(null).commit();
                     nv.setCheckedItem(R.id.connections_nav);
+                    break;
+                case R.id.logout_nav:
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
                     break;
             }
                 dl.closeDrawer(GravityCompat.START);
@@ -96,11 +102,16 @@ public class MainActivity extends AppCompatActivity {
         Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);*/
 
     }
-
-    public void signout(View v){
-        FirebaseAuth.getInstance().signOut();
+    @Override
+    public void onBackPressed() {
+        DrawerLayout nv = findViewById(R.id.drawer_layout1);
+        if (nv.isDrawerOpen(GravityCompat.START)) {
+            System.out.println("usjdflnsifjnv");
+            nv.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
