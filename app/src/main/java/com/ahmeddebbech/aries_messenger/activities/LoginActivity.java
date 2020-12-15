@@ -37,28 +37,6 @@ public class LoginActivity extends AppCompatActivity {
                     dl.openDrawer(GravityCompat.START);
                 }
         });
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
-
-
-
-
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.action_settings1:
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        break;
-                }
-                //close navigation drawer
-                dl.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
-
-
 
     }
     @Override
@@ -67,7 +45,9 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser res = auth.getLastSignedIn();
         if(res != null){
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(i);
+            finish();
         }
     }
     @Override
@@ -108,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void redirectMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
     }

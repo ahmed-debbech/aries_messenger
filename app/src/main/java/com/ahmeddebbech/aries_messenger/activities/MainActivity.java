@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
+            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frag_container, new ConnectionsFragment())
                 .addToBackStack(null).commit();
            nv.setCheckedItem(R.id.connections_nav);
         }
@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.profile_nav:
                     NavigationView nv = findViewById(R.id.nav_view);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ProfileFragment())
-                            .addToBackStack(null).commit();
+                            .commit();
                     nv.setCheckedItem(R.id.profile_nav);
                     break;
                 case R.id.connections_nav:
                     nv = findViewById(R.id.nav_view);
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
-                            .addToBackStack(null).commit();
+                            .commit();
                     nv.setCheckedItem(R.id.connections_nav);
                     break;
                 case R.id.logout_nav:
@@ -106,10 +106,10 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         DrawerLayout nv = findViewById(R.id.drawer_layout1);
         if (nv.isDrawerOpen(GravityCompat.START)) {
-            System.out.println("usjdflnsifjnv");
             nv.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+
         }
     }
     @Override
