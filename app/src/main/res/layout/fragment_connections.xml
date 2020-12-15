@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout2"
     android:layout_width="411dp"
-    android:layout_height="731dp" >
+    android:layout_height="731dp"
+    android:layout_marginTop="47dp">
 
     <TextView
         android:id="@+id/connections_label"
@@ -21,8 +22,8 @@
 
     <ScrollView
         android:id="@+id/scrollview1"
-        android:layout_width="411dp"
-        android:layout_height="694dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,12 +31,8 @@
 
         <GridView
             android:id="@+id/connections_grid"
-            android:layout_width="412dp"
-            android:layout_height="652dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/connections_label" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

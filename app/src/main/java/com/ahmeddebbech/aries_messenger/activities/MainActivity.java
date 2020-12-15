@@ -21,7 +21,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
             }
         });
+        final NavigationView nv = findViewById(R.id.nav_view);
         final DrawerLayout dl = findViewById(R.id.drawer_layout1);
         findViewById(R.id.hamburger1).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -41,12 +41,16 @@ public class MainActivity extends AppCompatActivity {
                 dl.openDrawer(GravityCompat.START);
             }
         });
+        if(savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
+                .addToBackStack(null).commit();
+           nv.setCheckedItem(R.id.connections_nav);
+        }
         /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
 
         Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);*/
 
-        NavigationView nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -54,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.profile_nav:
                     getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ProfileFragment())
                             .addToBackStack(null).commit();
+                    nv.setCheckedItem(R.id.profile_nav);
+                    break;
+                case R.id.connections_nav:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
+                            .addToBackStack(null).commit();
+                    nv.setCheckedItem(R.id.connections_nav);
                     break;
             }
                 dl.closeDrawer(GravityCompat.START);
