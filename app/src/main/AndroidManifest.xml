@@ -11,9 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.EditBio"
-                    android:label="@string/title_activity_edit_bio"
-                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.SearchActivity"
+            android:theme="@style/AppTheme.PopupOverlay"></activity>
+        <activity
+            android:name=".activities.EditBio"
+            android:label="@string/title_activity_edit_bio"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.EditDispName"
             android:label="@string/title_activity_edit_disp_name"
