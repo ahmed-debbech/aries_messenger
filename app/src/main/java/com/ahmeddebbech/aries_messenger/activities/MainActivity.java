@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.activities;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,20 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.add);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+
         final NavigationView nv = findViewById(R.id.nav_view);
-        final DrawerLayout dl = findViewById(R.id.drawer_layout1);
-        findViewById(R.id.hamburger1).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                dl.openDrawer(GravityCompat.START);
-            }
-        });
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frag_container, new ConnectionsFragment())
                 .addToBackStack(null).commit();
@@ -74,31 +64,37 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                     break;
             }
+                DrawerLayout dl = findViewById(R.id.drawer_layout1);
                 dl.closeDrawer(GravityCompat.START);
                 return false;
             }
         });
+        this.setClickListeners();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_mainact_menu, menu);
-        MenuItem m = menu.findItem(R.id.search_main);
-        SearchView searchView = (SearchView) m.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    public void setClickListeners(){
+        final DrawerLayout dl = findViewById(R.id.drawer_layout1);
+        findViewById(R.id.hamburger1).setOnClickListener(new View.OnClickListener(){
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+            public void onClick(View view){
+                dl.openDrawer(GravityCompat.START);
             }
         });
-        return super.onCreateOptionsMenu(menu);
+        FloatingActionButton fab = findViewById(R.id.add);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        ImageView search_main = findViewById(R.id.search_main);
+        search_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(i);
+            }
+        });
     }
-
     public void setupUi(){
         NavigationView n = findViewById(R.id.nav_view);
         View header = n.getHeaderView(0);
