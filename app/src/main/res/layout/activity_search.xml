@@ -23,14 +23,14 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/searchact_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/searchact_input"
                 android:layout_width="317dp"
                 android:layout_height="match_parent"
                 android:cursorVisible="true"
@@ -50,7 +50,7 @@
                 android:layout_weight="1" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/searchact_delete"
                 android:layout_width="17dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

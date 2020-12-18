@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
 
@@ -19,24 +22,21 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_searchact_menu, menu);
-        MenuItem m = menu.findItem(R.id.searchico);
-        SearchView searchView = (SearchView) m.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        ImageView back = findViewById(R.id.searchact_back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+            public void onClick(View v) {
+                finish();
             }
         });
-        return super.onCreateOptionsMenu(menu);
+        ImageView delete = findViewById(R.id.searchact_delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView in = findViewById(R.id.searchact_input);
+                in.setText("");
+            }
+        });
     }
 
 }
