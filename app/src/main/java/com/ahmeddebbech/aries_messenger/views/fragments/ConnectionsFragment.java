@@ -1,4 +1,4 @@
-package com.ahmeddebbech.aries_messenger.activities;
+package com.ahmeddebbech.aries_messenger.views.fragments;
 
 import android.os.Bundle;
 

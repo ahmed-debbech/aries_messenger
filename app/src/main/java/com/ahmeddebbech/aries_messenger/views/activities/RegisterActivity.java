@@ -1,4 +1,4 @@
-package com.ahmeddebbech.aries_messenger.activities;
+package com.ahmeddebbech.aries_messenger.views.activities;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,11 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.database.DatabaseConnector;
-import com.ahmeddebbech.aries_messenger.database.UtilDB;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.database.DbUtil;
 import com.ahmeddebbech.aries_messenger.model.User;
-import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
-import com.google.firebase.auth.FirebaseAuth;
+import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 public class RegisterActivity extends AppCompatActivity {
      private EditText username;
@@ -37,20 +36,20 @@ public class RegisterActivity extends AppCompatActivity {
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!InputFieldChecker.noSpaces(s.toString())){
+                if(!InputChecker.noSpaces(s.toString())){
                     username.setError("Username must not contain spaces!");
                 }else{
-                    if(InputFieldChecker.isLonger(s.toString(), 24)){
+                    if(InputChecker.isLonger(s.toString(), 24)){
                         username.setError("Your username is too long!");
                     }else{
-                        if(!InputFieldChecker.startsWithAlt(s.toString())){
+                        if(!InputChecker.startsWithAlt(s.toString())){
                             username.setError("You must use '@' at the beginning.");
                         }else{
-                            if(!InputFieldChecker.usesOnlyAllowedChars(s.toString(), new char[]{'-','_','.'})){
+                            if(!InputChecker.usesOnlyAllowedChars(s.toString(), new char[]{'-','_','.'})){
                                 username.setError("Please use [A..Z], [a..z], [0..9], ['-','_','.'] only.");
                             }else{
                                 //check if username exists
-                                UtilDB.usernameExists(s.toString(), username);
+                                DbUtil.usernameExists(s.toString(), username);
                             }
                         }
                     }
@@ -68,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         DisplayName.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(InputFieldChecker.isLonger(s.toString(), 32)){
+                if(InputChecker.isLonger(s.toString(), 32)){
                     DisplayName.setError("Your Display Name is too long!");
                 }
             }
@@ -99,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
             User.getInstance().setDisplayName(t1.getText().toString().trim());
             User.getInstance().setUsername(t2.getText().toString());
 
-            DatabaseConnector.connectToRegister(User.getInstance());
+            DbConnector.connectToRegister(User.getInstance());
 
             Toast toast = Toast.makeText(this, "Account created! Please login to your brand new account.", Toast.LENGTH_SHORT);
             toast.show();

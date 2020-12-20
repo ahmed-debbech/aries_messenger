@@ -2,7 +2,7 @@ package com.ahmeddebbech.aries_messenger.util;
 
 import android.util.Log;
 
-public class InputFieldChecker {
+public class InputChecker {
     public static boolean noSpaces(String input){
         if(input.contains(" ") == true){
             return false;

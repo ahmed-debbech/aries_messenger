@@ -3,7 +3,7 @@ package com.ahmeddebbech.aries_messenger.database;
 import android.util.Log;
 import android.widget.EditText;
 
-import com.ahmeddebbech.aries_messenger.activities.LoginActivity;
+import com.ahmeddebbech.aries_messenger.views.activities.LoginActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class UtilDB {
+public class DbUtil {
 
 
     public static void userExists(final FirebaseUser user, final LoginActivity la){

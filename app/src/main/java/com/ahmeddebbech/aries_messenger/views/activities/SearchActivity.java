@@ -1,21 +1,16 @@
-package com.ahmeddebbech.aries_messenger.activities;
+package com.ahmeddebbech.aries_messenger.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.database.UtilDB;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -49,7 +44,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //Database.getAllUsersFromName(s.toString());
+                //DbBasic.getAllUsersFromName(s.toString());
             }
 
             @Override

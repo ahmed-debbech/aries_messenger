@@ -1,4 +1,4 @@
-package com.ahmeddebbech.aries_messenger.activities;
+package com.ahmeddebbech.aries_messenger.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,9 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.database.Database;
+import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
-import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
+import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 public class EditBio extends AppCompatActivity {
 
@@ -58,14 +58,14 @@ public class EditBio extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView tv = findViewById(R.id.edit_bio_input);
-                if(InputFieldChecker.isLonger(tv.getText().toString(),140)){
+                if(InputChecker.isLonger(tv.getText().toString(),140)){
                     tv.setError("New bio is too long!");
                 }else{
                     if(tv.getText().length() == 0){
                         tv.setError("Please enter a bio to change it.");
                     }else{
                         User.getInstance().setBio(tv.getText().toString());
-                        Database.modifyUser(User.getInstance());
+                        DbBasic.modifyUser(User.getInstance());
                         Toast toast = Toast.makeText(getApplicationContext(), "Bio updated successfully!", Toast.LENGTH_SHORT);
                         toast.show();
                         finish();

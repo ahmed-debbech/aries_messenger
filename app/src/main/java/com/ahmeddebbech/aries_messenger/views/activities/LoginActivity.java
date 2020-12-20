@@ -1,23 +1,19 @@
-package com.ahmeddebbech.aries_messenger.activities;
+package com.ahmeddebbech.aries_messenger.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.auth.Auth;
-import com.ahmeddebbech.aries_messenger.database.DatabaseConnector;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -64,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                     toast = Toast.makeText(this, "Welcome " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName() , Toast.LENGTH_SHORT);
                 }
                 toast.show();
-                DatabaseConnector.connectToSignIn(FirebaseAuth.getInstance().getCurrentUser(), this);
+                DbConnector.connectToSignIn(FirebaseAuth.getInstance().getCurrentUser(), this);
             } else {
                 Toast toast = Toast.makeText(this, "A problem occured while signing-in. Try again!\n" +
                         response.getError(), Toast.LENGTH_SHORT);

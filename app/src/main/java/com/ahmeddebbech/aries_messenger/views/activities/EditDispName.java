@@ -1,11 +1,11 @@
-package com.ahmeddebbech.aries_messenger.activities;
+package com.ahmeddebbech.aries_messenger.views.activities;
 
 import android.os.Bundle;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.database.Database;
+import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
-import com.ahmeddebbech.aries_messenger.util.InputFieldChecker;
+import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -29,7 +29,7 @@ public class EditDispName extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView tv = findViewById(R.id.edit_input_dispName);
-                if(InputFieldChecker.isLonger(tv.getText().toString(),32)){
+                if(InputChecker.isLonger(tv.getText().toString(),32)){
                     tv.setError("New display name is too long!");
                 }else{
                     if(tv.getText().length() == 0){
@@ -37,7 +37,7 @@ public class EditDispName extends AppCompatActivity {
                     }else{
                         User.getInstance().setDisplayName(tv.getText().toString());
                         System.out.println(User.getInstance().getEmail());
-                        Database.modifyUser(User.getInstance());
+                        DbBasic.modifyUser(User.getInstance());
                         Toast toast = Toast.makeText(getApplicationContext(), "Display name updated successfully!", Toast.LENGTH_SHORT);
                         toast.show();
                         finish();

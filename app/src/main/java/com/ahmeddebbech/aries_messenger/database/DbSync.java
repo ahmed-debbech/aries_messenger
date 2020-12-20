@@ -1,6 +1,6 @@
 package com.ahmeddebbech.aries_messenger.database;
 
-public class Synchronizer {
+public class DbSync {
 
     /*public static void trackUserExistence(final LoggedInUser log, final MainActivity ma){
         FirebaseDatabase database = FirebaseDatabase.getInstance();

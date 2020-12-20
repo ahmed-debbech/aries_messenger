@@ -1,8 +1,7 @@
-package com.ahmeddebbech.aries_messenger.activities;
+package com.ahmeddebbech.aries_messenger.views.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.views.activities.EditBio;
+import com.ahmeddebbech.aries_messenger.views.activities.EditDispName;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {

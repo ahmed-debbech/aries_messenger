@@ -1,17 +1,17 @@
-package com.ahmeddebbech.aries_messenger.activities;
+package com.ahmeddebbech.aries_messenger.views.activities;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.database.Database;
+import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.views.fragments.ConnectionsFragment;
+import com.ahmeddebbech.aries_messenger.views.fragments.ProfileFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,7 +19,6 @@ import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
 
-        Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);*/
+        DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -108,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Database.getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
+        DbBasic.getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
         System.out.println(User.getInstance().getDisplayName());
     }
 
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
-        Synchronizer.trackUserExistence(LoggedInUser.getInstance(), this);*/
+        DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
 
     }
     @Override

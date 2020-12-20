@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.ahmeddebbech.aries_messenger.activities.MainActivity;
+import com.ahmeddebbech.aries_messenger.views.activities.MainActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -12,10 +12,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.SQLOutput;
-
-public class Database {
-    Database(){
+public class DbBasic {
+    DbBasic(){
 
     }
     public static void addUserToDatabase(User user){
