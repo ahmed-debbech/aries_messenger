@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
         if (requestCode == 1) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                User.getInstance(FirebaseAuth.getInstance().getCurrentUser());
+                presenter.fillModel();
                 Toast toast;
                 if(FirebaseAuth.getInstance().getCurrentUser().getDisplayName() == null) {
                     toast = Toast.makeText(this, "Welcome" , Toast.LENGTH_SHORT);
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
                     toast = Toast.makeText(this, "Welcome " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName() , Toast.LENGTH_SHORT);
                 }
                 toast.show();
-                DbConnector.connectToSignIn(FirebaseAuth.getInstance().getCurrentUser(), this);
+                presenter.connectToSignIn();
             } else {
                 Toast toast = Toast.makeText(this, "A problem occured while signing-in. Try again!\n" +
                         response.getError(), Toast.LENGTH_SHORT);
@@ -103,4 +103,5 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
                         .build(),
                 1);
     }
+
 }

@@ -12,5 +12,7 @@ public interface ContractLogin {
     interface Presenter{
         FirebaseUser getLastSignedIn();
         void loginAsGoogle();
+        void connectToSignIn();
+        void fillModel();
     }
 }

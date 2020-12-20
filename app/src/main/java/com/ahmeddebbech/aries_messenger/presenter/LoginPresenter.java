@@ -1,6 +1,10 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import android.widget.Toast;
+
 import com.ahmeddebbech.aries_messenger.contracts.ContractLogin;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.User;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,5 +32,15 @@ public class LoginPresenter implements ContractLogin.Presenter {
     @Override
     public void loginAsGoogle() {
         cur_act.showSignInIntent(providers);
+    }
+
+    @Override
+    public void connectToSignIn() {
+        DbConnector.connectToSignIn(FirebaseAuth.getInstance().getCurrentUser(), this);
+    }
+
+    @Override
+    public void fillModel() {
+        pUser.getInstance(FirebaseAuth.getInstance().getCurrentUser());
     }
 }
