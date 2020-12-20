@@ -10,22 +10,27 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.auth.Auth;
+import com.ahmeddebbech.aries_messenger.contracts.ContractLogin;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
+import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
-    private Auth auth;
+import java.util.List;
+
+public class LoginActivity extends AppCompatActivity implements ContractLogin.View {
+    private LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activiy_login);
 
-        auth = new Auth(this);
+        presenter = new LoginPresenter(this);
+
         final DrawerLayout dl = findViewById(R.id.drawer_layout);
         findViewById(R.id.hamburger).setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -38,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser res = auth.getLastSignedIn();
+        FirebaseUser res = presenter.getLastSignedIn();
         if(res != null){
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -71,10 +76,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        auth = null;
+        presenter = null;
     }
     public void googleProviderOnClick(View v){
-        auth.showSignInIntent();
+        presenter.loginAsGoogle();
     }
 
     public void redirectRegisterActivity(){
@@ -87,5 +92,15 @@ public class LoginActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void showSignInIntent(List<AuthUI.IdpConfig> providers) {
+        this.startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                1);
     }
 }

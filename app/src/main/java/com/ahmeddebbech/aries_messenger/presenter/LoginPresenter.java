@@ -1,7 +1,6 @@
-package com.ahmeddebbech.aries_messenger.auth;
+package com.ahmeddebbech.aries_messenger.presenter;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.ahmeddebbech.aries_messenger.contracts.ContractLogin;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -9,27 +8,25 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
 
-public class Auth {
+public class LoginPresenter implements ContractLogin.Presenter {
     List<AuthUI.IdpConfig> providers;
-    AppCompatActivity cur_act;
+    ContractLogin.View cur_act;
 
-    public Auth(AppCompatActivity act){
+    public LoginPresenter(ContractLogin.View act){
         providers = Arrays.asList(new AuthUI.IdpConfig.GoogleBuilder().build());
         cur_act = act;
     }
-    public void showSignInIntent(){
-        cur_act.startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                1);
-    }
+    @Override
     public FirebaseUser getLastSignedIn(){
         FirebaseUser account = FirebaseAuth.getInstance().getCurrentUser();
         if(account != null){
             return account;
         }
         return null;
+    }
+
+    @Override
+    public void loginAsGoogle() {
+        cur_act.showSignInIntent(providers);
     }
 }
