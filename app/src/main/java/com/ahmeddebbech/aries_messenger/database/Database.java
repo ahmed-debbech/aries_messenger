@@ -56,7 +56,7 @@ public class Database {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()){
-                    User u = new User(ds.getValue());
+                    //User u = new User(ds.getValue());
                 }
             }
 
@@ -64,6 +64,6 @@ public class Database {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        })
+        });
     }
 }

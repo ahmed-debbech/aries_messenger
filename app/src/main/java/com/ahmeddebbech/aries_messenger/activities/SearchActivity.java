@@ -49,7 +49,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Database.getAllUsersFromName(s.toString());
+                //Database.getAllUsersFromName(s.toString());
             }
 
             @Override
