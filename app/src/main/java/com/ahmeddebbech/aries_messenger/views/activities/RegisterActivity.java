@@ -12,48 +12,39 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.contracts.ContractRegistration;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbUtil;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.RegisterPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
-public class RegisterActivity extends AppCompatActivity {
-     private EditText username;
-     private EditText DisplayName;
+public class RegisterActivity extends AppCompatActivity implements ContractRegistration.View {
+    private RegisterPresenter presenter;
+
+    private EditText username;
+    private EditText displayName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
+        presenter = new RegisterPresenter(this);
+
         username  = (EditText)findViewById(R.id.register_username);
-        DisplayName = (EditText)findViewById(R.id.register_disp_name);
+        displayName = (EditText)findViewById(R.id.register_disp_name);
 
         setSupportActionBar(toolbar);
 
-        TextView t = (TextView)findViewById(R.id.register_disp_name);
-        t.setText(User.getInstance().getDisplayName());
+        presenter.getDispNameFromModel();
+
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!InputChecker.noSpaces(s.toString())){
-                    username.setError("Username must not contain spaces!");
-                }else{
-                    if(InputChecker.isLonger(s.toString(), 24)){
-                        username.setError("Your username is too long!");
-                    }else{
-                        if(!InputChecker.startsWithAlt(s.toString())){
-                            username.setError("You must use '@' at the beginning.");
-                        }else{
-                            if(!InputChecker.usesOnlyAllowedChars(s.toString(), new char[]{'-','_','.'})){
-                                username.setError("Please use [A..Z], [a..z], [0..9], ['-','_','.'] only.");
-                            }else{
-                                //check if username exists
-                                DbUtil.usernameExists(s.toString(), username);
-                            }
-                        }
-                    }
-                }
+                presenter.checkUsername(s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -64,12 +55,10 @@ public class RegisterActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-        DisplayName.addTextChangedListener(new TextWatcher() {
+        displayName.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(InputChecker.isLonger(s.toString(), 32)){
-                    DisplayName.setError("Your Display Name is too long!");
-                }
+                presenter.checkDispName(s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -83,23 +72,20 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onProceedClicked(View v){
-        TextView t1 = findViewById(R.id.register_disp_name);
-        TextView t2 = findViewById(R.id.register_username);
         boolean fine = true;
-        if(t1.getText().toString().equals("")){
-            t1.setError("This field should not be empty!");
+        if(displayName.getText().toString().equals("")){
+            displayName.setError("This field should not be empty!");
             fine =false;
         }
-        if(t2.getText().toString().equals("")){
-            t2.setError("This field should not be empty!");
+        if(username.getText().toString().equals("")){
+            username.setError("This field should not be empty!");
             fine = false;
         }
         if(fine) {
-            User.getInstance().setDisplayName(t1.getText().toString().trim());
-            User.getInstance().setUsername(t2.getText().toString());
+            presenter.updateUserModel(displayName.getText().toString().trim(),
+                    username.getText().toString().trim());
 
-            DbConnector.connectToRegister(User.getInstance());
-
+            presenter.connectToRegister();
             Toast toast = Toast.makeText(this, "Account created! Please login to your brand new account.", Toast.LENGTH_SHORT);
             toast.show();
             finish();
@@ -109,6 +95,22 @@ public class RegisterActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         username = null;
-        DisplayName = null;
+        displayName = null;
     }
+
+    @Override
+    public void fillWithDispName(String name) {
+        displayName.setText(name);
+    }
+
+    @Override
+    public void showErrorUsername(String err) {
+        username.setError(err);
+    }
+
+    @Override
+    public void showErrorDisplayName(String err) {
+        displayName.setError(err);
+    }
+
 }

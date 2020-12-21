@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.views.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.MainPresenter;
 import com.ahmeddebbech.aries_messenger.views.fragments.ConnectionsFragment;
 import com.ahmeddebbech.aries_messenger.views.fragments.ProfileFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,13 +26,26 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-public class MainActivity extends AppCompatActivity {
+import java.text.BreakIterator;
+
+public class MainActivity extends AppCompatActivity implements ContractMain.View {
+
+    MainPresenter presenter;
+
+    private TextView username_nav;
+    private TextView displayName_nav;
+    private ImageView photo_nav;
+    private View header_nav;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        presenter = new MainPresenter(this);
 
         final NavigationView nv = findViewById(R.id.nav_view);
         if(savedInstanceState == null){
@@ -94,21 +110,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
     public void setupUi(){
-        NavigationView n = findViewById(R.id.nav_view);
-        View header = n.getHeaderView(0);
-        TextView dis = (TextView) header.findViewById(R.id.sideDisplayName);
-        TextView usr = (TextView) header.findViewById(R.id.sideUsername);
-        dis.setText(User.getInstance().getDisplayName());
-        usr.setText(User.getInstance().getUsername());
-        ImageView ig = header.findViewById(R.id.sidePhoto);
-        Picasso.get().load(User.getInstance().getPhotoURL()).into(ig);
+        navigationView = findViewById(R.id.nav_view);
+        header_nav = navigationView.getHeaderView(0);
+        displayName_nav = (TextView) header_nav.findViewById(R.id.sideDisplayName);
+        username_nav = (TextView) header_nav.findViewById(R.id.sideUsername);
+        photo_nav = header_nav.findViewById(R.id.sidePhoto);
+
+        presenter.fillViewsWithUserData();
     }
     @Override
     protected void onStart() {
         super.onStart();
-        DbBasic.getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
-        System.out.println(User.getInstance().getDisplayName());
+        presenter.getDatafromDatabase();
     }
 
     @Override
@@ -132,6 +147,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void renderViewsWithData(String disp, String usern, String image) {
+        displayName_nav.setText(disp);
+        username_nav.setText(usern);
+        Picasso.get().load(image).into(photo_nav);
     }
 
 }

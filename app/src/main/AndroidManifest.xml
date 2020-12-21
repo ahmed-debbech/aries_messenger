@@ -14,11 +14,11 @@
         <activity android:name=".views.activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".views.activities.EditBio"
+            android:name=".views.activities.EditBioActivity"
             android:label="@string/title_activity_edit_bio"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.activities.EditDispName"
+            android:name=".views.activities.EditDispNameActivity"
             android:label="@string/title_activity_edit_disp_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

@@ -14,15 +14,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.model.User;
-import com.ahmeddebbech.aries_messenger.views.activities.EditBio;
-import com.ahmeddebbech.aries_messenger.views.activities.EditDispName;
+import com.ahmeddebbech.aries_messenger.contracts.ContractProfileF;
+import com.ahmeddebbech.aries_messenger.presenter.ProfilePresenter;
+import com.ahmeddebbech.aries_messenger.views.activities.EditBioActivity;
+import com.ahmeddebbech.aries_messenger.views.activities.EditDispNameActivity;
 import com.squareup.picasso.Picasso;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ContractProfileF.View {
+
+    ProfilePresenter presenter;
+
     TextView disp;
     TextView usr;
     TextView bio;
+    ImageView photo;
 
     @Nullable
     @Override
@@ -34,24 +39,19 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter = new ProfilePresenter(this);
 
         disp = getView().findViewById(R.id.profile_disp_name);
         usr = getView().findViewById(R.id.profile_username);
-
-        disp.setText(User.getInstance().getDisplayName());
-        usr.setText(User.getInstance().getUsername());
-
-        ImageView ig = getView().findViewById(R.id.profile_photo);
-        Picasso.get().load(User.getInstance().getPhotoURL()).into(ig);
-
+        photo = getView().findViewById(R.id.profile_photo);
         bio = getView().findViewById(R.id.profile_bio);
-        bio.setText(User.getInstance().getBio());
+        presenter.getData();
 
         Button btn = getView().findViewById(R.id.profile_editDispName);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditDispName.class);
+                Intent intent = new Intent(getActivity(), EditDispNameActivity.class);
                 startActivity(intent);
             }
         });
@@ -59,11 +59,19 @@ public class ProfileFragment extends Fragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditBio.class);
+                Intent intent = new Intent(getActivity(), EditBioActivity.class);
                 intent.putExtra("bio", bio.getText().toString());
                 startActivity(intent);
             }
         });
 
+    }
+
+    @Override
+    public void setTextsForViews(String disp, String usr, String bio, String photo){
+        Picasso.get().load(photo).into(this.photo);
+        this.disp.setText(disp);
+        this.usr.setText(usr);
+        this.bio.setText(bio);
     }
 }

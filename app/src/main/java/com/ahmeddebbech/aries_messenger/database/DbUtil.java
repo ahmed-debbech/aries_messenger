@@ -3,6 +3,9 @@ package com.ahmeddebbech.aries_messenger.database;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.RegisterPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.LoginActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,28 +18,22 @@ import com.google.firebase.database.ValueEventListener;
 public class DbUtil {
 
 
-    public static void userExists(final FirebaseUser user, final LoginActivity la){
-        // Get a reference to our posts
+    public static void userExistsInSignIn(final LoginPresenter loginPresenter){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
-        // Attach a listener to read the data at our posts reference
+
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             boolean founder = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if (ds.getValue(User.class).getEmail().equals(user.getEmail())) {
+                    if (ds.getValue(User.class).getEmail().equals(UserManager.getInstance().getUserModel().getEmail())) {
                         Log.d("LOGIN: ", "found");
-                        User.getInstance(ds.getValue(User.class)); //set model
+                        UserManager.getInstance().updateWithCopy(ds.getValue(User.class)); //set model
                         founder = true;
                     }
                 }
-                Log.d("LOGIN ", "not found");
-                if (!founder) {
-                    la.redirectRegisterActivity();
-                }else{
-                    la.redirectMainActivity();
-                }
+                loginPresenter.redirectTo(founder);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -45,7 +42,7 @@ public class DbUtil {
             }
         });
     }
-    public static void usernameExists(final String username, final EditText ed){
+    public static void usernameExists(final String username, final RegisterPresenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -58,7 +55,7 @@ public class DbUtil {
                     }
                 }
                 if (founder) {
-                    ed.setError("This username is taken!");
+                    pres.pushErrorToView("This username is taken!");
                 }
             }
             @Override

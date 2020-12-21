@@ -13,8 +13,6 @@ public class User {
     private String photoURL;
     private String bio;
 
-    private static User single_instance;
-
     public User(){
 
     }
@@ -25,36 +23,6 @@ public class User {
         this.email = email;
         this.photoURL= photoURL;
         this.bio = bio;
-    }
-    public User(FirebaseUser fb){
-        this.uid  = fb.getUid();
-        this.displayName = fb.getDisplayName();
-        this.email = fb.getEmail();
-        this.photoURL = fb.getPhotoUrl().toString();
-    }
-    private User(User u){
-        this.uid = u.getUid();
-        this.username = u.getUsername();
-        this.displayName = u.getDisplayName();
-        this.email = u.getEmail();
-        this.photoURL = u.getPhotoURL();
-        this.bio = u.getBio();
-    }
-    public static User getInstance(User u){
-        single_instance = new User(u);
-        return single_instance;
-    }
-    public static User getInstance(FirebaseUser u){
-        if(single_instance == null){
-            single_instance = new User(u);
-        }
-        return single_instance;
-    }
-    public static User getInstance(){
-        if(single_instance == null){
-            single_instance = new User();
-        }
-        return single_instance;
     }
     public String getEmail(){
         return email;

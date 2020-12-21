@@ -3,8 +3,10 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 import android.os.Bundle;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.contracts.ContractDNameEdit;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.EditDNamePresenter;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class EditDispName extends AppCompatActivity {
+public class EditDispNameActivity extends AppCompatActivity implements ContractDNameEdit.View {
+    private EditDNamePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,26 +27,27 @@ public class EditDispName extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        presenter = new EditDNamePresenter(this);
+
         Button btn = findViewById(R.id.edit_change);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView tv = findViewById(R.id.edit_input_dispName);
-                if(InputChecker.isLonger(tv.getText().toString(),32)){
-                    tv.setError("New display name is too long!");
-                }else{
-                    if(tv.getText().length() == 0){
-                        tv.setError("Please enter your new display name.");
-                    }else{
-                        User.getInstance().setDisplayName(tv.getText().toString());
-                        System.out.println(User.getInstance().getEmail());
-                        DbBasic.modifyUser(User.getInstance());
-                        Toast toast = Toast.makeText(getApplicationContext(), "Display name updated successfully!", Toast.LENGTH_SHORT);
-                        toast.show();
-                        finish();
-                    }
+                if(presenter.inputIsFine(tv.getText().toString()) == true){
+                    presenter.updateModel(tv.getText().toString());
+                    presenter.modifyUserInDB();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Display name updated successfully!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
                 }
+
             }
         });
+    }
+
+    @Override
+    public void setError(String err) {
+
     }
 }

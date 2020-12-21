@@ -57,7 +57,9 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
         if (requestCode == 1) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                presenter.fillModel();
+                FirebaseUser fu = FirebaseAuth.getInstance().getCurrentUser();
+                User u  = new User(fu.getUid(),null, fu.getDisplayName(), fu.getEmail(), fu.getPhotoUrl().toString(), null);
+                presenter.fillModel(u);
                 Toast toast;
                 if(FirebaseAuth.getInstance().getCurrentUser().getDisplayName() == null) {
                     toast = Toast.makeText(this, "Welcome" , Toast.LENGTH_SHORT);
@@ -82,11 +84,13 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
         presenter.loginAsGoogle();
     }
 
+    @Override
     public void redirectRegisterActivity(){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
         FirebaseAuth.getInstance().signOut();
     }
+    @Override
     public void redirectMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

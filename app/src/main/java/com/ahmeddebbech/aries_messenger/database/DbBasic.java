@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.ahmeddebbech.aries_messenger.presenter.MainPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.MainActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.database.DataSnapshot;
@@ -21,7 +23,7 @@ public class DbBasic {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/"+user.getUid());
         ref.setValue(user);
     }
-    public static void getUserData(final String uid, final MainActivity act){
+    public static void getUserData(final String uid, final MainPresenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+uid);
         ref.addValueEventListener(new ValueEventListener() {
@@ -30,8 +32,8 @@ public class DbBasic {
                     if(dataSnapshot.exists()){
                         User u = dataSnapshot.getValue(User.class);
                         System.out.println(u.getDisplayName());
-                        User.getInstance(u);
-                        act.setupUi();
+                        UserManager.getInstance().updateWithCopy(u);
+                        pres.returnData();
                     }else {
                         Log.d("MISSING USER", "MS");
                     }

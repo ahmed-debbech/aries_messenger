@@ -3,7 +3,6 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,23 +12,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.contracts.ContractBioEdit;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.EditBioPresenter;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
-public class EditBio extends AppCompatActivity {
+import org.w3c.dom.Text;
 
+public class EditBioActivity extends AppCompatActivity implements ContractBioEdit.View {
+
+    private EditBioPresenter presenter;
+    private TextView counter;
+    private TextView bio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_bio);
 
-        TextView tv = findViewById(R.id.edit_bio_input);
+        presenter = new EditBioPresenter(this);
+
+        counter = findViewById(R.id.edit_bio_counter);
+        bio = findViewById(R.id.edit_bio_input);
         Intent i = getIntent();
         String curBio = (String) getIntent().getStringExtra("bio");
         System.out.println(curBio);
-        tv.setText(curBio);
-        tv.addTextChangedListener(new TextWatcher() {
+        bio.setText(curBio);
+        bio.addTextChangedListener(new TextWatcher() {
 
             TextView counter = findViewById(R.id.edit_bio_counter);
             @Override
@@ -39,13 +48,7 @@ public class EditBio extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int sum = 140 - s.toString().length();
-                counter.setText(String.valueOf(sum));
-                if(sum < 0) {
-                    counter.setTextColor(Color.RED);
-                }else{
-                    counter.setTextColor(Color.GRAY);
-                }
+                presenter.controlInputBio(s.toString());
             }
 
             @Override
@@ -58,20 +61,29 @@ public class EditBio extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView tv = findViewById(R.id.edit_bio_input);
-                if(InputChecker.isLonger(tv.getText().toString(),140)){
-                    tv.setError("New bio is too long!");
-                }else{
-                    if(tv.getText().length() == 0){
-                        tv.setError("Please enter a bio to change it.");
-                    }else{
-                        User.getInstance().setBio(tv.getText().toString());
-                        DbBasic.modifyUser(User.getInstance());
-                        Toast toast = Toast.makeText(getApplicationContext(), "Bio updated successfully!", Toast.LENGTH_SHORT);
-                        toast.show();
-                        finish();
-                    }
+                if(presenter.inputIsFine(bio.getText().toString()) == true){
+                    presenter.updateModel(bio.getText().toString());
+                    presenter.modifyUserInDB();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Bio updated successfully!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
                 }
             }
         });
+    }
+
+    @Override
+    public void updateBioCharCount(String count) {
+        counter.setText(count);
+    }
+
+    @Override
+    public void setTextColor(int color) {
+        counter.setTextColor(color);
+    }
+
+    @Override
+    public void setError(String err) {
+        bio.setError(err);
     }
 }
