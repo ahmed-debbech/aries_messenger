@@ -41,12 +41,17 @@ public class ProfileFragment extends Fragment implements ContractProfileF.View {
         super.onViewCreated(view, savedInstanceState);
         presenter = new ProfilePresenter(this);
 
+        setupUi();
+        addListeners();
+    }
+    public void setupUi(){
         disp = getView().findViewById(R.id.profile_disp_name);
         usr = getView().findViewById(R.id.profile_username);
         photo = getView().findViewById(R.id.profile_photo);
         bio = getView().findViewById(R.id.profile_bio);
         presenter.getData();
-
+    }
+    public void addListeners(){
         Button btn = getView().findViewById(R.id.profile_editDispName);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,9 +69,7 @@ public class ProfileFragment extends Fragment implements ContractProfileF.View {
                 startActivity(intent);
             }
         });
-
     }
-
     @Override
     public void setTextsForViews(String disp, String usr, String bio, String photo){
         Picasso.get().load(photo).into(this.photo);

@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -53,37 +54,36 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
                 .addToBackStack(null).commit();
            nv.setCheckedItem(R.id.connections_nav);
         }
-        /*ProgressBar pb = findViewById(R.id.wait_loop);
-        pb.setVisibility(View.VISIBLE);
-
-        DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
-
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            switch(menuItem.getItemId()){
-                case R.id.profile_nav:
-                    NavigationView nv = findViewById(R.id.nav_view);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ProfileFragment())
-                            .commit();
-                    nv.setCheckedItem(R.id.profile_nav);
-                    break;
-                case R.id.connections_nav:
-                    nv = findViewById(R.id.nav_view);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
-                            .commit();
-                    nv.setCheckedItem(R.id.connections_nav);
-                    break;
-                case R.id.logout_nav:
-                    FirebaseAuth.getInstance().signOut();
-                    finish();
-                    break;
-            }
+                switch(menuItem.getItemId()){
+                    case R.id.profile_nav:
+                        NavigationView nv = findViewById(R.id.nav_view);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ProfileFragment())
+                                .commit();
+                        nv.setCheckedItem(R.id.profile_nav);
+                        break;
+                    case R.id.connections_nav:
+                        nv = findViewById(R.id.nav_view);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
+                                .commit();
+                        nv.setCheckedItem(R.id.connections_nav);
+                        break;
+                    case R.id.logout_nav:
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        break;
+                }
                 DrawerLayout dl = findViewById(R.id.drawer_layout1);
                 dl.closeDrawer(GravityCompat.START);
                 return false;
             }
         });
+        /*ProgressBar pb = findViewById(R.id.wait_loop);
+        pb.setVisibility(View.VISIBLE);
+
+        DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
         this.setClickListeners();
     }
 
@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
                 startActivity(i);
             }
         });
+
     }
     @Override
     public void setupUi(){

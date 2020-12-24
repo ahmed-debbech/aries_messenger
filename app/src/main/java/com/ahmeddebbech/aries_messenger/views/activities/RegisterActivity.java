@@ -31,16 +31,18 @@ public class RegisterActivity extends AppCompatActivity implements ContractRegis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
-        presenter = new RegisterPresenter(this);
-
-        username  = (EditText)findViewById(R.id.register_username);
-        displayName = (EditText)findViewById(R.id.register_disp_name);
-
         setSupportActionBar(toolbar);
 
+        presenter = new RegisterPresenter(this);
+        setupUi();
+        addListeners();
+    }
+    public void setupUi(){
+        username  = (EditText)findViewById(R.id.register_username);
+        displayName = (EditText)findViewById(R.id.register_disp_name);
         presenter.getDispNameFromModel();
-
+    }
+    public void addListeners(){
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -70,7 +72,6 @@ public class RegisterActivity extends AppCompatActivity implements ContractRegis
             }
         });
     }
-
     public void onProceedClicked(View v){
         boolean fine = true;
         if(displayName.getText().toString().equals("")){

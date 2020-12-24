@@ -29,6 +29,10 @@ public class EditDispNameActivity extends AppCompatActivity implements ContractD
 
         presenter = new EditDNamePresenter(this);
 
+        setupUi();
+    }
+
+    public void setupUi(){
         Button btn = findViewById(R.id.edit_change);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +49,6 @@ public class EditDispNameActivity extends AppCompatActivity implements ContractD
             }
         });
     }
-
     @Override
     public void setError(String err) {
 

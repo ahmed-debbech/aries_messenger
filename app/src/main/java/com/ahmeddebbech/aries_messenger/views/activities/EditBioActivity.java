@@ -32,12 +32,32 @@ public class EditBioActivity extends AppCompatActivity implements ContractBioEdi
 
         presenter = new EditBioPresenter(this);
 
+        setupUi();
+        addListeners();
+    }
+    public void setupUi(){
         counter = findViewById(R.id.edit_bio_counter);
         bio = findViewById(R.id.edit_bio_input);
         Intent i = getIntent();
         String curBio = (String) getIntent().getStringExtra("bio");
         System.out.println(curBio);
         bio.setText(curBio);
+    }
+    public void addListeners(){
+        Button btn = findViewById(R.id.edit_change);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView tv = findViewById(R.id.edit_bio_input);
+                if(presenter.inputIsFine(bio.getText().toString()) == true){
+                    presenter.updateModel(bio.getText().toString());
+                    presenter.modifyUserInDB();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Bio updated successfully!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
+                }
+            }
+        });
         bio.addTextChangedListener(new TextWatcher() {
 
             TextView counter = findViewById(R.id.edit_bio_counter);
@@ -56,22 +76,7 @@ public class EditBioActivity extends AppCompatActivity implements ContractBioEdi
 
             }
         });
-        Button btn = findViewById(R.id.edit_change);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView tv = findViewById(R.id.edit_bio_input);
-                if(presenter.inputIsFine(bio.getText().toString()) == true){
-                    presenter.updateModel(bio.getText().toString());
-                    presenter.modifyUserInDB();
-                    Toast toast = Toast.makeText(getApplicationContext(), "Bio updated successfully!", Toast.LENGTH_SHORT);
-                    toast.show();
-                    finish();
-                }
-            }
-        });
     }
-
     @Override
     public void updateBioCharCount(String count) {
         counter.setText(count);
