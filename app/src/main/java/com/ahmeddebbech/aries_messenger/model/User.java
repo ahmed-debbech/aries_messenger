@@ -24,6 +24,7 @@ public class User {
         this.photoURL= photoURL;
         this.bio = bio;
     }
+
     public String getEmail(){
         return email;
     }

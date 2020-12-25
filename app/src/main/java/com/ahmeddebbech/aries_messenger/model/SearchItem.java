@@ -5,10 +5,15 @@ public class SearchItem {
     private String displayName;
     private String username;
 
-    SearchItem(String photo, String displayName, String username){
+    public SearchItem(String photo, String displayName, String username){
         this.displayName = displayName;
         this.username = username;
         this.photo = photo;
+    }
+    public SearchItem(User user){
+        this.username = user.getUsername();
+        this.displayName = user.getDisplayName();
+        this.photo = user.getPhotoURL();
     }
     public String getPhoto() {
         return photo;

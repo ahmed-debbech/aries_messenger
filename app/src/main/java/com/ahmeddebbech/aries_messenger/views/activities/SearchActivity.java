@@ -2,8 +2,9 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,15 +14,23 @@ import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
+import com.ahmeddebbech.aries_messenger.model.SearchItem;
 import com.ahmeddebbech.aries_messenger.presenter.SearchPresenter;
+import com.ahmeddebbech.aries_messenger.views.adapter.SearchAdapter;
+
+import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements ContractSearch.View {
 
-    SearchPresenter presenter;
+    private SearchPresenter presenter;
 
-    ImageView back;
-    ImageView delete;
-    TextView input;
+    private ImageView back;
+    private  ImageView delete;
+    private TextView input;
+    private RecyclerView results;
+    private SearchAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +47,10 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
         back = findViewById(R.id.searchact_back);
         delete = findViewById(R.id.searchact_delete);
         input = findViewById(R.id.searchact_input);
+        results = findViewById(R.id.results);
+        results.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        results.setLayoutManager(layoutManager);
     }
 
     public void addListeners(){
@@ -50,8 +63,8 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView in = findViewById(R.id.searchact_input);
-                in.setText("");
+                input = findViewById(R.id.searchact_input);
+                input.setText("");
             }
         });
         input.addTextChangedListener(new TextWatcher() {
@@ -62,18 +75,18 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                presenter.fillSearchResults(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                presenter.fillSearchResults(s.toString());
             }
         });
     }
 
     @Override
-    public void showResults() {
-
+    public void showResults(ArrayList<SearchItem> listOfItems) {
+        adapter = new SearchAdapter(listOfItems);
+        results.setAdapter(adapter);
     }
 }

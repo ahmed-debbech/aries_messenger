@@ -4,7 +4,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.ahmeddebbech.aries_messenger.model.SearchItem;
 import com.ahmeddebbech.aries_messenger.presenter.MainPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.SearchPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.MainActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
@@ -13,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class DbBasic {
     DbBasic(){
@@ -50,15 +54,20 @@ public class DbBasic {
         DatabaseReference ref = database.getReference("/Users/"+user.getUid());
         ref.setValue(user);
     }
-    public static void getAllUsersFromName(String name){
+    public static void searchAllUsersFromName(final String name, final SearchPresenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<SearchItem> list = new ArrayList<>();
                 for(DataSnapshot ds : snapshot.getChildren()){
-                    //User u = new User(ds.getValue());
+                    if(ds.getValue(User.class).getUsername().contains(name)
+                    || ds.getValue(User.class).getDisplayName().contains(name)){
+                        list.add(new SearchItem(ds.getValue(User.class)));
+                    }
                 }
+                pres.returnDataFromDB(list);
             }
 
             @Override

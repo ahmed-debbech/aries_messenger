@@ -2,6 +2,9 @@ package com.ahmeddebbech.aries_messenger.presenter;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
+import com.ahmeddebbech.aries_messenger.model.SearchItem;
+
+import java.util.ArrayList;
 
 public class SearchPresenter implements ContractSearch.Presenter {
 
@@ -11,6 +14,9 @@ public class SearchPresenter implements ContractSearch.Presenter {
     }
     @Override
     public void fillSearchResults(String text) {
-        DbBasic.getAllUsersFromName(text);
+        DbBasic.searchAllUsersFromName(text, this);
+    }
+    public void returnDataFromDB(ArrayList<SearchItem> list){
+        act.showResults(list);
     }
 }
