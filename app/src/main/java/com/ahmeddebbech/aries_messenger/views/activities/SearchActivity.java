@@ -3,6 +3,7 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,9 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
+import com.ahmeddebbech.aries_messenger.presenter.SearchPresenter;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements ContractSearch.View {
 
+    SearchPresenter presenter;
+
+    ImageView back;
+    ImageView delete;
+    TextView input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,14 +29,24 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ImageView back = findViewById(R.id.searchact_back);
+        presenter = new SearchPresenter(this);
+
+        setupUi();
+        addListeners();
+    }
+    public void setupUi(){
+        back = findViewById(R.id.searchact_back);
+        delete = findViewById(R.id.searchact_delete);
+        input = findViewById(R.id.searchact_input);
+    }
+
+    public void addListeners(){
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        ImageView delete = findViewById(R.id.searchact_delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +54,6 @@ public class SearchActivity extends AppCompatActivity {
                 in.setText("");
             }
         });
-        TextView input = findViewById(R.id.searchact_input);
         input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -45,7 +62,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //DbBasic.getAllUsersFromName(s.toString());
+                presenter.fillSearchResults(s.toString());
             }
 
             @Override
@@ -55,5 +72,8 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void showResults() {
 
+    }
 }
