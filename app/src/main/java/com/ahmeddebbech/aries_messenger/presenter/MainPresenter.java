@@ -19,8 +19,8 @@ public class MainPresenter implements ContractMain.Presenter {
         String photo = UserManager.getInstance().getUserModel().getPhotoURL();
         act.renderViewsWithData(disp,usr,photo);
     }
-    public void getDatafromDatabase(){
-        DbBasic.getUserData(UserManager.getInstance().getUserModel().getUid(), this);
+    public void getDatafromDatabase(String uid){
+        DbBasic.getUserData(uid, this);
     }
     @Override
     public void returnData(){

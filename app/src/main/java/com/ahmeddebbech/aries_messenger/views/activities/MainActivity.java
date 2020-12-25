@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.getDatafromDatabase();
+        presenter.getDatafromDatabase(FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
     @Override

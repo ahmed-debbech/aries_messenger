@@ -26,6 +26,7 @@ public class DbBasic {
     public static void getUserData(final String uid, final MainPresenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+uid);
+        System.out.println(uid);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
