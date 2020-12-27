@@ -62,8 +62,9 @@ public class DbBasic {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<SearchItem> list = new ArrayList<>();
                 for(DataSnapshot ds : snapshot.getChildren()){
-                    if(ds.getValue(User.class).getUsername().contains(name)
-                    || ds.getValue(User.class).getDisplayName().contains(name)){
+                    if(ds.getValue(User.class).getUsername().toLowerCase().startsWith(name)
+                    || ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name)){
+                        System.out.println("user "+ ds.getValue(User.class).getDisplayName());
                         list.add(new SearchItem(ds.getValue(User.class)));
                     }
                 }
