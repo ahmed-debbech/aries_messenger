@@ -14,7 +14,7 @@ public class SearchPresenter implements ContractSearch.Presenter {
     }
     @Override
     public void fillSearchResults(String text) {
-        if(!text.equals("")) {
+        if((!text.equals("")) && (!text.equals("@"))) {
             DbBasic.searchAllUsersFromName(text, this);
         }
     }
