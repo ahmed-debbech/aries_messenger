@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
@@ -17,6 +18,8 @@ import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
 import com.ahmeddebbech.aries_messenger.model.SearchItem;
 import com.ahmeddebbech.aries_messenger.presenter.SearchPresenter;
 import com.ahmeddebbech.aries_messenger.views.adapter.SearchAdapter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,8 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
     private ImageView back;
     private  ImageView delete;
     private TextView input;
+    private ProgressBar wait;
+    private TextView no_results_msg;
     private RecyclerView results;
     private SearchAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -48,6 +53,8 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
         delete = findViewById(R.id.searchact_delete);
         input = findViewById(R.id.searchact_input);
         results = findViewById(R.id.results);
+        no_results_msg = findViewById(R.id.no_results_msg);
+        wait = findViewById(R.id.wait_search);
         results.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         results.setLayoutManager(layoutManager);
@@ -75,6 +82,7 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                wait.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -86,7 +94,19 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
 
     @Override
     public void showResults(ArrayList<SearchItem> listOfItems) {
-        adapter = new SearchAdapter(listOfItems);
+        wait.setVisibility(View.INVISIBLE);
+        if(listOfItems.isEmpty() == true){
+            no_results_msg.setVisibility(View.VISIBLE);
+        }else {
+            no_results_msg.setVisibility(View.INVISIBLE);
+            adapter = new SearchAdapter(listOfItems);
+            results.setAdapter(adapter);
+        }
+    }
+    @Override
+    public void clearList(){
+        adapter = null;
         results.setAdapter(adapter);
+        wait.setVisibility(View.INVISIBLE);
     }
 }

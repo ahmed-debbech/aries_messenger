@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public interface ContractSearch {
     interface  View{
         void showResults(ArrayList<SearchItem> listOfItems);
+        void clearList();
     }
     interface Presenter{
         void fillSearchResults(String text);

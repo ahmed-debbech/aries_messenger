@@ -16,6 +16,8 @@ public class SearchPresenter implements ContractSearch.Presenter {
     public void fillSearchResults(String text) {
         if((!text.equals("")) && (!text.equals("@"))) {
             DbBasic.searchAllUsersFromName(text, this);
+        }else{
+            act.clearList();
         }
     }
     public void returnDataFromDB(ArrayList<SearchItem> list){
