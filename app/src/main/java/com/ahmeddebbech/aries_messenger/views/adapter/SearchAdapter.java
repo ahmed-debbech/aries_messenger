@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.views.adapter;
 
+import android.app.Application;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.model.SearchItem;
+import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
+import com.ahmeddebbech.aries_messenger.views.activities.SearchActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>{
     private ArrayList<SearchItem> list;
+    private static SearchActivity sa;
 
     public static class SearchViewHolder extends RecyclerView.ViewHolder {
         public ImageView photo;
@@ -31,10 +36,30 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             disp = itemView.findViewById(R.id.displayName);
             username = itemView.findViewById(R.id.username);
             addbutton = itemView.findViewById(R.id.item_add);
+            setClicks();
+        }
+        public void setClicks(){
+            photo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent in = new Intent(SearchAdapter.sa, ContactProfile.class);
+                    in.putExtra("username", username.getText());
+                    SearchAdapter.sa.startActivity(in);
+                }
+            });
+            disp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent in = new Intent(SearchAdapter.sa, ContactProfile.class);
+                    in.putExtra("username", username.getText());
+                    SearchAdapter.sa.startActivity(in);
+                }
+            });
         }
     }
-    public SearchAdapter(ArrayList<SearchItem> listOfItems) {
+    public SearchAdapter(ArrayList<SearchItem> listOfItems, SearchActivity sa) {
         list = listOfItems;
+        this.sa = sa;
     }
     @NonNull
     @Override

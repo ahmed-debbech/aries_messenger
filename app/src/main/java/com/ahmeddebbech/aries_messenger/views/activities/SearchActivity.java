@@ -99,7 +99,7 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
             no_results_msg.setVisibility(View.VISIBLE);
         }else {
             no_results_msg.setVisibility(View.INVISIBLE);
-            adapter = new SearchAdapter(listOfItems);
+            adapter = new SearchAdapter(listOfItems, this);
             results.setAdapter(adapter);
         }
     }
