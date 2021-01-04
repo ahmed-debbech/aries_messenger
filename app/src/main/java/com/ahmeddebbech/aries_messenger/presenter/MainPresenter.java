@@ -3,9 +3,8 @@ package com.ahmeddebbech.aries_messenger.presenter;
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
-import com.google.firebase.auth.FirebaseAuth;
 
-public class MainPresenter implements ContractMain.Presenter {
+public class MainPresenter extends Presenter implements ContractMain.Presenter {
 
     private ContractMain.View act;
 
@@ -23,7 +22,11 @@ public class MainPresenter implements ContractMain.Presenter {
         DbBasic.getUserData(uid, this);
     }
     @Override
-    public void returnData(){
-        act.setupUi();
+    public void returnData(Object o){
+        if(o instanceof User) {
+            User u = (User)o;
+            UserManager.getInstance().updateWithCopy(u);
+            act.setupUi();
+        }
     }
 }

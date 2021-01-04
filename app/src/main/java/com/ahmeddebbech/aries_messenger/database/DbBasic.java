@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.ahmeddebbech.aries_messenger.model.SearchItem;
 import com.ahmeddebbech.aries_messenger.presenter.MainPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.SearchPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.MainActivity;
@@ -27,7 +28,7 @@ public class DbBasic {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("/Users/"+user.getUid());
         ref.setValue(user);
     }
-    public static void getUserData(final String uid, final MainPresenter pres){
+    public static void getUserData(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+uid);
         System.out.println(uid);
@@ -37,8 +38,8 @@ public class DbBasic {
                     if(dataSnapshot.exists()){
                         User u = dataSnapshot.getValue(User.class);
                         System.out.println(u.getDisplayName());
-                        UserManager.getInstance().updateWithCopy(u);
-                        pres.returnData();
+                        Log.d("MISSIeeeeNG USER", "MS");
+                        pres.returnData(u);
                     }else {
                         Log.d("MISSING USER", "MS");
                     }
@@ -54,7 +55,7 @@ public class DbBasic {
         DatabaseReference ref = database.getReference("/Users/"+user.getUid());
         ref.setValue(user);
     }
-    public static void searchAllUsersFromName(final String name, final SearchPresenter pres){
+    public static void searchAllUsersFromName(final String name, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
         ref.addValueEventListener(new ValueEventListener() {
@@ -74,7 +75,7 @@ public class DbBasic {
                         list.add(new SearchItem(ds.getValue(User.class)));
                     }
                 }
-                pres.returnDataFromDB(list);
+                pres.returnData(list);
             }
 
             @Override

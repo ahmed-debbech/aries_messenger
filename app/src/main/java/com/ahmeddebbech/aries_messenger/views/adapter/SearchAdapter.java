@@ -29,6 +29,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         public TextView disp;
         public TextView username;
         public Button addbutton;
+        public TextView uid;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
@@ -36,6 +37,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             disp = itemView.findViewById(R.id.displayName);
             username = itemView.findViewById(R.id.username);
             addbutton = itemView.findViewById(R.id.item_add);
+            uid = itemView.findViewById(R.id.uid);
             setClicks();
         }
         public void setClicks(){
@@ -43,6 +45,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 @Override
                 public void onClick(View v) {
                     Intent in = new Intent(SearchAdapter.sa, ContactProfile.class);
+                    in.putExtra("uid", uid.getText());
                     in.putExtra("username", username.getText());
                     SearchAdapter.sa.startActivity(in);
                 }
@@ -51,6 +54,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 @Override
                 public void onClick(View v) {
                     Intent in = new Intent(SearchAdapter.sa, ContactProfile.class);
+                    in.putExtra("uid", uid.getText());
                     in.putExtra("username", username.getText());
                     SearchAdapter.sa.startActivity(in);
                 }
@@ -75,6 +79,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         Picasso.get().load(currentItem.getPhoto()).into(holder.photo);
         holder.disp.setText(currentItem.getDisplayName());
         holder.username.setText(currentItem.getUsername());
+        holder.uid.setText(currentItem.getUid());
     }
 
     @Override

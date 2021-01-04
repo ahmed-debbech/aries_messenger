@@ -11,7 +11,6 @@ public interface ContractRegistration {
         void checkUsername(String in);
         void checkDispName(String in);
         void updateUserModel(String disp, String user);
-        void pushErrorToView(String err);
         void connectToRegister();
     }
 }

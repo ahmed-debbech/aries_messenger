@@ -6,7 +6,7 @@ import com.ahmeddebbech.aries_messenger.model.SearchItem;
 
 import java.util.ArrayList;
 
-public class SearchPresenter implements ContractSearch.Presenter {
+public class SearchPresenter extends Presenter implements ContractSearch.Presenter {
 
     ContractSearch.View act;
     public SearchPresenter(ContractSearch.View act){
@@ -20,7 +20,11 @@ public class SearchPresenter implements ContractSearch.Presenter {
             act.clearList();
         }
     }
-    public void returnDataFromDB(ArrayList<SearchItem> list){
-        act.showResults(list);
+    @Override
+    public void returnData(Object o){
+        if(o instanceof ArrayList) {
+            ArrayList<SearchItem> list = (ArrayList<SearchItem>)o;
+            act.showResults(list);
+        }
     }
 }

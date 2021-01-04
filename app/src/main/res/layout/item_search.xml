@@ -52,5 +52,11 @@
             android:layout_toEndOf="@+id/displayName"
             android:text="Add" />
 
+        <TextView
+            android:id="@+id/uid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

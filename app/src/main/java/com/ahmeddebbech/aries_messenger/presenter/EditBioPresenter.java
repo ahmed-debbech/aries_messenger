@@ -8,7 +8,7 @@ import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
-public class EditBioPresenter implements ContractBioEdit.Presenter {
+public class EditBioPresenter extends Presenter implements ContractBioEdit.Presenter {
     private ContractBioEdit.View act;
 
     public EditBioPresenter(ContractBioEdit.View act){
@@ -48,5 +48,10 @@ public class EditBioPresenter implements ContractBioEdit.Presenter {
     @Override
     public void modifyUserInDB() {
         DbBasic.modifyUser(UserManager.getInstance().getUserModel());
+    }
+
+    @Override
+    public void returnData(Object obj) {
+
     }
 }

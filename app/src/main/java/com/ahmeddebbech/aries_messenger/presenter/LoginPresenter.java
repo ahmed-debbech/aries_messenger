@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
 
-public class LoginPresenter implements ContractLogin.Presenter {
+public class LoginPresenter extends Presenter implements ContractLogin.Presenter {
     List<AuthUI.IdpConfig> providers;
     ContractLogin.View cur_act;
 
@@ -47,12 +47,15 @@ public class LoginPresenter implements ContractLogin.Presenter {
     }
 
     @Override
-    public void redirectTo(boolean userIsFound) {
-        if (!userIsFound) {
-            cur_act.redirectRegisterActivity();
-        }else{
-            Log.d("LOGIN ", "not found");
-            cur_act.redirectMainActivity();
+    public void returnData(Object o) {
+        if(o instanceof Boolean) {
+            Boolean userIsFound = (Boolean)o;
+            if (!userIsFound) {
+                cur_act.redirectRegisterActivity();
+            } else {
+                Log.d("LOGIN ", "not found");
+                cur_act.redirectMainActivity();
+            }
         }
     }
 }

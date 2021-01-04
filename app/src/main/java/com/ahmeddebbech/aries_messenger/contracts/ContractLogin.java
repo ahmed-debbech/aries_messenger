@@ -17,6 +17,5 @@ public interface ContractLogin {
         void loginAsGoogle();
         void connectToSignIn();
         void fillModel(User user);
-        void redirectTo(boolean userIsFound);
     }
 }

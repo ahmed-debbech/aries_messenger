@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.RegisterPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.LoginActivity;
@@ -18,12 +19,12 @@ import com.google.firebase.database.ValueEventListener;
 public class DbUtil {
 
 
-    public static void userExistsInSignIn(final LoginPresenter loginPresenter){
+    public static void userExistsInSignIn(final Presenter loginPresenter){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            boolean founder = false;
+            Boolean founder = false;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -33,7 +34,7 @@ public class DbUtil {
                         founder = true;
                     }
                 }
-                loginPresenter.redirectTo(founder);
+                loginPresenter.returnData(founder);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -42,7 +43,7 @@ public class DbUtil {
             }
         });
     }
-    public static void usernameExists(final String username, final RegisterPresenter pres){
+    public static void usernameExists(final String username, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -55,7 +56,7 @@ public class DbUtil {
                     }
                 }
                 if (founder) {
-                    pres.pushErrorToView("This username is taken!");
+                    pres.returnData("This username is taken!");
                 }
             }
             @Override

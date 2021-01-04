@@ -5,7 +5,7 @@ import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbUtil;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
-public class RegisterPresenter implements ContractRegistration.Presenter {
+public class RegisterPresenter extends Presenter implements ContractRegistration.Presenter {
     private ContractRegistration.View act;
 
     public RegisterPresenter(ContractRegistration.View act){
@@ -49,8 +49,11 @@ public class RegisterPresenter implements ContractRegistration.Presenter {
         UserManager.getInstance().getUserModel().setUsername(user);
     }
     @Override
-    public void pushErrorToView(String err) {
-        act.showErrorUsername(err);
+    public void returnData(Object o) {
+        if(o instanceof String) {
+            String err = (String)o;
+            act.showErrorUsername(err);
+        }
     }
     public void connectToRegister(){
         DbConnector.connectToRegister(UserManager.getInstance().getUserModel());

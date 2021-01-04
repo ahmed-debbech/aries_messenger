@@ -7,7 +7,7 @@ import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
-public class EditDNamePresenter implements ContractDNameEdit.Presenter {
+public class EditDNamePresenter extends Presenter implements ContractDNameEdit.Presenter {
 
     private ContractDNameEdit.View act;
 
@@ -37,5 +37,10 @@ public class EditDNamePresenter implements ContractDNameEdit.Presenter {
     @Override
     public void modifyUserInDB() {
         DbBasic.modifyUser(UserManager.getInstance().getUserModel());
+    }
+
+    @Override
+    public void returnData(Object obj) {
+
     }
 }
