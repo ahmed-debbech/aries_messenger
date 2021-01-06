@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
+import com.ahmeddebbech.aries_messenger.database.DbUtil;
 import com.ahmeddebbech.aries_messenger.model.User;
 
 public class ContactProfilePresenter extends Presenter implements ContractContactProfile.Presenter {
@@ -21,6 +22,18 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
         if(o instanceof User) {
             User u = (User)o;
             act.loadData(u.getDisplayName(),u.getPhotoURL(), u.getBio());
+        }else{
+            if(o instanceof Boolean){
+                Boolean b = (Boolean)o;
+                if(b == true){
+                    act.showAddedAck();
+                }
+            }
         }
+    }
+    @Override
+    public void addToContact(String uid){
+        //DbBasic.addContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
+        DbUtil.getLastConnectionNumber(UserManager.getInstance().getUserModel().getUid());
     }
 }

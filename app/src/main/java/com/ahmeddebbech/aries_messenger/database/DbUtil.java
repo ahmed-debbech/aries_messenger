@@ -16,6 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DbUtil {
 
 
@@ -57,6 +60,23 @@ public class DbUtil {
                 }
                 if (founder) {
                     pres.returnData("This username is taken!");
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+    public static void getLastConnectionNumber(final String uid){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users_connections/"+ uid);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            boolean founder = false;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue(ArrayList<Integer>.class)) {
+                    S=
                 }
             }
             @Override

@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DbBasic {
     DbBasic(){
@@ -83,5 +84,16 @@ public class DbBasic {
 
             }
         });
+    }
+    public static void addContact(String uidUser, String addedUid, Presenter pres){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users_connections/" + uidUser);
+        List<Integer> g = new ArrayList<Integer>();
+        g.add(new Integer(1));
+        g.add(new Integer(2));
+        g.add(new Integer(3));
+        ref.setValue(g);
+        Boolean b = true;
+        pres.returnData(b);
     }
 }

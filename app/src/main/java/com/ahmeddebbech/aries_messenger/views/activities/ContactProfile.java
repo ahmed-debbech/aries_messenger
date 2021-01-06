@@ -6,10 +6,13 @@ import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
 import com.ahmeddebbech.aries_messenger.presenter.ContactProfilePresenter;
 import com.squareup.picasso.Picasso;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +41,7 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
         getSupportActionBar().setTitle(username);
 
         setupUi();
+        addClicks();
     }
     public void setupUi(){
         photo = findViewById(R.id.conta_prof_img);
@@ -48,10 +52,26 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
 
         presenter.fillUiWithData(uid);
     }
+    public void addClicks(){
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add.setText("Wait...");
+                add.setBackgroundColor(Color.WHITE);
+                presenter.addToContact(uid);
+            }
+        });
+    }
     @Override
     public void loadData(String disp, String photo, String bio) {
         this.disp.setText(disp);
         this.bio.setText(bio);
         Picasso.get().load(photo).into(this.photo);
+    }
+
+    @Override
+    public void showAddedAck() {
+        add.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        add.setText("Added");
     }
 }
