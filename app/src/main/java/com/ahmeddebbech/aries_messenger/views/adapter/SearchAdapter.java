@@ -2,6 +2,7 @@ package com.ahmeddebbech.aries_messenger.views.adapter;
 
 import android.app.Application;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.contracts.ContractSearchItem;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.SearchItem;
+import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.SearchItemPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
 import com.ahmeddebbech.aries_messenger.views.activities.SearchActivity;
 import com.squareup.picasso.Picasso;
@@ -24,12 +30,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private ArrayList<SearchItem> list;
     private static SearchActivity sa;
 
-    public static class SearchViewHolder extends RecyclerView.ViewHolder {
-        public ImageView photo;
-        public TextView disp;
-        public TextView username;
-        public Button addbutton;
-        public TextView uid;
+    public static class SearchViewHolder extends RecyclerView.ViewHolder implements ContractSearchItem.View {
+        private ImageView photo;
+        private TextView disp;
+        private TextView username;
+        private Button addbutton;
+        private TextView uid;
+        private ContractSearchItem.Presenter pres;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
@@ -38,6 +45,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             username = itemView.findViewById(R.id.username);
             addbutton = itemView.findViewById(R.id.item_add);
             uid = itemView.findViewById(R.id.uid);
+
+            pres = new SearchItemPresenter(this);
             setClicks();
         }
         public void setClicks(){
@@ -59,6 +68,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     SearchAdapter.sa.startActivity(in);
                 }
             });
+            addbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addbutton.setText(R.string.wait_label);
+                    addbutton.setBackgroundColor(Color.WHITE);
+                    pres.addToContact(uid.getText().toString());
+                }
+            });
+        }
+        @Override
+        public void updateUi() {
+            addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
+            addbutton.setText(R.string.remove_button);
         }
     }
     public SearchAdapter(ArrayList<SearchItem> listOfItems, SearchActivity sa) {

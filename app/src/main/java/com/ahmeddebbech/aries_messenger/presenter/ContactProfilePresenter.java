@@ -36,8 +36,6 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
     }
     @Override
     public void addToContact(String uid){
-        //DbBasic.addContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
-        //DbUtil.getLastConnectionNumber(UserManager.getInstance().getUserModel().getUid());
         DbConnector.connectToAddNewContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
     }
 }

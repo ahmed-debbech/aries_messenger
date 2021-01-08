@@ -21,7 +21,7 @@
     <string name="title_activity_edit_bio">Edit Bio</string>
 
     <!--button texts -->
-    <string name="add_button">Add</string>
-    <string name="remove_button">Remove</string>
+    <string name="add_button">Connect</string>
+    <string name="remove_button">Disconnect</string>
     <string name="wait_label">Wait...</string>
 </resources>
