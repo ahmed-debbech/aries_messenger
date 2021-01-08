@@ -56,7 +56,7 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add.setText("Wait...");
+                add.setText(R.string.wait_label);
                 add.setBackgroundColor(Color.WHITE);
                 presenter.addToContact(uid);
             }
@@ -71,7 +71,7 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
 
     @Override
     public void showAddedAck() {
-        add.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-        add.setText("Added");
+        add.setBackgroundColor(getResources().getColor(R.color.disabled_button));
+        add.setText(R.string.remove_button);
     }
 }

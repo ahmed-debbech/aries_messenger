@@ -4,8 +4,11 @@ import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbUtil;
 import com.ahmeddebbech.aries_messenger.model.User;
+
+import java.sql.Connection;
 
 public class ContactProfilePresenter extends Presenter implements ContractContactProfile.Presenter {
 
@@ -34,6 +37,7 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
     @Override
     public void addToContact(String uid){
         //DbBasic.addContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
-        DbUtil.getLastConnectionNumber(UserManager.getInstance().getUserModel().getUid());
+        //DbUtil.getLastConnectionNumber(UserManager.getInstance().getUserModel().getUid());
+        DbConnector.connectToAddNewContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
     }
 }
