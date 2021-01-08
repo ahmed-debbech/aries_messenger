@@ -97,6 +97,7 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
         wait.setVisibility(View.INVISIBLE);
         if(listOfItems.isEmpty() == true){
             no_results_msg.setVisibility(View.VISIBLE);
+            results.setAdapter(null);
         }else {
             no_results_msg.setVisibility(View.INVISIBLE);
             adapter = new SearchAdapter(listOfItems, this);
