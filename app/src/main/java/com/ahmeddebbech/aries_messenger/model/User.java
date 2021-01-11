@@ -1,7 +1,7 @@
 package com.ahmeddebbech.aries_messenger.model;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import java.util.ArrayList;
+import java.util.List;
 
 //This is a singleton class
 
@@ -13,6 +13,8 @@ public class User {
     private String photoURL;
     private String bio;
 
+    private List<String> connections;
+
     public User(){
 
     }
@@ -23,6 +25,7 @@ public class User {
         this.email = email;
         this.photoURL= photoURL;
         this.bio = bio;
+        this.connections = new ArrayList<>();
     }
 
     public String getEmail(){
@@ -71,5 +74,13 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public List<String> getConnections() {
+        return connections;
+    }
+
+    public void setConnections(List<String> connections) {
+        this.connections = connections;
     }
 }

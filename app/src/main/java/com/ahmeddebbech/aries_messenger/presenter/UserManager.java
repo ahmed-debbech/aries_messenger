@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -9,6 +10,7 @@ public class UserManager {
 
     private UserManager(){
         userModel = new User();
+        DbConnector.connectToGetConnections(userModel);
     }
     public static UserManager getInstance(){
         if(umInstance == null){
@@ -23,9 +25,11 @@ public class UserManager {
         userModel.setEmail(u.getEmail());
         userModel.setPhotoURL(u.getPhotoURL());
         userModel.setBio(u.getBio());
+        userModel.setConnections(u.getConnections());
     }
     public void fillAllData(String uid, String username, String displayName, String email, String photoURL, String bio){
         userModel = new User(uid,username,displayName,email,photoURL,bio);
+        DbConnector.connectToGetConnections(userModel);
     }
     public User getUserModel(){
         return userModel;

@@ -36,6 +36,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         private TextView username;
         private Button addbutton;
         private TextView uid;
+        private SearchItem refToModel;
         private ContractSearchItem.Presenter pres;
 
         public SearchViewHolder(View itemView) {
@@ -71,9 +72,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             addbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addbutton.setText(R.string.wait_label);
-                    addbutton.setBackgroundColor(Color.WHITE);
-                    pres.addToContact(uid.getText().toString());
+                        addbutton.setText(R.string.wait_label);
+                        addbutton.setBackgroundColor(Color.WHITE);
+                        pres.addToContact(uid.getText().toString());
+
                 }
             });
         }
@@ -102,6 +104,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.disp.setText(currentItem.getDisplayName());
         holder.username.setText(currentItem.getUsername());
         holder.uid.setText(currentItem.getUid());
+        holder.refToModel = currentItem;
     }
 
     @Override

@@ -88,4 +88,22 @@ public class DbBasic {
     public static void addContact(String uidUser, String addedUid, Presenter pres){
         DbUtil.getLastConnectionNumber(uidUser, addedUid,pres);
     }
+    public static void getConnections(final User u){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users_connections/").child(u.getUid());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Log.d("summeeeerrr", "****");
+                }else{
+                    Log.d("gogoog","*%*$#%(#$%*#@$%(");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("gogffffffffffoog","*%*$#%(#$%*#@$%(");
+            }
+        });
+    }
 }
