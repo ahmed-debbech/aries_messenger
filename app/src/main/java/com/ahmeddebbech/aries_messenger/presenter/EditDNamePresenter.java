@@ -4,6 +4,7 @@ import android.widget.Toast;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractDNameEdit;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
@@ -36,7 +37,7 @@ public class EditDNamePresenter extends Presenter implements ContractDNameEdit.P
 
     @Override
     public void modifyUserInDB() {
-        DbBasic.modifyUser(UserManager.getInstance().getUserModel());
+        DbConnector.connectToModifyUser(UserManager.getInstance().getUserModel());
     }
 
     @Override

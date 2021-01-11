@@ -2,6 +2,7 @@ package com.ahmeddebbech.aries_messenger.presenter;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 
 public class MainPresenter extends Presenter implements ContractMain.Presenter {
@@ -19,7 +20,7 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         act.renderViewsWithData(disp,usr,photo);
     }
     public void getDatafromDatabase(String uid){
-        DbBasic.getUserData(uid, this);
+        DbConnector.connectToGetUserData(uid, this);
     }
     @Override
     public void returnData(Object o){

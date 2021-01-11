@@ -2,6 +2,7 @@ package com.ahmeddebbech.aries_messenger.presenter;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.SearchItem;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class SearchPresenter extends Presenter implements ContractSearch.Present
     @Override
     public void fillSearchResults(String text) {
         if((!text.equals("")) && (!text.equals("@"))) {
-            DbBasic.searchAllUsersFromName(text, this);
+            DbConnector.connectToSearchForUsersWithName(text, this);
         }else{
             act.clearList();
         }
