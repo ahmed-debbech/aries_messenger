@@ -73,9 +73,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             addbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                        addbutton.setText(R.string.wait_label);
-                        addbutton.setBackgroundColor(Color.WHITE);
+                    addbutton.setText(R.string.wait_label);
+                    addbutton.setBackgroundColor(Color.WHITE);
+                    if(UserManager.getInstance().searchForConnection(refToModel.getUid())) {
+                        pres.removeFromContact(uid.getText().toString());
+                    }else{
                         pres.addToContact(uid.getText().toString());
+                    }
                 }
             });
         }

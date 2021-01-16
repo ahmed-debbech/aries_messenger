@@ -7,5 +7,6 @@ public interface ContractSearchItem {
     interface Presenter{
         void addToContact(String uid);
         void updateConnectionsList(String uid);
+        void removeFromContact(String uid);
     }
 }

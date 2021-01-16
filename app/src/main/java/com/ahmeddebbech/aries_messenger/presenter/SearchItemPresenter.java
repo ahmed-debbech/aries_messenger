@@ -21,13 +21,17 @@ public class SearchItemPresenter extends Presenter implements ContractSearchItem
         } else {
             if (obj instanceof Boolean) {
                 act.updateUi();
-
             }
         }
     }
     @Override
     public void addToContact(String uid) {
         DbConnector.connectToAddNewContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
+    }
+
+    @Override
+    public void removeFromContact(String uid) {
+        DbConnector.connectToRemoveContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
     }
 
     @Override
