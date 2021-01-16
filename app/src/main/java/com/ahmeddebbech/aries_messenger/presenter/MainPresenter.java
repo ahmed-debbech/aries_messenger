@@ -5,6 +5,8 @@ import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 
+import java.util.List;
+
 public class MainPresenter extends Presenter implements ContractMain.Presenter {
 
     private ContractMain.View act;
@@ -28,6 +30,11 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
             User u = (User)o;
             UserManager.getInstance().updateWithCopy(u);
             act.setupUi();
+        }else{
+            if(o instanceof List){
+                List<String> l = (List<String>)o;
+                UserManager.getInstance().getUserModel().setConnections(l);
+            }
         }
     }
 }

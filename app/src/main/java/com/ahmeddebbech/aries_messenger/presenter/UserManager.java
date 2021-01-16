@@ -10,7 +10,6 @@ public class UserManager {
 
     private UserManager(){
         userModel = new User();
-        DbConnector.connectToGetConnections(userModel);
     }
     public static UserManager getInstance(){
         if(umInstance == null){
@@ -29,9 +28,11 @@ public class UserManager {
     }
     public void fillAllData(String uid, String username, String displayName, String email, String photoURL, String bio){
         userModel = new User(uid,username,displayName,email,photoURL,bio);
-        DbConnector.connectToGetConnections(userModel);
     }
     public User getUserModel(){
         return userModel;
+    }
+    public boolean searchForConnection(String uid){
+        return userModel.getConnections().contains(uid);
     }
 }

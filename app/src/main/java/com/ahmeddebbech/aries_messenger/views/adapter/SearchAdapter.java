@@ -3,6 +3,7 @@ package com.ahmeddebbech.aries_messenger.views.adapter;
 import android.app.Application;
 import android.content.Intent;
 import android.graphics.Color;
+import android.icu.lang.UScript;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,14 +76,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                         addbutton.setText(R.string.wait_label);
                         addbutton.setBackgroundColor(Color.WHITE);
                         pres.addToContact(uid.getText().toString());
-
                 }
             });
         }
         @Override
         public void updateUi() {
-            addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
-            addbutton.setText(R.string.remove_button);
+            if(UserManager.getInstance().searchForConnection(refToModel.getUid())) {
+                addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
+                addbutton.setText(R.string.remove_button);
+            }else{
+                addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                addbutton.setText(R.string.add_button);
+            }
         }
     }
     public SearchAdapter(ArrayList<SearchItem> listOfItems, SearchActivity sa) {
@@ -105,6 +110,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.username.setText(currentItem.getUsername());
         holder.uid.setText(currentItem.getUid());
         holder.refToModel = currentItem;
+        if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid())){
+            holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
+            holder.addbutton.setText(R.string.remove_button);
+        }else{
+            holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+            holder.addbutton.setText(R.string.add_button);
+        }
     }
 
     @Override

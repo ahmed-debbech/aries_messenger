@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,6 @@ public class DbBasic {
     public static void getUserData(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+uid);
-        System.out.println(uid);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -41,6 +41,7 @@ public class DbBasic {
                         System.out.println(u.getDisplayName());
                         Log.d("MISSIeeeeNG USER", "MS");
                         pres.returnData(u);
+                        DbBasic.getConnections(uid, pres);
                     }else {
                         Log.d("MISSING USER", "MS");
                     }
@@ -88,21 +89,24 @@ public class DbBasic {
     public static void addContact(String uidUser, String addedUid, Presenter pres){
         DbUtil.getLastConnectionNumber(uidUser, addedUid,pres);
     }
-    public static void getConnections(final User u){
+    public static void getConnections(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users_connections/").child(u.getUid());
+        DatabaseReference ref = database.getReference("/Users_connections/").child(uid);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Log.d("summeeeerrr", "****");
-                }else{
-                    Log.d("gogoog","*%*$#%(#$%*#@$%(");
+                    List<String> connections = new ArrayList<>();
+                    for(DataSnapshot ds : snapshot.getChildren()){
+                        connections.add(ds.getValue(String.class));
+                        Log.d("Error",ds.getValue(String.class));
+                    }
+                    pres.returnData(connections);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("gogffffffffffoog","*%*$#%(#$%*#@$%(");
+                Log.d("Error","*%*$#%(#$%*#@$%(");
             }
         });
     }

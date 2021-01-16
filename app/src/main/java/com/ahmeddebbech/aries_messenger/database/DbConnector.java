@@ -20,7 +20,7 @@ public class DbConnector {
         DbBasic.getUserData(uid, pres);
     }
     public static void connectToSearchForUsersWithName(String text, Presenter pres){DbBasic.searchAllUsersFromName(text, pres);}
-    public static void connectToGetConnections(User u){
-        DbBasic.getConnections(u);
+    public static void connectToGetConnections(String uid, Presenter pres){
+        DbBasic.getConnections(uid, pres);
     }
 }
