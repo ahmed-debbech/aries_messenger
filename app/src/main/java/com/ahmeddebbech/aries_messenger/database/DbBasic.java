@@ -111,8 +111,12 @@ public class DbBasic {
         });
     }
     public static void removeContact(String uid, String delUid, Presenter pres){
+        System.out.println(uid);
+        System.out.println(delUid);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users_connections/").child(uid).child(delUid);
+        DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/" + );
         ref.removeValue();
+        Boolean b = true;
+        pres.returnData(b);
     }
 }
