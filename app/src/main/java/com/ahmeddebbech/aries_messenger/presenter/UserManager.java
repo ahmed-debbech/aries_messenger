@@ -33,14 +33,15 @@ public class UserManager {
         return userModel;
     }
     public boolean searchForConnection(String uid){
+        if(userModel.getConnections() == null){
+            return false;
+        }
         return userModel.getConnections().contains(uid);
     }
-    public int searchForConnectionIndex(String uid){
-        for(int i=0; i<=userModel.getConnections().size()-1; i++){
-            if(userModel.getConnections().get(i).equals(uid)){
-                return i;
-            }
-        }
-        return -1;
+    public void removeContact(String uid){
+        userModel.getConnections().remove(uid);
+    }
+    public void addContact(String uid){
+        userModel.getConnections().add(uid);
     }
 }

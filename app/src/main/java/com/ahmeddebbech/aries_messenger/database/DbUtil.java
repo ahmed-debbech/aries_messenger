@@ -68,32 +68,4 @@ public class DbUtil {
             }
         });
     }
-    public static void getLastConnectionNumber(final String uidUser, final String addedUid, final Presenter pres){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final List<String> uidList = new ArrayList<>();
-        DatabaseReference ref = database.getReference("/Users_connections/"+ uidUser);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    uidList.add(ds.getValue(String.class));
-                }
-                DatabaseInterface d = new DatabaseInterface() {
-                    @Override
-                    public void applyAdding() {
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference ref = database.getReference("/Users_connections/" + uidUser + "/" + uidList.size());
-                        ref.setValue(addedUid);
-                        Boolean b = true;
-                        pres.returnData(b);
-                    }
-                };
-                d.applyAdding();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-    }
 }

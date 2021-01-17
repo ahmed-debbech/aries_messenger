@@ -87,7 +87,11 @@ public class DbBasic {
         });
     }
     public static void addContact(String uidUser, String addedUid, Presenter pres){
-        DbUtil.getLastConnectionNumber(uidUser, addedUid,pres);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users_connections/"+ uidUser+ "/"+addedUid);
+        ref.setValue(addedUid);
+        Boolean b= true;
+        pres.returnData(b);
     }
     public static void getConnections(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -101,6 +105,9 @@ public class DbBasic {
                         connections.add(ds.getValue(String.class));
                         Log.d("value",ds.getValue(String.class));
                     }
+                    if(connections.size() == 0){
+                        connections = null;
+                    }
                     pres.returnData(connections);
                 }
             }
@@ -110,11 +117,11 @@ public class DbBasic {
             }
         });
     }
-    public static void removeContact(String uid, int number, Presenter pres){
+    public static void removeContact(String uid, String delUid, Presenter pres){
         System.out.println(uid);
-        System.out.println(number);
+        System.out.println(delUid);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/" + number);
+        DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/" + delUid);
         ref.removeValue();
         Boolean b = true;
         pres.returnData(b);
