@@ -31,7 +31,8 @@ public class SearchItemPresenter extends Presenter implements ContractSearchItem
 
     @Override
     public void removeFromContact(String uid) {
-        DbConnector.connectToRemoveContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
+        int indexInFirebase = UserManager.getInstance().searchForConnectionIndex(uid);
+        DbConnector.connectToRemoveContact(UserManager.getInstance().getUserModel().getUid(), indexInFirebase, this);
     }
 
     @Override

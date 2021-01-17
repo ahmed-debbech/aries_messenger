@@ -35,4 +35,12 @@ public class UserManager {
     public boolean searchForConnection(String uid){
         return userModel.getConnections().contains(uid);
     }
+    public int searchForConnectionIndex(String uid){
+        for(int i=0; i<=userModel.getConnections().size()-1; i++){
+            if(userModel.getConnections().get(i).equals(uid)){
+                return i;
+            }
+        }
+        return -1;
+    }
 }

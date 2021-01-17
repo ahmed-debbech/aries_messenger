@@ -23,7 +23,7 @@ public class DbConnector {
     public static void connectToGetConnections(String uid, Presenter pres){
         DbBasic.getConnections(uid, pres);
     }
-    public static void connectToRemoveContact(String uid, String delUid, Presenter pres){
+    public static void connectToRemoveContact(String uid, int delUid, Presenter pres){
         DbBasic.removeContact(uid, delUid, pres);
     }
 }

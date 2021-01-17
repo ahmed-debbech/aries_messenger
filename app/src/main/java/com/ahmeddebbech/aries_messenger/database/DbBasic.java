@@ -99,7 +99,7 @@ public class DbBasic {
                     List<String> connections = new ArrayList<>();
                     for(DataSnapshot ds : snapshot.getChildren()){
                         connections.add(ds.getValue(String.class));
-                        Log.d("Error",ds.getValue(String.class));
+                        Log.d("value",ds.getValue(String.class));
                     }
                     pres.returnData(connections);
                 }
@@ -110,11 +110,11 @@ public class DbBasic {
             }
         });
     }
-    public static void removeContact(String uid, String delUid, Presenter pres){
+    public static void removeContact(String uid, int number, Presenter pres){
         System.out.println(uid);
-        System.out.println(delUid);
+        System.out.println(number);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/" + );
+        DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/" + number);
         ref.removeValue();
         Boolean b = true;
         pres.returnData(b);
