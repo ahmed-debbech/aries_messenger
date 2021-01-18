@@ -7,7 +7,6 @@ public class SearchItem {
     private String displayName;
     private String username;
     private String uid;
-    private boolean isConnectedTo;
 
     public SearchItem(String photo, String displayName, String username, String uid){
         this.displayName = displayName;

@@ -109,7 +109,14 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
                 startActivity(i);
             }
         });
-
+        ImageView requests_main = findViewById(R.id.requests_main);
+        requests_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, RequestsActivity.class);
+                startActivity(i);
+            }
+        });
     }
     @Override
     public void setupUi(){
