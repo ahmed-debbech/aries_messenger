@@ -5,11 +5,11 @@ import com.ahmeddebbech.aries_messenger.database.DbConnector;
 
 import java.util.List;
 
-public class SearchItemPresenter extends Presenter implements ContractItemList.Presenter {
+public class RequestsItemPresenter extends Presenter implements ContractItemList.Presenter {
 
     private ContractItemList.View act;
 
-    public SearchItemPresenter(ContractItemList.View act){
+    public RequestsItemPresenter(ContractItemList.View act){
         this.act = act;
     }
     @Override

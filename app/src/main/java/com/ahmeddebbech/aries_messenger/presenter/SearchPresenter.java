@@ -1,9 +1,8 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
-import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
-import com.ahmeddebbech.aries_messenger.model.SearchItem;
+import com.ahmeddebbech.aries_messenger.model.ItemList;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class SearchPresenter extends Presenter implements ContractSearch.Present
     @Override
     public void returnData(Object o){
         if(o instanceof ArrayList) {
-            ArrayList<SearchItem> list = (ArrayList<SearchItem>)o;
+            ArrayList<ItemList> list = (ArrayList<ItemList>)o;
             act.showResults(list);
         }
     }

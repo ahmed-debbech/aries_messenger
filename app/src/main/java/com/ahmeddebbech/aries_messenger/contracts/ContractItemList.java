@@ -1,6 +1,6 @@
 package com.ahmeddebbech.aries_messenger.contracts;
 
-public interface ContractSearchItem {
+public interface ContractItemList {
     interface View{
         void updateUi();
     }

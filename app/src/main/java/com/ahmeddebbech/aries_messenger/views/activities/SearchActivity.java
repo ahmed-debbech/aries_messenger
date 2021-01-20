@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
-import com.ahmeddebbech.aries_messenger.model.SearchItem;
+import com.ahmeddebbech.aries_messenger.model.ItemList;
 import com.ahmeddebbech.aries_messenger.presenter.SearchPresenter;
 import com.ahmeddebbech.aries_messenger.views.adapter.SearchAdapter;
 
@@ -93,7 +93,7 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
     }
 
     @Override
-    public void showResults(ArrayList<SearchItem> listOfItems) {
+    public void showResults(ArrayList<ItemList> listOfItems) {
         wait.setVisibility(View.INVISIBLE);
         if(listOfItems.isEmpty() == true){
             no_results_msg.setVisibility(View.VISIBLE);

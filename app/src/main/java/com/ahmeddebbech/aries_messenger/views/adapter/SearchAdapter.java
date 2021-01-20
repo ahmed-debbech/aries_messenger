@@ -2,7 +2,6 @@ package com.ahmeddebbech.aries_messenger.views.adapter;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
-import com.ahmeddebbech.aries_messenger.contracts.ContractSearchItem;
-import com.ahmeddebbech.aries_messenger.model.SearchItem;
+import com.ahmeddebbech.aries_messenger.contracts.ContractItemList;
+import com.ahmeddebbech.aries_messenger.model.ItemList;
 import com.ahmeddebbech.aries_messenger.presenter.SearchItemPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
@@ -25,17 +24,17 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>{
-    private ArrayList<SearchItem> list;
+    private ArrayList<ItemList> list;
     private static SearchActivity sa;
 
-    public static class SearchViewHolder extends RecyclerView.ViewHolder implements ContractSearchItem.View {
+    public static class SearchViewHolder extends RecyclerView.ViewHolder implements ContractItemList.View {
         private ImageView photo;
         private TextView disp;
         private TextView username;
         private Button addbutton;
         private TextView uid;
-        private SearchItem refToModel;
-        private ContractSearchItem.Presenter pres;
+        private ItemList refToModel;
+        private ContractItemList.Presenter pres;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
@@ -92,7 +91,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             }
         }
     }
-    public SearchAdapter(ArrayList<SearchItem> listOfItems, SearchActivity sa) {
+    public SearchAdapter(ArrayList<ItemList> listOfItems, SearchActivity sa) {
         list = listOfItems;
         this.sa = sa;
     }
@@ -106,7 +105,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, int position) {
-        SearchItem currentItem = list.get(position);
+        ItemList currentItem = list.get(position);
         Picasso.get().load(currentItem.getPhoto()).into(holder.photo);
         holder.disp.setText(currentItem.getDisplayName());
         holder.username.setText(currentItem.getUsername());
