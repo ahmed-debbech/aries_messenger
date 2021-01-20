@@ -1,9 +1,8 @@
 package com.ahmeddebbech.aries_messenger.views.adapter;
 
-import android.app.Application;
 import android.content.Intent;
 import android.graphics.Color;
-import android.icu.lang.UScript;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearchItem;
-import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.SearchItem;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.SearchItemPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
@@ -46,6 +43,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             disp = itemView.findViewById(R.id.displayName);
             username = itemView.findViewById(R.id.username);
             addbutton = itemView.findViewById(R.id.item_add);
+
             uid = itemView.findViewById(R.id.uid);
 
             pres = new SearchItemPresenter(this);
@@ -114,6 +112,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.username.setText(currentItem.getUsername());
         holder.uid.setText(currentItem.getUid());
         holder.refToModel = currentItem;
+        //check how the bustton should be showed base on the existance of the connection
         if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid())){
             holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
             holder.addbutton.setText(R.string.remove_button);
