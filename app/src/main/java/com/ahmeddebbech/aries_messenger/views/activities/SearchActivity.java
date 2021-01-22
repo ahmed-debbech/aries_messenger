@@ -15,11 +15,9 @@ import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
-import com.ahmeddebbech.aries_messenger.model.ItemList;
+import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.SearchPresenter;
 import com.ahmeddebbech.aries_messenger.views.adapter.SearchAdapter;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -54,7 +52,7 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
         input = findViewById(R.id.searchact_input);
         results = findViewById(R.id.results);
         no_results_msg = findViewById(R.id.no_results_msg);
-        wait = findViewById(R.id.wait_search);
+        wait = findViewById(R.id.wait);
         results.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         results.setLayoutManager(layoutManager);
@@ -93,7 +91,7 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
     }
 
     @Override
-    public void showResults(ArrayList<ItemList> listOfItems) {
+    public void showResults(ArrayList<ItemUser> listOfItems) {
         wait.setVisibility(View.INVISIBLE);
         if(listOfItems.isEmpty() == true){
             no_results_msg.setVisibility(View.VISIBLE);

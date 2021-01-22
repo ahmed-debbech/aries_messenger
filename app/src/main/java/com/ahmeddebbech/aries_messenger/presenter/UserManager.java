@@ -1,8 +1,12 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import android.util.Log;
+
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
 
 public class UserManager {
     private User userModel;
@@ -43,5 +47,17 @@ public class UserManager {
     }
     public void addContact(String uid){
         userModel.getConnections().add(uid);
+    }
+    public List<String> getPendingConnections(){
+        List<String> d = userModel.getConnections();
+        for(int i=0; i<=d.size()-1; i++){
+            if(!d.get(i).equals("-")){
+                d.remove(i);
+            }
+        }
+        for(int i=0; i<=d.size()-1; i++){
+            System.out.println("contact "+ d.get(i));
+        }
+        return d;
     }
 }

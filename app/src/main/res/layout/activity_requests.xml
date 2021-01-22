@@ -6,4 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".views.activities.RequestsActivity">
 
+    <RelativeLayout
+        android:layout_width="414dp"
+        android:layout_height="685dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/results"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/wait"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="138dp"
+            android:layout_height="118dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="135dp"
+            android:layout_marginEnd="141dp"
+            android:layout_marginBottom="328dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/no_results_msg"
+            android:layout_width="241dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/wait"
+            android:layout_alignTop="@+id/wait"
+            android:layout_alignEnd="@+id/wait"
+            android:layout_alignBottom="@+id/wait"
+            android:layout_marginStart="-46dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="-57dp"
+            android:layout_marginBottom="38dp"
+            android:text="@string/no_res_msg"
+            android:textAlignment="center"
+            android:textColor="@color/hint_messages"
+            android:textSize="30sp"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

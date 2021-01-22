@@ -74,7 +74,7 @@
         </androidx.recyclerview.widget.RecyclerView>
 
         <ProgressBar
-            android:id="@+id/wait_search"
+            android:id="@+id/wait"
             style="?android:attr/progressBarStyle"
             android:layout_width="138dp"
             android:layout_height="118dp"
@@ -90,17 +90,17 @@
             android:id="@+id/no_results_msg"
             android:layout_width="241dp"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/wait_search"
-            android:layout_alignTop="@+id/wait_search"
-            android:layout_alignEnd="@+id/wait_search"
-            android:layout_alignBottom="@+id/wait_search"
+            android:layout_alignStart="@+id/wait"
+            android:layout_alignTop="@+id/wait"
+            android:layout_alignEnd="@+id/wait"
+            android:layout_alignBottom="@+id/wait"
             android:layout_marginStart="-46dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="-57dp"
             android:layout_marginBottom="38dp"
-            android:text="No Results!"
+            android:text="@string/no_res_msg"
             android:textAlignment="center"
-            android:textColor="#B7B7B7"
+            android:textColor="@color/hint_messages"
             android:textSize="30sp"
             android:visibility="invisible" />
 

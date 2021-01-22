@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractItemList;
-import com.ahmeddebbech.aries_messenger.model.ItemList;
+import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.RequestsItemPresenter;
 import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
 import com.ahmeddebbech.aries_messenger.views.activities.RequestsActivity;
@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class RequestsAdapter  extends RecyclerView.Adapter<RequestsAdapter.RequestsViewHolder> {
-    private ArrayList<ItemList> list;
+    private ArrayList<ItemUser> list;
     private static RequestsActivity rq;
     private static RequestsAdapter rd;
 
@@ -32,7 +32,7 @@ public class RequestsAdapter  extends RecyclerView.Adapter<RequestsAdapter.Reque
         private ImageView accept;
         private ImageView refuse;
 
-        private ItemList refToModel;
+        private ItemUser refToModel;
         private ContractItemList.Presenter pres;
 
         public RequestsViewHolder(View itemView) {
@@ -86,7 +86,7 @@ public class RequestsAdapter  extends RecyclerView.Adapter<RequestsAdapter.Reque
     public final void removeItem(int pos) {
         list.remove(pos);
     }
-    public RequestsAdapter(ArrayList<ItemList> listOfItems, RequestsActivity sa) {
+    public RequestsAdapter(ArrayList<ItemUser> listOfItems, RequestsActivity sa) {
         list = listOfItems;
         this.rq = sa;
     }
@@ -100,7 +100,7 @@ public class RequestsAdapter  extends RecyclerView.Adapter<RequestsAdapter.Reque
 
     @Override
     public void onBindViewHolder(@NonNull RequestsAdapter.RequestsViewHolder holder, int position) {
-        ItemList currentItem = list.get(position);
+        ItemUser currentItem = list.get(position);
         Picasso.get().load(currentItem.getPhoto()).into(holder.photo);
         holder.disp.setText(currentItem.getDisplayName());
         holder.username.setText(currentItem.getUsername());

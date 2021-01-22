@@ -24,4 +24,7 @@
     <string name="add_button">Connect</string>
     <string name="remove_button">Disconnect</string>
     <string name="wait_label">Wait...</string>
+
+    <!--messages popups -->
+    <string name="no_res_msg">No Results!</string>
 </resources>

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractItemList;
-import com.ahmeddebbech.aries_messenger.model.ItemList;
+import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.SearchItemPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>{
-    private ArrayList<ItemList> list;
+    private ArrayList<ItemUser> list;
     private static SearchActivity sa;
 
     public static class SearchViewHolder extends RecyclerView.ViewHolder implements ContractItemList.View {
@@ -33,7 +33,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         private TextView username;
         private Button addbutton;
         private TextView uid;
-        private ItemList refToModel;
+        private ItemUser refToModel;
         private ContractItemList.Presenter pres;
 
         public SearchViewHolder(View itemView) {
@@ -91,7 +91,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             }
         }
     }
-    public SearchAdapter(ArrayList<ItemList> listOfItems, SearchActivity sa) {
+    public SearchAdapter(ArrayList<ItemUser> listOfItems, SearchActivity sa) {
         list = listOfItems;
         this.sa = sa;
     }
@@ -105,7 +105,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, int position) {
-        ItemList currentItem = list.get(position);
+        ItemUser currentItem = list.get(position);
         Picasso.get().load(currentItem.getPhoto()).into(holder.photo);
         holder.disp.setText(currentItem.getDisplayName());
         holder.username.setText(currentItem.getUsername());

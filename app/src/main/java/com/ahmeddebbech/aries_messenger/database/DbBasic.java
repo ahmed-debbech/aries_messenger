@@ -4,9 +4,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.ahmeddebbech.aries_messenger.model.ItemList;
+import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,13 +53,13 @@ public class DbBasic {
         DatabaseReference ref = database.getReference("/Users/"+user.getUid());
         ref.setValue(user);
     }
-    public static void searchAllUsersFromName(final String name, final Presenter pres){
+    public static void searchAllUsersByName(final String name, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<ItemList> list = new ArrayList<>();
+                ArrayList<ItemUser> list = new ArrayList<>();
                 for(DataSnapshot ds : snapshot.getChildren()){
                     String user;
                     if(name.charAt(0) != '@') {
@@ -69,7 +70,7 @@ public class DbBasic {
                     String disp = ds.getValue(User.class).getDisplayName();
                     if(user.toLowerCase().startsWith(name) || disp.toLowerCase().startsWith(name)){
                         System.out.println("user "+ ds.getValue(User.class).getDisplayName());
-                        list.add(new ItemList(ds.getValue(User.class)));
+                        list.add(new ItemUser(ds.getValue(User.class)));
                     }
                 }
                 pres.returnData(list);
@@ -80,6 +81,28 @@ public class DbBasic {
 
             }
         });
+    }
+    public static void convertUidsToUsers(List<String> uids, final Presenter pres){
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        final List<ItemUser> users = new ArrayList<>();
+
+        for(int i=0; i<=uids.size()-1; i++) {
+            DatabaseReference ref = db.getReference("/Users/" + uids.get(i));
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        users.add(new ItemUser(snapshot.getValue(User.class)));
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.d("Can't read", "ERROR!");
+                }
+            });
+        }
+        pres.returnData(users);
+
     }
     public static void addContact(String uidUser, String addedUid, Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();

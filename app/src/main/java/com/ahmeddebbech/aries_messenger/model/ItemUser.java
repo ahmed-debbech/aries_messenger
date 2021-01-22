@@ -2,19 +2,19 @@ package com.ahmeddebbech.aries_messenger.model;
 
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 
-public class ItemList {
+public class ItemUser {
     private String photo;
     private String displayName;
     private String username;
     private String uid;
 
-    public ItemList(String photo, String displayName, String username, String uid){
+    public ItemUser(String photo, String displayName, String username, String uid){
         this.displayName = displayName;
         this.username = username;
         this.photo = photo;
         this.uid = uid;
     }
-    public ItemList(User user){
+    public ItemUser(User user){
         this.username = user.getUsername();
         this.displayName = user.getDisplayName();
         this.photo = user.getPhotoURL();
