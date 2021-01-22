@@ -40,7 +40,7 @@ public class RequestsAdapter  extends RecyclerView.Adapter<RequestsAdapter.Reque
             photo = itemView.findViewById(R.id.photo);
             disp = itemView.findViewById(R.id.displayName);
             username = itemView.findViewById(R.id.username);
-            accept = itemView.findViewById(R.id.add);
+            accept = itemView.findViewById(R.id.accept);
             refuse = itemView.findViewById(R.id.refuse);
 
             pres = new RequestsItemPresenter(this);
@@ -93,7 +93,7 @@ public class RequestsAdapter  extends RecyclerView.Adapter<RequestsAdapter.Reque
     @NonNull
     @Override
     public RequestsAdapter.RequestsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_request, parent, false);
         RequestsAdapter.RequestsViewHolder svh = new RequestsAdapter.RequestsViewHolder(v);
         return svh;
     }

@@ -9,6 +9,6 @@ public interface ContractRequests {
         void showResults(ArrayList<ItemUser> listOfItems);
     }
     interface Presenter{
-       void seekForPendingRequest(String text);
+       void seekForPendingRequest();
     }
 }

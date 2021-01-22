@@ -4,6 +4,7 @@ import com.ahmeddebbech.aries_messenger.contracts.ContractItemList;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 
 import java.util.List;
+import java.util.Map;
 
 public class RequestsItemPresenter extends Presenter implements ContractItemList.Presenter {
 
@@ -15,7 +16,7 @@ public class RequestsItemPresenter extends Presenter implements ContractItemList
     @Override
     public void returnData(Object obj) {
         if (obj instanceof List) {
-            List<String> connections = (List) obj;
+            Map<String, String> connections = (Map) obj;
             UserManager.getInstance().getUserModel().setConnections(connections);
         } else {
             if (obj instanceof Boolean) {

@@ -6,7 +6,9 @@ import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UserManager {
     private User userModel;
@@ -40,24 +42,25 @@ public class UserManager {
         if(userModel.getConnections() == null){
             return false;
         }
-        return userModel.getConnections().contains(uid);
+        return userModel.getConnections().containsKey(uid);
     }
     public void removeContact(String uid){
         userModel.getConnections().remove(uid);
     }
     public void addContact(String uid){
-        userModel.getConnections().add(uid);
+        userModel.getConnections().put(uid, "pending");
     }
     public List<String> getPendingConnections(){
-        List<String> d = userModel.getConnections();
-        for(int i=0; i<=d.size()-1; i++){
-            if(!d.get(i).equals("-")){
-                d.remove(i);
+        Map<String, String> d = userModel.getConnections();
+        List<String> l = new ArrayList<>();
+        for(Map.Entry<String, String> entry : d.entrySet()){
+            if(entry.getValue().equals("pending")){
+                l.add(entry.getKey());
             }
         }
-        for(int i=0; i<=d.size()-1; i++){
-            System.out.println("contact "+ d.get(i));
+        for(int i=0; i<=l.size()-1; i++){
+            Log.d("the pending: ", l.get(i));
         }
-        return d;
+        return l;
     }
 }

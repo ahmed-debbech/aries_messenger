@@ -1,7 +1,9 @@
 package com.ahmeddebbech.aries_messenger.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //This is a singleton class
 
@@ -13,7 +15,7 @@ public class User {
     private String photoURL;
     private String bio;
 
-    private List<String> connections;
+    private Map<String, String> connections;
 
     public User(){
 
@@ -25,7 +27,7 @@ public class User {
         this.email = email;
         this.photoURL= photoURL;
         this.bio = bio;
-        this.connections = new ArrayList<>();
+        this.connections = new HashMap<>();
     }
 
     public String getEmail(){
@@ -76,11 +78,11 @@ public class User {
         this.bio = bio;
     }
 
-    public List<String> getConnections() {
+    public Map<String, String> getConnections() {
         return connections;
     }
 
-    public void setConnections(List<String> connections) {
+    public void setConnections(Map<String, String> connections) {
         this.connections = connections;
     }
 }

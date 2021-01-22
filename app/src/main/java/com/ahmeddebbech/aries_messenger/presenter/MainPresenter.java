@@ -1,11 +1,14 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import android.util.Log;
+
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 public class MainPresenter extends Presenter implements ContractMain.Presenter {
 
@@ -31,8 +34,8 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
             UserManager.getInstance().updateWithCopy(u);
             act.setupUi();
         }else{
-            if(o instanceof List){
-                List<String> l = (List<String>)o;
+            if(o instanceof Map){
+                Map<String, String> l = (Map<String, String>)o;
                 UserManager.getInstance().getUserModel().setConnections(l);
             }
         }

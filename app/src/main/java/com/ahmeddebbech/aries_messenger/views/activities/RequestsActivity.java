@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -51,7 +52,8 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
         layoutManager = new LinearLayoutManager(this);
         results.setLayoutManager(layoutManager);
 
-        pres.seekForPendingRequest(UserManager.getInstance().getUserModel().getUid());
+        wait.setVisibility(View.VISIBLE);
+        pres.seekForPendingRequest();
 
     }
     @Override

@@ -15,7 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DbBasic {
     DbBasic(){
@@ -82,32 +84,34 @@ public class DbBasic {
             }
         });
     }
-    public static void convertUidsToUsers(List<String> uids, final Presenter pres){
+    public static void convertUidsToUsers(final List<String> uids, final Presenter pres){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final List<ItemUser> users = new ArrayList<>();
 
-        for(int i=0; i<=uids.size()-1; i++) {
-            DatabaseReference ref = db.getReference("/Users/" + uids.get(i));
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        users.add(new ItemUser(snapshot.getValue(User.class)));
+        DatabaseReference ref = db.getReference("/Users");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(String uid : uids) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        if (uid.equals(ds.getValue(User.class).getUid())) {
+                            users.add(new ItemUser(ds.getValue(User.class)));
+                        }
                     }
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.d("Can't read", "ERROR!");
-                }
-            });
-        }
-        pres.returnData(users);
-
+                Log.d("usersd", users.toString());
+                pres.returnData(users);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Can't read", "ERROR!");
+            }
+        });
     }
     public static void addContact(String uidUser, String addedUid, Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users_connections/"+ uidUser+ "/"+addedUid);
-        ref.setValue(addedUid);
+        ref.setValue("pending");
         Boolean b= true;
         pres.returnData(b);
     }
@@ -118,10 +122,9 @@ public class DbBasic {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    List<String> connections = new ArrayList<>();
+                    Map<String, String> connections = new HashMap<>();
                     for(DataSnapshot ds : snapshot.getChildren()){
-                        connections.add(ds.getValue(String.class));
-                        Log.d("value",ds.getValue(String.class));
+                        connections.put(ds.getKey(), ds.getValue(String.class));
                     }
                     if(connections.size() == 0){
                         connections = null;
