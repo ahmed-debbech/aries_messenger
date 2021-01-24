@@ -4,9 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout2"
-    android:layout_width="411dp"
-    android:layout_height="731dp"
-    android:layout_marginTop="47dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/connections_label"
@@ -24,15 +23,20 @@
         android:id="@+id/scrollview1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connections_label">
+        app:layout_constraintTop_toTopOf="parent">
 
         <GridView
             android:id="@+id/connections_grid"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+        </GridView>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
