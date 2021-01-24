@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
 import com.ahmeddebbech.aries_messenger.presenter.ContactProfilePresenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
+import com.ahmeddebbech.aries_messenger.views.adapter.SearchAdapter;
 import com.squareup.picasso.Picasso;
 
 import android.annotation.SuppressLint;
@@ -26,14 +28,14 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
     private TextView bio;
     private Button add;
 
-    private ContactProfilePresenter presenter;
+    private ContactProfilePresenter pres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_profile);
 
-        presenter = new ContactProfilePresenter(this);
+        pres = new ContactProfilePresenter(this);
 
         Intent in = getIntent();
         this.username = in.getStringExtra("username");
@@ -49,8 +51,14 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
         connections = findViewById(R.id.conta_prof_numconn);
         bio = findViewById(R.id.conta_prof_bio);
         add = findViewById(R.id.conta_prof_add);
-
-        presenter.fillUiWithData(uid);
+        if(UserManager.getInstance().searchForConnection(uid)){
+            add.setBackgroundColor(this.getResources().getColor(R.color.disabled_button));
+            add.setText(R.string.remove_button);
+        }else{
+            add.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
+            add.setText(R.string.add_button);
+        }
+        pres.fillUiWithData(uid);
     }
     public void addClicks(){
         add.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +66,11 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
             public void onClick(View v) {
                 add.setText(R.string.wait_label);
                 add.setBackgroundColor(Color.WHITE);
-                presenter.addToContact(uid);
+                if(UserManager.getInstance().searchForConnection(uid)) {
+                    pres.removeFromContact(uid);
+                }else{
+                    pres.addToContact(uid);
+                }
             }
         });
     }
@@ -70,8 +82,13 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
     }
 
     @Override
-    public void showAddedAck() {
-        add.setBackgroundColor(getResources().getColor(R.color.disabled_button));
-        add.setText(R.string.remove_button);
+    public void updateUi() {
+        if(UserManager.getInstance().searchForConnection(uid)) {
+            add.setBackgroundColor(this.getResources().getColor(R.color.disabled_button));
+            add.setText(R.string.remove_button);
+        }else{
+            add.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
+            add.setText(R.string.add_button);
+        }
     }
 }

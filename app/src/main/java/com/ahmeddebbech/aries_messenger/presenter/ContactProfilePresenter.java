@@ -29,13 +29,20 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
             if(o instanceof Boolean){
                 Boolean b = (Boolean)o;
                 if(b == true){
-                    act.showAddedAck();
+                    act.updateUi();
                 }
             }
         }
     }
     @Override
     public void addToContact(String uid){
+        UserManager.getInstance().addContact(uid);
         DbConnector.connectToAddNewContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
+    }
+
+    @Override
+    public void removeFromContact(String uid) {
+        UserManager.getInstance().removeContact(uid);
+        DbConnector.connectToRemoveContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
     }
 }
