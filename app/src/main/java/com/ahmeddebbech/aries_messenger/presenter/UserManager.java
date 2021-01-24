@@ -38,11 +38,22 @@ public class UserManager {
     public User getUserModel(){
         return userModel;
     }
+
+    /**
+     * Checks for a connection in the user model by its UID
+     * @param uid the UID of the connection to search for
+     * @return the connection if found (the connection returned is in "connected" status not "pending" or "waiting"
+     */
     public boolean searchForConnection(String uid){
         if(userModel.getConnections() == null){
             return false;
         }
-        return userModel.getConnections().containsKey(uid);
+        if(userModel.getConnections().containsKey(uid)){
+            if(userModel.getConnections().get(uid) == "connected"){
+                return true;
+            }
+        }
+        return false;
     }
     public void removeContact(String uid){
         userModel.getConnections().remove(uid);
@@ -62,5 +73,11 @@ public class UserManager {
             Log.d("the pending: ", l.get(i));
         }
         return l;
+    }
+
+    public void setConnectionStatusToConnected(String uid){
+        if(userModel.getConnections().containsKey(uid)){
+            userModel.getConnections().put(uid, "connected");
+        }
     }
 }

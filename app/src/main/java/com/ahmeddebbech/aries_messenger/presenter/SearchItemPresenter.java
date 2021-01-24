@@ -37,6 +37,11 @@ public class SearchItemPresenter extends Presenter implements ContractItemList.P
     }
 
     @Override
+    public void acceptContact(String uid) {
+
+    }
+
+    @Override
     public void updateConnectionsList(String uid) {
         DbConnector.connectToGetConnections(uid, this);
     }

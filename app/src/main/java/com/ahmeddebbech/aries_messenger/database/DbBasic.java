@@ -37,11 +37,10 @@ public class DbBasic {
                     if(dataSnapshot.exists()){
                         User u = dataSnapshot.getValue(User.class);
                         System.out.println(u.getDisplayName());
-                        Log.d("MISSIeeeeNG USER", "MS");
                         pres.returnData(u);
                         DbBasic.getConnections(uid, pres);
                     }else {
-                        Log.d("MISSING USER", "MS");
+                        Log.d("ERROR", "Missing User");
                     }
             }
             @Override
@@ -111,7 +110,18 @@ public class DbBasic {
     public static void addContact(String uidUser, String addedUid, Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users_connections/"+ uidUser+ "/"+addedUid);
+        ref.setValue("waiting");
+        ref = database.getReference("/Users_connections/"+ addedUid+ "/"+uidUser);
         ref.setValue("pending");
+        Boolean b= true;
+        pres.returnData(b);
+    }
+    public static void acceptContact(String uidUser, String addedUid, Presenter pres){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users_connections/"+ uidUser+ "/"+addedUid);
+        ref.setValue("connected");
+        ref = database.getReference("/Users_connections/"+ addedUid+ "/"+uidUser);
+        ref.setValue("connected");
         Boolean b= true;
         pres.returnData(b);
     }
@@ -143,6 +153,8 @@ public class DbBasic {
         System.out.println(delUid);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/" + delUid);
+        ref.removeValue();
+        ref = database.getReference("/Users_connections/"+delUid+"/" + uid);
         ref.removeValue();
         Boolean b = true;
         pres.returnData(b);

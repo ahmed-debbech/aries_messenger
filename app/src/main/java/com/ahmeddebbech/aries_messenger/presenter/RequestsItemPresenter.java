@@ -37,6 +37,12 @@ public class RequestsItemPresenter extends Presenter implements ContractItemList
     }
 
     @Override
+    public void acceptContact(String uid) {
+        UserManager.getInstance().setConnectionStatusToConnected(uid);
+        DbConnector.connectToAcceptContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
+    }
+
+    @Override
     public void updateConnectionsList(String uid) {
         DbConnector.connectToGetConnections(uid, this);
     }

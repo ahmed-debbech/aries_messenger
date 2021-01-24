@@ -31,4 +31,7 @@ public class DbConnector {
     public static void connectToConvertUidsToUsers(List<String> uids, Presenter pres){
         DbBasic.convertUidsToUsers(uids ,pres);
     }
+    public static void connectToAcceptContact(String uidUser, String addedUid, Presenter pres){
+        DbBasic.acceptContact( uidUser,  addedUid,  pres);
+    }
 }

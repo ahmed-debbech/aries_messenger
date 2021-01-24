@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class RequestsAdapter  extends RecyclerView.Adapter<RequestsAdapter.RequestsViewHolder> {
     private ArrayList<ItemUser> list;
     private static RequestsActivity rq;
-    private static RequestsAdapter rd;
 
     public static class RequestsViewHolder extends RecyclerView.ViewHolder implements ContractItemList.View {
         private ImageView photo;
@@ -68,19 +67,19 @@ public class RequestsAdapter  extends RecyclerView.Adapter<RequestsAdapter.Reque
             accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO
+                    pres.acceptContact(refToModel.getUid());
                 }
             });
             refuse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO
+                    pres.removeFromContact(refToModel.getUid());
                 }
             });
         }
         @Override
         public void updateUi() {
-            rd.removeItem(getAdapterPosition());
+            getAdapterPosition();
         }
     }
     public final void removeItem(int pos) {

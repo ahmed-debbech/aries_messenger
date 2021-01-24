@@ -1,0 +1,5 @@
+* fix the contact profile interface by adding (Accept/refuse) button when requested else
+we add simple connection button
+
+* add a reference to adapter requests to each view holder to make it able to get removed from
+the recycler view
