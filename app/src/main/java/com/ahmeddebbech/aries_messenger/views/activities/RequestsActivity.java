@@ -18,6 +18,7 @@ import com.ahmeddebbech.aries_messenger.contracts.ContractRequests;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.RequestsPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
+import com.ahmeddebbech.aries_messenger.util.ItemSpacing;
 import com.ahmeddebbech.aries_messenger.views.adapter.RequestsAdapter;
 
 import java.util.ArrayList;
@@ -74,6 +75,8 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
             results.setAdapter(null);
         }else {
             no_results_msg.setVisibility(View.INVISIBLE);
+            ItemSpacing itemDec = new ItemSpacing(15);
+            results.addItemDecoration(itemDec);
             adapter = new RequestsAdapter(listOfItems, this);
             results.setAdapter(adapter);
         }

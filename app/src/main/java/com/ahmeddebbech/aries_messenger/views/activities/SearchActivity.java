@@ -2,6 +2,7 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.SearchPresenter;
+import com.ahmeddebbech.aries_messenger.util.ItemSpacing;
 import com.ahmeddebbech.aries_messenger.views.adapter.SearchAdapter;
 
 import java.util.ArrayList;
@@ -98,8 +100,10 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
             results.setAdapter(null);
         }else {
             no_results_msg.setVisibility(View.INVISIBLE);
+            ItemSpacing itemDec = new ItemSpacing(15);
             adapter = new SearchAdapter(listOfItems, this);
             results.setAdapter(adapter);
+            results.addItemDecoration(itemDec);
         }
     }
     @Override
