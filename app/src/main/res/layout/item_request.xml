@@ -4,71 +4,73 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="408dp"
+        android:layout_width="419dp"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/photo"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="4dp"
-            android:padding="2dp" />
-
-        <TextView
-            android:id="@+id/displayName"
-            android:layout_width="251dp"
-            android:layout_height="39dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="9dp"
-            android:layout_marginTop="0dp"
-            android:layout_toEndOf="@+id/photo"
-            android:text="Line 1"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="179dp"
-            android:layout_height="32dp"
-            android:layout_below="@+id/displayName"
-            android:layout_alignStart="@+id/displayName"
-            android:layout_alignEnd="@+id/displayName"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="-1dp"
-            android:layout_marginEnd="-2dp"
-            android:text="Line 2"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/uid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="417dp"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/username"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="-7dp"
-            android:layout_toEndOf="@+id/displayName"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/uid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
 
             <ImageView
-                android:id="@+id/accept"
-                android:layout_width="66dp"
-                android:layout_height="45dp"
-                app:srcCompat="@drawable/ic_baseline_accessibility_new_24" />
+                android:id="@+id/photo"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="0dp"
+                android:padding="2dp" />
 
-            <ImageView
-                android:id="@+id/refuse"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                app:srcCompat="@drawable/ic_baseline_cancel_24" />
+            <LinearLayout
+                android:layout_width="262dp"
+                android:layout_height="77dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/displayName"
+                    android:layout_width="match_parent"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Line 1"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="262dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="-1dp"
+                    android:layout_marginEnd="-2dp"
+                    android:text="Line 2"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/accept"
+                    android:layout_width="64dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_baseline_accessibility_new_24" />
+
+                <ImageView
+                    android:id="@+id/refuse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    app:srcCompat="@drawable/ic_baseline_cancel_24" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </RelativeLayout>
