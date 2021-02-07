@@ -22,7 +22,7 @@ tools:context=".views.activities.EditBioActivity">
             android:textSize="18dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.142"
+            app:layout_constraintHorizontal_bias="0.087"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@ tools:context=".views.activities.EditBioActivity">
             android:ems="10"
             android:inputType="textLongMessage|textMultiLine|textPersonName"
             app:layout_constraintEnd_toEndOf="@+id/edit_bioLabel"
-            app:layout_constraintHorizontal_bias="0.042"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/edit_bioLabel"
             app:layout_constraintTop_toBottomOf="@+id/edit_bioLabel" />
 

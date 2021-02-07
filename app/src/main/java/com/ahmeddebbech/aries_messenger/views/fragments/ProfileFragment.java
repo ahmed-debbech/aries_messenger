@@ -2,6 +2,7 @@ package com.ahmeddebbech.aries_messenger.views.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.ahmeddebbech.aries_messenger.contracts.ContractProfileF;
 import com.ahmeddebbech.aries_messenger.presenter.ProfilePresenter;
 import com.ahmeddebbech.aries_messenger.views.activities.EditBioActivity;
 import com.ahmeddebbech.aries_messenger.views.activities.EditDispNameActivity;
+import com.firebase.ui.auth.data.model.Resource;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment implements ContractProfileF.View {
@@ -28,6 +30,7 @@ public class ProfileFragment extends Fragment implements ContractProfileF.View {
     TextView usr;
     TextView bio;
     ImageView photo;
+    TextView num_con;
 
     @Nullable
     @Override
@@ -49,6 +52,7 @@ public class ProfileFragment extends Fragment implements ContractProfileF.View {
         usr = getView().findViewById(R.id.profile_username);
         photo = getView().findViewById(R.id.profile_photo);
         bio = getView().findViewById(R.id.profile_bio);
+        num_con = getView().findViewById(R.id.profile_numconnect);
         presenter.getData();
     }
     public void addListeners(){
@@ -71,10 +75,12 @@ public class ProfileFragment extends Fragment implements ContractProfileF.View {
         });
     }
     @Override
-    public void setTextsForViews(String disp, String usr, String bio, String photo){
+    public void setTextsForViews(String disp, String usr, String bio, String photo, int number){
         Picasso.get().load(photo).resize(512,512).into(this.photo);
         this.disp.setText(disp);
         this.usr.setText(usr);
         this.bio.setText(bio);
+        String o = getResources().getString(R.string.connection_number, String.valueOf(number));
+        this.num_con.setText(o);
     }
 }

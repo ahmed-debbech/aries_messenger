@@ -12,7 +12,8 @@ public class ProfilePresenter extends Presenter implements ContractProfileF.Pres
     @Override
     public void getData() {
         User u = UserManager.getInstance().getUserModel();
-        act.setTextsForViews(u.getDisplayName(),u.getUsername(),u.getBio(),u.getPhotoURL());
+        int num = u.getConnections().size();
+        act.setTextsForViews(u.getDisplayName(),u.getUsername(),u.getBio(),u.getPhotoURL(), num);
     }
 
     @Override
