@@ -17,12 +17,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activities.EditBioActivity"
-            android:label="@string/title_activity_edit_bio"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_edit_bio"/>
         <activity
             android:name=".views.activities.EditDispNameActivity"
-            android:label="@string/title_activity_edit_disp_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_edit_disp_name" />
         <activity
             android:name=".views.activities.RegisterActivity"
             android:label="Register for Aries"

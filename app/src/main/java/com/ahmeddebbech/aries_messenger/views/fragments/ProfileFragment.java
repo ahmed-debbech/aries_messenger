@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment implements ContractProfileF.View {
     }
     @Override
     public void setTextsForViews(String disp, String usr, String bio, String photo){
-        Picasso.get().load(photo).into(this.photo);
+        Picasso.get().load(photo).resize(512,512).into(this.photo);
         this.disp.setText(disp);
         this.usr.setText(usr);
         this.bio.setText(bio);

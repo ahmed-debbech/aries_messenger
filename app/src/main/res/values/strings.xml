@@ -14,6 +14,14 @@
     <string name="menu_connections">Your Connections</string>
     <string name="menu_logout">Log Out</string>
 
+    <!-- Edit bio activity-->
+    <string name="edit_bio_hint">Write a good bio for yourself</string>
+    <string name="edit_bio_but_change">Change</string>
+
+    <!--Edit displayname activity -->
+    <string name="edit_disp_hint">What \'s your new display name?</string>
+    <string name="edit_disp_hint2">Your contacts will see you primary with this name.</string>
+
     <string name="title_activity_login">LoginActivity</string>
 
     <!-- activity titles -->
@@ -24,6 +32,8 @@
     <string name="add_button">Connect</string>
     <string name="remove_button">Disconnect</string>
     <string name="wait_label">Wait...</string>
+    <string name="but_edit_disp_name">Edit Display Name</string>
+    <string name="but_edit_bio">Edit Bio</string>
 
     <!--messages popups -->
     <string name="no_res_msg">No Results!</string>

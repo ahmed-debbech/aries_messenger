@@ -4,27 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollview1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="47dp">
+    android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="411dp"
-            android:layout_height="731dp">
+            android:id="@+id/constraintLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/profile_photo"
-                android:layout_width="185dp"
-                android:layout_height="165dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/sidePhotoHolder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="50dp"
                 android:layout_marginTop="52dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
-
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/profile_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </androidx.cardview.widget.CardView>
             <TextView
                 android:id="@+id/profile_disp_name"
                 android:layout_width="376dp"
@@ -35,10 +40,11 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="36sp"
-                app:layout_constraintEnd_toEndOf="@+id/profile_photo"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/sidePhotoHolder"
                 app:layout_constraintHorizontal_bias="0.502"
-                app:layout_constraintStart_toStartOf="@+id/profile_photo"
-                app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
+                app:layout_constraintStart_toStartOf="@+id/sidePhotoHolder"
+                app:layout_constraintTop_toBottomOf="@+id/sidePhotoHolder" />
 
             <TextView
                 android:id="@+id/profile_username"
@@ -85,8 +91,10 @@
                 android:layout_width="374dp"
                 android:layout_height="47dp"
                 android:layout_marginTop="28dp"
+                android:background="@drawable/rounded_corners"
                 android:fontFamily="sans-serif"
-                android:text="Edit Display Name"
+                android:text="@string/but_edit_disp_name"
+                android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="@+id/profile_bio"
                 app:layout_constraintHorizontal_bias="0.483"
                 app:layout_constraintStart_toStartOf="@+id/profile_bio"
@@ -97,12 +105,15 @@
                 android:layout_width="374dp"
                 android:layout_height="47dp"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_corners"
                 android:fontFamily="sans-serif"
-                android:text="Edit Bio"
+                android:text="@string/but_edit_bio"
+                android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="@+id/profile_editDispName"
                 app:layout_constraintStart_toStartOf="@+id/profile_editDispName"
                 app:layout_constraintTop_toBottomOf="@+id/profile_editDispName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </ScrollView>
