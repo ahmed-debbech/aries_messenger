@@ -2,6 +2,8 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -161,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     public void renderViewsWithData(String disp, String usern, String image) {
         displayName_nav.setText(disp);
         username_nav.setText(usern);
-        Picasso.get().load(image).into(photo_nav);
+        Picasso.get().load(image).resize(200,200).into(photo_nav);
     }
 
 }
