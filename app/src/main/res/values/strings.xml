@@ -1,6 +1,6 @@
 <resources>
     <!--general default values -->
-    <string name="app_name">Aries Messenger</string>
+    <string name="app_name">Aries</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">NotSet</string>
