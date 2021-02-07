@@ -69,12 +69,18 @@ public class UserManager {
                 l.add(entry.getKey());
             }
         }
-        for(int i=0; i<=l.size()-1; i++){
-            Log.d("the pending: ", l.get(i));
-        }
         return l;
     }
-
+    public int getConnectionsNumber(){
+        Map<String, String> d = userModel.getConnections();
+        List<String> l = new ArrayList<>();
+        for(Map.Entry<String, String> entry : d.entrySet()){
+            if(entry.getValue().equals("connected")){
+                l.add(entry.getKey());
+            }
+        }
+        return l.size();
+    }
     public void setConnectionStatusToConnected(String uid){
         if(userModel.getConnections().containsKey(uid)){
             userModel.getConnections().put(uid, "connected");
