@@ -36,6 +36,8 @@
     <!--button texts -->
     <string name="add_button">Connect</string>
     <string name="remove_button">Disconnect</string>
+    <string name="waiting_button">Waiting</string>
+    <string name="pending_button">Pending</string>
     <string name="wait_label">Wait...</string>
     <string name="but_edit_disp_name">Edit Display Name</string>
     <string name="but_edit_bio">Edit Bio</string>

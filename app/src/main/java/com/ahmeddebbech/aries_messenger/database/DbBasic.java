@@ -141,6 +141,7 @@ public class DbBasic {
                     }
                     pres.returnData(connections);
                 }
+                pres.returnData(null);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

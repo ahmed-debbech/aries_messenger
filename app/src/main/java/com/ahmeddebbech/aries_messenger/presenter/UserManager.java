@@ -7,10 +7,15 @@ import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class UserManager {
+    public static final int CONNECTED = 0;
+    public static final int PENDING = 1;
+    public static final int WAITING = 2;
+
     private User userModel;
     private static UserManager umInstance;
 
@@ -42,14 +47,21 @@ public class UserManager {
     /**
      * Checks for a connection in the user model by its UID
      * @param uid the UID of the connection to search for
+     * @param status : the status of the connection to look for ["connected", "pending", "waiting"]
      * @return the connection if found (the connection returned is in "connected" status not "pending" or "waiting"
      */
-    public boolean searchForConnection(String uid){
+    public boolean searchForConnection(String uid, int status){
         if(userModel.getConnections() == null){
             return false;
         }
         if(userModel.getConnections().containsKey(uid)){
-            if(userModel.getConnections().get(uid) == "connected"){
+            String stat = "";
+            switch(status){
+                case 0: stat = "connected"; break;
+                case 1: stat = "pending"; break;
+                case 2: stat = "waiting"; break;
+            }
+            if(userModel.getConnections().get(uid) == stat){
                 return true;
             }
         }
@@ -59,6 +71,9 @@ public class UserManager {
         userModel.getConnections().remove(uid);
     }
     public void addContact(String uid){
+        if(userModel.getConnections() == null){
+            userModel.setConnections(new HashMap<String, String>());
+        }
         userModel.getConnections().put(uid, "pending");
     }
     public List<String> getPendingConnections(){
@@ -74,10 +89,14 @@ public class UserManager {
     public int getConnectionsNumber(){
         Map<String, String> d = userModel.getConnections();
         List<String> l = new ArrayList<>();
-        for(Map.Entry<String, String> entry : d.entrySet()){
-            if(entry.getValue().equals("connected")){
-                l.add(entry.getKey());
+        if(l.size() != 0){
+            for (Map.Entry<String, String> entry : d.entrySet()) {
+                if (entry.getValue().equals("connected")) {
+                    l.add(entry.getKey());
+                }
             }
+        }else{
+            return 0;
         }
         return l.size();
     }

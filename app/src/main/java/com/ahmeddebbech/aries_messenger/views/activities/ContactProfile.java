@@ -3,6 +3,7 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
+import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ContactProfilePresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.adapter.SearchAdapter;
@@ -51,7 +52,7 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
         connections = findViewById(R.id.conta_prof_numconn);
         bio = findViewById(R.id.conta_prof_bio);
         add = findViewById(R.id.conta_prof_add);
-        if(UserManager.getInstance().searchForConnection(uid)){
+        if(UserManager.getInstance().searchForConnection(uid, UserManager.CONNECTED)){
             add.setBackgroundColor(this.getResources().getColor(R.color.disabled_button));
             add.setText(R.string.remove_button);
         }else{
@@ -66,7 +67,7 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
             public void onClick(View v) {
                 add.setText(R.string.wait_label);
                 add.setBackgroundColor(Color.WHITE);
-                if(UserManager.getInstance().searchForConnection(uid)) {
+                if(UserManager.getInstance().searchForConnection(uid, UserManager.CONNECTED)) {
                     pres.removeFromContact(uid);
                 }else{
                     pres.addToContact(uid);
@@ -83,7 +84,7 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
 
     @Override
     public void updateUi() {
-        if(UserManager.getInstance().searchForConnection(uid)) {
+        if(UserManager.getInstance().searchForConnection(uid, UserManager.CONNECTED)) {
             add.setBackgroundColor(this.getResources().getColor(R.color.disabled_button));
             add.setText(R.string.remove_button);
         }else{

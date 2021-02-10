@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractItemList;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
+import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.SearchItemPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
@@ -72,22 +73,40 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 public void onClick(View v) {
                     addbutton.setText(R.string.wait_label);
                     addbutton.setBackgroundColor(Color.WHITE);
-                    if(UserManager.getInstance().searchForConnection(refToModel.getUid())) {
+                    if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.CONNECTED)){
                         pres.removeFromContact(uid.getText().toString());
                     }else{
-                        pres.addToContact(uid.getText().toString());
+                        if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.PENDING)){
+                            pres.removeFromContact(uid.getText().toString());
+                        }else{
+                            if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.WAITING)){
+                                pres.removeFromContact(uid.getText().toString());
+                            }else{
+                                pres.addToContact(uid.getText().toString());
+                            }
+                        }
                     }
                 }
             });
         }
         @Override
         public void updateUi() {
-            if(UserManager.getInstance().searchForConnection(refToModel.getUid())) {
+            if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.CONNECTED)) {
                 addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
                 addbutton.setText(R.string.remove_button);
-            }else{
-                addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                addbutton.setText(R.string.add_button);
+            }else {
+                if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.PENDING)){
+                    addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                    addbutton.setText(R.string.pending_button);
+                }else{
+                    if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.WAITING)){
+                        addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
+                        addbutton.setText(R.string.waiting_button);
+                    }else{
+                        addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                        addbutton.setText(R.string.add_button);
+                    }
+                }
             }
         }
     }
@@ -111,13 +130,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.username.setText(currentItem.getUsername());
         holder.uid.setText(currentItem.getUid());
         holder.refToModel = currentItem;
-        //check how the bustton should be showed base on the existance of the connection
-        if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid())){
+        //check how the button should be showed base on the existance of the connection
+        if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.CONNECTED)){
             holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
             holder.addbutton.setText(R.string.remove_button);
         }else{
-            holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
-            holder.addbutton.setText(R.string.add_button);
+            if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.PENDING)){
+                holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                holder.addbutton.setText(R.string.pending_button);
+            }else {
+                if (UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.WAITING)) {
+                    holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
+                    holder.addbutton.setText(R.string.waiting_button);
+                } else {
+                    holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                    holder.addbutton.setText(R.string.add_button);
+                }
+            }
         }
     }
 
