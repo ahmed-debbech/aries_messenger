@@ -107,7 +107,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             }else {
                 if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.PENDING)){
                     addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                    addbutton.setText(R.string.add_button);
+                    addbutton.setText(R.string.accept_button);
                     refusebutton.setVisibility(View.VISIBLE);
                 }else{
                     if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.WAITING)){
@@ -149,7 +149,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }else{
             if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.PENDING)){
                 holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                holder.addbutton.setText(R.string.add_button);
+                holder.addbutton.setText(R.string.accept_button);
                 holder.refusebutton.setVisibility(View.VISIBLE);
             }else {
                 if (UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.WAITING)) {
