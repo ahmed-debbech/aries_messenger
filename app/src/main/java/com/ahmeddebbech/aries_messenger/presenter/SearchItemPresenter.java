@@ -38,7 +38,8 @@ public class SearchItemPresenter extends Presenter implements ContractItemList.P
 
     @Override
     public void acceptContact(String uid) {
-
+        UserManager.getInstance().setConnectionStatusToConnected(uid);
+        DbConnector.connectToAcceptContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
     }
 
     @Override

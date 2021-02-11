@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 public class UserManager {
-    public static final int CONNECTED = 0;
-    public static final int PENDING = 1;
-    public static final int WAITING = 2;
+    public static final String CONNECTED = "connected";
+    public static final String PENDING = "pending";
+    public static final String WAITING = "waiting";
 
     private User userModel;
     private static UserManager umInstance;
@@ -50,18 +50,12 @@ public class UserManager {
      * @param status : the status of the connection to look for ["connected", "pending", "waiting"]
      * @return the connection if found (the connection returned is in "connected" status not "pending" or "waiting"
      */
-    public boolean searchForConnection(String uid, int status){
+    public boolean searchForConnection(String uid, String status){
         if(userModel.getConnections() == null){
             return false;
         }
         if(userModel.getConnections().containsKey(uid)){
-            String stat = "";
-            switch(status){
-                case 0: stat = "connected"; break;
-                case 1: stat = "pending"; break;
-                case 2: stat = "waiting"; break;
-            }
-            if(userModel.getConnections().get(uid) == stat){
+            if(userModel.getConnections().get(uid).equals(status)){
                 return true;
             }
         }
@@ -74,13 +68,13 @@ public class UserManager {
         if(userModel.getConnections() == null){
             userModel.setConnections(new HashMap<String, String>());
         }
-        userModel.getConnections().put(uid, "pending");
+        userModel.getConnections().put(uid, UserManager.WAITING);
     }
     public List<String> getPendingConnections(){
         Map<String, String> d = userModel.getConnections();
         List<String> l = new ArrayList<>();
         for(Map.Entry<String, String> entry : d.entrySet()){
-            if(entry.getValue().equals("pending")){
+            if(entry.getValue().equals(UserManager.PENDING)){
                 l.add(entry.getKey());
             }
         }
@@ -89,9 +83,9 @@ public class UserManager {
     public int getConnectionsNumber(){
         Map<String, String> d = userModel.getConnections();
         List<String> l = new ArrayList<>();
-        if(l.size() != 0){
+        if(d.size() != 0){
             for (Map.Entry<String, String> entry : d.entrySet()) {
-                if (entry.getValue().equals("connected")) {
+                if (entry.getValue().equals(UserManager.CONNECTED)) {
                     l.add(entry.getKey());
                 }
             }
@@ -102,7 +96,7 @@ public class UserManager {
     }
     public void setConnectionStatusToConnected(String uid){
         if(userModel.getConnections().containsKey(uid)){
-            userModel.getConnections().put(uid, "connected");
+            userModel.getConnections().put(uid, UserManager.CONNECTED);
         }
     }
 }

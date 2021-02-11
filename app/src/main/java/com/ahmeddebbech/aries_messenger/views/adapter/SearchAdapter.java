@@ -2,6 +2,7 @@ package com.ahmeddebbech.aries_messenger.views.adapter;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         private TextView disp;
         private TextView username;
         private Button addbutton;
+        private Button refusebutton = null;
         private TextView uid;
         private ItemUser refToModel;
         private ContractItemList.Presenter pres;
@@ -43,6 +45,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             disp = itemView.findViewById(R.id.displayName);
             username = itemView.findViewById(R.id.username);
             addbutton = itemView.findViewById(R.id.item_add);
+            refusebutton = itemView.findViewById(R.id.item_refuse);
 
             uid = itemView.findViewById(R.id.uid);
 
@@ -77,7 +80,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                         pres.removeFromContact(uid.getText().toString());
                     }else{
                         if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.PENDING)){
-                            pres.removeFromContact(uid.getText().toString());
+                            pres.acceptContact(uid.getText().toString());
                         }else{
                             if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.WAITING)){
                                 pres.removeFromContact(uid.getText().toString());
@@ -86,6 +89,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                             }
                         }
                     }
+                }
+            });
+            refusebutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refusebutton.setVisibility(View.INVISIBLE);
+                    pres.removeFromContact(refToModel.getUid());
                 }
             });
         }
@@ -97,7 +107,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             }else {
                 if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.PENDING)){
                     addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                    addbutton.setText(R.string.pending_button);
+                    addbutton.setText(R.string.add_button);
+                    refusebutton.setVisibility(View.VISIBLE);
                 }else{
                     if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.WAITING)){
                         addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
@@ -110,6 +121,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             }
         }
     }
+
     public SearchAdapter(ArrayList<ItemUser> listOfItems, SearchActivity sa) {
         list = listOfItems;
         this.sa = sa;
@@ -130,14 +142,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.username.setText(currentItem.getUsername());
         holder.uid.setText(currentItem.getUid());
         holder.refToModel = currentItem;
-        //check how the button should be showed base on the existance of the connection
+        //check how the button should be shown base on the existance of the connection
         if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.CONNECTED)){
             holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
             holder.addbutton.setText(R.string.remove_button);
         }else{
             if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.PENDING)){
                 holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                holder.addbutton.setText(R.string.pending_button);
+                holder.addbutton.setText(R.string.add_button);
+                holder.refusebutton.setVisibility(View.VISIBLE);
             }else {
                 if (UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.WAITING)) {
                     holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
