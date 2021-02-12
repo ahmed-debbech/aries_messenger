@@ -83,6 +83,9 @@ public class UserManager {
     public int getConnectionsNumber(){
         Map<String, String> d = userModel.getConnections();
         List<String> l = new ArrayList<>();
+        if(d == null){
+            return 0;
+        }
         if(d.size() != 0){
             for (Map.Entry<String, String> entry : d.entrySet()) {
                 if (entry.getValue().equals(UserManager.CONNECTED)) {

@@ -31,7 +31,7 @@ public class RequestsPresenter extends Presenter implements ContractRequests.Pre
         empty we go fetch from the database*/
         Map<String, String> map = UserManager.getInstance().getUserModel().getConnections();
         if((map == null) || (map.isEmpty())){
-            //fetching the DB
+            returnData(new ArrayList<ItemUser>());
         }else{
             List<String> listPending = UserManager.getInstance().getPendingConnections();
             DbConnector.connectToConvertUidsToUsers(listPending, this);
