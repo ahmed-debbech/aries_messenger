@@ -34,6 +34,7 @@ public class RequestsPresenter extends Presenter implements ContractRequests.Pre
             returnData(new ArrayList<ItemUser>());
         }else{
             List<String> listPending = UserManager.getInstance().getPendingConnections();
+            //we convert the UIDs strings to actual user data from DB
             DbConnector.connectToConvertUidsToUsers(listPending, this);
         }
     }

@@ -81,6 +81,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     }else{
                         if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.PENDING)){
                             pres.acceptContact(uid.getText().toString());
+                            refusebutton.setVisibility(View.INVISIBLE);
                         }else{
                             if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.WAITING)){
                                 pres.removeFromContact(uid.getText().toString());

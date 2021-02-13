@@ -7,7 +7,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ahmeddebbech.aries_messenger.R;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     private TextView username_nav;
     private TextView displayName_nav;
     private ImageView photo_nav;
+    private ProgressBar wait_loop;
     private View header_nav;
     private NavigationView navigationView;
 
@@ -73,6 +76,12 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
                                 .commit();
                         nv.setCheckedItem(R.id.connections_nav);
                         break;
+                    case R.id.settings_nav:
+                        nv = findViewById(R.id.nav_view);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
+                                .commit();
+                        nv.setCheckedItem(R.id.settings_nav);
+                        break;
                     case R.id.logout_nav:
                         FirebaseAuth.getInstance().signOut();
                         finish();
@@ -88,6 +97,10 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
 
         DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
         this.setClickListeners();
+        wait_loop = findViewById(R.id.wait_loop);
+        wait_loop.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     public void setClickListeners(){
@@ -123,12 +136,13 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     }
     @Override
     public void setupUi(){
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        wait_loop.setVisibility(View.INVISIBLE);
         navigationView = findViewById(R.id.nav_view);
         header_nav = navigationView.getHeaderView(0);
         displayName_nav = (TextView) header_nav.findViewById(R.id.sideDisplayName);
         username_nav = (TextView) header_nav.findViewById(R.id.sideUsername);
         photo_nav = header_nav.findViewById(R.id.sidePhoto);
-
         presenter.fillViewsWithUserData();
     }
     @Override

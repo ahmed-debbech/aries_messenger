@@ -54,9 +54,14 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
         results.setLayoutManager(layoutManager);
 
         wait.setVisibility(View.VISIBLE);
-        pres.seekForPendingRequest();
-
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        pres.seekForPendingRequest();
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
