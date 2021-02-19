@@ -56,23 +56,16 @@ public class DbBasic {
     }
     public static void searchAllUsersByName(final String name, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users");
-        ref.addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref1 = database.getReference();
+        ref1.child("Users").orderByChild("displayName").startAt(name);
+        ref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<ItemUser> list = new ArrayList<>();
                 for(DataSnapshot ds : snapshot.getChildren()){
-                    String user;
-                    if(name.charAt(0) != '@') {
-                        user = ds.getValue(User.class).getUsername().substring(1);
-                    }else{
-                        user = ds.getValue(User.class).getUsername();
-                    }
                     String disp = ds.getValue(User.class).getDisplayName();
-                    if(user.toLowerCase().startsWith(name) || disp.toLowerCase().startsWith(name)){
-                        System.out.println("user "+ ds.getValue(User.class).getDisplayName());
-                        list.add(new ItemUser(ds.getValue(User.class)));
-                    }
+                    Log.d("f-us", "fff" + disp);
+                    list.add(new ItemUser(ds.getValue(User.class)));
                 }
                 pres.returnData(list);
             }
@@ -82,6 +75,16 @@ public class DbBasic {
 
             }
         });
+
+        /*DatabaseReference ref2 = database.getReference();
+        String user = "";
+        String nname = "";
+        if(name.charAt(0) != '@') {
+            StringBuilder stringBuilder = new StringBuilder(name);
+            stringBuilder.insert(0, '@');
+            nname = stringBuilder.toString();
+        }
+        ref2.child("Users").orderByChild("username").startAt(nname);*/
     }
     public static void convertUidsToUsers(final List<String> uids, final Presenter pres){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
