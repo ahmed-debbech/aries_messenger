@@ -1,8 +1,7 @@
-package com.ahmeddebbech.aries_messenger.views.adapter;
+package com.ahmeddebbech.aries_messenger.views.adapters;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +10,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractItemList;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.SearchItemPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
-import com.ahmeddebbech.aries_messenger.views.activities.SearchActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>{
+public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainViewHolder>{
     private ArrayList<ItemUser> list;
-    private static SearchActivity sa;
+    private static AppCompatActivity sa;
 
-    public static class SearchViewHolder extends RecyclerView.ViewHolder implements ContractItemList.View {
+    public static class MainViewHolder extends RecyclerView.ViewHolder implements ContractItemList.View {
         private ImageView photo;
         private TextView disp;
         private TextView username;
@@ -39,7 +37,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         private ItemUser refToModel;
         private ContractItemList.Presenter pres;
 
-        public SearchViewHolder(View itemView) {
+        public MainViewHolder(View itemView) {
             super(itemView);
             photo = itemView.findViewById(R.id.photo);
             disp = itemView.findViewById(R.id.displayName);
@@ -56,19 +54,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             photo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent in = new Intent(SearchAdapter.sa, ContactProfile.class);
+                    Intent in = new Intent(UserItemAdapter.sa, ContactProfile.class);
                     in.putExtra("uid", uid.getText());
                     in.putExtra("username", username.getText());
-                    SearchAdapter.sa.startActivity(in);
+                    UserItemAdapter.sa.startActivity(in);
                 }
             });
             disp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent in = new Intent(SearchAdapter.sa, ContactProfile.class);
+                    Intent in = new Intent(UserItemAdapter.sa, ContactProfile.class);
                     in.putExtra("uid", uid.getText());
                     in.putExtra("username", username.getText());
-                    SearchAdapter.sa.startActivity(in);
+                    UserItemAdapter.sa.startActivity(in);
                 }
             });
             addbutton.setOnClickListener(new View.OnClickListener() {
@@ -103,19 +101,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         @Override
         public void updateUi() {
             if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.CONNECTED)) {
-                addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
+                addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.disabled_button));
                 addbutton.setText(R.string.remove_button);
             }else {
                 if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.PENDING)){
-                    addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                    addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
                     addbutton.setText(R.string.accept_button);
                     refusebutton.setVisibility(View.VISIBLE);
                 }else{
                     if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.WAITING)){
-                        addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
+                        addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.disabled_button));
                         addbutton.setText(R.string.waiting_button);
                     }else{
-                        addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                        addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
                         addbutton.setText(R.string.add_button);
                     }
                 }
@@ -123,20 +121,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
     }
 
-    public SearchAdapter(ArrayList<ItemUser> listOfItems, SearchActivity sa) {
+    public UserItemAdapter(ArrayList<ItemUser> listOfItems, AppCompatActivity sa) {
         list = listOfItems;
         this.sa = sa;
     }
     @NonNull
     @Override
-    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search, parent, false);
-        SearchViewHolder svh = new SearchViewHolder(v);
-        return svh;
+        MainViewHolder mvh = new MainViewHolder(v);
+        return mvh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UserItemAdapter.MainViewHolder holder, int position) {
         ItemUser currentItem = list.get(position);
         Picasso.get().load(currentItem.getPhoto()).into(holder.photo);
         holder.disp.setText(currentItem.getDisplayName());
@@ -145,19 +143,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.refToModel = currentItem;
         //check how the button should be shown base on the existance of the connection
         if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.CONNECTED)){
-            holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
+            holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.disabled_button));
             holder.addbutton.setText(R.string.remove_button);
         }else{
             if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.PENDING)){
-                holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
                 holder.addbutton.setText(R.string.accept_button);
                 holder.refusebutton.setVisibility(View.VISIBLE);
             }else {
                 if (UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.WAITING)) {
-                    holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.disabled_button));
+                    holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.disabled_button));
                     holder.addbutton.setText(R.string.waiting_button);
                 } else {
-                    holder.addbutton.setBackgroundColor(SearchAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                    holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
                     holder.addbutton.setText(R.string.add_button);
                 }
             }

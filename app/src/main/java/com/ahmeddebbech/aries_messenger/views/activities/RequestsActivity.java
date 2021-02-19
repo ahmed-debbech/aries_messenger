@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -17,9 +16,8 @@ import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractRequests;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.RequestsPresenter;
-import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.ItemSpacing;
-import com.ahmeddebbech.aries_messenger.views.adapter.RequestsAdapter;
+import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 
 import java.util.ArrayList;
 
@@ -32,7 +30,7 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
     private ProgressBar wait;
     private TextView no_results_msg;
     private RecyclerView results;
-    private RequestsAdapter adapter;
+    private UserItemAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -82,7 +80,7 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
             no_results_msg.setVisibility(View.INVISIBLE);
             ItemSpacing itemDec = new ItemSpacing(15);
             results.addItemDecoration(itemDec);
-            adapter = new RequestsAdapter(listOfItems, this);
+            adapter = new UserItemAdapter(listOfItems, this);
             results.setAdapter(adapter);
         }
     }

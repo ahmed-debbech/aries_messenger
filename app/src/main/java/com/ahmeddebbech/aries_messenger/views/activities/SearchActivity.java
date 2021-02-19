@@ -2,14 +2,12 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -18,11 +16,9 @@ import android.widget.TextView;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.SearchPresenter;
-import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.ItemSpacing;
-import com.ahmeddebbech.aries_messenger.views.adapter.SearchAdapter;
+import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 
 import java.util.ArrayList;
 
@@ -36,7 +32,7 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
     private ProgressBar wait;
     private TextView no_results_msg;
     private RecyclerView results;
-    private SearchAdapter adapter;
+    private UserItemAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -104,7 +100,7 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
         }else {
             no_results_msg.setVisibility(View.INVISIBLE);
             ItemSpacing itemDec = new ItemSpacing(15);
-            adapter = new SearchAdapter(listOfItems, this);
+            adapter = new UserItemAdapter(listOfItems, this);
             results.setAdapter(adapter);
             results.addItemDecoration(itemDec);
         }

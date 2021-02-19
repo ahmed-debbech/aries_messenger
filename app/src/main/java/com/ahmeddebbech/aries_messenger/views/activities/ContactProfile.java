@@ -3,18 +3,13 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ContactProfilePresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
-import com.ahmeddebbech.aries_messenger.views.adapter.SearchAdapter;
 import com.squareup.picasso.Picasso;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
