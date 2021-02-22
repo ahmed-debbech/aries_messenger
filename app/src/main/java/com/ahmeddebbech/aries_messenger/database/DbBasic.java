@@ -3,11 +3,13 @@ package com.ahmeddebbech.aries_messenger.database;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,16 +60,30 @@ public class DbBasic {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref1 = database.getReference();
         ref1.child("Users").orderByChild("displayName").startAt(name);
-        ref1.addValueEventListener(new ValueEventListener() {
+        ref1.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 ArrayList<ItemUser> list = new ArrayList<>();
                 for(DataSnapshot ds : snapshot.getChildren()){
-                    String disp = ds.getValue(User.class).getDisplayName();
-                    Log.d("f-us", "fff" + disp);
+                    Log.d("f-us", ds.getValue(User.class).getDisplayName());
                     list.add(new ItemUser(ds.getValue(User.class)));
                 }
                 pres.returnData(list);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
