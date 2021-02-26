@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -58,32 +59,42 @@ public class DbBasic {
     }
     public static void searchAllUsersByName(final String name, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final ArrayList<ItemUser> list = new ArrayList<>();
         DatabaseReference ref1 = database.getReference();
-        ref1.child("Users").orderByChild("displayName").startAt(name);
-        ref1.addChildEventListener(new ChildEventListener() {
+        Query o = ref1.child("Users").orderByChild("displayName").startAt(name.toUpperCase()).endAt(name.toLowerCase() + "\uf8ff");
+        o.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot ds : snapshot.getChildren()) {
+                            if (ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name.toLowerCase())) {
+                                list.add(new ItemUser(ds.getValue(User.class)));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+        DatabaseReference ref2 = database.getReference();
+        String nname = "";
+        if(name.charAt(0) != '@') {
+            StringBuilder stringBuilder = new StringBuilder(name);
+            stringBuilder.insert(0, '@');
+            nname = stringBuilder.toString();
+        }
+        Query o1 = ref2.child("Users").orderByChild("username").startAt(nname.toUpperCase()).endAt(nname.toLowerCase() + "\uf8ff");
+        final String str = nname;
+        o1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                ArrayList<ItemUser> list = new ArrayList<>();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()){
-                    Log.d("f-us", ds.getValue(User.class).getDisplayName());
-                    list.add(new ItemUser(ds.getValue(User.class)));
+                    if(ds.getValue(User.class).getUsername().toLowerCase().startsWith(str.toLowerCase())) {
+                        list.add(new ItemUser(ds.getValue(User.class)));
+                    }
                 }
                 pres.returnData(list);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
             }
 
             @Override
@@ -91,16 +102,6 @@ public class DbBasic {
 
             }
         });
-
-        /*DatabaseReference ref2 = database.getReference();
-        String user = "";
-        String nname = "";
-        if(name.charAt(0) != '@') {
-            StringBuilder stringBuilder = new StringBuilder(name);
-            stringBuilder.insert(0, '@');
-            nname = stringBuilder.toString();
-        }
-        ref2.child("Users").orderByChild("username").startAt(nname);*/
     }
     public static void convertUidsToUsers(final List<String> uids, final Presenter pres){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
