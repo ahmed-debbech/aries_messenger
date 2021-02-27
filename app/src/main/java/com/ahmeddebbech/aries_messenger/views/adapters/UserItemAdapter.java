@@ -128,7 +128,7 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
         MainViewHolder mvh = new MainViewHolder(v);
         return mvh;
     }

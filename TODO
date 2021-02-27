@@ -1,5 +1,2 @@
 * fix the contact profile interface by adding (Accept/refuse) button when requested else
 we add simple connection button
-
-* stop finding the current user in search
-* optimizing DbBasic
