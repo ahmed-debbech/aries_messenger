@@ -22,7 +22,6 @@ public class SearchPresenter extends Presenter implements ContractSearch.Present
     @Override
     public void fillSearchResults(String text) {
         text = text.trim();
-        text = text.toLowerCase();
         if((!text.equals("")) && (!text.equals("@"))
                 && (!InputChecker.isLonger(text ,60))) {
             DbConnector.connectToSearchForUsersWithName(text, this);

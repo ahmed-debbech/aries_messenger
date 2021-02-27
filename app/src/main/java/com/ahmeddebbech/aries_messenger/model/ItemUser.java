@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.model;
 
+import androidx.annotation.Nullable;
+
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 
 public class ItemUser {
@@ -52,4 +54,12 @@ public class ItemUser {
         this.uid = uid;
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj instanceof  ItemUser){
+            ItemUser iu = (ItemUser)obj;
+            return iu.getUid().equals(uid);
+        }
+        return false;
+    }
 }

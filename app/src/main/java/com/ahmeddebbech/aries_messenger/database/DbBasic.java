@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,9 +68,11 @@ public class DbBasic {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for(DataSnapshot ds : snapshot.getChildren()) {
-                            if (ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name.toLowerCase())) {
-                                list.add(new ItemUser(ds.getValue(User.class)));
-                            }
+                           if (ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name.toLowerCase())) {
+                               if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
+                                   list.add(new ItemUser(ds.getValue(User.class)));
+                               }
+                           }
                         }
                     }
 
@@ -89,9 +93,13 @@ public class DbBasic {
         o1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()){
+                for(DataSnapshot ds : snapshot.getChildren()) {
                     if(ds.getValue(User.class).getUsername().toLowerCase().startsWith(str.toLowerCase())) {
-                        list.add(new ItemUser(ds.getValue(User.class)));
+                        if (!list.contains(new ItemUser(ds.getValue(User.class)))) {
+                            if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
+                                list.add(new ItemUser(ds.getValue(User.class)));
+                            }
+                        }
                     }
                 }
                 pres.returnData(list);
