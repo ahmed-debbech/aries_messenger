@@ -92,7 +92,7 @@
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/conta_prof_refuse"
             android:layout_width="190dp"
             android:layout_height="49dp"
             android:layout_alignParentTop="true"

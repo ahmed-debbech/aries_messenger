@@ -5,6 +5,7 @@ import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
 import com.ahmeddebbech.aries_messenger.presenter.ContactProfilePresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
+import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.squareup.picasso.Picasso;
 
 import android.content.Intent;
@@ -23,6 +24,7 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
     private TextView connections;
     private TextView bio;
     private Button add;
+    private Button refuse;
 
     private ContactProfilePresenter pres;
 
@@ -37,23 +39,14 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
         this.username = in.getStringExtra("username");
         this.uid = in.getStringExtra("uid");
         getSupportActionBar().setTitle(username);
-
-        setupUi();
-        addClicks();
-    }
-    public void setupUi(){
         photo = findViewById(R.id.conta_prof_img);
         disp = findViewById(R.id.conta_prof_disp);
         connections = findViewById(R.id.conta_prof_numconn);
         bio = findViewById(R.id.conta_prof_bio);
         add = findViewById(R.id.conta_prof_add);
-        if(UserManager.getInstance().searchForConnection(uid, UserManager.CONNECTED)){
-            add.setBackgroundColor(this.getResources().getColor(R.color.disabled_button));
-            add.setText(R.string.remove_button);
-        }else{
-            add.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
-            add.setText(R.string.add_button);
-        }
+        refuse = findViewById(R.id.conta_prof_refuse);
+        updateUi();
+        addClicks();
         pres.fillUiWithData(uid);
     }
     public void addClicks(){
@@ -62,11 +55,27 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
             public void onClick(View v) {
                 add.setText(R.string.wait_label);
                 add.setBackgroundColor(Color.WHITE);
-                if(UserManager.getInstance().searchForConnection(uid, UserManager.CONNECTED)) {
+                if(UserManager.getInstance().searchForConnection(uid, UserManager.CONNECTED)){
                     pres.removeFromContact(uid);
                 }else{
-                    pres.addToContact(uid);
+                    if(UserManager.getInstance().searchForConnection(uid, UserManager.PENDING)){
+                        pres.acceptContact(uid);
+                        refuse.setVisibility(View.INVISIBLE);
+                    }else{
+                        if(UserManager.getInstance().searchForConnection(uid, UserManager.WAITING)){
+                            pres.removeFromContact(uid);
+                        }else{
+                            pres.addToContact(uid);
+                        }
+                    }
                 }
+            }
+        });
+        refuse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refuse.setVisibility(View.INVISIBLE);
+                pres.removeFromContact(uid);
             }
         });
     }
@@ -82,9 +91,20 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
         if(UserManager.getInstance().searchForConnection(uid, UserManager.CONNECTED)) {
             add.setBackgroundColor(this.getResources().getColor(R.color.disabled_button));
             add.setText(R.string.remove_button);
-        }else{
-            add.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
-            add.setText(R.string.add_button);
+        }else {
+            if(UserManager.getInstance().searchForConnection(uid, UserManager.PENDING)){
+                add.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
+                add.setText(R.string.accept_button);
+                refuse.setVisibility(View.VISIBLE);
+            }else{
+                if(UserManager.getInstance().searchForConnection(uid, UserManager.WAITING)){
+                    add.setBackgroundColor(this.getResources().getColor(R.color.disabled_button));
+                    add.setText(R.string.waiting_button);
+                }else{
+                    add.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
+                    add.setText(R.string.add_button);
+                }
+            }
         }
     }
 }

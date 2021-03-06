@@ -9,5 +9,6 @@ public interface ContractContactProfile {
         void fillUiWithData(String uid);
         void addToContact(String uid);
         void removeFromContact(String uid);
+        void acceptContact(String uid);
     }
 }

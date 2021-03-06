@@ -45,4 +45,10 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
         UserManager.getInstance().removeContact(uid);
         DbConnector.connectToRemoveContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
     }
+
+    @Override
+    public void acceptContact(String uid) {
+        UserManager.getInstance().setConnectionStatusToConnected(uid);
+        DbConnector.connectToAcceptContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
+    }
 }
