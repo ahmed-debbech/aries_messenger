@@ -55,33 +55,25 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
 
         presenter = new MainPresenter(this);
 
-        final NavigationView nv = findViewById(R.id.nav_view);
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frag_container, new ConnectionsFragment())
-                .addToBackStack(null).commit();
-           nv.setCheckedItem(R.id.connections_nav);
-        }
-        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch(menuItem.getItemId()){
                     case R.id.profile_nav:
-                        NavigationView nv = findViewById(R.id.nav_view);
                         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ProfileFragment())
                                 .commit();
-                        nv.setCheckedItem(R.id.profile_nav);
+                        navigationView.setCheckedItem(R.id.profile_nav);
                         break;
                     case R.id.connections_nav:
-                        nv = findViewById(R.id.nav_view);
                         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
                                 .commit();
-                        nv.setCheckedItem(R.id.connections_nav);
+                        navigationView.setCheckedItem(R.id.connections_nav);
                         break;
                     case R.id.settings_nav:
-                        nv = findViewById(R.id.nav_view);
                         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
                                 .commit();
-                        nv.setCheckedItem(R.id.settings_nav);
+                        navigationView.setCheckedItem(R.id.settings_nav);
                         break;
                     case R.id.logout_nav:
                         FirebaseAuth.getInstance().signOut();
@@ -139,12 +131,15 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     public void setupUi(){
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         wait_loop.setVisibility(View.INVISIBLE);
-        navigationView = findViewById(R.id.nav_view);
         header_nav = navigationView.getHeaderView(0);
         displayName_nav = (TextView) header_nav.findViewById(R.id.sideDisplayName);
         username_nav = (TextView) header_nav.findViewById(R.id.sideUsername);
         photo_nav = header_nav.findViewById(R.id.sidePhoto);
         presenter.fillViewsWithUserData();
+
+        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frag_container, new ConnectionsFragment())
+                .addToBackStack(null).commit();
+        navigationView.setCheckedItem(R.id.connections_nav);
     }
     @Override
     protected void onStart() {

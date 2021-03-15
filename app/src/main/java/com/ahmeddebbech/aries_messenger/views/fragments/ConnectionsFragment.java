@@ -4,13 +4,22 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.contracts.ContractConnectionsFrag;
+import com.ahmeddebbech.aries_messenger.model.ItemUser;
+import com.ahmeddebbech.aries_messenger.presenter.ConnectionsFragPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 
-public class ConnectionsFragment extends Fragment {
+import java.util.List;
+
+public class ConnectionsFragment extends Fragment implements ContractConnectionsFrag.View {
+
+    private ContractConnectionsFrag.Presenter pres = new ConnectionsFragPresenter(this);
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -44,6 +53,17 @@ public class ConnectionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        pres.loadContacts(UserManager.getInstance().getUserModel().getUid());
         return inflater.inflate(R.layout.fragment_connections, container, false);
+    }
+
+    @Override
+    public void showContacts(List<ItemUser> list) {
+        if(list.isEmpty()){
+            System.out.println("fer8aaaaaaa");
+        }
+        for(ItemUser u : list){
+            System.out.println("4444444" + u.getDisplayName());
+        }
     }
 }
