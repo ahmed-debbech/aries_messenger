@@ -18,7 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/connections_label"
@@ -32,46 +32,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <GridLayout
-                android:id="@+id/connections_grid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alignmentMode="alignMargins"
-                android:columnCount="3"
-                android:columnOrderPreserved="true"
-                android:padding="1dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/connections_label">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_margin="10dp"
-                    app:cardBackgroundColor="#ffffff"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="8dp"
-                    app:cardPreventCornerOverlap="true">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/connections_grid"
+                    android:layout_width="414dp"
+                    android:layout_height="700dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"></TextView>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_margin="10dp"
-                    app:cardBackgroundColor="#ffffff"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="8dp"
-                    app:cardPreventCornerOverlap="true">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"></TextView>
-                </androidx.cardview.widget.CardView>
-            </GridLayout>
+                </androidx.recyclerview.widget.RecyclerView>
+            </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

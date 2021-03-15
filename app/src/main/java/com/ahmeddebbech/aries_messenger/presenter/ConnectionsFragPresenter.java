@@ -38,6 +38,7 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
                 DbConnector.connectToConvertUidsToUsers(li, this);
             }
         }else{
+            Log.d("##WW", "here4");
             if(obj instanceof List){
                 Log.d("##WW", "here3");
                 List<ItemUser> lis = (List<ItemUser>)obj;
