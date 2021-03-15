@@ -1,8 +1,11 @@
 package com.ahmeddebbech.aries_messenger.views.adapters;
 
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapter.ContactViewHolder> {
@@ -22,10 +25,13 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
         this.list = l;
     }
     public static class ContactViewHolder extends RecyclerView.ViewHolder{
+        private TextView username;
+        private ImageView iv;
 
         public ContactViewHolder(@NonNull View itemView) {
             super(itemView);
-            //you init all the views
+            username = itemView.findViewById(R.id.ct_username);
+            iv = itemView.findViewById(R.id.ct_photo);
         }
     }
     @NonNull
@@ -40,6 +46,9 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         //associate the data
+        ItemUser i = list.get(position);
+        holder.username.setText(i.getUsername());
+        Picasso.get().load(i.getPhoto()).into(holder.iv);
     }
 
     @Override

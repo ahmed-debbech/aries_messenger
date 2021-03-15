@@ -70,13 +70,16 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
         connections_grid = (RecyclerView) getActivity().findViewById(R.id.connections_grid);
         layoutManager = new GridLayoutManager(getActivity(), 3);
         connections_grid.setLayoutManager(layoutManager);
+
         adapter = new ContactsGridAdapter(list);
-        connections_grid.setAdapter(adapter);
-        if(list.isEmpty() || list == null){
+        if(list == null) {
             return;
-        }
-        for(ItemUser u : list){
-            Log.d("$r",  "ll " + u.getUid());
+        }else{
+            if(list.isEmpty()){
+                return;
+            }else{
+                connections_grid.setAdapter(adapter);
+            }
         }
     }
 }
