@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.activities.ConversationActivity"></activity>
+        <activity android:name=".views.activities.ConversationActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".views.activities.RequestsActivity" />
         <activity android:name=".views.activities.ContactProfile" />
         <activity
