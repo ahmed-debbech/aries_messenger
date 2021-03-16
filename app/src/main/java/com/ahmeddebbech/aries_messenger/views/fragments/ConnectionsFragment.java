@@ -71,7 +71,7 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
         layoutManager = new GridLayoutManager(getActivity(), 3);
         connections_grid.setLayoutManager(layoutManager);
 
-        adapter = new ContactsGridAdapter(list);
+        adapter = new ContactsGridAdapter(list, getContext());
         if(list == null) {
             return;
         }else{

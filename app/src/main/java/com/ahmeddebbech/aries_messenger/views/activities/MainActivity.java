@@ -136,9 +136,6 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
         username_nav = (TextView) header_nav.findViewById(R.id.sideUsername);
         photo_nav = header_nav.findViewById(R.id.sidePhoto);
         presenter.fillViewsWithUserData();
-
-        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frag_container, new ConnectionsFragment())
-                .addToBackStack(null).commit();
         navigationView.setCheckedItem(R.id.connections_nav);
     }
     @Override

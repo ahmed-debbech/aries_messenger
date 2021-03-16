@@ -10,14 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.activities.RequestsActivity"></activity>
+        <activity android:name=".views.activities.ConversationActivity"></activity>
+        <activity android:name=".views.activities.RequestsActivity" />
         <activity android:name=".views.activities.ContactProfile" />
         <activity
             android:name=".views.activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activities.EditBioActivity"
-            android:label="@string/title_activity_edit_bio"/>
+            android:label="@string/title_activity_edit_bio" />
         <activity
             android:name=".views.activities.EditDispNameActivity"
             android:label="@string/title_activity_edit_disp_name" />
