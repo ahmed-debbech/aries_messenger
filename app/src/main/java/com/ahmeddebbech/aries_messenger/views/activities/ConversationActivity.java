@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +18,15 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
+import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
 import com.ahmeddebbech.aries_messenger.views.adapters.MessagesListAdapter;
+import com.squareup.picasso.Picasso;
 
-public class ConversationActivity extends AppCompatActivity {
+public class ConversationActivity extends AppCompatActivity implements ContractConversation.View {
+
+    private ConversationPresenter presenter;
 
     private Toolbar toolbar;
     private ImageView back;
@@ -37,6 +44,10 @@ public class ConversationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_conversation);
         setupUi();
         addListeners();
+        presenter = new ConversationPresenter(this);
+        Intent i = getIntent();
+        String uid = i.getStringExtra("uid");
+        presenter.loadData(uid);
     }
     public void setupUi(){
         back = findViewById(R.id.conv_return);
@@ -55,5 +66,11 @@ public class ConversationActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void retContactData(User u) {
+        Picasso.get().load(u.getPhotoURL()).into(photo);
+        displayName.setText(u.getDisplayName());
     }
 }

@@ -56,13 +56,17 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         //associate the data
         ItemUser i = list.get(position);
+        final String uid = i.getUid();
+        final String display = i.getDisplayName();
+        final String username = i.getUsername();
+        final String photo = i.getPhoto();
         holder.username.setText(i.getUsername());
         Picasso.get().load(i.getPhoto()).into(holder.iv);
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(parent_activity, ConversationActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                i.putExtra("uid", uid);
                 parent_activity.startActivity(i);
             }
         });

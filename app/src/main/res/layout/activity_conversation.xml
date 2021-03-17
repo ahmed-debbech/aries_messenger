@@ -36,7 +36,7 @@
 
             <TextView
                 android:id="@+id/conv_dispname"
-                android:layout_width="60dp"
+                android:layout_width="225dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-black"
