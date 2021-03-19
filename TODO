@@ -1,5 +1,2 @@
-[14 mars -> 15 mars]
-* start implementing the connections fragment by the people that you are connected to
-
-[periority 530]
-* add a default profile picture when there's no photo provided by user
+* design the message cardview
+* design the message architecture in database
