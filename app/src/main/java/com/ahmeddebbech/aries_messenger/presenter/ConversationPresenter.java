@@ -16,10 +16,19 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
+    public void conversationExists(String uid) {
+        DbConnector.connectToCheckIfConversationExists(uid, this);
+    }
+
+    @Override
     public void returnData(Object obj) {
         if(obj instanceof User){
             User u = (User)obj;
             activity.retContactData(u);
+        }else{
+            if(obj instanceof Boolean){
+                activity.showHint();
+            }
         }
     }
 }

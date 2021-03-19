@@ -16,12 +16,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="9dp"
             tools:layout_editor_absoluteY="17dp">
+
             <ImageView
                 android:id="@+id/conv_return"
                 android:layout_width="30dp"
@@ -47,8 +49,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/conv_list_messages"
-        android:layout_width="409dp"
-        android:layout_height="543dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,5 +83,21 @@
             android:layout_weight="1"
             android:text="Send" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/no_msg_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="303dp"
+        android:text="No messages found."
+        android:textColor="@color/hint_messages"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/conv_list_messages"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/conv_toolbar"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

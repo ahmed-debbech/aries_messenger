@@ -1,6 +1,11 @@
 package com.ahmeddebbech.aries_messenger.model;
 
 public class Message {
+    public static final String SENT ="sent";
+    public static final String DELIVERED ="delivered";
+    public static final String NOTIFIED = "notified";
+    public static final String SEEN = "seen";
+
     private String id;
     private String sender_uid;
     private String id_conv;

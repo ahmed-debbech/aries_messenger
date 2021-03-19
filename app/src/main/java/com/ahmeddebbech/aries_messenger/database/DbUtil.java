@@ -68,4 +68,7 @@ public class DbUtil {
             }
         });
     }
+    public static void checkConvExists(String uid, Presenter pres){
+
+    }
 }

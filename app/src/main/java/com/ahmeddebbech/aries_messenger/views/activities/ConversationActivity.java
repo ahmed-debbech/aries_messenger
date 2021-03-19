@@ -24,6 +24,8 @@ import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
+import com.ahmeddebbech.aries_messenger.util.RandomGenerator;
 import com.ahmeddebbech.aries_messenger.views.adapters.MessagesListAdapter;
 import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.squareup.picasso.Picasso;
@@ -40,6 +42,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     private ImageView photo;
     private TextView displayName;
     private EditText messageField;
+    private TextView no_msg_hint;
     private Button send;
     private RecyclerView list_messages;
     private RecyclerView.LayoutManager layoutManager;
@@ -58,6 +61,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     }
     public void setupUi(){
         back = findViewById(R.id.conv_return);
+        no_msg_hint = findViewById(R.id.no_msg_hint);
         photo = findViewById(R.id.conv_photo);
         displayName = findViewById(R.id.conv_dispname);
         messageField = findViewById(R.id.conv_message_field);
@@ -77,13 +81,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             @Override
             public void onClick(View v) {
                 System.out.println("entered function");
-                /** for testin */
-                Message m = new Message("233","494","9ee", "233","494","9ee" , "elele","roroir");
-                List<Message> list = new ArrayList();
-                list.add(m);
-                adapter = new MessagesListAdapter(list);
-                list_messages.setAdapter(adapter);
-                /** for testing */
+                //we send the message
             }
         });
     }
@@ -92,5 +90,11 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     public void retContactData(User u) {
         Picasso.get().load(u.getPhotoURL()).into(photo);
         displayName.setText(u.getDisplayName());
+        presenter.conversationExists(UserManager.getInstance().getUserModel().getUid());
+    }
+
+    @Override
+    public void showHint() {
+
     }
 }

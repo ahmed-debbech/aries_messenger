@@ -34,4 +34,8 @@ public class DbConnector {
     public static void connectToAcceptContact(String uidUser, String addedUid, Presenter pres){
         DbBasic.acceptContact( uidUser,  addedUid,  pres);
     }
+
+    public static void connectToCheckIfConversationExists(String uid, Presenter pres){
+        DbUtil.checkConvExists(uid, pres);
+    }
 }
