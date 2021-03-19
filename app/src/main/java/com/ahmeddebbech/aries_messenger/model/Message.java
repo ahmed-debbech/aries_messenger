@@ -13,7 +13,7 @@ public class Message {
     public Message(){
 
     }
-    public Message(String id, String sender_uid, String id_conv, String date, String content, String status, String id_reply_msg){
+    public Message(String id, String sender_uid, String id_conv, String date, String content, String status, String id_reply_msg, String index){
         this.id = id;
         this.sender_uid = sender_uid;
         this.id_conv = id_conv;
@@ -21,6 +21,7 @@ public class Message {
         this.content = content;
         this.status = status;
         this.id_reply_msg = id_reply_msg;
+        this.index = index;
     }
 
     public String getId() {

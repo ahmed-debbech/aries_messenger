@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +20,16 @@ import android.widget.Toolbar;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
 import com.ahmeddebbech.aries_messenger.views.adapters.MessagesListAdapter;
+import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConversationActivity extends AppCompatActivity implements ContractConversation.View {
 
@@ -64,6 +71,19 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("entered function");
+                /** for testin */
+                Message m = new Message("233","494","9ee", "233","494","9ee" , "elele","roroir");
+                List<Message> list = new ArrayList();
+                list.add(m);
+                adapter = new MessagesListAdapter(list);
+                list_messages.setAdapter(adapter);
+                /** for testing */
             }
         });
     }
