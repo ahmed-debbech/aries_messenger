@@ -5,17 +5,15 @@ import java.util.List;
 public class Conversation {
     private String id;
     private List<User> members;
-    private List<Message> messages;
     private String latest_msg;
     private String count;
 
     public Conversation(){
 
     }
-    public Conversation(String id, List<User> members, List<Message> messages, String latest_msg, String count){
+    public Conversation(String id, List<User> members, String latest_msg, String count){
         this.id = id;
         this.members = members;
-        this.messages = messages;
         this.latest_msg = latest_msg;
         this.count = count;
     }
@@ -33,14 +31,6 @@ public class Conversation {
 
     public void setMembers(List<User> members) {
         this.members = members;
-    }
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
     }
 
     public String getLatest_msg() {

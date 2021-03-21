@@ -150,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
         /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
         DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
-
     }
     @Override
     public void onBackPressed() {

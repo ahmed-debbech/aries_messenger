@@ -94,7 +94,11 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     }
 
     @Override
-    public void showHint() {
-
+    public void showHint(Boolean res) {
+        if(res.equals(false)){
+            no_msg_hint.setVisibility(View.VISIBLE);
+        }else{
+            no_msg_hint.setVisibility(View.INVISIBLE);
+        }
     }
 }

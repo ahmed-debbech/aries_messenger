@@ -5,6 +5,7 @@ import android.util.Log;
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.User;
 
 import java.util.List;
@@ -32,11 +33,24 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         if(o instanceof User) {
             User u = (User)o;
             UserManager.getInstance().updateWithCopy(u);
-            act.setupUi();
+            if(UserManager.getInstance().getUserModel().getConnections().size() == 0) {
+                DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
+            }else{
+                act.setupUi();
+                DbConnector.connectToGetConversations(UserManager.getInstance().getUserModel().getUid(), this);
+            }
         }else{
             if(o instanceof Map){
                 Map<String, String> l = (Map<String, String>)o;
                 UserManager.getInstance().getUserModel().setConnections(l);
+                DbConnector.connectToGetConversations(UserManager.getInstance().getUserModel().getUid(), this);
+                act.setupUi();
+            }else{
+                if(o instanceof List){
+                    List<Conversation> li = (List<Conversation>)o;
+                    UserManager.getInstance().getUserModel().setConversations(li);
+                    System.out.println("*** conv " + UserManager.getInstance().getUserModel().getConversations().get(0).getId());
+                }
             }
         }
     }

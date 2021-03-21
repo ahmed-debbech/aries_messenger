@@ -43,7 +43,7 @@ public class DbBasic {
                         User u = dataSnapshot.getValue(User.class);
                         System.out.println(u.getDisplayName());
                         pres.returnData(u);
-                        DbBasic.getConnections(uid, pres);
+                        //DbBasic.getConnections(uid, pres);
                     }else {
                         Log.d("ERROR", "Missing User");
                     }

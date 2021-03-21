@@ -27,7 +27,8 @@ public class ConversationPresenter extends Presenter implements ContractConversa
             activity.retContactData(u);
         }else{
             if(obj instanceof Boolean){
-                activity.showHint();
+                Boolean bb = (Boolean) obj;
+                activity.showHint(bb);
             }
         }
     }
