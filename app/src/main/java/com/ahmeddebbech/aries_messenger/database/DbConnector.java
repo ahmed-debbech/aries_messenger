@@ -38,7 +38,7 @@ public class DbConnector {
     public static void connectToCheckIfConversationExists(String uid, Presenter pres){
         DbUtil.checkConvExists(uid, pres);
     }
-    public static void connectToGetConversations(String uid, Presenter pres){
-        DbConversations.getConversations(uid, pres);
+    public static void connectToGetOneConversation(String uidA, String uidB, Presenter pres){
+        DbConversations.getConversation(uidA, uidB, pres);
     }
 }

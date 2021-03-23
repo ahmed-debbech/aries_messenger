@@ -1,6 +1,6 @@
 package com.ahmeddebbech.aries_messenger.util;
 
-public class RandomGenerator {
+public class RandomIdGenerator {
     public static String generateMessageId(){
         //TODO : id -> coversationId + 5 symbols random
         return null;

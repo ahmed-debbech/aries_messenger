@@ -17,8 +17,6 @@ public class User {
 
     private Map<String, String> connections;
 
-    private List<Conversation> conversations;
-
     public User(){
 
     }
@@ -88,11 +86,4 @@ public class User {
         this.connections = connections;
     }
 
-    public List<Conversation> getConversations() {
-        return conversations;
-    }
-
-    public void setConversations(List<Conversation> conversations) {
-        this.conversations = conversations;
-    }
 }

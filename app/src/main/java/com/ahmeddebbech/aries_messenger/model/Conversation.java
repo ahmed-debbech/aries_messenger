@@ -4,16 +4,16 @@ import java.util.List;
 
 public class Conversation {
     private String id;
-    private List<User> members;
+    //private List<String> members;
     private String latest_msg;
-    private String count;
+    private int count;
 
     public Conversation(){
 
     }
-    public Conversation(String id, List<User> members, String latest_msg, String count){
+    public Conversation(String id /*List<String> members*/, String latest_msg, int count){
         this.id = id;
-        this.members = members;
+        //this.members = members;
         this.latest_msg = latest_msg;
         this.count = count;
     }
@@ -25,13 +25,13 @@ public class Conversation {
         this.id = id;
     }
 
-    public List<User> getMembers() {
+    /*public List<String> getMembers() {
         return members;
     }
 
-    public void setMembers(List<User> members) {
+    public void setMembers(List<String> members) {
         this.members = members;
-    }
+    }*/
 
     public String getLatest_msg() {
         return latest_msg;
@@ -41,11 +41,11 @@ public class Conversation {
         this.latest_msg = latest_msg;
     }
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }

@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import android.util.Log;
+
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;

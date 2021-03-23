@@ -1,16 +1,11 @@
 package com.ahmeddebbech.aries_messenger.views.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,17 +16,11 @@ import android.widget.Toolbar;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
-import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
-import com.ahmeddebbech.aries_messenger.util.RandomGenerator;
 import com.ahmeddebbech.aries_messenger.views.adapters.MessagesListAdapter;
-import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConversationActivity extends AppCompatActivity implements ContractConversation.View {
 

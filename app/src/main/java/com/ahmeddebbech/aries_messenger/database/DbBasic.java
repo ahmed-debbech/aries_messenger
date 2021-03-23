@@ -167,6 +167,7 @@ public class DbBasic {
                     if(connections.size() == 0){
                         connections = null;
                     }
+                    Log.d("#@e" , "connections");
                     pres.returnData(connections);
                 }
                 pres.returnData(null);
