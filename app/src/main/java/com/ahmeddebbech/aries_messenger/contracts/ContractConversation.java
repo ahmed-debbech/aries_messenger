@@ -10,5 +10,6 @@ public interface ContractConversation {
     interface Presenter{
         void loadData(String uid);
         void conversationExists(String uid);
+        void getConversationMetadata(String uidA, String uidB);
     }
 }

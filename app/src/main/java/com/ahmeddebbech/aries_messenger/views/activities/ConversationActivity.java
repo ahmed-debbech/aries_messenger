@@ -33,6 +33,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     private EditText messageField;
     private TextView no_msg_hint;
     private Button send;
+    private String uidB;
     private RecyclerView list_messages;
     private RecyclerView.LayoutManager layoutManager;
     private MessagesListAdapter adapter;
@@ -45,8 +46,8 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         addListeners();
         presenter = new ConversationPresenter(this);
         Intent i = getIntent();
-        String uid = i.getStringExtra("uid");
-        presenter.loadData(uid);
+        uidB = i.getStringExtra("uid");
+        presenter.loadData(uidB);
     }
     public void setupUi(){
         back = findViewById(R.id.conv_return);
@@ -88,6 +89,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             no_msg_hint.setVisibility(View.VISIBLE);
         }else{
             no_msg_hint.setVisibility(View.INVISIBLE);
+            presenter.getConversationMetadata(UserManager.getInstance().getUserModel().getUid(), uidB);
         }
     }
 }
