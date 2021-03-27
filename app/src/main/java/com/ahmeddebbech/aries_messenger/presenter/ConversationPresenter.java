@@ -5,7 +5,10 @@ import android.util.Log;
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
+import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
+
+import java.util.List;
 
 public class ConversationPresenter extends Presenter implements ContractConversation.Presenter {
     private ContractConversation.View activity;
@@ -44,6 +47,12 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                     Log.d("#@e", "con: " + cv.getId());
                     Log.d("#@e", "con: " + cv.getMembers().toString());
                     Log.d("#@e", "con: " + cv.getLatest_msg());
+                    DbConnector.connectToGetMessages(cv.getId(), this);
+                }else{
+                    if(obj instanceof List){
+                        List<Message> lis = (List<Message>)obj;
+                        activity.loadMessages(lis);
+                    }
                 }
             }
         }

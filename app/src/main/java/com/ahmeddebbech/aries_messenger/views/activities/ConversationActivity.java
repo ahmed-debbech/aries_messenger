@@ -16,11 +16,15 @@ import android.widget.Toolbar;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.adapters.MessagesListAdapter;
+import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class ConversationActivity extends AppCompatActivity implements ContractConversation.View {
 
@@ -91,5 +95,11 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             no_msg_hint.setVisibility(View.INVISIBLE);
             presenter.getConversationMetadata(UserManager.getInstance().getUserModel().getUid(), uidB);
         }
+    }
+
+    @Override
+    public void loadMessages(List<Message> list) {
+        adapter = new MessagesListAdapter(list);
+        list_messages.setAdapter(adapter);
     }
 }

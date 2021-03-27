@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.model;
 
+
 public class Message {
     public static final String SENT ="sent";
     public static final String DELIVERED ="delivered";
@@ -9,23 +10,23 @@ public class Message {
     private String id;
     private String sender_uid;
     private String id_conv;
-    private String date;
+    private int date;
     private String content;
     private String status;
-    private String id_reply_msg;
-    private String index;
+    //private String id_reply_msg; //this may cause an error //TODO
+    private int index;
 
     public Message(){
 
     }
-    public Message(String id, String sender_uid, String id_conv, String date, String content, String status, String id_reply_msg, String index){
+    public Message(String id, String sender_uid, String id_conv, int date, String content, String status/*, String id_reply_msg*/ , int index){
         this.id = id;
         this.sender_uid = sender_uid;
         this.id_conv = id_conv;
         this.date = date;
         this.content = content;
         this.status = status;
-        this.id_reply_msg = id_reply_msg;
+        //this.id_reply_msg = id_reply_msg;
         this.index = index;
     }
 
@@ -53,11 +54,11 @@ public class Message {
         this.id_conv = id_conv;
     }
 
-    public String getDate() {
+    public int getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(int date) {
         this.date = date;
     }
 
@@ -77,19 +78,19 @@ public class Message {
         this.status = status;
     }
 
-    public String getId_reply_msg() {
+    /*public String getId_reply_msg() {
         return id_reply_msg;
     }
 
     public void setId_reply_msg(String id_reply_msg) {
         this.id_reply_msg = id_reply_msg;
-    }
+    }*/
 
-    public String getIndex() {
+    public int getIndex() {
         return index;
     }
 
-    public void setIndex(String index) {
+    public void setIndex(int index) {
         this.index = index;
     }
 }

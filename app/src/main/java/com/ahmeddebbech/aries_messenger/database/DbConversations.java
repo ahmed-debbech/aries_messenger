@@ -4,8 +4,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.solver.widgets.Snapshot;
 
 import com.ahmeddebbech.aries_messenger.model.Conversation;
+import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -16,6 +18,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +89,37 @@ public class DbConversations {
                     Log.d("#@e", "snap : " + snapshot.toString());
 
                     Log.d("#@e", "convv null" + snapshot.getKey());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Error","could not convert to meta conversation");
+            }
+        });
+    }
+    public static void getMessages(String conv_id, final Presenter pres){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/").child(conv_id);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Log.d("#@e", "snapshot msg: " +snapshot.toString() );
+                    List<Message> list = new ArrayList<>();
+                    for(DataSnapshot sp : snapshot.getChildren()){
+                        Message m = sp.getValue(Message.class);
+                        list.add(m);
+                    }
+                    Collections.sort(list, new Comparator<Message>() {
+                        @Override
+                        public int compare(Message o1, Message o2) {
+                            return o1.getIndex() - o2.getIndex();
+                        }
+                    });
+                    pres.returnData(list);
+                }else {
+                    Log.d("#@e", "snapshot doesn't extist");
+                    pres.returnData(null);
                 }
             }
             @Override

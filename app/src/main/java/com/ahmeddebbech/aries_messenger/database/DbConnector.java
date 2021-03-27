@@ -41,4 +41,7 @@ public class DbConnector {
     public static void connectToGetOneConversation(String uidA, String uidB, Presenter pres){
         DbConversations.getConversation(uidA, uidB, pres);
     }
+    public static void connectToGetMessages(String conv_id, Presenter presenter){
+        DbConversations.getMessages(conv_id, presenter);
+    }
 }

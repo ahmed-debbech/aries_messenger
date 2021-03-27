@@ -45,7 +45,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         Message m = list.get(position);
         holder.content.setText(m.getContent());
         holder.status.setText(m.getStatus());
-        holder.date.setText(m.getDate());
+        holder.date.setText(""+m.getDate());
     }
 
     @Override
