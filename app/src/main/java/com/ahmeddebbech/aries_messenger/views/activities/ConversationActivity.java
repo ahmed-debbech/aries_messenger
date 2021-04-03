@@ -75,7 +75,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             @Override
             public void onClick(View v) {
                 System.out.println("entered function");
-                //we send the message
+                presenter.sendMessage(messageField.getText().toString());
             }
         });
     }

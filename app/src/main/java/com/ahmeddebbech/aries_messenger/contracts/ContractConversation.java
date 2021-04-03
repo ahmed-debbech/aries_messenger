@@ -12,6 +12,7 @@ public interface ContractConversation {
         void loadMessages(List<Message> list);
     }
     interface Presenter{
+        void sendMessage(String msg);
         void loadData(String uid);
         void conversationExists(String uid);
         void getConversationMetadata(String uidA, String uidB);

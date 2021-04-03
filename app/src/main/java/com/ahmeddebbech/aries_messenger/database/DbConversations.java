@@ -9,6 +9,7 @@ import androidx.constraintlayout.solver.widgets.Snapshot;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -127,5 +128,20 @@ public class DbConversations {
                 Log.d("Error","could not convert to meta conversation");
             }
         });
+    }
+    public static void sendMessage(String convId, Message msg){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/"+convId+"/"+msg.getId()+"/");
+        ref.setValue(msg);
+        incrementConvCount(convId, msg.getId());
+    }
+
+    private static void incrementConvCount(String convId, final String msgid) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_meta/"+convId+"/count");
+        int x = UserManager.getInstance().getCurrentConv().getCount() + 1;
+        ref.setValue(x);
+        ref = database.getReference("/Conversations/Conversations_meta/"+convId+"/latest_msg");
+        ref.setValue(msgid);
     }
 }

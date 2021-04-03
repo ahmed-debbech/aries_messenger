@@ -3,6 +3,7 @@ package com.ahmeddebbech.aries_messenger.presenter;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -18,6 +19,7 @@ public class UserManager {
 
     private User userModel;
     private static UserManager umInstance;
+    private Conversation currentConv;
 
     private UserManager(){
         userModel = new User();
@@ -101,5 +103,13 @@ public class UserManager {
         if(userModel.getConnections().containsKey(uid)){
             userModel.getConnections().put(uid, UserManager.CONNECTED);
         }
+    }
+
+    public Conversation getCurrentConv() {
+        return currentConv;
+    }
+
+    public void setCurrentConv(Conversation currentConv) {
+        this.currentConv = currentConv;
     }
 }
