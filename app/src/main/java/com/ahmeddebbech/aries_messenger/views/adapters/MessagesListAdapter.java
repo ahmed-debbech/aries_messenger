@@ -6,10 +6,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.model.Message;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 
 import java.util.List;
 
@@ -23,12 +25,16 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         private TextView status;
         private TextView date;
         private TextView content;
+        private CardView background;
+        private Message ref;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
             status = itemView.findViewById(R.id.msg_status);
             date = itemView.findViewById(R.id.msg_date);
             content = itemView.findViewById(R.id.msg_content);
+            background = itemView.findViewById(R.id.msg_card);
+
         }
     }
 
@@ -45,7 +51,13 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         Message m = list.get(position);
         holder.content.setText(m.getContent());
         holder.status.setText(m.getStatus());
-        holder.date.setText(""+m.getDate());
+        holder.date.setText("" + m.getDate());
+        holder.ref = m;
+        if (holder.ref.getSender_uid().equals(UserManager.getInstance().getUserModel().getUid())) {
+            holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.sender_message));
+        }else{
+            holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.receiver_message));
+        }
     }
 
     @Override

@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:layout_weight="8"
-    app:cardBackgroundColor="@color/colorPrimaryDark"
+    app:cardBackgroundColor="@color/sender_message"
     app:cardCornerRadius="15dp"
     app:cardElevation="15dp">
 
