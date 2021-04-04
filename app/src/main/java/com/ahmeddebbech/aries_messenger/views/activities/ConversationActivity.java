@@ -76,6 +76,19 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             public void onClick(View v) {
                 System.out.println("entered function");
                 presenter.sendMessage(messageField.getText().toString());
+                messageField.setText("");
+            }
+        });
+        messageField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list_messages.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Call smooth scroll
+                        list_messages.smoothScrollToPosition(adapter.getItemCount() - 1);
+                    }
+                });
             }
         });
     }
@@ -101,5 +114,12 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     public void loadMessages(List<Message> list) {
         adapter = new MessagesListAdapter(list);
         list_messages.setAdapter(adapter);
+        list_messages.post(new Runnable() {
+            @Override
+            public void run() {
+                // Call smooth scroll
+                list_messages.smoothScrollToPosition(adapter.getItemCount() - 1);
+            }
+        });
     }
 }
