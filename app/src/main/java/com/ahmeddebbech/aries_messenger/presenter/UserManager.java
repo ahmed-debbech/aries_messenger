@@ -19,7 +19,7 @@ public class UserManager {
 
     private User userModel;
     private static UserManager umInstance;
-    private Conversation currentConv;
+    private Conversation currentConv = null;
 
     private UserManager(){
         userModel = new User();

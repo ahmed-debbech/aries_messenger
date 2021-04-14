@@ -10,6 +10,7 @@ import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
+import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -129,11 +130,39 @@ public class DbConversations {
             }
         });
     }
-    public static void sendMessage(String convId, Message msg){
+    public static void createConversation(Conversation cv){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/"+convId+"/"+msg.getId()+"/");
-        ref.setValue(msg);
-        incrementConvCount(convId, msg.getId());
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_meta/" + cv.getId() + "/count");
+        ref.setValue(cv.getCount());
+        ref = database.getReference("/Conversations/Conversations_meta/" + cv.getId() + "/id");
+        ref.setValue(cv.getId());
+        ref = database.getReference("/Conversations/Conversations_meta/" + cv.getId() + "/latest_msg");
+        ref.setValue(cv.getLatest_msg());
+        for(String uid : cv.getMembers()) {
+            ref = database.getReference("/Conversations/Conversations_members/" + cv.getId() + "/" + uid);
+            ref.setValue("*");
+        }
+        ref = database.getReference("/Users_conversations/"+cv.getMembers().get(0)+"/"+cv.getMembers().get(1));
+        ref.setValue(cv.getId());
+        ref = database.getReference("/Users_conversations/"+cv.getMembers().get(1)+"/"+cv.getMembers().get(0));
+        ref.setValue(cv.getId());
+    }
+    public static void sendMessage(final String convId, final Message msg){
+        DbUtil.checkConvExists(convId, new Presenter() {
+            @Override
+            public void returnData(Object obj) {
+                if(obj instanceof Boolean) {
+                    Boolean bb = (Boolean) obj;
+                    if (bb == false) {
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convId + "/" + msg.getId() + "/");
+                        ref.setValue(msg);
+                        incrementConvCount(convId, msg.getId());
+                    }
+                }
+            }
+        });
     }
 
     private static void incrementConvCount(String convId, final String msgid) {
