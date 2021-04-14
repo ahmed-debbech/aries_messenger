@@ -32,7 +32,6 @@ public class DbUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     if (ds.getValue(User.class).getEmail().equals(UserManager.getInstance().getUserModel().getEmail())) {
-                        Log.d("LOGIN: ", "found");
                         UserManager.getInstance().updateWithCopy(ds.getValue(User.class)); //set model
                         founder = true;
                     }

@@ -10,7 +10,7 @@ public class Message {
     private String id;
     private String sender_uid;
     private String id_conv;
-    private int date;
+    private String date;
     private String content;
     private String status;
     //private String id_reply_msg; //this may cause an error //TODO
@@ -19,7 +19,7 @@ public class Message {
     public Message(){
 
     }
-    public Message(String id, String sender_uid, String id_conv, int date, String content, String status/*, String id_reply_msg*/ , int index){
+    public Message(String id, String sender_uid, String id_conv, String date, String content, String status/*, String id_reply_msg*/ , int index){
         this.id = id;
         this.sender_uid = sender_uid;
         this.id_conv = id_conv;
@@ -54,11 +54,11 @@ public class Message {
         this.id_conv = id_conv;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -106,7 +106,6 @@ public class DbConversations {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Log.d("#@e", "snapshot msg: " +snapshot.toString() );
                     List<Message> list = new ArrayList<>();
                     for(DataSnapshot sp : snapshot.getChildren()){
                         Message m = sp.getValue(Message.class);
@@ -120,7 +119,6 @@ public class DbConversations {
                     });
                     pres.returnData(list);
                 }else {
-                    Log.d("#@e", "snapshot doesn't extist");
                     pres.returnData(null);
                 }
             }
@@ -130,7 +128,7 @@ public class DbConversations {
             }
         });
     }
-    public static void createConversation(Conversation cv){
+    public static void createConversation(Conversation cv, Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Conversations/Conversations_meta/" + cv.getId() + "/count");
         ref.setValue(cv.getCount());
@@ -146,6 +144,7 @@ public class DbConversations {
         ref.setValue(cv.getId());
         ref = database.getReference("/Users_conversations/"+cv.getMembers().get(1)+"/"+cv.getMembers().get(0));
         ref.setValue(cv.getId());
+        convertToMeta(cv.getId(), pres);
     }
     public static void sendMessage(final String convId, final Message msg){
         DbUtil.checkConvExists(convId, new Presenter() {

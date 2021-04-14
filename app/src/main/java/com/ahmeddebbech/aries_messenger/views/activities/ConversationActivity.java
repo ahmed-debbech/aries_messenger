@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -111,6 +112,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
 
     @Override
     public void loadMessages(List<Message> list) {
+        no_msg_hint.setVisibility(View.INVISIBLE);
         adapter = new MessagesListAdapter(list);
         list_messages.setAdapter(adapter);
         list_messages.post(new Runnable() {

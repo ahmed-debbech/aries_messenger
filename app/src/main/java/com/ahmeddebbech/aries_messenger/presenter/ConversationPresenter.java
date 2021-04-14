@@ -11,7 +11,9 @@ import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 
 import java.lang.reflect.Array;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,28 +31,25 @@ public class ConversationPresenter extends Presenter implements ContractConversa
             Conversation cv = new Conversation();
             cv.setId(RandomIdGenerator.generateConversationId(UserManager.getInstance().getUserModel().getUid(), receiver));
             cv.setCount(0);
-            System.out.println("$$$$$$$"  + cv.getId());
             List<String> mem = new ArrayList<>();
             mem.add(UserManager.getInstance().getUserModel().getUid());
             mem.add(receiver);
             cv.setMembers(mem);
             cv.setLatest_msg("");
             UserManager.getInstance().setCurrentConv(cv);
-            DbConversations.createConversation(cv);
+            DbConversations.createConversation(cv, this);
         }
         Message m = new Message();
         m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
         m.setId(RandomIdGenerator.generateMessageId(UserManager.getInstance().getCurrentConv().getId()));
         m.setId_conv(UserManager.getInstance().getCurrentConv().getId());
         m.setContent(msg);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-        String format = simpleDateFormat.format(new Date());
-        m.setDate(Integer.parseInt(format));
+        Date date = new Date();
+        Timestamp time = new Timestamp(date.getTime());
+        m.setDate(time.toString());
         m.setStatus(Message.SENT);
         m.setIndex(UserManager.getInstance().getCurrentConv().getCount() + 1);
-        Log.d("type@#", "" + UserManager.getInstance().getCurrentConv().getCount());
         DbConversations.sendMessage(UserManager.getInstance().getCurrentConv().getId(), m);
-
     }
 
     @Override
@@ -84,9 +83,6 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                 if(obj instanceof Conversation){
                     // load the meta
                     Conversation cv = (Conversation)obj;
-                    Log.d("#@e", "con: " + cv.getId());
-                    Log.d("#@e", "con: " + cv.getMembers().toString());
-                    Log.d("#@e", "con: " + cv.getLatest_msg());
                     UserManager.getInstance().setCurrentConv(cv);
 
                     DbConnector.connectToGetMessages(cv.getId(), this);

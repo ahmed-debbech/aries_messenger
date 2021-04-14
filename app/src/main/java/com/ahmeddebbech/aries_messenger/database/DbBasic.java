@@ -126,7 +126,6 @@ public class DbBasic {
                         }
                     }
                 }
-                Log.d("usersd", users.toString());
                 pres.returnData(users);
             }
             @Override

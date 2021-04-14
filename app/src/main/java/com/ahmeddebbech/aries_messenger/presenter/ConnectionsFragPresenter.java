@@ -20,15 +20,12 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
     }
     @Override
     public void loadContacts(String uid) {
-        Log.d("##WW", "here");
         DbConnector.connectToGetConnections(uid, this);
     }
 
     @Override
     public void returnData(Object obj) {
-        Log.d("##WW", "here1");
         if(obj instanceof Map){
-            Log.d("##WW", "here2");
             Map<String, String> map = (Map<String, String>) obj;
             if(map.size() > 0) {
                 List<String> li = new ArrayList<>();
@@ -38,9 +35,7 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
                 DbConnector.connectToConvertUidsToUsers(li, this);
             }
         }else{
-            Log.d("##WW", "here4");
             if(obj instanceof List){
-                Log.d("##WW", "here3");
                 List<ItemUser> lis = (List<ItemUser>)obj;
                 frag.showContacts(lis);
             }
