@@ -14,8 +14,15 @@ import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
+import com.ahmeddebbech.aries_messenger.util.AriesCalendar;
 import com.squareup.picasso.Picasso;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapter.MessageViewHolder> {
@@ -27,7 +34,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         this.corr = corr;
     }
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
-        private TextView status;
+        private ImageView status;
         private TextView date;
         private TextView content;
         private CardView background;
@@ -56,8 +63,9 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message m = list.get(position);
         holder.content.setText(m.getContent());
-        holder.status.setText(m.getStatus());
-        holder.date.setText("" + m.getDate());
+        holder.status.setImageDrawable(Message.toDrawable(holder.itemView, m.getStatus()));
+        AriesCalendar ac = new AriesCalendar(m.getDate());
+        holder.date.setText(ac.toString());
         holder.ref = m;
         if (holder.ref.getSender_uid().equals(UserManager.getInstance().getUserModel().getUid())) {
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.sender_message));

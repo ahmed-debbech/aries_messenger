@@ -1,6 +1,11 @@
 package com.ahmeddebbech.aries_messenger.model;
 
 
+import android.graphics.drawable.Drawable;
+import android.view.View;
+
+import com.ahmeddebbech.aries_messenger.R;
+
 public class Message {
     public static final String SENT ="sent";
     public static final String DELIVERED ="delivered";
@@ -29,7 +34,15 @@ public class Message {
         //this.id_reply_msg = id_reply_msg;
         this.index = index;
     }
-
+    public static Drawable toDrawable(View v, String status){
+        Drawable imgId = null;
+        switch(status){
+            case Message.DELIVERED : imgId = v.getContext().getResources().getDrawable(R.drawable.ic_delivered); break;
+            case Message.SEEN : imgId = v.getContext().getResources().getDrawable(R.drawable.ic_seen); break;
+            case Message.SENT : imgId = v.getContext().getResources().getDrawable(R.drawable.ic_sent); break;
+        }
+        return imgId;
+    }
     public String getId() {
         return id;
     }

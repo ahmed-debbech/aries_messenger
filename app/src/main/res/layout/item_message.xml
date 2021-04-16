@@ -42,6 +42,7 @@
             android:id="@+id/msg_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:text="2021 Apr 15 • 11:44"
             android:textAlignment="center"
             android:textColor="@color/naturalText"
@@ -53,22 +54,18 @@
             app:layout_constraintTop_toBottomOf="@+id/msg_content"
             app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
+        <ImageView
             android:id="@+id/msg_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="208dp"
-            android:layout_marginTop="2dp"
-            android:text="Seen"
-            android:textAlignment="viewStart"
-            android:textColor="@color/naturalText"
-            android:textSize="10sp"
+            android:layout_width="17dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/msg_date"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/msg_content"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="@+id/msg_date"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_sent" />
 
         <ImageView
             android:id="@+id/msg_edited_flag"
