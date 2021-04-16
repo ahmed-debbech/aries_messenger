@@ -38,7 +38,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     private EditText messageField;
     private TextView no_msg_hint;
     private Button send;
-    private String uidB;
+    private User correspondedUser;
     private RecyclerView list_messages;
     private RecyclerView.LayoutManager layoutManager;
     private MessagesListAdapter adapter;
@@ -51,8 +51,9 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         addListeners();
         presenter = new ConversationPresenter(this);
         Intent i = getIntent();
-        uidB = i.getStringExtra("uid");
-        presenter.loadData(uidB);
+        correspondedUser = new User();
+        correspondedUser.setUid(i.getStringExtra("uid"));
+        presenter.loadData(correspondedUser.getUid());
     }
     public void setupUi(){
         back = findViewById(R.id.conv_return);
@@ -75,7 +76,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.sendMessage(messageField.getText().toString(), uidB);
+                presenter.sendMessage(messageField.getText().toString(), correspondedUser.getUid());
                 messageField.setText("");
             }
         });
@@ -95,6 +96,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
 
     @Override
     public void retContactData(User u) {
+        correspondedUser = u;
         Picasso.get().load(u.getPhotoURL()).into(photo);
         displayName.setText(u.getDisplayName());
         presenter.conversationExists(UserManager.getInstance().getUserModel().getUid());
@@ -106,14 +108,14 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             no_msg_hint.setVisibility(View.VISIBLE);
         }else{
             no_msg_hint.setVisibility(View.INVISIBLE);
-            presenter.getConversationMetadata(UserManager.getInstance().getUserModel().getUid(), uidB);
+            presenter.getConversationMetadata(UserManager.getInstance().getUserModel().getUid(), correspondedUser.getUid());
         }
     }
 
     @Override
     public void loadMessages(List<Message> list) {
         no_msg_hint.setVisibility(View.INVISIBLE);
-        adapter = new MessagesListAdapter(list);
+        adapter = new MessagesListAdapter(list, correspondedUser);
         list_messages.setAdapter(adapter);
         list_messages.post(new Runnable() {
             @Override
