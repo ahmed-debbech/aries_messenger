@@ -61,7 +61,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="64dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -70,7 +70,7 @@
 
         <EditText
             android:id="@+id/conv_message_field"
-            android:layout_width="336dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"

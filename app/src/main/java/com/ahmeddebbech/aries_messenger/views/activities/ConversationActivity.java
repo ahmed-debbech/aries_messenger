@@ -77,7 +77,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             @Override
             public void onClick(View v) {
                 presenter.sendMessage(messageField.getText().toString(), correspondedUser.getUid());
-                messageField.setText("");
             }
         });
         messageField.setOnClickListener(new View.OnClickListener() {
@@ -124,5 +123,15 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 list_messages.smoothScrollToPosition(adapter.getItemCount() - 1);
             }
         });
+    }
+
+    @Override
+    public void showError(String error) {
+        messageField.setError(error);
+    }
+
+    @Override
+    public void clearField() {
+        messageField.setText("");
     }
 }

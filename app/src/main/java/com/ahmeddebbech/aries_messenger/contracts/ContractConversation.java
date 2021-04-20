@@ -10,6 +10,8 @@ public interface ContractConversation {
         void retContactData(User u);
         void showHint(Boolean res);
         void loadMessages(List<Message> list);
+        void showError(String error);
+        void clearField();
     }
     interface Presenter{
         void sendMessage(String msg, String receiver);

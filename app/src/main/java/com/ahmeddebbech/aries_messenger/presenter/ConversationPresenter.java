@@ -8,6 +8,7 @@ import com.ahmeddebbech.aries_messenger.database.DbConversations;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.util.InputChecker;
 import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 
 import java.lang.reflect.Array;
@@ -27,29 +28,36 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void sendMessage(String msg, String receiver) {
-        if(UserManager.getInstance().getCurrentConv() == null){
-            Conversation cv = new Conversation();
-            cv.setId(RandomIdGenerator.generateConversationId(UserManager.getInstance().getUserModel().getUid(), receiver));
-            cv.setCount(0);
-            List<String> mem = new ArrayList<>();
-            mem.add(UserManager.getInstance().getUserModel().getUid());
-            mem.add(receiver);
-            cv.setMembers(mem);
-            cv.setLatest_msg("");
-            UserManager.getInstance().setCurrentConv(cv);
-            DbConversations.createConversation(cv, this);
+        if (!msg.equals("")) {
+            if(!InputChecker.isLonger(msg,1000)) {
+                if (UserManager.getInstance().getCurrentConv() == null) {
+                    Conversation cv = new Conversation();
+                    cv.setId(RandomIdGenerator.generateConversationId(UserManager.getInstance().getUserModel().getUid(), receiver));
+                    cv.setCount(0);
+                    List<String> mem = new ArrayList<>();
+                    mem.add(UserManager.getInstance().getUserModel().getUid());
+                    mem.add(receiver);
+                    cv.setMembers(mem);
+                    cv.setLatest_msg("");
+                    UserManager.getInstance().setCurrentConv(cv);
+                    DbConversations.createConversation(cv, this);
+                }
+                Message m = new Message();
+                m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
+                m.setId(RandomIdGenerator.generateMessageId(UserManager.getInstance().getCurrentConv().getId()));
+                m.setId_conv(UserManager.getInstance().getCurrentConv().getId());
+                m.setContent(msg);
+                Date date = new Date();
+                Timestamp time = new Timestamp(date.getTime());
+                m.setDate(time.toString());
+                m.setStatus(Message.SENT);
+                m.setIndex(UserManager.getInstance().getCurrentConv().getCount() + 1);
+                DbConversations.sendMessage(UserManager.getInstance().getCurrentConv().getId(), m);
+                activity.clearField();
+            }else{
+                activity.showError("Your Message is too long");
+            }
         }
-        Message m = new Message();
-        m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
-        m.setId(RandomIdGenerator.generateMessageId(UserManager.getInstance().getCurrentConv().getId()));
-        m.setId_conv(UserManager.getInstance().getCurrentConv().getId());
-        m.setContent(msg);
-        Date date = new Date();
-        Timestamp time = new Timestamp(date.getTime());
-        m.setDate(time.toString());
-        m.setStatus(Message.SENT);
-        m.setIndex(UserManager.getInstance().getCurrentConv().getCount() + 1);
-        DbConversations.sendMessage(UserManager.getInstance().getCurrentConv().getId(), m);
     }
 
     @Override
