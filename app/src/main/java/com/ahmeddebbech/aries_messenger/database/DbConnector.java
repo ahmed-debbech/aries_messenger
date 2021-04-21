@@ -44,4 +44,8 @@ public class DbConnector {
     public static void connectToGetMessages(String conv_id, Presenter presenter){
         DbConversations.getMessages(conv_id, presenter);
     }
+
+    public static void connectToUpdateMessagesWithStatus(String user, String seen) {
+        DbConversations.updateMessagesStatus(user, seen);
+    }
 }

@@ -39,6 +39,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         private TextView content;
         private CardView background;
         private ImageView msg_image;
+        private ImageView msg_status;
         private Message ref;
 
         public MessageViewHolder(@NonNull View itemView) {
@@ -48,6 +49,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             content = itemView.findViewById(R.id.msg_content);
             background = itemView.findViewById(R.id.msg_card);
             msg_image = itemView.findViewById(R.id.msg_img);
+            msg_status = itemView.findViewById(R.id.msg_status);
         }
     }
 
@@ -73,6 +75,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         }else{
             Picasso.get().load(corr.getPhotoURL()).into(holder.msg_image);
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.receiver_message));
+            holder.msg_status.setVisibility(View.INVISIBLE);
         }
     }
 

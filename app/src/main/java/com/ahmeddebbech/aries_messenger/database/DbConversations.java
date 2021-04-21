@@ -11,6 +11,7 @@ import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
+import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -137,8 +138,8 @@ public class DbConversations {
         ref = database.getReference("/Conversations/Conversations_meta/" + cv.getId() + "/latest_msg");
         ref.setValue(cv.getLatest_msg());
         for(String uid : cv.getMembers()) {
-            ref = database.getReference("/Conversations/Conversations_members/" + cv.getId() + "/" + uid);
-            ref.setValue("*");
+            ref = database.getReference("/Conversations/Conversations_members/"+ cv.getId() + "/" + uid + "/seen_index");
+            ref.setValue(0);
         }
         ref = database.getReference("/Users_conversations/"+cv.getMembers().get(0)+"/"+cv.getMembers().get(1));
         ref.setValue(cv.getId());
@@ -158,10 +159,17 @@ public class DbConversations {
                         DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convId + "/" + msg.getId() + "/");
                         ref.setValue(msg);
                         incrementConvCount(convId, msg.getId());
+                        incrementContactSeenIndex(convId, msg.getSender_uid());
                     }
                 }
             }
         });
+    }
+
+    private static void incrementContactSeenIndex(String convId, String sender_uid) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_members/" + convId + "/" + sender_uid +"/seen_index");
+        ref.setValue(UserManager.getInstance().getCurrentConv().getCount()+1);
     }
 
     private static void incrementConvCount(String convId, final String msgid) {
@@ -171,5 +179,33 @@ public class DbConversations {
         ref.setValue(x);
         ref = database.getReference("/Conversations/Conversations_meta/"+convId+"/latest_msg");
         ref.setValue(msgid);
+    }
+
+    public static void updateMessagesStatus(String user, String seen) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_members/"+UserManager.getInstance().getCurrentConv().getId()+"/"+user+"/seen_index");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    List<String> members = new ArrayList<>();
+                    for(DataSnapshot ds : snapshot.getChildren()){
+                        members.add(ds.getKey());
+                    }
+                    con.setMembers(members);
+                    pres.returnData(con);
+                    int uindex = snapshot.getValue(Integer.class);
+                    for(int i = uindex+1; i<=UserManager.getInstance().getCurrentConv().getCount(); i++) {
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + UserManager.getInstance().getCurrentConv().getId() + "/count");
+                        ref.setValue(x);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Error","could not convert to meta conversation");
+            }
+        });
     }
 }
