@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.database;
 
+import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
@@ -44,8 +45,10 @@ public class DbConnector {
     public static void connectToGetMessages(String conv_id, Presenter presenter){
         DbConversations.getMessages(conv_id, presenter);
     }
-
-    public static void connectToUpdateMessagesWithStatus(String user, String seen) {
-        DbConversations.updateMessagesStatus(user, seen);
+    public static void connectToGetLastSeenIndex(String uid, String convid, Presenter pres){
+        DbConversations.getLastSeenIndex(uid, convid, pres);
+    }
+    public static void connectToSendListOfMessages(List<Message> list, String conv){
+        DbConversations.sendListOfMessages(list, conv);
     }
 }

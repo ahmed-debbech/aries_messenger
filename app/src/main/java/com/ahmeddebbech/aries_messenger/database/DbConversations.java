@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.transform.Source;
+
 public class DbConversations {
 
     public static void getConversation(String uidA, String uidB, final Presenter pres){
@@ -181,25 +183,15 @@ public class DbConversations {
         ref.setValue(msgid);
     }
 
-    public static void updateMessagesStatus(String user, String seen) {
+    public static void getLastSeenIndex(String uid, String convid, final Presenter pres) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Conversations/Conversations_members/"+UserManager.getInstance().getCurrentConv().getId()+"/"+user+"/seen_index");
-        ref.addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_members/"+convid+"/"+uid+"/seen_index");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    List<String> members = new ArrayList<>();
-                    for(DataSnapshot ds : snapshot.getChildren()){
-                        members.add(ds.getKey());
-                    }
-                    con.setMembers(members);
-                    pres.returnData(con);
-                    int uindex = snapshot.getValue(Integer.class);
-                    for(int i = uindex+1; i<=UserManager.getInstance().getCurrentConv().getCount(); i++) {
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + UserManager.getInstance().getCurrentConv().getId() + "/count");
-                        ref.setValue(x);
-                    }
+                    Integer index = snapshot.getValue(Integer.class);
+                    pres.returnData(index);
                 }
             }
             @Override
@@ -207,5 +199,15 @@ public class DbConversations {
                 Log.d("Error","could not convert to meta conversation");
             }
         });
+    }
+
+    public static void sendListOfMessages(List<Message> list, String convid){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        for(Message m : list) {
+            DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convid + "/" + m.getId());
+            ref.setValue(m);
+        }
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_members/"+convid+"/"+UserManager.getInstance().getUserModel().getUid() + "/seen_index");
+        ref.setValue(UserManager.getInstance().getCurrentConv().getCount());
     }
 }

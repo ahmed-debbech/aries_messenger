@@ -98,7 +98,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                     if(obj instanceof List){
                         List<Message> lis = (List<Message>)obj;
                         activity.loadMessages(lis);
-                        DbConnector.connectToUpdateMessagesWithStatus(UserManager.getInstance().getUserModel().getUid(), Message.SEEN);
+                        MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, lis, UserManager.getInstance().getCurrentConv().getId());
                     }
                 }
             }
