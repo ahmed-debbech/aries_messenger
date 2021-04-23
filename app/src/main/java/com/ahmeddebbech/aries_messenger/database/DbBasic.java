@@ -3,14 +3,11 @@ package com.ahmeddebbech.aries_messenger.database;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,24 +31,24 @@ public class DbBasic {
     }
     public static void getUserData(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users/"+uid);
-        ref.addValueEventListener(new ValueEventListener() {
+        DatabaseReferences.REF_USER = database.getReference("/Users/"+uid);
+        DatabaseReferences.LIS_USER = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-                        User u = dataSnapshot.getValue(User.class);
-                        System.out.println(u.getDisplayName());
-                        pres.returnData(u);
-                        //DbBasic.getConnections(uid, pres);
-                    }else {
-                        Log.d("ERROR", "Missing User");
-                    }
+                if(dataSnapshot.exists()){
+                    User u = dataSnapshot.getValue(User.class);
+                    pres.returnData(u);
+                    //DbBasic.getConnections(uid, pres);
+                }else {
+                    Log.d("ERROR", "User doesn't exist");
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
-        });
+        };
+        DatabaseReferences.REF_USER.addValueEventListener(DatabaseReferences.LIS_USER);
     }
     public static void modifyUser(User user){
         FirebaseDatabase database = FirebaseDatabase.getInstance();

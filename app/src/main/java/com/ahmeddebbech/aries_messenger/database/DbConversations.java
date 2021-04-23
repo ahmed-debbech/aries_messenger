@@ -39,10 +39,9 @@ public class DbConversations {
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String convId = snapshot.getValue(String.class);
-                    Log.d("#@e", "convv id " + convId);
                     DbConversations.convertToMeta(convId, pres);
                 }else {
-                    Log.d("#@e", "convv null id" + snapshot.getKey());
+                    Log.d("error", "Conversation doesn't exist");
                 }
             }
             @Override
@@ -53,8 +52,8 @@ public class DbConversations {
     }
     private static void convertToMeta(String convId, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Conversations/Conversations_meta/").child(convId);
-        ref.addValueEventListener(new ValueEventListener() {
+        DatabaseReferences.REF_CONV_META = database.getReference("/Conversations/Conversations_meta/").child(convId);
+        DatabaseReferences.LIS_CONV_META = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -75,12 +74,13 @@ public class DbConversations {
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("Error","could not convert to meta conversation");
             }
-        });
+        };
+        DatabaseReferences.REF_CONV_META.addValueEventListener(DatabaseReferences.LIS_CONV_META);
     }
     private static void getMembers(final Conversation con, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Conversations/Conversations_members/").child(con.getId());
-        ref.addValueEventListener(new ValueEventListener() {
+        DatabaseReferences.REF_CONV_MEMBERS = database.getReference("/Conversations/Conversations_members/").child(con.getId());
+        DatabaseReferences.LIS_CONV_MEMBERS = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -90,22 +90,19 @@ public class DbConversations {
                     }
                     con.setMembers(members);
                     pres.returnData(con);
-                }else {
-                    Log.d("#@e", "snap : " + snapshot.toString());
-
-                    Log.d("#@e", "convv null" + snapshot.getKey());
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("Error","could not convert to meta conversation");
             }
-        });
+        };
+        DatabaseReferences.REF_CONV_MEMBERS.addValueEventListener(DatabaseReferences.LIS_CONV_MEMBERS);
     }
     public static void getMessages(String conv_id, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/").child(conv_id);
-        ref.addValueEventListener(new ValueEventListener() {
+        DatabaseReferences.REF_MSGS = database.getReference("/Conversations/Conversations_data/").child(conv_id);
+        DatabaseReferences.LIS_MSGS = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -129,7 +126,8 @@ public class DbConversations {
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("Error","could not convert to meta conversation");
             }
-        });
+        };
+        DatabaseReferences.REF_MSGS.addValueEventListener(DatabaseReferences.LIS_MSGS);
     }
     public static void createConversation(Conversation cv, Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
