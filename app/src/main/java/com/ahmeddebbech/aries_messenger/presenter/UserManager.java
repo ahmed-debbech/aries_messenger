@@ -38,9 +38,7 @@ public class UserManager {
         userModel.setPhotoURL(u.getPhotoURL());
         userModel.setBio(u.getBio());
         userModel.setConnections(u.getConnections());
-    }
-    public void fillAllData(String uid, String username, String displayName, String email, String photoURL, String bio){
-        userModel = new User(uid,username,displayName,email,photoURL,bio);
+        userModel.setConversations(u.getConversations());
     }
     public User getUserModel(){
         return userModel;
@@ -111,5 +109,9 @@ public class UserManager {
 
     public void setCurrentConv(Conversation currentConv) {
         this.currentConv = currentConv;
+    }
+
+    public List<String> getAllConvsIds(){
+        return userModel.getConversations();
     }
 }

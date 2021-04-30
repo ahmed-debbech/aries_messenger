@@ -1,8 +1,10 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractRegistration;
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbUtil;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 public class RegisterPresenter extends Presenter implements ContractRegistration.Presenter {
@@ -49,9 +51,9 @@ public class RegisterPresenter extends Presenter implements ContractRegistration
         UserManager.getInstance().getUserModel().setUsername(user);
     }
     @Override
-    public void returnData(Object o) {
-        if(o instanceof String) {
-            String err = (String)o;
+    public void returnData(DatabaseOutput o) {
+        if(o.getDatabaseOutputkey() == DatabaseOutputKeys.USERNAME_EXISTS) {
+            String err = (String)o.getObj();
             act.showErrorUsername(err);
         }
     }

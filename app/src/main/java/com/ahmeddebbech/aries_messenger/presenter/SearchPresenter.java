@@ -3,8 +3,10 @@ package com.ahmeddebbech.aries_messenger.presenter;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractSearch;
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbSync;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
@@ -30,13 +32,13 @@ public class SearchPresenter extends Presenter implements ContractSearch.Present
         }
     }
     @Override
-    public void returnData(Object o){
-        if(o instanceof ArrayList) {
-            ArrayList<ItemUser> list = (ArrayList<ItemUser>)o;
+    public void returnData(DatabaseOutput o){
+        if(o.getDatabaseOutputkey() == DatabaseOutputKeys.SEARCH_ALL_USERS_BY_NAME) {
+            ArrayList<ItemUser> list = (ArrayList<ItemUser>)o.getObj();
             act.showResults(list);
         }else{
-            if(o instanceof HashMap){
-                HashMap<String, String> m = (HashMap<String,String>)o;
+            if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
+                HashMap<String, String> m = (HashMap<String,String>)o.getObj();
                 UserManager.getInstance().getUserModel().setConnections(m);
             }
         }

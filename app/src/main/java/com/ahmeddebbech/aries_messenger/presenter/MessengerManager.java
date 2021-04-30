@@ -1,9 +1,17 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.database.DbConversations;
+import com.ahmeddebbech.aries_messenger.model.Conversation;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
+import com.ahmeddebbech.aries_messenger.util.InputChecker;
+import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MessengerManager {
@@ -22,9 +30,9 @@ public class MessengerManager {
     public void updateMessagesStatus(final String status, final List<Message> list, final String convid){
         DbConnector.connectToGetLastSeenIndex(UserManager.getInstance().getUserModel().getUid(), convid, new Presenter(){
             @Override
-            public void returnData(Object obj) {
-                if(obj instanceof Integer) {
-                    Integer ind = (Integer)obj;
+            public void returnData(DatabaseOutput obj) {
+                if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_LAST_SEEN) {
+                    Integer ind = (Integer)obj.getObj();
                     List<Message> nlist = new ArrayList<>();
                     for (int i=ind+1; i<=UserManager.getInstance().getCurrentConv().getCount(); i++) {
                         for(int j=0; j<=list.size()-1; j++){
@@ -41,5 +49,33 @@ public class MessengerManager {
             }
         });
 
+    }
+    public void sendMessage(String msg, String receiver, Presenter pres) {
+        if (UserManager.getInstance().getCurrentConv() == null) {
+            Conversation cv = new Conversation();
+            cv.setId(RandomIdGenerator.generateConversationId(UserManager.getInstance().getUserModel().getUid(), receiver));
+            cv.setCount(0);
+            List<String> mem = new ArrayList<>();
+            mem.add(UserManager.getInstance().getUserModel().getUid());
+            mem.add(receiver);
+            cv.setMembers(mem);
+            cv.setLatest_msg("");
+            UserManager.getInstance().setCurrentConv(cv);
+            DbConversations.createConversation(cv, pres);
+        }
+        Message m = new Message();
+        m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
+        m.setId(RandomIdGenerator.generateMessageId(UserManager.getInstance().getCurrentConv().getId()));
+        m.setId_conv(UserManager.getInstance().getCurrentConv().getId());
+        m.setContent(msg);
+        Date date = new Date();
+        Timestamp time = new Timestamp(date.getTime());
+        m.setDate(time.toString());
+        m.setStatus(Message.SENT);
+        m.setIndex(UserManager.getInstance().getCurrentConv().getCount() + 1);
+        DbConversations.sendMessage(UserManager.getInstance().getCurrentConv().getId(), m);
+    }
+    public void checkNewMessages(String uid , Presenter pres){
+        DbConnector.connectToCheckNewMessages(uid, pres);
     }
 }

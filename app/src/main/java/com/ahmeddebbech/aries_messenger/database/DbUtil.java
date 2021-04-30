@@ -3,6 +3,7 @@ package com.ahmeddebbech.aries_messenger.database;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.RegisterPresenter;
@@ -36,7 +37,8 @@ public class DbUtil {
                         founder = true;
                     }
                 }
-                loginPresenter.returnData(founder);
+                DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.USER_EXISTS, founder);
+                loginPresenter.returnData(doo);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -58,7 +60,8 @@ public class DbUtil {
                     }
                 }
                 if (founder) {
-                    pres.returnData("This username is taken!");
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.USERNAME_EXISTS, "This username is taken!");
+                    pres.returnData(doo);
                 }
             }
             @Override
@@ -74,9 +77,11 @@ public class DbUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    pres.returnData(new Boolean(true));
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CHECK_CONV_EXISTS, new Boolean(true));
+                    pres.returnData(doo);
                 }else {
-                    pres.returnData(new Boolean(false));
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CHECK_CONV_EXISTS, new Boolean(false));
+                    pres.returnData(doo);
                 }
             }
             @Override

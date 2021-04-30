@@ -1,7 +1,9 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractItemList;
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 
 import java.util.List;
 import java.util.Map;
@@ -14,12 +16,14 @@ public class RequestsItemPresenter extends Presenter implements ContractItemList
         this.act = act;
     }
     @Override
-    public void returnData(Object obj) {
-        if (obj instanceof List) {
-            Map<String, String> connections = (Map) obj;
+    public void returnData(DatabaseOutput obj) {
+        if (obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS) {
+            Map<String, String> connections = (Map) obj.getObj();
             UserManager.getInstance().getUserModel().setConnections(connections);
         } else {
-            if (obj instanceof Boolean) {
+            if (obj.getDatabaseOutputkey() == DatabaseOutputKeys.REMOVE_CONTACT
+            || obj.getDatabaseOutputkey() == DatabaseOutputKeys.ADD_CONTACT
+            || obj.getDatabaseOutputkey() == DatabaseOutputKeys.ACCEPT_CONTACT) {
                 act.updateUi();
             }
         }

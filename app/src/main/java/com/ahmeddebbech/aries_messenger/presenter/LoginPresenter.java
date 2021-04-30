@@ -4,7 +4,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractLogin;
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,9 +49,9 @@ public class LoginPresenter extends Presenter implements ContractLogin.Presenter
     }
 
     @Override
-    public void returnData(Object o) {
-        if(o instanceof Boolean) {
-            Boolean userIsFound = (Boolean)o;
+    public void returnData(DatabaseOutput o) {
+        if(o.getDatabaseOutputkey() == DatabaseOutputKeys.USER_EXISTS) {
+            Boolean userIsFound = (Boolean)o.getObj();
             if (!userIsFound) {
                 cur_act.redirectRegisterActivity();
             } else {

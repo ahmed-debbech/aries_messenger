@@ -3,9 +3,11 @@ package com.ahmeddebbech.aries_messenger.presenter;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbConversations;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
@@ -29,32 +31,10 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     @Override
     public void sendMessage(String msg, String receiver) {
         if (!msg.equals("")) {
-            if(!InputChecker.isLonger(msg,1000)) {
-                if (UserManager.getInstance().getCurrentConv() == null) {
-                    Conversation cv = new Conversation();
-                    cv.setId(RandomIdGenerator.generateConversationId(UserManager.getInstance().getUserModel().getUid(), receiver));
-                    cv.setCount(0);
-                    List<String> mem = new ArrayList<>();
-                    mem.add(UserManager.getInstance().getUserModel().getUid());
-                    mem.add(receiver);
-                    cv.setMembers(mem);
-                    cv.setLatest_msg("");
-                    UserManager.getInstance().setCurrentConv(cv);
-                    DbConversations.createConversation(cv, this);
-                }
-                Message m = new Message();
-                m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
-                m.setId(RandomIdGenerator.generateMessageId(UserManager.getInstance().getCurrentConv().getId()));
-                m.setId_conv(UserManager.getInstance().getCurrentConv().getId());
-                m.setContent(msg);
-                Date date = new Date();
-                Timestamp time = new Timestamp(date.getTime());
-                m.setDate(time.toString());
-                m.setStatus(Message.SENT);
-                m.setIndex(UserManager.getInstance().getCurrentConv().getCount() + 1);
-                DbConversations.sendMessage(UserManager.getInstance().getCurrentConv().getId(), m);
+            if (!InputChecker.isLonger(msg, 1000)) {
+                MessengerManager.getInstance().sendMessage(msg, receiver, this);
                 activity.clearField();
-            }else{
+            } else {
                 activity.showError("Your Message is too long");
             }
         }
@@ -76,27 +56,26 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
-    public void returnData(Object obj) {
-        if(obj instanceof User){
-            User u = (User)obj;
+    public void returnData(DatabaseOutput obj) {
+        if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA){
+            User u = (User)obj.getObj();
             activity.retContactData(u);
         }else{
-            if(obj instanceof Boolean){
-                Boolean bb = (Boolean) obj;
+            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_CONV_EXISTS){
+                Boolean bb = (Boolean) obj.getObj();
                 if(bb == false){
                     UserManager.getInstance().setCurrentConv(null);
                 }
                 activity.showHint(bb);
             }else{
-                if(obj instanceof Conversation){
+                if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONV){
                     // load the meta
-                    Conversation cv = (Conversation)obj;
+                    Conversation cv = (Conversation)obj.getObj();
                     UserManager.getInstance().setCurrentConv(cv);
-
                     DbConnector.connectToGetMessages(cv.getId(), this);
                 }else{
-                    if(obj instanceof List){
-                        List<Message> lis = (List<Message>)obj;
+                    if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_MESSAGES){
+                        List<Message> lis = (List<Message>)obj.getObj();
                         activity.loadMessages(lis);
                         MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, lis, UserManager.getInstance().getCurrentConv().getId());
                     }

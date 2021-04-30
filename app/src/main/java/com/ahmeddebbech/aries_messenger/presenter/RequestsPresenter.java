@@ -3,7 +3,9 @@ package com.ahmeddebbech.aries_messenger.presenter;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractRequests;
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 
 import java.util.ArrayList;
@@ -18,9 +20,9 @@ public class RequestsPresenter extends Presenter implements ContractRequests.Pre
     }
 
     @Override
-    public void returnData(Object o){
-        if(o instanceof List) {
-            ArrayList<ItemUser> list = (ArrayList<ItemUser>)o;
+    public void returnData(DatabaseOutput o){
+        if(o.getDatabaseOutputkey() == DatabaseOutputKeys.CONVERT_TO_USERS) {
+            ArrayList<ItemUser> list = (ArrayList<ItemUser>)o.getObj();
             act.showResults(list);
         }
     }
@@ -31,7 +33,8 @@ public class RequestsPresenter extends Presenter implements ContractRequests.Pre
         empty we go fetch from the database*/
         Map<String, String> map = UserManager.getInstance().getUserModel().getConnections();
         if((map == null) || (map.isEmpty())){
-            returnData(new ArrayList<ItemUser>());
+            DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CONVERT_TO_USERS, new ArrayList<ItemUser>());
+            returnData(doo);
         }else{
             List<String> listPending = UserManager.getInstance().getPendingConnections();
             //we convert the UIDs strings to actual user data from DB

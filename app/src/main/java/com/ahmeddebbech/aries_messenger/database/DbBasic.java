@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.model.User;
@@ -37,7 +38,8 @@ public class DbBasic {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     User u = dataSnapshot.getValue(User.class);
-                    pres.returnData(u);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_DATA, u);
+                    pres.returnData(doo);
                     //DbBasic.getConnections(uid, pres);
                 }else {
                     Log.d("ERROR", "User doesn't exist");
@@ -98,7 +100,8 @@ public class DbBasic {
                         }
                     }
                 }
-                pres.returnData(list);
+                DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.SEARCH_ALL_USERS_BY_NAME, list);
+                pres.returnData(doo);
             }
 
             @Override
@@ -122,7 +125,8 @@ public class DbBasic {
                         }
                     }
                 }
-                pres.returnData(users);
+                DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CONVERT_TO_USERS, users);
+                pres.returnData(doo);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -137,7 +141,8 @@ public class DbBasic {
         ref = database.getReference("/Users_connections/"+ addedUid+ "/"+uidUser);
         ref.setValue("pending");
         Boolean b= true;
-        pres.returnData(b);
+        DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.ADD_CONTACT, b);
+        pres.returnData(doo);
     }
     public static void acceptContact(String uidUser, String addedUid, Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -146,7 +151,8 @@ public class DbBasic {
         ref = database.getReference("/Users_connections/"+ addedUid+ "/"+uidUser);
         ref.setValue("connected");
         Boolean b= true;
-        pres.returnData(b);
+        DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.ACCEPT_CONTACT, b);
+        pres.returnData(doo);
     }
     public static void getConnections(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -163,9 +169,12 @@ public class DbBasic {
                         connections = null;
                     }
                     Log.d("#@e" , "connections");
-                    pres.returnData(connections);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_CONNECTIONS, connections);
+                    pres.returnData(doo);
+                }else {
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_CONNECTIONS, null);
+                    pres.returnData(doo);
                 }
-                pres.returnData(null);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -182,6 +191,7 @@ public class DbBasic {
         ref = database.getReference("/Users_connections/"+delUid+"/" + uid);
         ref.removeValue();
         Boolean b = true;
-        pres.returnData(b);
+        DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.REMOVE_CONTACT, b);
+        pres.returnData(doo);
     }
 }

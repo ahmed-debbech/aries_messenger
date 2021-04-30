@@ -51,4 +51,10 @@ public class DbConnector {
     public static void connectToSendListOfMessages(List<Message> list, String conv){
         DbConversations.sendListOfMessages(list, conv);
     }
+    public static void connectToCheckNewMessages(String uid, Presenter pres){
+        DbConversations.checkNewMessages(uid, pres);
+    }
+    public static void connectToGetConversationsIds(String uid, Presenter pres){
+        DbConversations.getConversationsIds(uid, pres);
+    }
 }

@@ -1,6 +1,7 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractProfileF;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.User;
 
 public class ProfilePresenter extends Presenter implements ContractProfileF.Presenter {
@@ -17,7 +18,7 @@ public class ProfilePresenter extends Presenter implements ContractProfileF.Pres
     }
 
     @Override
-    public void returnData(Object obj) {
+    public void returnData(DatabaseOutput obj) {
 
     }
 }

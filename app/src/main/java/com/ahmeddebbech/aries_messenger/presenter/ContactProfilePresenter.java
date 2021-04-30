@@ -3,9 +3,11 @@ package com.ahmeddebbech.aries_messenger.presenter;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbUtil;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.User;
 
 import java.sql.Connection;
@@ -21,13 +23,15 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
     public void fillUiWithData(String uid) {
         DbBasic.getUserData(uid,this);
     }
-    public void returnData(Object o){
-        if(o instanceof User) {
-            User u = (User)o;
+    public void returnData(DatabaseOutput o){
+        if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA) {
+            User u = (User)o.getObj();
             act.loadData(u.getDisplayName(),u.getPhotoURL(), u.getBio());
         }else{
-            if(o instanceof Boolean){
-                Boolean b = (Boolean)o;
+            if(o.getDatabaseOutputkey() == DatabaseOutputKeys.REMOVE_CONTACT
+            || o.getDatabaseOutputkey() == DatabaseOutputKeys.ACCEPT_CONTACT
+            || o.getDatabaseOutputkey() == DatabaseOutputKeys.ADD_CONTACT){
+                Boolean b = (Boolean)o.getObj();
                 if(b == true){
                     act.updateUi();
                 }

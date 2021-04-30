@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.solver.widgets.Snapshot;
 
 import com.ahmeddebbech.aries_messenger.model.Conversation;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
@@ -89,7 +90,8 @@ public class DbConversations {
                         members.add(ds.getKey());
                     }
                     con.setMembers(members);
-                    pres.returnData(con);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_CONV, con);
+                    pres.returnData(doo);
                 }
             }
             @Override
@@ -117,7 +119,8 @@ public class DbConversations {
                             return o1.getIndex() - o2.getIndex();
                         }
                     });
-                    pres.returnData(list);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_MESSAGES, list);
+                    pres.returnData(doo);
                 }else {
                     pres.returnData(null);
                 }
@@ -150,11 +153,10 @@ public class DbConversations {
     public static void sendMessage(final String convId, final Message msg){
         DbUtil.checkConvExists(convId, new Presenter() {
             @Override
-            public void returnData(Object obj) {
-                if(obj instanceof Boolean) {
-                    Boolean bb = (Boolean) obj;
+            public void returnData(DatabaseOutput obj) {
+                if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_CONV_EXISTS) {
+                    Boolean bb = (Boolean) obj.getObj();
                     if (bb == false) {
-
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convId + "/" + msg.getId() + "/");
                         ref.setValue(msg);
@@ -165,13 +167,11 @@ public class DbConversations {
             }
         });
     }
-
     private static void incrementContactSeenIndex(String convId, String sender_uid) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Conversations/Conversations_members/" + convId + "/" + sender_uid +"/seen_index");
         ref.setValue(UserManager.getInstance().getCurrentConv().getCount()+1);
     }
-
     private static void incrementConvCount(String convId, final String msgid) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Conversations/Conversations_meta/"+convId+"/count");
@@ -180,7 +180,6 @@ public class DbConversations {
         ref = database.getReference("/Conversations/Conversations_meta/"+convId+"/latest_msg");
         ref.setValue(msgid);
     }
-
     public static void getLastSeenIndex(String uid, String convid, final Presenter pres) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Conversations/Conversations_members/"+convid+"/"+uid+"/seen_index");
@@ -189,7 +188,8 @@ public class DbConversations {
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     Integer index = snapshot.getValue(Integer.class);
-                    pres.returnData(index);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_LAST_SEEN, index);
+                    pres.returnData(doo);
                 }
             }
             @Override
@@ -198,7 +198,6 @@ public class DbConversations {
             }
         });
     }
-
     public static void sendListOfMessages(List<Message> list, String convid){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         for(Message m : list) {
@@ -207,5 +206,47 @@ public class DbConversations {
         }
         DatabaseReference ref = database.getReference("/Conversations/Conversations_members/"+convid+"/"+UserManager.getInstance().getUserModel().getUid() + "/seen_index");
         ref.setValue(UserManager.getInstance().getCurrentConv().getCount());
+    }
+    public static void checkNewMessages(String uid, final Presenter pres){
+        List<String> convslist = UserManager.getInstance().getAllConvsIds();
+        for(int i=0; i<= convslist.size()-1; i++){
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReferences.REF_ALL_CONVS[i] = database.getReference("/Conversations/Conversations_data/"+ convslist.get(i));
+            DatabaseReferences.LIS_ALL_CONVS[i] = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY, true);
+                        pres.returnData(doo);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.d("Error","could not convert to meta conversation");
+                }
+            };
+            DatabaseReferences.REF_ALL_CONVS[i].addValueEventListener(DatabaseReferences.LIS_ALL_CONVS[i]);
+        }
+    }
+    public static void getConversationsIds(String uid, final Presenter pres) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users_conversations/"+uid);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    List<String> list = new ArrayList<>();
+                    for(DataSnapshot sp : snapshot.getChildren()) {
+                        list.add(sp.getValue(String.class));
+                    }
+                    DatabaseOutput dot = new DatabaseOutput(DatabaseOutputKeys.CONVS_IDS_GETTER, list);
+                    pres.returnData(dot);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Error","could not get conversations ids");
+            }
+        });
     }
 }

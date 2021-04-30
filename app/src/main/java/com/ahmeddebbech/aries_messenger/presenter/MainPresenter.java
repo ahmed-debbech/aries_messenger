@@ -3,9 +3,11 @@ package com.ahmeddebbech.aries_messenger.presenter;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.User;
 
 import java.util.List;
@@ -29,14 +31,14 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         DbConnector.connectToGetUserData(uid, this);
     }
     @Override
-    public void returnData(Object o){
-        if(o instanceof User) {
-            User u = (User)o;
+    public void returnData(DatabaseOutput o){
+        if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA) {
+            User u = (User)o.getObj();
             UserManager.getInstance().updateWithCopy(u);
             DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
         }else{
-            if(o instanceof Map){
-                Map<String, String> l = (Map<String, String>)o;
+            if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
+                Map<String, String> l = (Map<String, String>)o.getObj();
                 UserManager.getInstance().getUserModel().setConnections(l);
                 act.setupUi();
             }

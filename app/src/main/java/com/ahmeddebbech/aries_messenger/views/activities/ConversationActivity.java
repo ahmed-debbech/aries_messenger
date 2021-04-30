@@ -140,8 +140,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        DatabaseReferences.REF_CONV_META.removeEventListener(DatabaseReferences.LIS_CONV_META);
-        DatabaseReferences.REF_CONV_MEMBERS.removeEventListener(DatabaseReferences.LIS_CONV_MEMBERS);
-        DatabaseReferences.REF_MSGS.removeEventListener(DatabaseReferences.LIS_MSGS);
+        DatabaseReferences.removeConvListener();
     }
 }
