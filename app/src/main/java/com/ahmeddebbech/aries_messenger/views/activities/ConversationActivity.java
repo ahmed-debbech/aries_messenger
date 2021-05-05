@@ -122,7 +122,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             @Override
             public void run() {
                 // Call smooth scroll
-                list_messages.smoothScrollToPosition(adapter.getItemCount() - 1);
+                list_messages.smoothScrollToPosition(adapter.getItemCount());
             }
         });
     }

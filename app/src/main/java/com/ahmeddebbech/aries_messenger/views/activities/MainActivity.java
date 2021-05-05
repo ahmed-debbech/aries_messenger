@@ -108,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(i);
             }
         });
         ImageView search_main = findViewById(R.id.search_main);
@@ -171,6 +173,9 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
         displayName_nav.setText(disp);
         username_nav.setText(usern);
         Picasso.get().load(image).resize(200,200).into(photo_nav);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
+                .commit();
+        navigationView.setCheckedItem(R.id.connections_nav);
     }
 
 }

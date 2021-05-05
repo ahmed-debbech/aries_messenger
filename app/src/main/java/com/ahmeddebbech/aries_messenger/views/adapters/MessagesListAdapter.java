@@ -72,6 +72,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         if (holder.ref.getSender_uid().equals(UserManager.getInstance().getUserModel().getUid())) {
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.sender_message));
             Picasso.get().load(UserManager.getInstance().getUserModel().getPhotoURL()).into(holder.msg_image);
+            holder.msg_status.setVisibility(View.VISIBLE);
         }else{
             Picasso.get().load(corr.getPhotoURL()).into(holder.msg_image);
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.receiver_message));

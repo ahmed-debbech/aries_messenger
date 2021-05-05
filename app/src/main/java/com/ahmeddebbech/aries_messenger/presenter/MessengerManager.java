@@ -78,4 +78,8 @@ public class MessengerManager {
     public void checkNewMessages(String uid , Presenter pres){
         DbConnector.connectToCheckNewMessages(uid, pres);
     }
+
+    public void updateMessagesStatus(String status) {
+        System.out.println("deliver detected!");
+    }
 }

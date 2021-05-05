@@ -7,6 +7,7 @@ import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
+import com.ahmeddebbech.aries_messenger.model.Message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,8 +59,7 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
                     UserManager.getInstance().getUserModel().setConversations((List<String>)dot.getObj());
                 }else{
                     if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY){
-                        Boolean b = (Boolean)dot.getObj();
-                        Log.d("ind$",  b.toString());
+                        MessengerManager.getInstance().updateMessagesStatus(Message.DELIVERED);
                     }
                 }
             }
