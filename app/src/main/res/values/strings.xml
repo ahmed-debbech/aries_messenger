@@ -42,6 +42,8 @@
     <string name="refuse_button">Refuse</string>
     <string name="but_edit_disp_name">Edit Display Name</string>
     <string name="but_edit_bio">Edit Bio</string>
+    <string name="msg_edit">Edit</string>
+    <string name="msg_cancel">Cancel</string>
 
     <!--messages popups -->
     <string name="no_res_msg">No Results!</string>
