@@ -51,6 +51,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             msg_image = itemView.findViewById(R.id.msg_img);
             msg_status = itemView.findViewById(R.id.msg_status);
         }
+
     }
 
     @NonNull
@@ -73,6 +74,14 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.sender_message));
             Picasso.get().load(UserManager.getInstance().getUserModel().getPhotoURL()).into(holder.msg_image);
             holder.msg_status.setVisibility(View.VISIBLE);
+            final MessageViewHolder hld = holder;
+            holder.background.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    hld.content.setText("Pressed!");
+                    return true;
+                }
+            });
         }else{
             Picasso.get().load(corr.getPhotoURL()).into(holder.msg_image);
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.receiver_message));
@@ -84,4 +93,5 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     public int getItemCount() {
         return list.size();
     }
+
 }
