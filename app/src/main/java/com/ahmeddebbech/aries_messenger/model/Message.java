@@ -18,6 +18,7 @@ public class Message {
     private String date;
     private String content;
     private String status;
+    private boolean is_edited = false;
     //private String id_reply_msg; //this may cause an error //TODO
     private int index;
 
@@ -105,5 +106,13 @@ public class Message {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public boolean getIs_edited() {
+        return is_edited;
+    }
+
+    public void setIs_edited(boolean is_edited) {
+        this.is_edited = is_edited;
     }
 }

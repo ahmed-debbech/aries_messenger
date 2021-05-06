@@ -82,4 +82,8 @@ public class MessengerManager {
     public void updateMessagesStatus(String status) {
         System.out.println("deliver detected!");
     }
+
+    public void editMessage(String msg_id) {
+        DbConnector.connectToEditMsg(UserManager.getInstance().getCurrentConv().getId(), msg_id);
+    }
 }

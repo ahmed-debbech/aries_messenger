@@ -249,4 +249,10 @@ public class DbConversations {
             }
         });
     }
+
+    public static void editMsg(String id, String msg_id) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/"+id+"/"+msg_id+"/is_edited");
+        ref.setValue(true);
+    }
 }
