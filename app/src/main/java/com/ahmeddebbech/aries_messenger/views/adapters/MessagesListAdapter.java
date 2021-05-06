@@ -110,7 +110,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             holder.msg_edit_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MessengerManager.getInstance().editMessage(hld.ref.getId());
+                    MessengerManager.getInstance().editMessage(hld.ref.getId(), hld.msg_edit.getText().toString());
                 }
             });
         }else{

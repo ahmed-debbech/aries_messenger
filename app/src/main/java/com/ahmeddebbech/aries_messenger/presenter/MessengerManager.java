@@ -83,7 +83,7 @@ public class MessengerManager {
         System.out.println("deliver detected!");
     }
 
-    public void editMessage(String msg_id) {
-        DbConnector.connectToEditMsg(UserManager.getInstance().getCurrentConv().getId(), msg_id);
+    public void editMessage(String msg_id, String msg_cont) {
+        DbConnector.connectToEditMsg(UserManager.getInstance().getCurrentConv().getId(), msg_id, msg_cont);
     }
 }

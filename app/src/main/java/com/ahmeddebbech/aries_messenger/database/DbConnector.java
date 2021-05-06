@@ -58,7 +58,7 @@ public class DbConnector {
         DbConversations.getConversationsIds(uid, pres);
     }
 
-    public static void connectToEditMsg(String id, String msg_id) {
-        DbConversations.editMsg(id, msg_id);
+    public static void connectToEditMsg(String id, String msg_id, String msg_cont) {
+        DbConversations.editMsg(id, msg_id, msg_cont);
     }
 }
