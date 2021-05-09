@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -39,7 +40,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     private TextView displayName;
     private EditText messageField;
     private TextView no_msg_hint;
-    private Button send;
+    private ImageButton send;
     private User correspondedUser;
     private RecyclerView list_messages;
     private RecyclerView.LayoutManager layoutManager;

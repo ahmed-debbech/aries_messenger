@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/general_background"
     tools:context=".views.activities.ConversationActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -54,24 +55,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="67dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/conv_toolbar" />
 
     <LinearLayout
+        android:padding="4dp"
+        android:layout_margin="7dp"
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:orientation="horizontal"
+        android:background="@drawable/linearlayout_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/conv_list_messages"
         app:layout_constraintStart_toStartOf="@+id/conv_list_messages"
-        android:background="@color/disabled_button"
         >
 
         <EditText
+            android:padding="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingLeft="10dp"
             android:id="@+id/conv_message_field"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -79,18 +85,21 @@
             android:maxLines="3"
             android:scrollbars="vertical"
             android:gravity="top|left"
-            android:hint="Write your message..."
+            android:hint="@string/type_msg"
             android:inputType="textPersonName"
+            android:background="@drawable/editline_rounded"
             />
 
-        <Button
+        <ImageButton
             android:id="@+id/conv_send"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            app:srcCompat="@drawable/ic_send_button"
             android:background="@drawable/rounded_button"
-            android:text="Send"
-            android:textColor="#FFFFFF" />
+            />
+
+
     </LinearLayout>
 
     <TextView
