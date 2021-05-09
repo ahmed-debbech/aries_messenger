@@ -1,6 +1,8 @@
 package com.ahmeddebbech.aries_messenger.views.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,6 +47,8 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     private RecyclerView list_messages;
     private RecyclerView.LayoutManager layoutManager;
     private MessagesListAdapter adapter;
+    private ItemTouchHelper.SimpleCallback simpleSwipeCallback;
+    private ItemTouchHelper ith;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +98,28 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 });
             }
         });
+        final MessagesListAdapter rec = this.adapter;
+        simpleSwipeCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+                final int position = viewHolder.getAdapterPosition();
+                switch (direction) {
+                    case ItemTouchHelper.LEFT:
+                        rec.notifyItemRemoved(position);
+                        break;
+                    case ItemTouchHelper.RIGHT:
+
+                        break;
+                }
+            }
+        };
+        ith = new ItemTouchHelper(simpleSwipeCallback);
+        ith.attachToRecyclerView(list_messages);
     }
 
     @Override
