@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/conv_return"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_baseline_arrow_back_24" />
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -44,7 +44,8 @@
                 android:fontFamily="sans-serif-black"
                 android:text="dispname"
                 android:textColor="#FFFFFF"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:paddingTop="5dp" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -66,23 +67,30 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/conv_list_messages"
-        app:layout_constraintStart_toStartOf="@+id/conv_list_messages">
+        app:layout_constraintStart_toStartOf="@+id/conv_list_messages"
+        android:background="@color/disabled_button"
+        >
 
         <EditText
             android:id="@+id/conv_message_field"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:maxLines="3"
+            android:scrollbars="vertical"
+            android:gravity="top|left"
             android:hint="Write your message..."
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            />
 
         <Button
             android:id="@+id/conv_send"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Send" />
+            android:background="@drawable/rounded_button"
+            android:text="Send"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <TextView
