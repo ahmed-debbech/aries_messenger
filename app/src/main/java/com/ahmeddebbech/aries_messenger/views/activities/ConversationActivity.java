@@ -108,15 +108,19 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             @Override
             public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
+                MessagesListAdapter.MessageViewHolder ms;
                 switch (direction) {
                     case ItemTouchHelper.LEFT:
-                        rec.notifyItemRemoved(position);
+                        System.out.println("pos : " + viewHolder.getAdapterPosition());
+                        messageField.setText(adapter.swipe(viewHolder.getAdapterPosition()));
                         break;
                     case ItemTouchHelper.RIGHT:
-
+                        System.out.println("pos : " + viewHolder.getAdapterPosition());
+                        messageField.setText(adapter.swipe(viewHolder.getAdapterPosition()));
                         break;
                 }
             }
+
         };
         ith = new ItemTouchHelper(simpleSwipeCallback);
         ith.attachToRecyclerView(list_messages);

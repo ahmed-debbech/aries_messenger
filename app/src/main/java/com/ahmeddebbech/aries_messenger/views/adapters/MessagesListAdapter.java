@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
@@ -22,16 +23,20 @@ import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.AriesCalendar;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapter.MessageViewHolder> {
+public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapter.MessageViewHolder>{
     private List<Message> list;
     private User corr;
-
+    List<MessageViewHolder> vlist;
     public MessagesListAdapter(List<Message> list, User corr){
         this.list = list;
         this.corr = corr;
+        this.vlist = new ArrayList<>();
     }
+
+
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         private ImageView status;
         private TextView date;
@@ -63,6 +68,10 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             msg_edited_flag = itemView.findViewById(R.id.msg_edited_flag);
         }
 
+        @Override
+        public String toString() {
+            return "content : " +content.getText();
+        }
     }
 
     @NonNull
@@ -76,6 +85,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message m = list.get(position);
+        //System.out.println("will be added : " + holder.toString());
         holder.content.setText(m.getContent());
         holder.status.setImageDrawable(Message.toDrawable(holder.itemView, m.getStatus()));
         AriesCalendar ac = new AriesCalendar(m.getDate());
@@ -125,4 +135,11 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         return list.size();
     }
 
+    public MessageViewHolder getItem(int pos){
+        System.out.println("all : " + this.vlist.size());
+        return this.vlist.get(pos);
+    }
+    public String swipe(int position){
+        return this.list.get(position).getContent();
+    }
 }
