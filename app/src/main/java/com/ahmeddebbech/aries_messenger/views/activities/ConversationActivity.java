@@ -120,12 +120,12 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 switch (direction) {
                     case ItemTouchHelper.LEFT:
                         System.out.println("pos : " + viewHolder.getAdapterPosition());
-                        messageField.setText(adapter.swipe(viewHolder.getAdapterPosition()));
+                        msg_reply_text.setText(adapter.swipe(viewHolder.getAdapterPosition()));
                         reply_hlin.setVisibility(View.VISIBLE);
                         break;
                     case ItemTouchHelper.RIGHT:
                         System.out.println("pos : " + viewHolder.getAdapterPosition());
-                        messageField.setText(adapter.swipe(viewHolder.getAdapterPosition()));
+                        msg_reply_text.setText(adapter.swipe(viewHolder.getAdapterPosition()));
                         reply_hlin.setVisibility(View.VISIBLE);
                         break;
                 }
