@@ -17,6 +17,7 @@ import java.util.List;
 public class MessengerManager {
 
     private static MessengerManager instance;
+    private Message msg_to_repply_to;
 
     private MessengerManager(){
 
@@ -85,5 +86,11 @@ public class MessengerManager {
 
     public void editMessage(String msg_id, String msg_cont) {
         DbConnector.connectToEditMsg(UserManager.getInstance().getCurrentConv().getId(), msg_id, msg_cont);
+    }
+    public void setMsgToReplyTo(Message msg){
+        this.msg_to_repply_to = msg;
+    }
+    public Message getMsgToReplyTo(){
+        return msg_to_repply_to;
     }
 }

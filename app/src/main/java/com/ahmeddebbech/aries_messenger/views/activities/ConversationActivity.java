@@ -25,6 +25,7 @@ import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.adapters.MessagesListAdapter;
 import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
@@ -115,17 +116,16 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
 
             @Override
             public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
-                final int position = viewHolder.getAdapterPosition();
-                MessagesListAdapter.MessageViewHolder ms;
+                MessengerManager.getInstance().setMsgToReplyTo(adapter.getRaw(viewHolder.getAdapterPosition()));
                 switch (direction) {
                     case ItemTouchHelper.LEFT:
                         System.out.println("pos : " + viewHolder.getAdapterPosition());
-                        msg_reply_text.setText(adapter.swipe(viewHolder.getAdapterPosition()));
+                        msg_reply_text.setText(MessengerManager.getInstance().getMsgToReplyTo().getContent());
                         reply_hlin.setVisibility(View.VISIBLE);
                         break;
                     case ItemTouchHelper.RIGHT:
                         System.out.println("pos : " + viewHolder.getAdapterPosition());
-                        msg_reply_text.setText(adapter.swipe(viewHolder.getAdapterPosition()));
+                        msg_reply_text.setText(MessengerManager.getInstance().getMsgToReplyTo().getContent());
                         reply_hlin.setVisibility(View.VISIBLE);
                         break;
                 }

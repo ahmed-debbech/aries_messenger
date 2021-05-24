@@ -135,11 +135,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         return list.size();
     }
 
-    public MessageViewHolder getItem(int pos){
-        System.out.println("all : " + this.vlist.size());
-        return this.vlist.get(pos);
-    }
-    public String swipe(int position){
-        return this.list.get(position).getContent();
+    public Message getRaw(int position){
+        return this.list.get(position);
     }
 }
