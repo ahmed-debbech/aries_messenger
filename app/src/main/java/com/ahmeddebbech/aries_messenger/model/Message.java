@@ -40,7 +40,7 @@ public class Message {
         this.id_conv = id_conv;
         this.date = date;
         this.content = content;
-        this.setId_reply_msg(reply);
+        this.id_reply_msg = reply;
         this.status = status;
         this.index = index;
     }

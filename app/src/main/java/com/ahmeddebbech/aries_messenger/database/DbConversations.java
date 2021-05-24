@@ -209,23 +209,26 @@ public class DbConversations {
     }
     public static void checkNewMessages(String uid, final Presenter pres){
         List<String> convslist = UserManager.getInstance().getAllConvsIds();
-        for(int i=0; i<= convslist.size()-1; i++){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReferences.REF_ALL_CONVS[i] = database.getReference("/Conversations/Conversations_data/"+ convslist.get(i));
-            DatabaseReferences.LIS_ALL_CONVS[i] = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY, true);
-                        pres.returnData(doo);
+        if(convslist != null) {
+            for (int i = 0; i <= convslist.size() - 1; i++) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReferences.REF_ALL_CONVS[i] = database.getReference("/Conversations/Conversations_data/" + convslist.get(i));
+                DatabaseReferences.LIS_ALL_CONVS[i] = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY, true);
+                            pres.returnData(doo);
+                        }
                     }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.d("Error","could not convert to meta conversation");
-                }
-            };
-            DatabaseReferences.REF_ALL_CONVS[i].addValueEventListener(DatabaseReferences.LIS_ALL_CONVS[i]);
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.d("Error", "could not convert to meta conversation");
+                    }
+                };
+                DatabaseReferences.REF_ALL_CONVS[i].addValueEventListener(DatabaseReferences.LIS_ALL_CONVS[i]);
+            }
         }
     }
     public static void getConversationsIds(String uid, final Presenter pres) {
