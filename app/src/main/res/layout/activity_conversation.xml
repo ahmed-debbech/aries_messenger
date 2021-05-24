@@ -56,7 +56,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
         android:layout_marginBottom="67dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/msg_hlin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/conv_toolbar" />
@@ -64,7 +64,44 @@
     <LinearLayout
         android:padding="4dp"
         android:layout_margin="7dp"
-        android:id="@+id/linearLayout2"
+        android:id="@+id/msg_reply_hlin"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="@drawable/linearlayout_rounded"
+        app:layout_constraintBottom_toTopOf="@+id/msg_hlin"
+        app:layout_constraintEnd_toEndOf="@+id/msg_hlin"
+        app:layout_constraintStart_toStartOf="@+id/msg_hlin"
+        >
+
+        <TextView
+            android:id="@+id/msg_reply_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="10"
+            android:gravity="top|left"
+            android:hint="@string/type_msg"
+            android:inputType="textPersonName"
+            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white" />
+
+        <ImageButton
+            android:id="@+id/msg_reply_exit"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_baseline_close_24"
+            android:background="@drawable/rounded_button"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:padding="4dp"
+        android:layout_margin="7dp"
+        android:id="@+id/msg_hlin"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:orientation="horizontal"

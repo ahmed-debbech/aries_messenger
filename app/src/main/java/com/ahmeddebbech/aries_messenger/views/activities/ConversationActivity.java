@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -42,6 +43,9 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     private TextView displayName;
     private EditText messageField;
     private TextView no_msg_hint;
+    private TextView msg_reply_text;
+    private ImageButton msg_reply_exit;
+    private LinearLayout reply_hlin;
     private ImageButton send;
     private User correspondedUser;
     private RecyclerView list_messages;
@@ -72,6 +76,10 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         list_messages = findViewById(R.id.conv_list_messages);
         layoutManager = new LinearLayoutManager(this);
         list_messages.setLayoutManager(layoutManager);
+        msg_reply_exit = findViewById(R.id.msg_reply_exit);
+        msg_reply_text = findViewById(R.id.msg_reply_text);
+        reply_hlin = findViewById(R.id.msg_reply_hlin);
+
     }
     public void addListeners(){
         back.setOnClickListener(new View.OnClickListener() {
@@ -113,10 +121,12 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                     case ItemTouchHelper.LEFT:
                         System.out.println("pos : " + viewHolder.getAdapterPosition());
                         messageField.setText(adapter.swipe(viewHolder.getAdapterPosition()));
+                        reply_hlin.setVisibility(View.VISIBLE);
                         break;
                     case ItemTouchHelper.RIGHT:
                         System.out.println("pos : " + viewHolder.getAdapterPosition());
                         messageField.setText(adapter.swipe(viewHolder.getAdapterPosition()));
+                        reply_hlin.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -124,6 +134,12 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         };
         ith = new ItemTouchHelper(simpleSwipeCallback);
         ith.attachToRecyclerView(list_messages);
+        msg_reply_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reply_hlin.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     @Override
