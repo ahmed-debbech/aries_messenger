@@ -17,7 +17,7 @@ import java.util.List;
 public class MessengerManager {
 
     private static MessengerManager instance;
-    private Message msg_to_repply_to;
+    private Message msg_to_repply_to = null;
 
     private MessengerManager(){
 
@@ -62,19 +62,23 @@ public class MessengerManager {
             cv.setMembers(mem);
             cv.setLatest_msg("");
             UserManager.getInstance().setCurrentConv(cv);
-            DbConversations.createConversation(cv, pres);
+            DbConnector.connectToCreateConversation(cv, pres);
         }
         Message m = new Message();
         m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
         m.setId(RandomIdGenerator.generateMessageId(UserManager.getInstance().getCurrentConv().getId()));
         m.setId_conv(UserManager.getInstance().getCurrentConv().getId());
         m.setContent(msg);
+        if(msg_to_repply_to != null){
+            m.setId_reply_msg(msg_to_repply_to.getId());
+            msg_to_repply_to = null;
+        }
         Date date = new Date();
         Timestamp time = new Timestamp(date.getTime());
         m.setDate(time.toString());
         m.setStatus(Message.SENT);
         m.setIndex(UserManager.getInstance().getCurrentConv().getCount() + 1);
-        DbConversations.sendMessage(UserManager.getInstance().getCurrentConv().getId(), m);
+        DbConnector.sendMessage(UserManager.getInstance().getCurrentConv().getId(), m);
     }
     public void checkNewMessages(String uid , Presenter pres){
         DbConnector.connectToCheckNewMessages(uid, pres);

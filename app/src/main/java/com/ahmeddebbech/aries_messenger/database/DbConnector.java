@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.database;
 
+import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
@@ -60,5 +61,13 @@ public class DbConnector {
 
     public static void connectToEditMsg(String id, String msg_id, String msg_cont) {
         DbConversations.editMsg(id, msg_id, msg_cont);
+    }
+
+    public static void connectToCreateConversation(Conversation cv, Presenter pres) {
+        DbConversations.createConversation(cv,pres);
+    }
+
+    public static void sendMessage(String id, Message m) {
+        DbConversations.sendMessage(id,m);
     }
 }

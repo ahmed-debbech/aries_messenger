@@ -19,20 +19,29 @@ public class Message {
     private String content;
     private String status;
     private boolean is_edited = false;
-    //private String id_reply_msg; //this may cause an error //TODO
+    private String id_reply_msg;
     private int index;
 
     public Message(){
 
     }
-    public Message(String id, String sender_uid, String id_conv, String date, String content, String status/*, String id_reply_msg*/ , int index){
+    public Message(String id, String sender_uid, String id_conv, String date, String content, String status, int index){
         this.id = id;
         this.sender_uid = sender_uid;
         this.id_conv = id_conv;
         this.date = date;
         this.content = content;
         this.status = status;
-        //this.id_reply_msg = id_reply_msg;
+        this.index = index;
+    }
+    public Message(String id, String sender_uid, String id_conv, String date, String content, String status, String reply, int index){
+        this.id = id;
+        this.sender_uid = sender_uid;
+        this.id_conv = id_conv;
+        this.date = date;
+        this.content = content;
+        this.setId_reply_msg(reply);
+        this.status = status;
         this.index = index;
     }
     public static Drawable toDrawable(View v, String status){
@@ -92,14 +101,6 @@ public class Message {
         this.status = status;
     }
 
-    /*public String getId_reply_msg() {
-        return id_reply_msg;
-    }
-
-    public void setId_reply_msg(String id_reply_msg) {
-        this.id_reply_msg = id_reply_msg;
-    }*/
-
     public int getIndex() {
         return index;
     }
@@ -114,5 +115,13 @@ public class Message {
 
     public void setIs_edited(boolean is_edited) {
         this.is_edited = is_edited;
+    }
+
+    public String getId_reply_msg() {
+        return id_reply_msg;
+    }
+
+    public void setId_reply_msg(String id_reply_msg) {
+        this.id_reply_msg = id_reply_msg;
     }
 }
