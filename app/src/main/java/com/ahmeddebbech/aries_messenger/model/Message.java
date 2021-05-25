@@ -19,7 +19,7 @@ public class Message {
     private String content;
     private String status;
     private boolean is_edited = false;
-    private String id_reply_msg;
+    private String id_reply_msg = null;
     private int index;
 
     public Message(){

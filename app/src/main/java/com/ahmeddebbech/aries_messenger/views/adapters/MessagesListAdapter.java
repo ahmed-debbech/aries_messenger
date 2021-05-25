@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,6 +52,8 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         private TextView msg_edit_button;
         private TextView msg_cancel_button;
         private ConstraintLayout msg_main_panel;
+        private TextView reply_text;
+        private LinearLayout reply_panel;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +69,8 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             msg_cancel_button = itemView.findViewById(R.id.msg_cancel_button);
             msg_edit_button = itemView.findViewById(R.id.msg_edit_button);
             msg_edited_flag = itemView.findViewById(R.id.msg_edited_flag);
+            reply_panel = itemView.findViewById(R.id.msg_reply_header);
+            reply_text = itemView.findViewById(R.id.msg_reply_content);
         }
 
         @Override
@@ -95,6 +100,12 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             holder.msg_edited_flag.setVisibility(View.VISIBLE);
         }else{
             holder.msg_edited_flag.setVisibility(View.INVISIBLE);
+        }
+        if(holder.ref.getId_reply_msg() != null){
+            holder.reply_panel.setVisibility(View.VISIBLE);
+            holder.reply_text.setText(holder.ref.getContent());
+        }else{
+            holder.reply_panel.setVisibility(View.INVISIBLE);
         }
         if (holder.ref.getSender_uid().equals(UserManager.getInstance().getUserModel().getUid())) {
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.sender_message));
