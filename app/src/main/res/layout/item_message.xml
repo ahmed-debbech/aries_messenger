@@ -91,6 +91,42 @@
             app:layout_constraintVertical_bias="0.432"
             tools:srcCompat="@tools:sample/avatars" />
 
+        <LinearLayout
+            android:id="@+id/msg_reply_header"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/msg_content"
+            app:layout_constraintEnd_toStartOf="@+id/msg_edited_flag"
+            app:layout_constraintStart_toStartOf="@+id/msg_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="12dp"
+                android:layout_height="16dp"
+                app:srcCompat="@drawable/ic_reply_arrow" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:text="@string/replying_to"
+                android:textColor="@color/secondary_button_color"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/msg_reply_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/secondary_button_color"
+                android:textSize="12sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
@@ -131,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:text="@string/msg_edit"
-                android:textColor="#F1C40F"
+                android:textColor="@color/secondary_button_color"
                 android:textStyle="bold" />
 
         </LinearLayout>

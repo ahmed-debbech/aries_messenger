@@ -11,4 +11,5 @@
     <color name="back_color_outline">#828282</color>
     <color name="white">#FFFFFF</color>
     <color name="general_background">#ebebeb</color>
+    <color name="secondary_button_color">#F1C40F</color>
 </resources>
