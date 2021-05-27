@@ -124,7 +124,9 @@
                 android:text="TextView"
                 android:textColor="@color/secondary_button_color"
                 android:textSize="12sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:maxLines="1"
+                android:layout_marginLeft="4dp"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
