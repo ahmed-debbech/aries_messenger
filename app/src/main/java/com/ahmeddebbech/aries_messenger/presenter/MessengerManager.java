@@ -18,6 +18,7 @@ public class MessengerManager {
 
     private static MessengerManager instance;
     private Message msg_to_repply_to = null;
+    private List<Message> msg_list;
 
     private MessengerManager(){
 
@@ -96,5 +97,29 @@ public class MessengerManager {
     }
     public Message getMsgToReplyTo(){
         return msg_to_repply_to;
+    }
+
+    public void setMessages(List<Message> list) {
+        this.msg_list = list;
+    }
+    public List<Message> getMessages(){
+        return this.msg_list;
+    }
+    public boolean msgDoesExist(String id){
+        for(Message m : msg_list){
+            if(m.getId().equals(id)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Message getOneMessage(String id) {
+        for(Message m : msg_list){
+            if(m.getId().equals(id)){
+                return m;
+            }
+        }
+        return null;
     }
 }

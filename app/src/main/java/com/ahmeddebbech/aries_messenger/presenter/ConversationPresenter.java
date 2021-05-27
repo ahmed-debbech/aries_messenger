@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import android.os.Messenger;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
@@ -77,6 +78,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                     if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_MESSAGES){
                         List<Message> lis = (List<Message>)obj.getObj();
                         activity.loadMessages(lis);
+                        MessengerManager.getInstance().setMessages(lis);
                         MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, lis, UserManager.getInstance().getCurrentConv().getId());
                     }
                 }

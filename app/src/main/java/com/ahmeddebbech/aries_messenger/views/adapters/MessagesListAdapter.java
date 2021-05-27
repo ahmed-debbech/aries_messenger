@@ -103,7 +103,11 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         }
         if(holder.ref.getId_reply_msg() != null){
             holder.reply_panel.setVisibility(View.VISIBLE);
-            holder.reply_text.setText(holder.ref.getContent());
+            if(MessengerManager.getInstance().msgDoesExist(holder.ref.getId_reply_msg())) {
+                holder.reply_text.setText(MessengerManager.getInstance().getOneMessage(holder.ref.getId_reply_msg()).getContent());
+            }else{
+                //TODO GET THE REPLY MESSAGE CONTENT BY THE DB
+            }
         }else{
             holder.reply_panel.setVisibility(View.INVISIBLE);
         }
