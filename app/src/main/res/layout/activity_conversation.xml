@@ -162,6 +162,7 @@
         android:layout_height="wrap_content"
         android:text="ahmed is typing..."
         android:textColor="@color/high_indication"
+        android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/msg_hlin"
         app:layout_constraintEnd_toEndOf="parent"

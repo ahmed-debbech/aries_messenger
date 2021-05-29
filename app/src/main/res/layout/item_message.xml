@@ -11,7 +11,7 @@
     android:paddingBottom="10dp"
     app:cardBackgroundColor="@color/sender_message"
     app:cardCornerRadius="15dp"
-    app:cardElevation="15dp">
+    app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/msg_main_panel"

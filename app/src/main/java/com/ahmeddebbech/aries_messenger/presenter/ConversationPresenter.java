@@ -90,10 +90,16 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                             List<String> ppl_type = (List<String>)obj.getObj();
                             for(String id : ppl_type){
                                 if(!UserManager.getInstance().getUserModel().getUid().equals(id)){
-                                    activity.showTypingLabel(id);
-                                    activity.showTypingLabel(id);
-                                    activity.showTypingLabel(id);
+                                    //DbConnector.connectToGetUserData(id, this);
+                                    //TODO
                                 }
+                            }
+                        }else{
+                            System.out.println("4040040404040404004040404040400404040404040");
+                            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA){
+                                User id = (User)obj.getObj();
+                                System.out.println("^^^^^^^^^^^^^^^^^^^^^2222ooeoeo" + id.getUid());
+                                activity.showTypingLabel(id.getUid());
                             }
                         }
                     }
