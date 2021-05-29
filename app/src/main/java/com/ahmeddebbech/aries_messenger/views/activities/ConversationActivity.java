@@ -108,7 +108,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 });
             }
         });
-        final MessagesListAdapter rec = this.adapter;
         simpleSwipeCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -173,6 +172,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 list_messages.smoothScrollToPosition(adapter.getItemCount());
             }
         });
+        presenter.trackIsTypingStatus();
     }
 
     @Override
@@ -183,6 +183,11 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     public void clearField() {
         messageField.setText("");
+    }
+
+    @Override
+    public void showTypingLabel() {
+
     }
 
     @Override

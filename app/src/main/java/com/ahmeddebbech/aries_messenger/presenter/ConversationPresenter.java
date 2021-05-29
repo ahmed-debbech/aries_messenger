@@ -57,6 +57,11 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
+    public void trackIsTypingStatus() {
+        DbConnector.connectToTrackWhosTyping(UserManager.getInstance().getCurrentConv().getId(),this);
+    }
+
+    @Override
     public void returnData(DatabaseOutput obj) {
         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA){
             User u = (User)obj.getObj();

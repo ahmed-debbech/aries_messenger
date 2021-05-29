@@ -260,4 +260,33 @@ public class DbConversations {
         ref = database.getReference("/Conversations/Conversations_data/"+id+"/"+msg_id+"/content");
         ref.setValue(msg_cont);
     }
+    public static void trackWhosTyping( String convid, final Presenter pres){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReferences.REF_WHOS_TYPING = database.getReference("/Conversations/Conversations_members/"+convid);
+        DatabaseReferences.LIS_WHOS_TYPING = new ValueEventListener(){
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    List<String> typing_users = new ArrayList<>();
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d("type0-", ds.toString());
+                        Log.d("type0-", ds.child("is_typing").toString());
+                        if (ds.child("is_typing").exists()) {
+                            if (ds.child("is_typing").getValue(String.class).equals("*")) {
+                                typing_users.add(ds.getKey());
+                            }
+                        }
+                    }
+                    Log.d("type0-", typing_users.toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        DatabaseReferences.REF_WHOS_TYPING.addValueEventListener(DatabaseReferences.LIS_WHOS_TYPING);
+    }
 }

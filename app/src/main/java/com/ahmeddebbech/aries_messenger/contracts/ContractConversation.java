@@ -12,11 +12,13 @@ public interface ContractConversation {
         void loadMessages(List<Message> list);
         void showError(String error);
         void clearField();
+        void showTypingLabel();
     }
     interface Presenter{
         void sendMessage(String msg, String receiver);
         void loadData(String uid);
         void conversationExists(String uid);
         void getConversationMetadata(String uidA, String uidB);
+        void trackIsTypingStatus();
     }
 }

@@ -3,6 +3,7 @@ package com.ahmeddebbech.aries_messenger.database;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
@@ -69,5 +70,9 @@ public class DbConnector {
 
     public static void sendMessage(String id, Message m) {
         DbConversations.sendMessage(id,m);
+    }
+
+    public static void connectToTrackWhosTyping(String id, ConversationPresenter conversationPresenter) {
+        DbConversations.trackWhosTyping(id, conversationPresenter);
     }
 }
