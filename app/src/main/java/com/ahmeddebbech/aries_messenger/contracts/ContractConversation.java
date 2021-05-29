@@ -12,7 +12,7 @@ public interface ContractConversation {
         void loadMessages(List<Message> list);
         void showError(String error);
         void clearField();
-        void showTypingLabel();
+        void showTypingLabel(String id);
     }
     interface Presenter{
         void sendMessage(String msg, String receiver);

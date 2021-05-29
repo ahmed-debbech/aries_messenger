@@ -48,6 +48,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     private ImageButton msg_reply_exit;
     private LinearLayout reply_hlin;
     private ImageButton send;
+    private TextView is_typing;
     private User correspondedUser;
     private RecyclerView list_messages;
     private RecyclerView.LayoutManager layoutManager;
@@ -80,7 +81,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         msg_reply_exit = findViewById(R.id.msg_reply_exit);
         msg_reply_text = findViewById(R.id.msg_reply_text);
         reply_hlin = findViewById(R.id.msg_reply_hlin);
-
+        is_typing = findViewById(R.id.is_typing_user);
     }
     public void addListeners(){
         back.setOnClickListener(new View.OnClickListener() {
@@ -186,8 +187,9 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     }
 
     @Override
-    public void showTypingLabel() {
-
+    public void showTypingLabel(String id) {
+        is_typing.setVisibility(View.VISIBLE);
+        is_typing.setText(id + " is typing...");
     }
 
     @Override

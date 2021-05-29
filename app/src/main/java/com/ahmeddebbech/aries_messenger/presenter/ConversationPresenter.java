@@ -85,6 +85,17 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                         activity.loadMessages(lis);
                         MessengerManager.getInstance().setMessages(lis);
                         MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, lis, UserManager.getInstance().getCurrentConv().getId());
+                    }else{
+                        if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_TYPERS){
+                            List<String> ppl_type = (List<String>)obj.getObj();
+                            for(String id : ppl_type){
+                                if(!UserManager.getInstance().getUserModel().getUid().equals(id)){
+                                    activity.showTypingLabel(id);
+                                    activity.showTypingLabel(id);
+                                    activity.showTypingLabel(id);
+                                }
+                            }
+                        }
                     }
                 }
             }

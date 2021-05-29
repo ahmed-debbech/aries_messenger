@@ -279,6 +279,8 @@ public class DbConversations {
                         }
                     }
                     Log.d("type0-", typing_users.toString());
+                    DatabaseOutput dot = new DatabaseOutput(DatabaseOutputKeys.GET_TYPERS, typing_users);
+                    pres.returnData(dot);
                 }
             }
 
