@@ -52,6 +52,27 @@ public class DbBasic {
         };
         DatabaseReferences.REF_USER.addValueEventListener(DatabaseReferences.LIS_USER);
     }
+    public static void getUserFromUid(final String uid, final Presenter pres){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users/"+uid);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    User u = dataSnapshot.getValue(User.class);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_FROM_UID, u);
+                    pres.returnData(doo);
+                    //DbBasic.getConnections(uid, pres);
+                }else {
+                    Log.d("ERROR", "User doesn't exist");
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
     public static void modifyUser(User user){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+user.getUid());

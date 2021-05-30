@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
+import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbConversations;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
@@ -90,16 +91,13 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                             List<String> ppl_type = (List<String>)obj.getObj();
                             for(String id : ppl_type){
                                 if(!UserManager.getInstance().getUserModel().getUid().equals(id)){
-                                    //DbConnector.connectToGetUserData(id, this);
-                                    //TODO
+                                    DbConnector.connectToGetUserFromUid(id, this);
                                 }
                             }
                         }else{
-                            System.out.println("4040040404040404004040404040400404040404040");
-                            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA){
+                            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_FROM_UID){
                                 User id = (User)obj.getObj();
-                                System.out.println("^^^^^^^^^^^^^^^^^^^^^2222ooeoeo" + id.getUid());
-                                activity.showTypingLabel(id.getUid());
+                                activity.showTypingLabel(id.getDisplayName());
                             }
                         }
                     }

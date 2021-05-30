@@ -1,6 +1,5 @@
 package com.ahmeddebbech.aries_messenger.model;
 
-import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 
 public class DatabaseOutput {
     private int databaseOutputkey;
@@ -15,7 +14,7 @@ public class DatabaseOutput {
     }
 
     public void setDatabaseOutputkey(int databaseOutputkey) {
-        databaseOutputkey = databaseOutputkey;
+        this.databaseOutputkey = databaseOutputkey;
     }
 
     public Object getObj() {

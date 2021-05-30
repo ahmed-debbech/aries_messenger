@@ -75,4 +75,7 @@ public class DbConnector {
     public static void connectToTrackWhosTyping(String id, ConversationPresenter conversationPresenter) {
         DbConversations.trackWhosTyping(id, conversationPresenter);
     }
+    public static void connectToGetUserFromUid(String uid, Presenter pres){
+        DbBasic.getUserFromUid(uid,pres);
+    }
 }
