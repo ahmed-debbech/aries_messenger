@@ -201,5 +201,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     protected void onDestroy() {
         super.onDestroy();
         DatabaseReferences.removeConvListener();
+        UserManager.getInstance().closeConversation();
     }
 }

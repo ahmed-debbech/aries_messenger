@@ -114,4 +114,8 @@ public class UserManager {
     public List<String> getAllConvsIds(){
         return userModel.getConversations();
     }
+
+    public void closeConversation() {
+        this.currentConv = null;
+    }
 }
