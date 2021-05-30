@@ -78,4 +78,7 @@ public class DbConnector {
     public static void connectToGetUserFromUid(String uid, Presenter pres){
         DbBasic.getUserFromUid(uid,pres);
     }
+    public static void connectToSendTypingSignal(String uid, String convid, boolean signal){
+        DbConversations.sendTypingSignal(uid, convid, signal);
+    }
 }

@@ -291,4 +291,16 @@ public class DbConversations {
         };
         DatabaseReferences.REF_WHOS_TYPING.addValueEventListener(DatabaseReferences.LIS_WHOS_TYPING);
     }
+
+    public static void sendTypingSignal(String uid, String convid, boolean signal) {
+        if(signal == true) {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("/Conversations/Conversations_members/" + convid + "/" + uid + "/is_typing");
+            ref.setValue("*");
+        }else{
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("/Conversations/Conversations_members/" + convid + "/" + uid + "/is_typing");
+            ref.removeValue();
+        }
+    }
 }

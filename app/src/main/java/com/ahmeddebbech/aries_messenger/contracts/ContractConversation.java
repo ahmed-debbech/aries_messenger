@@ -21,5 +21,6 @@ public interface ContractConversation {
         void conversationExists(String uid);
         void getConversationMetadata(String uidA, String uidB);
         void trackIsTypingStatus();
+        void sendTypingSignal(boolean signal);
     }
 }

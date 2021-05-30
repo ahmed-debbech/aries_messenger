@@ -63,6 +63,15 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
+    public void sendTypingSignal(boolean signal) {
+        if(signal == true){
+            DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), UserManager.getInstance().getCurrentConv().getId(), true);
+        }else{
+            DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), UserManager.getInstance().getCurrentConv().getId(), false);
+        }
+    }
+
+    @Override
     public void returnData(DatabaseOutput obj) {
         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA){
             User u = (User)obj.getObj();
