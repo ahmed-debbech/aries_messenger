@@ -89,10 +89,15 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                     }else{
                         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_TYPERS){
                             List<String> ppl_type = (List<String>)obj.getObj();
+                            boolean found = false;
                             for(String id : ppl_type){
                                 if(!UserManager.getInstance().getUserModel().getUid().equals(id)){
+                                    found = true;
                                     DbConnector.connectToGetUserFromUid(id, this);
                                 }
+                            }
+                            if(found == false){
+                                activity.hideTypingLabel();
                             }
                         }else{
                             if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_FROM_UID){

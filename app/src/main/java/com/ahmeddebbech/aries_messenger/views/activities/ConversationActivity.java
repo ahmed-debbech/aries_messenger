@@ -189,7 +189,12 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     public void showTypingLabel(String id) {
         is_typing.setVisibility(View.VISIBLE);
-        is_typing.setText(id + " is typing...");
+        is_typing.setText(id + " " +getString(R.string.whos_typing));
+    }
+
+    @Override
+    public void hideTypingLabel() {
+        is_typing.setVisibility(View.INVISIBLE);
     }
 
     @Override

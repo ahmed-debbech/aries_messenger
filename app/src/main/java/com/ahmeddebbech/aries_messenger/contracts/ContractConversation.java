@@ -13,6 +13,7 @@ public interface ContractConversation {
         void showError(String error);
         void clearField();
         void showTypingLabel(String id);
+        void hideTypingLabel();
     }
     interface Presenter{
         void sendMessage(String msg, String receiver);
