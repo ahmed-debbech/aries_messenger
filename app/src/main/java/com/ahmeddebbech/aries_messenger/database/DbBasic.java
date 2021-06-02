@@ -215,4 +215,10 @@ public class DbBasic {
         DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.REMOVE_CONTACT, b);
         pres.returnData(doo);
     }
+
+    public static void setAvailabilityStatus(String uid, int status) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users/"+uid+"/availability");
+        ref.setValue(status);
+    }
 }

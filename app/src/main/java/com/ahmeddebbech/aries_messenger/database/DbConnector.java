@@ -81,4 +81,8 @@ public class DbConnector {
     public static void connectToSendTypingSignal(String uid, String convid, boolean signal){
         DbConversations.sendTypingSignal(uid, convid, signal);
     }
+
+    public static void connectToSetAvailabilityStatus(String uid, int status) {
+        DbBasic.setAvailabilityStatus(uid, status);
+    }
 }
