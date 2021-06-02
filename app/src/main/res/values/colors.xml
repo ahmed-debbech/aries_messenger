@@ -13,4 +13,6 @@
     <color name="general_background">#ebebeb</color>
     <color name="secondary_button_color">#F1C40F</color>
     <color name="high_indication">#35dae9</color>
+    <color name="online">#54E935</color>
+    <color name="offline">#EBEBEB</color>
 </resources>

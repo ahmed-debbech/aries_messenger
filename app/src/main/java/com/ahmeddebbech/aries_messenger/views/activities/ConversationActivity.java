@@ -29,6 +29,7 @@ import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
+import com.ahmeddebbech.aries_messenger.util.FlagResolver;
 import com.ahmeddebbech.aries_messenger.views.adapters.MessagesListAdapter;
 import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -56,6 +57,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     private MessagesListAdapter adapter;
     private ItemTouchHelper.SimpleCallback simpleSwipeCallback;
     private ItemTouchHelper ith;
+    private TextView availability_status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         msg_reply_text = findViewById(R.id.msg_reply_text);
         reply_hlin = findViewById(R.id.msg_reply_hlin);
         is_typing = findViewById(R.id.is_typing_user);
+        availability_status = findViewById(R.id.availability_status);
     }
     public void addListeners(){
         back.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +171,12 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         correspondedUser = u;
         Picasso.get().load(u.getPhotoURL()).into(photo);
         displayName.setText(u.getDisplayName());
+        if(u.getAvailability() == 1) {
+            availability_status.setTextColor(getResources().getColor(R.color.online));
+        }else{
+            availability_status.setTextColor(getResources().getColor(R.color.offline));
+        }
+        availability_status.setText(FlagResolver.toAvailabilityStatusText(this, u.getAvailability()));
         presenter.conversationExists(UserManager.getInstance().getUserModel().getUid());
     }
 

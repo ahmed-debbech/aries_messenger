@@ -51,4 +51,6 @@
     <string name="type_msg">Write your message...</string>
     <string name="replying_to">Replying to:</string>
     <string name="whos_typing"> is typing...</string>
+    <string name="online_status">Online</string>
+    <string name="offline_status">Not Online</string>
 </resources>

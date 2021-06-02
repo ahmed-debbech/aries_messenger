@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     protected void onStart() {
         super.onStart();
         presenter.getDatafromDatabase(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        //presenter.setOnlineStatus();
     }
 
     @Override
