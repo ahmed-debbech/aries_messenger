@@ -7,6 +7,5 @@ public interface ContractMain {
     }
     interface Presenter{
         void fillViewsWithUserData();
-        void setAvailabilityStatus(String uid, int status);
     }
 }

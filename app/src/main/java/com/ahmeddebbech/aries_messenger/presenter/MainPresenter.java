@@ -28,11 +28,6 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         act.renderViewsWithData(disp,usr,photo);
     }
 
-    @Override
-    public void setAvailabilityStatus(String uid, int status) {
-        DbConnector.connectToSetAvailabilityStatus(uid, status);
-    }
-
     public void getDatafromDatabase(String uid){
         DbConnector.connectToGetUserData(uid, this);
     }
@@ -42,6 +37,8 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
             User u = (User)o.getObj();
             UserManager.getInstance().updateWithCopy(u);
             DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
+            Log.d("trr-", ""+UserManager.getInstance().getUserModel().getUid());
+            UserManager.getInstance().setAvailabilityStatus(User.ONLINE);
         }else{
             if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
                 Map<String, String> l = (Map<String, String>)o.getObj();

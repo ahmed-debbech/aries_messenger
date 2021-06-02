@@ -146,13 +146,12 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     protected void onStart() {
         super.onStart();
         presenter.getDatafromDatabase(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        presenter.setAvailabilityStatus(FirebaseAuth.getInstance().getCurrentUser().getUid(), User.ONLINE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setAvailabilityStatus(UserManager.getInstance().getUserModel().getUid(), User.ONLINE);
+        UserManager.getInstance().setAvailabilityStatus(User.ONLINE);
         /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
         DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
@@ -171,13 +170,14 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     @Override
     protected void onPause() {
         super.onPause();
-        presenter.setAvailabilityStatus(UserManager.getInstance().getUserModel().getUid(), User.NOT_ONLINE);
+        UserManager.getInstance().setAvailabilityStatus(User.NOT_ONLINE);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.setAvailabilityStatus(UserManager.getInstance().getUserModel().getUid(), User.NOT_ONLINE);
+        UserManager.getInstance().setAvailabilityStatus(User.NOT_ONLINE);
+
     }
 
     @Override

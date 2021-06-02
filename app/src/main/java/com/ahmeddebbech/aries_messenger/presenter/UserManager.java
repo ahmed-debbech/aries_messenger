@@ -119,4 +119,8 @@ public class UserManager {
     public void closeConversation() {
         this.currentConv = null;
     }
+
+    public void setAvailabilityStatus(int status) {
+        DbConnector.connectToSetAvailabilityStatus(userModel.getUid(), status);
+    }
 }
