@@ -39,6 +39,7 @@ public class UserManager {
         userModel.setBio(u.getBio());
         userModel.setConnections(u.getConnections());
         userModel.setConversations(u.getConversations());
+        userModel.setAvailability(u.getAvailability());
     }
     public User getUserModel(){
         return userModel;

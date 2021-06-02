@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
                 FirebaseUser fu = FirebaseAuth.getInstance().getCurrentUser();
-                User u  = new User(fu.getUid(),null, fu.getDisplayName(), fu.getEmail(), fu.getPhotoUrl().toString(), null);
+                User u  = new User(fu.getUid(),null, fu.getDisplayName(), fu.getEmail(), fu.getPhotoUrl().toString(), null, -1);
                 presenter.fillModel(u);
                 Toast toast;
                 if(FirebaseAuth.getInstance().getCurrentUser().getDisplayName() == null) {

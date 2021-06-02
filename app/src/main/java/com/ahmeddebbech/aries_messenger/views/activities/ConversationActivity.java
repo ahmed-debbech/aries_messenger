@@ -40,7 +40,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
 
     private ConversationPresenter presenter;
 
-    private Toolbar toolbar;
     private ImageView back;
     private ImageView photo;
     private TextView displayName;

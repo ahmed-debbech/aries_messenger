@@ -1,6 +1,5 @@
 package com.ahmeddebbech.aries_messenger.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,10 +7,14 @@ import java.util.Map;
 //This is a singleton class
 
 public class User {
+    public static int ONLINE = 1;
+    public static int NOT_ONLINE = 2;
+
     private String uid;
     private String username;
     private String displayName;
     private String email;
+    private int availability;
     private String photoURL;
     private String bio;
 
@@ -21,7 +24,7 @@ public class User {
     public User(){
 
     }
-    public User(String uid, String username, String displayName, String email, String photoURL, String bio){
+    public User(String uid, String username, String displayName, String email, String photoURL, String bio, int av){
         this.uid = uid;
         this.username = username;
         this.displayName = displayName;
@@ -29,6 +32,7 @@ public class User {
         this.photoURL= photoURL;
         this.bio = bio;
         this.connections = new HashMap<>();
+        this.availability = av;
     }
 
     public String getEmail(){
@@ -93,5 +97,13 @@ public class User {
 
     public void setConversations(List<String> conversations) {
         this.conversations = conversations;
+    }
+
+    public int getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(int availability) {
+        this.availability = availability;
     }
 }
