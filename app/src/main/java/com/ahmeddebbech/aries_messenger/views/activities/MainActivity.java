@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     @Override
     protected void onResume() {
         super.onResume();
-        UserManager.getInstance().setAvailabilityStatus(User.ONLINE);
+        //UserManager.getInstance().setAvailabilityStatus(User.ONLINE);
         /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
         DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
@@ -170,13 +170,13 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     @Override
     protected void onPause() {
         super.onPause();
-        UserManager.getInstance().setAvailabilityStatus(User.NOT_ONLINE);
+        //UserManager.getInstance().setAvailabilityStatus(User.NOT_ONLINE);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        UserManager.getInstance().setAvailabilityStatus(User.NOT_ONLINE);
+        //UserManager.getInstance().setAvailabilityStatus(User.NOT_ONLINE);
 
     }
 

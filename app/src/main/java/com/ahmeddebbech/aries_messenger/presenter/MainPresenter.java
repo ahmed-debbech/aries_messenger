@@ -36,9 +36,8 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA) {
             User u = (User)o.getObj();
             UserManager.getInstance().updateWithCopy(u);
-            DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
-            Log.d("trr-", ""+UserManager.getInstance().getUserModel().getUid());
             UserManager.getInstance().setAvailabilityStatus(User.ONLINE);
+            DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
         }else{
             if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
                 Map<String, String> l = (Map<String, String>)o.getObj();
