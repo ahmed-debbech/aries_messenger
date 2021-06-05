@@ -20,6 +20,7 @@ import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.MainPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
+import com.ahmeddebbech.aries_messenger.util.CoreApplication;
 import com.ahmeddebbech.aries_messenger.views.fragments.ConnectionsFragment;
 import com.ahmeddebbech.aries_messenger.views.fragments.ProfileFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,10 +34,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import java.text.BreakIterator;
 
-public class MainActivity extends AppCompatActivity implements ContractMain.View {
+public class MainActivity extends AppCompatActivity implements LifecycleObserver, ContractMain.View {
 
     MainPresenter presenter;
 
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
         setSupportActionBar(toolbar);
 
         presenter = new MainPresenter(this);
-
+        new CoreApplication();
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -168,16 +172,8 @@ public class MainActivity extends AppCompatActivity implements ContractMain.View
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        //UserManager.getInstance().setAvailabilityStatus(User.NOT_ONLINE);
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
-        //UserManager.getInstance().setAvailabilityStatus(User.NOT_ONLINE);
-
     }
 
     @Override
