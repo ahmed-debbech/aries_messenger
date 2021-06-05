@@ -26,6 +26,7 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         String usr = UserManager.getInstance().getUserModel().getUsername();
         String photo = UserManager.getInstance().getUserModel().getPhotoURL();
         act.renderViewsWithData(disp,usr,photo);
+        UserManager.getInstance().setAvailabilityStatus(User.ONLINE);
     }
 
     public void getDatafromDatabase(String uid){
@@ -36,7 +37,6 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA) {
             User u = (User)o.getObj();
             UserManager.getInstance().updateWithCopy(u);
-            UserManager.getInstance().setAvailabilityStatus(User.ONLINE);
             DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
         }else{
             if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){

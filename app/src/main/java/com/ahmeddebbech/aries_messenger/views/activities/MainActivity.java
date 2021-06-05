@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         setSupportActionBar(toolbar);
 
         presenter = new MainPresenter(this);
-        new CoreApplication();
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
