@@ -32,12 +32,11 @@ public class DbBasic {
     }
     public static void getUserData(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users/"+uid);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReferences.REF_USER = database.getReference("/Users/"+uid);
+        DatabaseReferences.LIS_USER = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    Log.d("$ddd", "rrr ");
                     User u = dataSnapshot.getValue(User.class);
                     DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_DATA, u);
                     pres.returnData(doo);
@@ -50,19 +49,18 @@ public class DbBasic {
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
-        });
-        //TODO change the auto update
-        //DatabaseReferences.REF_USER.addValueEventListener(DatabaseReferences.LIS_USER);
+        };
+        DatabaseReferences.REF_USER.addValueEventListener(DatabaseReferences.LIS_USER);
     }
     public static void getUserFromUid(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+uid);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     User u = dataSnapshot.getValue(User.class);
-                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_FROM_UID, u);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_DATA, u);
                     pres.returnData(doo);
                     //DbBasic.getConnections(uid, pres);
                 }else {

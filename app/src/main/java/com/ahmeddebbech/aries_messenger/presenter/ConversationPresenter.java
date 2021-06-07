@@ -44,7 +44,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void loadData(String uid) {
-        DbConnector.connectToGetUserData(uid, this);
+        DbConnector.connectToGetUserFromUid(uid, this);
     }
 
     @Override
