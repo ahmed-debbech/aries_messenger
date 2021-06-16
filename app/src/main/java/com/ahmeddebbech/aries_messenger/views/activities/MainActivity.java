@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         displayName_nav.setText(disp);
         username_nav.setText(usern);
         Picasso.get().load(image).resize(200,200).into(photo_nav);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment().commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment()).commit();
         navigationView.setCheckedItem(R.id.connections_nav);
     }
 

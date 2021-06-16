@@ -50,7 +50,7 @@ public class DbBasic {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         };
-        DatabaseReferences.REF_USER.addValueEventListener(DatabaseReferences.LIS_USER);
+        DatabaseReferences.REF_USER.addListenerForSingleValueEvent(DatabaseReferences.LIS_USER);
     }
     public static void getUserFromUid(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
