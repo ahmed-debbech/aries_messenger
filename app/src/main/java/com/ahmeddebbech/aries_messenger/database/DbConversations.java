@@ -9,6 +9,7 @@ import androidx.constraintlayout.solver.widgets.Snapshot;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
+import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
@@ -162,12 +163,12 @@ public class DbConversations {
     private static void incrementContactSeenIndex(String convId, String sender_uid) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Conversations/Conversations_members/" + convId + "/" + sender_uid +"/seen_index");
-        ref.setValue(UserManager.getInstance().getCurrentConv().getCount()+1);
+        ref.setValue(MessengerManager.getInstance().getCurrentConv().getCount()+1);
     }
     private static void incrementConvCount(String convId, final String msgid) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Conversations/Conversations_meta/"+convId+"/count");
-        int x = UserManager.getInstance().getCurrentConv().getCount() + 1;
+        int x = MessengerManager.getInstance().getCurrentConv().getCount() + 1;
         ref.setValue(x);
         ref = database.getReference("/Conversations/Conversations_meta/"+convId+"/latest_msg");
         ref.setValue(msgid);
@@ -197,7 +198,7 @@ public class DbConversations {
             ref.setValue(m);
         }
         DatabaseReference ref = database.getReference("/Conversations/Conversations_members/"+convid+"/"+UserManager.getInstance().getUserModel().getUid() + "/seen_index");
-        ref.setValue(UserManager.getInstance().getCurrentConv().getCount());
+        ref.setValue(MessengerManager.getInstance().getCurrentConv().getCount());
     }
     public static void checkNewMessages(String uid, final Presenter pres){
         List<String> convslist = UserManager.getInstance().getAllConvsIds();

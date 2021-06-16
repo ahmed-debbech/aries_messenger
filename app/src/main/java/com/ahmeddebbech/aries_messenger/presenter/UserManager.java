@@ -21,7 +21,6 @@ public class UserManager {
 
     private User userModel;
     private static UserManager umInstance;
-    private Conversation currentConv = null;
 
     private UserManager(){
         userModel = new User();
@@ -106,20 +105,8 @@ public class UserManager {
         }
     }
 
-    public Conversation getCurrentConv() {
-        return currentConv;
-    }
-
-    public void setCurrentConv(Conversation currentConv) {
-        this.currentConv = currentConv;
-    }
-
     public List<String> getAllConvsIds(){
         return userModel.getConversations();
-    }
-
-    public void closeConversation() {
-        this.currentConv = null;
     }
 
     public void setAvailabilityStatus(int status) {

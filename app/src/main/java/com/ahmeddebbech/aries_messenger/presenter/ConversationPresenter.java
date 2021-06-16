@@ -54,21 +54,21 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void trackIsTypingStatus() {
-        DbConnector.connectToTrackWhosTyping(UserManager.getInstance().getCurrentConv().getId(),this);
+        DbConnector.connectToTrackWhosTyping(MessengerManager.getInstance().getCurrentConv().getId(),this);
     }
 
     @Override
     public void sendTypingSignal(boolean signal) {
         if(signal == true){
-            DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), UserManager.getInstance().getCurrentConv().getId(), true);
+            DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), MessengerManager.getInstance().getCurrentConv().getId(), true);
         }else{
-            DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), UserManager.getInstance().getCurrentConv().getId(), false);
+            DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), MessengerManager.getInstance().getCurrentConv().getId(), false);
         }
     }
 
     @Override
     public void getMessages() {
-        DbConnector.connectToGetMessages(UserManager.getInstance().getCurrentConv().getId(), this);
+        DbConnector.connectToGetMessages(MessengerManager.getInstance().getCurrentConv().getId(), this);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
             if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_CONV_EXISTS){
                 Boolean bb = (Boolean) obj.getObj();
                 if(bb == false){
-                    UserManager.getInstance().setCurrentConv(null);
+                    MessengerManager.getInstance().setCurrentConv(null);
                 }
                 activity.showHint(bb);
             }else{
@@ -88,10 +88,10 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                     // load the meta
                     if(obj.getObj() != null) {
                         Conversation cv = (Conversation) obj.getObj();
-                        UserManager.getInstance().setCurrentConv(cv);
+                        MessengerManager.getInstance().setCurrentConv(cv);
                         activity.showHint(true);
                     }else{
-                        UserManager.getInstance().setCurrentConv(null);
+                        MessengerManager.getInstance().setCurrentConv(null);
                         activity.showHint(false);
                     }
                 }else{
@@ -99,7 +99,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                         List<Message> lis = (List<Message>)obj.getObj();
                         activity.loadMessages(lis);
                         MessengerManager.getInstance().setMessages(lis);
-                        MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, lis, UserManager.getInstance().getCurrentConv().getId());
+                        MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, lis, MessengerManager.getInstance().getCurrentConv().getId());
                     }else{
                         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_TYPERS){
                             List<String> ppl_type = (List<String>)obj.getObj();
