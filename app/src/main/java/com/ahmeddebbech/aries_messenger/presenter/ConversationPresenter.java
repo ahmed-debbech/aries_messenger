@@ -43,17 +43,12 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
-    public void loadData(String uid) {
-        DbConnector.connectToGetUserFromUid(uid, this);
+    public void loadUser(String uid) {
+        DbConnector.connectToGetUserByUid(uid, this, false);
     }
 
     @Override
-    public void conversationExists(String uid) {
-        DbConnector.connectToCheckIfConversationExists(uid, this);
-    }
-
-    @Override
-    public void getConversationMetadata(String uidA, String uidB) {
+    public void getConversation(String uidA, String uidB) {
         DbConnector.connectToGetOneConversation(uidA, uidB, this);
     }
 
@@ -72,10 +67,15 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
+    public void getMessages() {
+        DbConnector.connectToGetMessages(UserManager.getInstance().getCurrentConv().getId(), this);
+    }
+
+    @Override
     public void returnData(DatabaseOutput obj) {
-        if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA){
+        if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_FROM_UID){
             User u = (User)obj.getObj();
-            activity.retContactData(u);
+            activity.showUserData(u);
         }else{
             if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_CONV_EXISTS){
                 Boolean bb = (Boolean) obj.getObj();
@@ -86,9 +86,14 @@ public class ConversationPresenter extends Presenter implements ContractConversa
             }else{
                 if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONV){
                     // load the meta
-                    Conversation cv = (Conversation)obj.getObj();
-                    UserManager.getInstance().setCurrentConv(cv);
-                    DbConnector.connectToGetMessages(cv.getId(), this);
+                    if(obj.getObj() != null) {
+                        Conversation cv = (Conversation) obj.getObj();
+                        UserManager.getInstance().setCurrentConv(cv);
+                        activity.showHint(true);
+                    }else{
+                        UserManager.getInstance().setCurrentConv(null);
+                        activity.showHint(false);
+                    }
                 }else{
                     if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_MESSAGES){
                         List<Message> lis = (List<Message>)obj.getObj();
@@ -102,7 +107,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                             for(String id : ppl_type){
                                 if(!UserManager.getInstance().getUserModel().getUid().equals(id)){
                                     found = true;
-                                    DbConnector.connectToGetUserFromUid(id, this);
+                                    DbConnector.connectToGetUserByUid(id, this, true);
                                 }
                             }
                             if(found == false){

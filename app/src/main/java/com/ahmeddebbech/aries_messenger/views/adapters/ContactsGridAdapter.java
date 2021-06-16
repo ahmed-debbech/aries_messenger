@@ -32,13 +32,13 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
         this.list = l;
     }
     public static class ContactViewHolder extends RecyclerView.ViewHolder{
-        private TextView username;
+        private TextView displayname;
         private ImageView iv;
         private CardView cv;
 
         public ContactViewHolder(@NonNull View itemView) {
             super(itemView);
-            username = itemView.findViewById(R.id.ct_username);
+            displayname = itemView.findViewById(R.id.ct_displayname);
             iv = itemView.findViewById(R.id.ct_photo);
             cv = itemView.findViewById(R.id.card);
         }
@@ -60,7 +60,7 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
         final String display = i.getDisplayName();
         final String username = i.getUsername();
         final String photo = i.getPhoto();
-        holder.username.setText(i.getUsername());
+        holder.displayname.setText(i.getDisplayName());
         Picasso.get().load(i.getPhoto()).into(holder.iv);
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override

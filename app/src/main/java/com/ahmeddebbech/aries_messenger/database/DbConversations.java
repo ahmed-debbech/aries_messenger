@@ -42,6 +42,8 @@ public class DbConversations {
                     String convId = snapshot.getValue(String.class);
                     DbConversations.convertToMeta(convId, pres);
                 }else {
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_CONV, null);
+                    pres.returnData(doo);
                     Log.d("error", "Conversation doesn't exist");
                 }
             }
@@ -151,21 +153,11 @@ public class DbConversations {
         convertToMeta(cv.getId(), pres);
     }
     public static void sendMessage(final String convId, final Message msg){
-        DbUtil.checkConvExists(convId, new Presenter() {
-            @Override
-            public void returnData(DatabaseOutput obj) {
-                if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_CONV_EXISTS) {
-                    Boolean bb = (Boolean) obj.getObj();
-                    if (bb == false) {
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convId + "/" + msg.getId() + "/");
-                        ref.setValue(msg);
-                        incrementConvCount(convId, msg.getId());
-                        incrementContactSeenIndex(convId, msg.getSender_uid());
-                    }
-                }
-            }
-        });
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convId + "/" + msg.getId() + "/");
+        ref.setValue(msg);
+        incrementConvCount(convId, msg.getId());
+        incrementContactSeenIndex(convId, msg.getSender_uid());
     }
     private static void incrementContactSeenIndex(String convId, String sender_uid) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();

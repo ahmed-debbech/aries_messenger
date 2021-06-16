@@ -63,13 +63,12 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
+        presenter = new ConversationPresenter(this);
         setupUi();
         addListeners();
-        presenter = new ConversationPresenter(this);
         Intent i = getIntent();
         correspondedUser = new User();
         correspondedUser.setUid(i.getStringExtra("uid"));
-        presenter.loadData(correspondedUser.getUid());
     }
     public void setupUi(){
         back = findViewById(R.id.conv_return);
@@ -107,7 +106,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 list_messages.post(new Runnable() {
                     @Override
                     public void run() {
-                        // Call smooth scroll
                         list_messages.smoothScrollToPosition(adapter.getItemCount() - 1);
                     }
                 });
@@ -167,7 +165,19 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     }
 
     @Override
-    public void retContactData(User u) {
+    protected void onStart() {
+        super.onStart();
+        presenter.loadUser(correspondedUser.getUid());
+        presenter.getConversation(UserManager.getInstance().getUserModel().getUid(), correspondedUser.getUid());
+    }
+    private void showRest(){
+        if(MessengerManager.getInstance().getMessages() == null) {
+            presenter.getMessages();
+        }
+        presenter.trackIsTypingStatus();
+    }
+    @Override
+    public void showUserData(User u) {
         correspondedUser = u;
         Picasso.get().load(u.getPhotoURL()).into(photo);
         displayName.setText(u.getDisplayName());
@@ -177,16 +187,14 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             availability_status.setTextColor(getResources().getColor(R.color.offline));
         }
         availability_status.setText(FlagResolver.toAvailabilityStatusText(this, u.getAvailability()));
-        presenter.conversationExists(UserManager.getInstance().getUserModel().getUid());
     }
-
     @Override
     public void showHint(Boolean res) {
         if(res.equals(false)){
             no_msg_hint.setVisibility(View.VISIBLE);
         }else{
             no_msg_hint.setVisibility(View.INVISIBLE);
-            presenter.getConversationMetadata(UserManager.getInstance().getUserModel().getUid(), correspondedUser.getUid());
+            showRest();
         }
     }
 
@@ -198,11 +206,9 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         list_messages.post(new Runnable() {
             @Override
             public void run() {
-                // Call smooth scroll
                 list_messages.smoothScrollToPosition(adapter.getItemCount());
             }
         });
-        presenter.trackIsTypingStatus();
     }
 
     @Override

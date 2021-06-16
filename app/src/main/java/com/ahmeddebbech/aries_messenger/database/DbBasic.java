@@ -52,15 +52,15 @@ public class DbBasic {
         };
         DatabaseReferences.REF_USER.addListenerForSingleValueEvent(DatabaseReferences.LIS_USER);
     }
-    public static void getUserFromUid(final String uid, final Presenter pres){
+    public static void getUserByUid(final String uid, final Presenter pres, boolean isSingleEvent){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+uid);
-        ref.addValueEventListener(new ValueEventListener() {
+        ValueEventListener val = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     User u = dataSnapshot.getValue(User.class);
-                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_DATA, u);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_FROM_UID, u);
                     pres.returnData(doo);
                     //DbBasic.getConnections(uid, pres);
                 }else {
@@ -71,7 +71,12 @@ public class DbBasic {
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
-        });
+        };
+        if(isSingleEvent == true){
+            ref.addListenerForSingleValueEvent(val);
+        }else{
+            ref.addValueEventListener(val);
+        }
     }
     public static void modifyUser(User user){
         FirebaseDatabase database = FirebaseDatabase.getInstance();

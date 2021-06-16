@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         displayName_nav = (TextView) header_nav.findViewById(R.id.sideDisplayName);
         username_nav = (TextView) header_nav.findViewById(R.id.sideUsername);
         photo_nav = header_nav.findViewById(R.id.sidePhoto);
-        presenter.fillViewsWithUserData();
         navigationView.setCheckedItem(R.id.connections_nav);
+        presenter.fillViewsWithUserData();
     }
     @Override
     protected void onStart() {
@@ -166,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             nv.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-
         }
     }
 

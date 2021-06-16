@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ContractConversation {
     interface View{
-        void retContactData(User u);
+        void showUserData(User u);
         void showHint(Boolean res);
         void loadMessages(List<Message> list);
         void showError(String error);
@@ -17,10 +17,10 @@ public interface ContractConversation {
     }
     interface Presenter{
         void sendMessage(String msg, String receiver);
-        void loadData(String uid);
-        void conversationExists(String uid);
-        void getConversationMetadata(String uidA, String uidB);
+        void loadUser(String uid);
+        void getConversation(String uidA, String uidB);
         void trackIsTypingStatus();
         void sendTypingSignal(boolean signal);
+        void getMessages();
     }
 }

@@ -70,24 +70,4 @@ public class DbUtil {
             }
         });
     }
-    public static void checkConvExists(final String uid, final Presenter pres){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users_conversations/"+uid);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CHECK_CONV_EXISTS, new Boolean(true));
-                    pres.returnData(doo);
-                }else {
-                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CHECK_CONV_EXISTS, new Boolean(false));
-                    pres.returnData(doo);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-    }
 }

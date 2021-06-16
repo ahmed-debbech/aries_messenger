@@ -38,9 +38,6 @@ public class DbConnector {
         DbBasic.acceptContact( uidUser,  addedUid,  pres);
     }
 
-    public static void connectToCheckIfConversationExists(String uid, Presenter pres){
-        DbUtil.checkConvExists(uid, pres);
-    }
     public static void connectToGetOneConversation(String uidA, String uidB, Presenter pres){
         DbConversations.getConversation(uidA, uidB, pres);
     }
@@ -75,8 +72,8 @@ public class DbConnector {
     public static void connectToTrackWhosTyping(String id, ConversationPresenter conversationPresenter) {
         DbConversations.trackWhosTyping(id, conversationPresenter);
     }
-    public static void connectToGetUserFromUid(String uid, Presenter pres){
-        DbBasic.getUserFromUid(uid,pres);
+    public static void connectToGetUserByUid(String uid, Presenter pres, boolean isSingleEvent){
+        DbBasic.getUserByUid(uid,pres, isSingleEvent);
     }
     public static void connectToSendTypingSignal(String uid, String convid, boolean signal){
         DbConversations.sendTypingSignal(uid, convid, signal);
