@@ -26,7 +26,6 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         String usr = UserManager.getInstance().getUserModel().getUsername();
         String photo = UserManager.getInstance().getUserModel().getPhotoURL();
         act.renderViewsWithData(disp,usr,photo);
-        UserManager.getInstance().setAvailabilityStatus(User.ONLINE);
     }
 
     public void getDatafromDatabase(String uid){

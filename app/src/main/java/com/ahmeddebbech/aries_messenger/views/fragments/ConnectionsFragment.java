@@ -68,21 +68,23 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
 
     @Override
     public void showContacts(List<ItemUser> list) {
-        connections_grid = (RecyclerView) getActivity().findViewById(R.id.connections_grid);
-        layoutManager = new GridLayoutManager(getActivity(), 3);
-        connections_grid.setLayoutManager(layoutManager);
+        if(getActivity() != null) {
+            connections_grid = (RecyclerView) getActivity().findViewById(R.id.connections_grid);
+            layoutManager = new GridLayoutManager(getActivity(), 3);
+            connections_grid.setLayoutManager(layoutManager);
 
-        adapter = new ContactsGridAdapter(list, getContext());
-        if(list == null) {
-            return;
-        }else{
-            if(list.isEmpty()){
+            adapter = new ContactsGridAdapter(list, getContext());
+            if (list == null) {
                 return;
-            }else{
-                connections_grid.setAdapter(adapter);
+            } else {
+                if (list.isEmpty()) {
+                    return;
+                } else {
+                    connections_grid.setAdapter(adapter);
+                }
             }
+            pres.checkNewMessages();
         }
-        pres.checkNewMessages();
     }
 
     @Override

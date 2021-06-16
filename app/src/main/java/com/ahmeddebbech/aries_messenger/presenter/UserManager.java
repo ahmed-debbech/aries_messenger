@@ -2,9 +2,11 @@ package com.ahmeddebbech.aries_messenger.presenter;
 
 import android.util.Log;
 
+import com.ahmeddebbech.aries_messenger.database.DatabaseReferences;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
@@ -121,6 +123,6 @@ public class UserManager {
     }
 
     public void setAvailabilityStatus(int status) {
-        DbConnector.connectToSetAvailabilityStatus(userModel.getUid(), status);
+        DbConnector.connectToSetAvailabilityStatus(FirebaseAuth.getInstance().getUid(), status);
     }
 }

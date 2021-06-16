@@ -16,6 +16,7 @@ public class AppLifecycleObserver implements LifecycleObserver {
     public void onEnterForeground() {
         //run the code we need
         Log.d("$ddd", "to fore");
+        UserManager.getInstance().setAvailabilityStatus(User.ONLINE);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
