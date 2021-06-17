@@ -130,7 +130,7 @@ public class DbConversations {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("Error","could not convert to meta conversation");
+                Log.d("Error","could not get messages for this conversation");
             }
         };
         DatabaseReferences.REF_MSGS.addValueEventListener(DatabaseReferences.LIS_MSGS);

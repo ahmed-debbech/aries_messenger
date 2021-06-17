@@ -96,6 +96,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                     }
                 }else{
                     if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_MESSAGES){
+                        Log.d("$$e-", "here");
                         List<Message> lis = (List<Message>)obj.getObj();
                         activity.loadMessages(lis);
                         MessengerManager.getInstance().setMessages(lis);
