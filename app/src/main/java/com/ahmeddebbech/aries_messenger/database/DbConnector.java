@@ -82,4 +82,7 @@ public class DbConnector {
     public static void connectToSetAvailabilityStatus(String uid, int status) {
         DbBasic.setAvailabilityStatus(uid, status);
     }
+    public static void connectToGetNewMessage(String convid, Presenter pres){
+        DbConversations.getNewMessages(convid ,pres);
+    }
 }

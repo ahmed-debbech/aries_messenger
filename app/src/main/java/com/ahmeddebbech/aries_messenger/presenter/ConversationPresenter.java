@@ -59,10 +59,12 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void sendTypingSignal(boolean signal) {
-        if(signal == true){
-            DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), MessengerManager.getInstance().getCurrentConv().getId(), true);
-        }else{
-            DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), MessengerManager.getInstance().getCurrentConv().getId(), false);
+        if(MessengerManager.getInstance().getCurrentConv() != null) {
+            if (signal == true) {
+                DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), MessengerManager.getInstance().getCurrentConv().getId(), true);
+            } else {
+                DbConnector.connectToSendTypingSignal(UserManager.getInstance().getUserModel().getUid(), MessengerManager.getInstance().getCurrentConv().getId(), false);
+            }
         }
     }
 
@@ -72,17 +74,20 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
+    public void trackNewMessages() {
+        DbConnector.connectToGetNewMessage(MessengerManager.getInstance().getCurrentConv().getId(),this);
+    }
+
+    @Override
     public void returnData(DatabaseOutput obj) {
         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_FROM_UID){
             User u = (User)obj.getObj();
             activity.showUserData(u);
         }else{
-            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_CONV_EXISTS){
-                Boolean bb = (Boolean) obj.getObj();
-                if(bb == false){
-                    MessengerManager.getInstance().setCurrentConv(null);
-                }
-                activity.showHint(bb);
+            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_NEW_MSG){
+                Message m = (Message)obj.getObj();
+                MessengerManager.getInstance().addNewMessage(m);
+                activity.addNewMessage(m);
             }else{
                 if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONV){
                     // load the meta

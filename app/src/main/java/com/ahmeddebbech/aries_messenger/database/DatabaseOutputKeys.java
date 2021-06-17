@@ -2,7 +2,6 @@ package com.ahmeddebbech.aries_messenger.database;
 
 public class DatabaseOutputKeys {
 
-
     private  DatabaseOutputKeys(){}
 
     public static int CONVS_IDS_GETTER = 0;
@@ -25,4 +24,6 @@ public class DatabaseOutputKeys {
     public static int GET_MESSAGES = 17;
     public static final int GET_TYPERS = 18;
     public static final int GET_USER_FROM_UID = 19;
+    public static int GET_NEW_MSG = 20;
+
 }

@@ -14,6 +14,7 @@ public interface ContractConversation {
         void clearField();
         void showTypingLabel(String id);
         void hideTypingLabel();
+        void addNewMessage(Message m);
     }
     interface Presenter{
         void sendMessage(String msg, String receiver);
@@ -22,5 +23,6 @@ public interface ContractConversation {
         void trackIsTypingStatus();
         void sendTypingSignal(boolean signal);
         void getMessages();
+        void trackNewMessages();
     }
 }

@@ -209,6 +209,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 list_messages.smoothScrollToPosition(adapter.getItemCount());
             }
         });
+        presenter.trackNewMessages();
     }
 
     @Override
@@ -225,6 +226,12 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     public void showTypingLabel(String id) {
         is_typing.setVisibility(View.VISIBLE);
         is_typing.setText(id + " " +getString(R.string.whos_typing));
+    }
+
+    @Override
+    public void addNewMessage(Message m) {
+        adapter.getList().add(m);
+        adapter.notifyItemInserted(adapter.getItemCount());
     }
 
     @Override

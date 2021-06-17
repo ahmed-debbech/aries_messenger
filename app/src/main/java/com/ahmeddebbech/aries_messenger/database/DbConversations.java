@@ -106,8 +106,8 @@ public class DbConversations {
     }
     public static void getMessages(String conv_id, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReferences.REF_MSGS = database.getReference("/Conversations/Conversations_data/").child(conv_id);
-        DatabaseReferences.LIS_MSGS = new ValueEventListener() {
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/").child(conv_id);
+        ValueEventListener vv = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -133,7 +133,7 @@ public class DbConversations {
                 Log.d("Error","could not get messages for this conversation");
             }
         };
-        DatabaseReferences.REF_MSGS.addValueEventListener(DatabaseReferences.LIS_MSGS);
+        ref.addListenerForSingleValueEvent(vv);
     }
     public static void createConversation(Conversation cv, Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -199,6 +199,41 @@ public class DbConversations {
         }
         DatabaseReference ref = database.getReference("/Conversations/Conversations_members/"+convid+"/"+UserManager.getInstance().getUserModel().getUid() + "/seen_index");
         ref.setValue(MessengerManager.getInstance().getCurrentConv().getCount());
+    }
+    public static void getNewMessages(String convid, final Presenter pres){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReferences.REF_MSGS = database.getReference("/Conversations/Conversations_data/"+convid);
+        DatabaseReferences.LIS_MSGS = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.exists()) {
+                    Message m = snapshot.getValue(Message.class);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_NEW_MSG, m);
+                    pres.returnData(doo);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        DatabaseReferences.REF_MSGS.addChildEventListener(DatabaseReferences.LIS_MSGS);
     }
     public static void checkNewMessages(String uid, final Presenter pres){
         List<String> convslist = UserManager.getInstance().getAllConvsIds();

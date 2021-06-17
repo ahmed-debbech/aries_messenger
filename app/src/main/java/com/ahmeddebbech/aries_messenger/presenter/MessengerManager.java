@@ -125,6 +125,8 @@ public class MessengerManager {
     }
     public void closeConversation() {
         this.currentConv = null;
+        this.getMessages().clear();
+        this.msg_list = null;
     }
     public Conversation getCurrentConv() {
         return currentConv;
@@ -132,5 +134,9 @@ public class MessengerManager {
 
     public void setCurrentConv(Conversation currentConv) {
         this.currentConv = currentConv;
+    }
+
+    public void addNewMessage(Message m) {
+        this.msg_list.add(m);
     }
 }

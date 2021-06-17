@@ -1,6 +1,5 @@
 package com.ahmeddebbech.aries_messenger.views.adapters;
 
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
@@ -32,9 +30,17 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     private User corr;
     List<MessageViewHolder> vlist;
     public MessagesListAdapter(List<Message> list, User corr){
-        this.list = list;
+        this.setList(list);
         this.corr = corr;
         this.vlist = new ArrayList<>();
+    }
+
+    public List<Message> getList() {
+        return list;
+    }
+
+    public void setList(List<Message> list) {
+        this.list = list;
     }
 
 
@@ -89,7 +95,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
-        Message m = list.get(position);
+        Message m = getList().get(position);
         //System.out.println("will be added : " + holder.toString());
         holder.content.setText(m.getContent());
         holder.status.setImageDrawable(Message.toDrawable(holder.itemView, m.getStatus()));
@@ -147,10 +153,10 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return getList().size();
     }
 
     public Message getRaw(int position){
-        return this.list.get(position);
+        return this.getList().get(position);
     }
 }
