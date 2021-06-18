@@ -30,7 +30,8 @@ public class MessengerManager {
         }
         return instance;
     }
-    public void updateMessagesStatus(final String status, final List<Message> list, final String convid){
+    public void updateMessagesStatus(final String status, final String convid){
+        final List<Message> list = this.msg_list;
         DbConnector.connectToGetLastSeenIndex(UserManager.getInstance().getUserModel().getUid(), convid, new Presenter(){
             @Override
             public void returnData(DatabaseOutput obj) {
@@ -125,7 +126,9 @@ public class MessengerManager {
     }
     public void closeConversation() {
         this.currentConv = null;
-        this.getMessages().clear();
+        if(this.msg_list != null) {
+            this.getMessages().clear();
+        }
         this.msg_list = null;
     }
     public Conversation getCurrentConv() {
@@ -137,6 +140,9 @@ public class MessengerManager {
     }
 
     public void addNewMessage(Message m) {
+        if(this.msg_list == null){
+            this.msg_list = new ArrayList<Message>();
+        }
         this.msg_list.add(m);
     }
 }

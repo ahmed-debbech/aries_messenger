@@ -52,7 +52,7 @@ public class DbBasic {
         };
         DatabaseReferences.REF_USER.addListenerForSingleValueEvent(DatabaseReferences.LIS_USER);
     }
-    public static void getUserByUid(final String uid, final Presenter pres, boolean isSingleEvent){
+    public static void getUserByUid(final String uid, final int flag, final Presenter pres, boolean isSingleEvent){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+uid);
         ValueEventListener val = new ValueEventListener() {
@@ -60,8 +60,15 @@ public class DbBasic {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     User u = dataSnapshot.getValue(User.class);
-                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_FROM_UID, u);
-                    pres.returnData(doo);
+                    if(flag == DatabaseOutputKeys.GET_USER_FROM_UID) {
+                        DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_FROM_UID, u);
+                        pres.returnData(doo);
+                    }else{
+                        if(flag == DatabaseOutputKeys.GET_USER_TYPING_NAME){
+                            DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_TYPING_NAME, u);
+                            pres.returnData(doo);
+                        }
+                    }
                     //DbBasic.getConnections(uid, pres);
                 }else {
                     Log.d("ERROR", "User doesn't exist");

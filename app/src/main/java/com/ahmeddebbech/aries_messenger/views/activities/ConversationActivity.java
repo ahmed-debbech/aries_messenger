@@ -35,6 +35,7 @@ import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConversationActivity extends AppCompatActivity implements ContractConversation.View {
@@ -172,13 +173,17 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     }
     private void showRest(){
         if(MessengerManager.getInstance().getMessages() == null) {
-            presenter.getMessages();
+            //presenter.getMessages();
+            presenter.trackNewMessages();
         }
         presenter.trackIsTypingStatus();
     }
     @Override
     public void showUserData(User u) {
         correspondedUser = u;
+        adapter = new MessagesListAdapter(new ArrayList<Message>(), correspondedUser);
+        list_messages.setAdapter(adapter);
+
         Picasso.get().load(u.getPhotoURL()).into(photo);
         displayName.setText(u.getDisplayName());
         if(u.getAvailability() == 1) {
@@ -223,15 +228,22 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     }
 
     @Override
-    public void showTypingLabel(String id) {
+    public void showTypingLabel(String name) {
         is_typing.setVisibility(View.VISIBLE);
-        is_typing.setText(id + " " +getString(R.string.whos_typing));
+        is_typing.setText(name + " " +getString(R.string.whos_typing));
     }
 
     @Override
     public void addNewMessage(Message m) {
+        no_msg_hint.setVisibility(View.INVISIBLE);
         adapter.getList().add(m);
         adapter.notifyItemInserted(adapter.getItemCount());
+        list_messages.post(new Runnable() {
+            @Override
+            public void run() {
+                list_messages.smoothScrollToPosition(adapter.getItemCount());
+            }
+        });
     }
 
     @Override

@@ -25,5 +25,5 @@ public class DatabaseOutputKeys {
     public static final int GET_TYPERS = 18;
     public static final int GET_USER_FROM_UID = 19;
     public static int GET_NEW_MSG = 20;
-
+    public static int GET_USER_TYPING_NAME = 21;
 }

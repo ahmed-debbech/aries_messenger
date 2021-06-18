@@ -72,8 +72,8 @@ public class DbConnector {
     public static void connectToTrackWhosTyping(String id, ConversationPresenter conversationPresenter) {
         DbConversations.trackWhosTyping(id, conversationPresenter);
     }
-    public static void connectToGetUserByUid(String uid, Presenter pres, boolean isSingleEvent){
-        DbBasic.getUserByUid(uid,pres, isSingleEvent);
+    public static void connectToGetUserByUid(String uid, int flag, Presenter pres, boolean isSingleEvent){
+        DbBasic.getUserByUid(uid,flag, pres, isSingleEvent);
     }
     public static void connectToSendTypingSignal(String uid, String convid, boolean signal){
         DbConversations.sendTypingSignal(uid, convid, signal);

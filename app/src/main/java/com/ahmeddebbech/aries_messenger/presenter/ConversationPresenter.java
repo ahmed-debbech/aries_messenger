@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
+import com.ahmeddebbech.aries_messenger.database.DatabaseReferences;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbConversations;
@@ -44,7 +45,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void loadUser(String uid) {
-        DbConnector.connectToGetUserByUid(uid, this, false);
+        DbConnector.connectToGetUserByUid(uid, DatabaseOutputKeys.GET_USER_FROM_UID, this, false);
     }
 
     @Override
@@ -87,6 +88,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
             if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_NEW_MSG){
                 Message m = (Message)obj.getObj();
                 MessengerManager.getInstance().addNewMessage(m);
+                MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, MessengerManager.getInstance().getCurrentConv().getId());
                 activity.addNewMessage(m);
             }else{
                 if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONV){
@@ -101,11 +103,10 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                     }
                 }else{
                     if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_MESSAGES){
-                        Log.d("$$e-", "here");
                         List<Message> lis = (List<Message>)obj.getObj();
                         activity.loadMessages(lis);
                         MessengerManager.getInstance().setMessages(lis);
-                        MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, lis, MessengerManager.getInstance().getCurrentConv().getId());
+                        MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, MessengerManager.getInstance().getCurrentConv().getId());
                     }else{
                         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_TYPERS){
                             List<String> ppl_type = (List<String>)obj.getObj();
@@ -113,15 +114,16 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                             for(String id : ppl_type){
                                 if(!UserManager.getInstance().getUserModel().getUid().equals(id)){
                                     found = true;
-                                    DbConnector.connectToGetUserByUid(id, this, true);
+                                    DbConnector.connectToGetUserByUid(id, DatabaseOutputKeys.GET_USER_TYPING_NAME, this, true);
                                 }
                             }
                             if(found == false){
                                 activity.hideTypingLabel();
                             }
                         }else{
-                            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_FROM_UID){
+                            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_TYPING_NAME){
                                 User id = (User)obj.getObj();
+                                Log.d("^^r", "user: "+ id.getDisplayName());
                                 activity.showTypingLabel(id.getDisplayName());
                             }
                         }
