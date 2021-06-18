@@ -31,7 +31,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     List<MessageViewHolder> vlist;
     public MessagesListAdapter(List<Message> list, User corr){
         this.setList(list);
-        this.corr = corr;
+        this.setCorr(corr);
         this.vlist = new ArrayList<>();
     }
 
@@ -41,6 +41,14 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
 
     public void setList(List<Message> list) {
         this.list = list;
+    }
+
+    public User getCorr() {
+        return corr;
+    }
+
+    public void setCorr(User corr) {
+        this.corr = corr;
     }
 
 
@@ -145,7 +153,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
                 }
             });
         }else{
-            Picasso.get().load(corr.getPhotoURL()).into(holder.msg_image);
+            Picasso.get().load(getCorr().getPhotoURL()).into(holder.msg_image);
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.receiver_message));
             holder.msg_status.setVisibility(View.INVISIBLE);
         }

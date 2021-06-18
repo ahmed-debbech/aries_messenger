@@ -168,6 +168,8 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     protected void onStart() {
         super.onStart();
+        adapter = new MessagesListAdapter(new ArrayList<Message>(), correspondedUser);
+        list_messages.setAdapter(adapter);
         presenter.loadUser(correspondedUser.getUid());
         presenter.getConversation(UserManager.getInstance().getUserModel().getUid(), correspondedUser.getUid());
     }
@@ -181,8 +183,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     public void showUserData(User u) {
         correspondedUser = u;
-        adapter = new MessagesListAdapter(new ArrayList<Message>(), correspondedUser);
-        list_messages.setAdapter(adapter);
+        adapter.setCorr(correspondedUser);
 
         Picasso.get().load(u.getPhotoURL()).into(photo);
         displayName.setText(u.getDisplayName());

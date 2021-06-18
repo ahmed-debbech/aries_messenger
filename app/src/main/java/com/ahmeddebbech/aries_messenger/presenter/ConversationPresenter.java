@@ -123,7 +123,6 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                         }else{
                             if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_TYPING_NAME){
                                 User id = (User)obj.getObj();
-                                Log.d("^^r", "user: "+ id.getDisplayName());
                                 activity.showTypingLabel(id.getDisplayName());
                             }
                         }
