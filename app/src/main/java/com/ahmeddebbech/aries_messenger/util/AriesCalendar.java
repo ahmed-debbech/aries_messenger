@@ -43,14 +43,22 @@ public class AriesCalendar {
             case 11: month = "DEC"; break;
         }
         day = String.valueOf(cal.get(Calendar.DATE));
-        hour = String.valueOf(cal.get(Calendar.HOUR));
-        min = String.valueOf(cal.get(Calendar.MINUTE));
+        if(cal.get(Calendar.HOUR)<9){
+            hour = "0" + String.valueOf(cal.get(Calendar.HOUR));
+        }else {
+            hour = String.valueOf(cal.get(Calendar.HOUR));
+        }
+        if(cal.get(Calendar.MINUTE) < 9) {
+            min = "0" + String.valueOf(cal.get(Calendar.MINUTE));
+        }else{
+            min = String.valueOf(cal.get(Calendar.MINUTE));
+        }
     }
 
     @NonNull
     @Override
     public String toString() {
-        return year + " " + month + " " + day + " • " + hour + ":" + min;
+        return day + " " +month + " " + year + " • " + hour + ":" + min;
     }
 
     public String getYear() {

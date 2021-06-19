@@ -11,6 +11,8 @@ import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -105,6 +107,14 @@ public class MessengerManager {
         this.msg_list = list;
     }
     public List<Message> getMessages(){
+        if(this.msg_list != null){
+            Collections.sort(this.msg_list, new Comparator<Message>() {
+                @Override
+                public int compare(Message o1, Message o2) {
+                    return o1.getIndex() - o2.getIndex();
+                }
+            });
+        }
         return this.msg_list;
     }
     public boolean msgDoesExist(String id){

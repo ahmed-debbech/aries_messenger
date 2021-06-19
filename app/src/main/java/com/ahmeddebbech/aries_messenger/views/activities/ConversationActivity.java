@@ -36,6 +36,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ConversationActivity extends AppCompatActivity implements ContractConversation.View {
@@ -70,6 +72,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         Intent i = getIntent();
         correspondedUser = new User();
         correspondedUser.setUid(i.getStringExtra("uid"));
+        MessengerManager.getInstance().setMessages(null);
     }
     public void setupUi(){
         back = findViewById(R.id.conv_return);
@@ -237,7 +240,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     public void addNewMessage(Message m) {
         no_msg_hint.setVisibility(View.INVISIBLE);
-        adapter.getList().add(m);
+        adapter.setList(MessengerManager.getInstance().getMessages());
         adapter.notifyItemInserted(adapter.getItemCount());
         list_messages.post(new Runnable() {
             @Override
