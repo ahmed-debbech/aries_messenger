@@ -76,7 +76,10 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void trackNewMessages() {
-        DbConnector.connectToGetNewMessage(MessengerManager.getInstance().getCurrentConv().getId(),this);
+        if (MessengerManager.getInstance().getCurrentConv() != null){
+            String id = MessengerManager.getInstance().getCurrentConv().getId();
+            DbConnector.connectToGetNewMessage(id, this);
+        }
     }
 
     @Override

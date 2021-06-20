@@ -153,6 +153,14 @@ public class MessengerManager {
         if(this.msg_list == null){
             this.msg_list = new ArrayList<Message>();
         }
-        this.msg_list.add(m);
+        if(!this.msg_list.contains(m)){
+            this.msg_list.add(m);
+        }
+        Collections.sort(this.msg_list, new Comparator<Message>() {
+            @Override
+            public int compare(Message o1, Message o2) {
+                return o1.getIndex() - o2.getIndex();
+            }
+        });
     }
 }

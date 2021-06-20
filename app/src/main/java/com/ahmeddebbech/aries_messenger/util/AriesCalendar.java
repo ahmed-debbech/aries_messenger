@@ -27,6 +27,7 @@ public class AriesCalendar {
         long t = timestamp.getTime();
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(t);
+        cal.get(Calendar.AM_PM);
         year = String.valueOf(cal.get(Calendar.YEAR));
         switch(cal.get(Calendar.MONTH)){
             case 0: month = "JAN"; break;

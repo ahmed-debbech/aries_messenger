@@ -23,6 +23,8 @@ import com.ahmeddebbech.aries_messenger.util.AriesCalendar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapter.MessageViewHolder>{
@@ -36,6 +38,12 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     }
 
     public List<Message> getList() {
+        Collections.sort(this.list, new Comparator<Message>() {
+            @Override
+            public int compare(Message o1, Message o2) {
+                return o1.getIndex() - o2.getIndex();
+            }
+        });
         return list;
     }
 

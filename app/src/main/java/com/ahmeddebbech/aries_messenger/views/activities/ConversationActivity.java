@@ -183,6 +183,13 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         }
         presenter.trackIsTypingStatus();
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        presenter.trackNewMessages();
+    }
+
     @Override
     public void showUserData(User u) {
         correspondedUser = u;
@@ -210,7 +217,8 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     public void loadMessages(List<Message> list) {
         no_msg_hint.setVisibility(View.INVISIBLE);
-        adapter = new MessagesListAdapter(list, correspondedUser);
+        adapter.setList(null);
+        adapter.setList(list);
         list_messages.setAdapter(adapter);
         list_messages.post(new Runnable() {
             @Override
@@ -240,7 +248,11 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     public void addNewMessage(Message m) {
         no_msg_hint.setVisibility(View.INVISIBLE);
-        adapter.setList(MessengerManager.getInstance().getMessages());
+        //adapter.setList(MessengerManager.getInstance().getMessages());
+        if(!adapter.getList().contains(m)) {
+            adapter.getList().add(m);
+        }
+        Log.d("%^r", adapter.getList().toString());
         adapter.notifyItemInserted(adapter.getItemCount());
         list_messages.post(new Runnable() {
             @Override
@@ -261,4 +273,5 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         DatabaseReferences.removeConvListener();
         MessengerManager.getInstance().closeConversation();
     }
+
 }

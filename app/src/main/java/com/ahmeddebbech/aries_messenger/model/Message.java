@@ -4,6 +4,8 @@ package com.ahmeddebbech.aries_messenger.model;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import com.ahmeddebbech.aries_messenger.R;
 
 public class Message {
@@ -44,6 +46,13 @@ public class Message {
         this.status = status;
         this.index = index;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.getContent();
+    }
+
     public static Drawable toDrawable(View v, String status){
         Drawable imgId = null;
         switch(status){

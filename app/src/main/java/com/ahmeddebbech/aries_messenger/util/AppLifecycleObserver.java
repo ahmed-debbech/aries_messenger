@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 
 public class AppLifecycleObserver implements LifecycleObserver {

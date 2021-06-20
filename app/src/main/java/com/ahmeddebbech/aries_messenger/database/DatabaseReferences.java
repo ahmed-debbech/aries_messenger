@@ -30,7 +30,9 @@ public class DatabaseReferences {
         if(MessengerManager.getInstance().getCurrentConv() != null) {
             DatabaseReferences.REF_CONV_META.removeEventListener(DatabaseReferences.LIS_CONV_META);
             DatabaseReferences.REF_CONV_MEMBERS.removeEventListener(DatabaseReferences.LIS_CONV_MEMBERS);
-            DatabaseReferences.REF_MSGS.removeEventListener(DatabaseReferences.LIS_MSGS);
+            if(DatabaseReferences.REF_MSGS != null){
+                DatabaseReferences.REF_MSGS.removeEventListener(DatabaseReferences.LIS_MSGS);
+            }
             if(DatabaseReferences.REF_WHOS_TYPING != null){
                 DatabaseReferences.REF_WHOS_TYPING.removeEventListener(DatabaseReferences.LIS_WHOS_TYPING);
             }
