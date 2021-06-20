@@ -29,6 +29,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     public ConversationPresenter(ContractConversation.View act){
         this.activity = act;
+        MessengerManager.getInstance().setMessages(null);
     }
 
     @Override
@@ -77,8 +78,10 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     @Override
     public void trackNewMessages() {
         if (MessengerManager.getInstance().getCurrentConv() != null){
-            String id = MessengerManager.getInstance().getCurrentConv().getId();
-            DbConnector.connectToGetNewMessage(id, this);
+            if(MessengerManager.getInstance() != null){
+                String id = MessengerManager.getInstance().getCurrentConv().getId();
+                DbConnector.connectToGetNewMessage(id, this);
+            }
         }
     }
 

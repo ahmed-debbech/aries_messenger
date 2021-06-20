@@ -72,7 +72,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         Intent i = getIntent();
         correspondedUser = new User();
         correspondedUser.setUid(i.getStringExtra("uid"));
-        MessengerManager.getInstance().setMessages(null);
     }
     public void setupUi(){
         back = findViewById(R.id.conv_return);
@@ -226,7 +225,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 list_messages.smoothScrollToPosition(adapter.getItemCount());
             }
         });
-        presenter.trackNewMessages();
+        //presenter.trackNewMessages();
     }
 
     @Override
@@ -248,11 +247,9 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     public void addNewMessage(Message m) {
         no_msg_hint.setVisibility(View.INVISIBLE);
-        //adapter.setList(MessengerManager.getInstance().getMessages());
         if(!adapter.getList().contains(m)) {
             adapter.getList().add(m);
         }
-        Log.d("%^r", adapter.getList().toString());
         adapter.notifyItemInserted(adapter.getItemCount());
         list_messages.post(new Runnable() {
             @Override

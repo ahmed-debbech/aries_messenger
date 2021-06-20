@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.ahmeddebbech.aries_messenger.R;
 
@@ -51,6 +52,15 @@ public class Message {
     @Override
     public String toString() {
         return this.getContent();
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj instanceof Message){
+            Message m = (Message)obj;
+            return m.getId().equals(this.id);
+        }
+        return false;
     }
 
     public static Drawable toDrawable(View v, String status){
