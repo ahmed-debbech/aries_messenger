@@ -179,7 +179,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     }
     private void showRest(){
         if(MessengerManager.getInstance().getMessages() == null) {
-            //presenter.getMessages();
             presenter.trackNewMessages();
         }
         presenter.trackIsTypingStatus();

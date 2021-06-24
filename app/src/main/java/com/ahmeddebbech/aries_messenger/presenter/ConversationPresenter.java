@@ -77,8 +77,8 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void trackNewMessages() {
-        if (MessengerManager.getInstance().getCurrentConv() != null){
-            if(MessengerManager.getInstance() != null){
+        if(MessengerManager.getInstance() != null){
+            if (MessengerManager.getInstance().getCurrentConv() != null){
                 String id = MessengerManager.getInstance().getCurrentConv().getId();
                 DbConnector.connectToGetNewMessage(id, this);
             }
@@ -94,7 +94,9 @@ public class ConversationPresenter extends Presenter implements ContractConversa
             if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_NEW_MSG){
                 Message m = (Message)obj.getObj();
                 MessengerManager.getInstance().addNewMessage(m);
-                MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, MessengerManager.getInstance().getCurrentConv().getId());
+                if(!m.getSender_uid().equals(UserManager.getInstance().getUserModel().getUid())) {
+                    MessengerManager.getInstance().updateMessageState(Message.SEEN, MessengerManager.getInstance().getCurrentConv().getId(), m.getId());
+                }
                 activity.addNewMessage(m);
             }else{
                 if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONV){

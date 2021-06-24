@@ -10,7 +10,7 @@ public class DatabaseOutputKeys {
     public static int CONNECTIONS_CONVERTED = 3;
     public static int SEND_MSG = 4;
     public static int GET_CONV = 5;
-    public static int GET_LAST_SEEN = 6;
+    public static int GET_LAST_SEEN_INDEX = 6;
     public static int GET_USER_DATA = 7;
     public static int SEARCH_ALL_USERS_BY_NAME = 8;
     public static int CONVERT_TO_USERS = 9;

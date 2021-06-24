@@ -181,7 +181,7 @@ public class DbConversations {
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     Integer index = snapshot.getValue(Integer.class);
-                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_LAST_SEEN, index);
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_LAST_SEEN_INDEX, index);
                     pres.returnData(doo);
                 }
             }
@@ -329,6 +329,14 @@ public class DbConversations {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("/Conversations/Conversations_members/" + convid + "/" + uid + "/is_typing");
             ref.removeValue();
+        }
+    }
+
+    public static void updateMessageState(String state, String convid, String msg_id) {
+        if(state == Message.SEEN){
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convid + "/" + msg_id+ "/status");
+            ref.setValue(Message.SEEN);
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.database;
 
+import android.util.Log;
+
 import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +33,7 @@ public class DatabaseReferences {
             DatabaseReferences.REF_CONV_META.removeEventListener(DatabaseReferences.LIS_CONV_META);
             DatabaseReferences.REF_CONV_MEMBERS.removeEventListener(DatabaseReferences.LIS_CONV_MEMBERS);
             if(DatabaseReferences.REF_MSGS != null){
+                Log.d("convb", "removeConvListener:");
                 DatabaseReferences.REF_MSGS.removeEventListener(DatabaseReferences.LIS_MSGS);
             }
             if(DatabaseReferences.REF_WHOS_TYPING != null){

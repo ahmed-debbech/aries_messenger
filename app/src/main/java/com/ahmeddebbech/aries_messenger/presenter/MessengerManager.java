@@ -37,7 +37,7 @@ public class MessengerManager {
         DbConnector.connectToGetLastSeenIndex(UserManager.getInstance().getUserModel().getUid(), convid, new Presenter(){
             @Override
             public void returnData(DatabaseOutput obj) {
-                if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_LAST_SEEN) {
+                if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_LAST_SEEN_INDEX) {
                     Integer ind = (Integer)obj.getObj();
                     List<Message> nlist = new ArrayList<>();
                     for (int i=ind+1; i<=MessengerManager.getInstance().getCurrentConv().getCount(); i++) {
@@ -92,7 +92,11 @@ public class MessengerManager {
     public void updateMessagesStatus(String status) {
         System.out.println("deliver detected!");
     }
-
+    public void updateMessageState(String state, String convid, String msg_id){
+        if(state == Message.SEEN){
+            DbConnector.connectToUpdateMessageState(state, convid, msg_id);
+        }
+    }
     public void editMessage(String msg_id, String msg_cont) {
         DbConnector.connectToEditMsg(this.getCurrentConv().getId(), msg_id, msg_cont);
     }
