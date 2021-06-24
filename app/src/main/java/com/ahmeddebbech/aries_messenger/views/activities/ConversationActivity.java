@@ -109,7 +109,9 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 list_messages.post(new Runnable() {
                     @Override
                     public void run() {
-                        list_messages.smoothScrollToPosition(adapter.getItemCount() - 1);
+                        if(adapter.getItemCount() > 0) {
+                            list_messages.smoothScrollToPosition(adapter.getItemCount() - 1);
+                        }
                     }
                 });
             }
