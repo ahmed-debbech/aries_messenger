@@ -15,6 +15,7 @@ public interface ContractConversation {
         void showTypingLabel(String id);
         void hideTypingLabel();
         void addNewMessage(Message m);
+        void updateMessage(Message m);
     }
     interface Presenter{
         void sendMessage(String msg, String receiver);

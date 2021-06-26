@@ -59,6 +59,17 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         this.corr = corr;
     }
 
+    public void updateMessage(Message m) {
+        if(this.list.contains(m)){
+            int g = this.list.indexOf(m);
+            this.list.set(g,m);
+        }
+    }
+
+    public int indexOfMessage(Message m) {
+        return this.list.indexOf(m);
+    }
+
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
         private ImageView status;

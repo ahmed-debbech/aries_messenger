@@ -185,6 +185,12 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     }
 
     @Override
+    public void updateMessage(Message m) {
+        adapter.updateMessage(m);
+        adapter.notifyItemChanged(adapter.indexOfMessage(m));
+    }
+
+    @Override
     protected void onPostResume() {
         super.onPostResume();
         presenter.trackNewMessages();

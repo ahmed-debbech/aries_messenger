@@ -167,4 +167,11 @@ public class MessengerManager {
             }
         });
     }
+
+    public void updateMessage(Message m) {
+        if(this.msg_list.contains(m)){
+            int g = this.msg_list.indexOf(m);
+            this.msg_list.set(g,m);
+        }
+    }
 }
