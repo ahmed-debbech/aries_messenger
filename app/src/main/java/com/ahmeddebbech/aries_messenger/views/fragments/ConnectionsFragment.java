@@ -83,7 +83,7 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
                     connections_grid.setAdapter(adapter);
                 }
             }
-            pres.checkNewMessages();
+            //pres.checkNewMessages();
         }
     }
 

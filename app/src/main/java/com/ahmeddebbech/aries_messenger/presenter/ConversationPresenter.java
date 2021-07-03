@@ -72,7 +72,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void getMessages() {
-        DbConnector.connectToGetMessages(MessengerManager.getInstance().getCurrentConv().getId(), this);
+        //DbConnector.connectToGetMessages(MessengerManager.getInstance().getCurrentConv().getId(), this);
     }
 
     @Override
@@ -98,6 +98,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
             activity.showUserData(u);
         }else{
             if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_NEW_MSG){
+                Log.d("kek3$", "eeeee");
                 Message m = (Message)obj.getObj();
                 MessengerManager.getInstance().addNewMessage(m);
                 if(!m.getSender_uid().equals(UserManager.getInstance().getUserModel().getUid())) {
@@ -120,7 +121,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                         List<Message> lis = (List<Message>)obj.getObj();
                         activity.loadMessages(lis);
                         MessengerManager.getInstance().setMessages(lis);
-                        MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, MessengerManager.getInstance().getCurrentConv().getId());
+                        //MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, MessengerManager.getInstance().getCurrentConv().getId());
                     }else{
                         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_TYPERS){
                             List<String> ppl_type = (List<String>)obj.getObj();

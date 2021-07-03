@@ -29,7 +29,7 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
 
     @Override
     public void checkNewMessages() {
-        MessengerManager.getInstance().checkNewMessages(UserManager.getInstance().getUserModel().getUid(), this);
+        //MessengerManager.getInstance().checkNewMessages(UserManager.getInstance().getUserModel().getUid(), this);
     }
 
     @Override

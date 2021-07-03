@@ -275,6 +275,8 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     protected void onDestroy() {
         super.onDestroy();
         presenter.closeConversation();
+        presenter = null;
+        correspondedUser = null;
     }
 
 }
