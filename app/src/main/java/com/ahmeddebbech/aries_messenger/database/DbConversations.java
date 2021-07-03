@@ -215,7 +215,6 @@ public class DbConversations {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.d("rrr-0", "onChildChanged: " + snapshot.toString());
                 if(snapshot.exists()) {
                     Message m = snapshot.getValue(Message.class);
                     DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_CHANGED_MESSAGE, m);

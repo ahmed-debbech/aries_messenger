@@ -25,5 +25,6 @@ public interface ContractConversation {
         void sendTypingSignal(boolean signal);
         void getMessages();
         void trackNewMessages();
+        void closeConversation();
     }
 }

@@ -274,8 +274,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        DatabaseReferences.removeConvListener();
-        MessengerManager.getInstance().closeConversation();
+        presenter.closeConversation();
     }
 
 }

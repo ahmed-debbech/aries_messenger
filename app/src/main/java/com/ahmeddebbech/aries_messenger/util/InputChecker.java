@@ -49,4 +49,10 @@ public class InputChecker {
         }
         return true;
     }
+
+    public static String makeMessageFine(String msg) {
+        String nemsg = "";
+        nemsg = msg.trim();
+        return nemsg;
+    }
 }

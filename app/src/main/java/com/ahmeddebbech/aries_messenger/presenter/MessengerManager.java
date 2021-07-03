@@ -73,7 +73,8 @@ public class MessengerManager {
         m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
         m.setId(RandomIdGenerator.generateMessageId(this.getCurrentConv().getId()));
         m.setId_conv(this.getCurrentConv().getId());
-        m.setContent(msg);
+        m.setContent(InputChecker.
+                makeMessageFine(msg));
         if(msg_to_repply_to != null){
             m.setId_reply_msg(msg_to_repply_to.getId());
             msg_to_repply_to = null;

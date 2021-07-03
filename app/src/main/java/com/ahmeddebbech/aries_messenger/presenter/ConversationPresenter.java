@@ -86,6 +86,12 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
+    public void closeConversation() {
+        DatabaseReferences.removeConvListener();
+        MessengerManager.getInstance().closeConversation();
+    }
+
+    @Override
     public void returnData(DatabaseOutput obj) {
         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_FROM_UID){
             User u = (User)obj.getObj();
