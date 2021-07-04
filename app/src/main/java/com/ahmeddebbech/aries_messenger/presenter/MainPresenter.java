@@ -9,6 +9,7 @@ import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.util.GeneralUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -40,8 +41,10 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         }else{
             if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
                 Map<String, String> l = (Map<String, String>)o.getObj();
-                UserManager.getInstance().getUserModel().setConnections(l);
-                act.setupUi();
+                if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
+                    UserManager.getInstance().getUserModel().setConnections(l);
+                    act.setupUi();
+                }
             }
         }
     }

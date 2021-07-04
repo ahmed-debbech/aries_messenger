@@ -71,11 +71,6 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
-    public void getMessages() {
-        //DbConnector.connectToGetMessages(MessengerManager.getInstance().getCurrentConv().getId(), this);
-    }
-
-    @Override
     public void trackNewMessages() {
         if(MessengerManager.getInstance() != null){
             if (MessengerManager.getInstance().getCurrentConv() != null){
@@ -98,7 +93,6 @@ public class ConversationPresenter extends Presenter implements ContractConversa
             activity.showUserData(u);
         }else{
             if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_NEW_MSG){
-                Log.d("kek3$", "eeeee");
                 Message m = (Message)obj.getObj();
                 MessengerManager.getInstance().addNewMessage(m);
                 if(!m.getSender_uid().equals(UserManager.getInstance().getUserModel().getUid())) {
@@ -117,34 +111,27 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                         activity.showHint(false);
                     }
                 }else{
-                    if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_MESSAGES){
-                        List<Message> lis = (List<Message>)obj.getObj();
-                        activity.loadMessages(lis);
-                        MessengerManager.getInstance().setMessages(lis);
-                        //MessengerManager.getInstance().updateMessagesStatus(Message.SEEN, MessengerManager.getInstance().getCurrentConv().getId());
+                    if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_TYPERS){
+                        List<String> ppl_type = (List<String>)obj.getObj();
+                        boolean found = false;
+                        for(String id : ppl_type){
+                            if(!UserManager.getInstance().getUserModel().getUid().equals(id)){
+                                found = true;
+                                DbConnector.connectToGetUserByUid(id, DatabaseOutputKeys.GET_USER_TYPING_NAME, this, true);
+                            }
+                        }
+                        if(found == false){
+                            activity.hideTypingLabel();
+                        }
                     }else{
-                        if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_TYPERS){
-                            List<String> ppl_type = (List<String>)obj.getObj();
-                            boolean found = false;
-                            for(String id : ppl_type){
-                                if(!UserManager.getInstance().getUserModel().getUid().equals(id)){
-                                    found = true;
-                                    DbConnector.connectToGetUserByUid(id, DatabaseOutputKeys.GET_USER_TYPING_NAME, this, true);
-                                }
-                            }
-                            if(found == false){
-                                activity.hideTypingLabel();
-                            }
+                        if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_TYPING_NAME){
+                            User id = (User)obj.getObj();
+                            activity.showTypingLabel(id.getDisplayName());
                         }else{
-                            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_TYPING_NAME){
-                                User id = (User)obj.getObj();
-                                activity.showTypingLabel(id.getDisplayName());
-                            }else{
-                                if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CHANGED_MESSAGE){
-                                    Message m = (Message)obj.getObj();
-                                    MessengerManager.getInstance().updateMessage(m);
-                                    activity.updateMessage(m);
-                                }
+                            if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CHANGED_MESSAGE){
+                                Message m = (Message)obj.getObj();
+                                MessengerManager.getInstance().updateMessage(m);
+                                activity.updateMessage(m);
                             }
                         }
                     }

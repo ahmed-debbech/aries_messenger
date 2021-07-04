@@ -123,7 +123,6 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         Message m = getList().get(position);
-        //System.out.println("will be added : " + holder.toString());
         holder.content.setText(m.getContent());
         holder.status.setImageDrawable(Message.toDrawable(holder.itemView, m.getStatus()));
         AriesCalendar ac = new AriesCalendar(m.getDate());

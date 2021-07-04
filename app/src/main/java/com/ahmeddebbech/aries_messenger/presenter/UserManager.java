@@ -38,7 +38,7 @@ public class UserManager {
         userModel.setEmail(u.getEmail());
         userModel.setPhotoURL(u.getPhotoURL());
         userModel.setBio(u.getBio());
-        userModel.setConnections(u.getConnections());
+        //userModel.setConnections(u.getConnections());
         userModel.setConversations(u.getConversations());
         userModel.setAvailability(u.getAvailability());
     }

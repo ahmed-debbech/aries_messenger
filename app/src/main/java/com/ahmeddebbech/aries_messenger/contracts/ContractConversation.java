@@ -23,7 +23,6 @@ public interface ContractConversation {
         void getConversation(String uidA, String uidB);
         void trackIsTypingStatus();
         void sendTypingSignal(boolean signal);
-        void getMessages();
         void trackNewMessages();
         void closeConversation();
     }
