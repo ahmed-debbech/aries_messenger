@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
     private TextView no_results_msg;
     private RecyclerView results;
     private UserItemAdapter adapter;
+    private SwipeRefreshLayout srl;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -47,13 +49,23 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
         wait = findViewById(R.id.wait);
         no_results_msg = findViewById(R.id.no_results_msg);
         results = findViewById(R.id.results);
+        srl = findViewById(R.id.request_swipe_refresh);
         results.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         results.setLayoutManager(layoutManager);
 
         wait.setVisibility(View.VISIBLE);
+        addListeners();
     }
 
+    private void addListeners(){
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pres.seekForPendingRequest();
+            }
+        });
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -72,6 +84,7 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
 
     @Override
     public void showResults(ArrayList<ItemUser> listOfItems) {
+        srl.setRefreshing(false);
         wait.setVisibility(View.INVISIBLE);
         if(listOfItems.isEmpty() == true){
             no_results_msg.setVisibility(View.VISIBLE);

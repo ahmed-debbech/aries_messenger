@@ -7,6 +7,7 @@ import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
+import com.ahmeddebbech.aries_messenger.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,13 @@ public class RequestsPresenter extends Presenter implements ContractRequests.Pre
         if(o.getDatabaseOutputkey() == DatabaseOutputKeys.CONVERT_TO_USERS) {
             ArrayList<ItemUser> list = (ArrayList<ItemUser>)o.getObj();
             act.showResults(list);
+        }else{
+            if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
+                Map<String, String> list = (Map<String, String>)o.getObj();
+                UserManager.getInstance().getUserModel().setConnections(list);
+                List<String> listPending = UserManager.getInstance().getPendingConnections();
+                DbConnector.connectToConvertUidsToUsers(listPending, this);
+            }
         }
     }
 
@@ -31,7 +39,7 @@ public class RequestsPresenter extends Presenter implements ContractRequests.Pre
     public void seekForPendingRequest() {
         /*we get all connections from the model if the list is not refreshed or
         empty we go fetch from the database*/
-        Map<String, String> map = UserManager.getInstance().getUserModel().getConnections();
+        /*Map<String, String> map = UserManager.getInstance().getUserModel().getConnections();
         if((map == null) || (map.isEmpty())){
             DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CONVERT_TO_USERS, new ArrayList<ItemUser>());
             returnData(doo);
@@ -39,6 +47,7 @@ public class RequestsPresenter extends Presenter implements ContractRequests.Pre
             List<String> listPending = UserManager.getInstance().getPendingConnections();
             //we convert the UIDs strings to actual user data from DB
             DbConnector.connectToConvertUidsToUsers(listPending, this);
-        }
+        }*/
+        DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
     }
 }

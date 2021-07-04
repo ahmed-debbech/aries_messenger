@@ -13,6 +13,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id = "@+id/request_swipe_refresh"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/results"
             android:layout_width="match_parent"
@@ -21,6 +26,7 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <ProgressBar
             android:id="@+id/wait"
             style="?android:attr/progressBarStyle"
@@ -34,23 +40,22 @@
             android:layout_marginBottom="328dp"
             android:visibility="invisible" />
 
-        <TextView
-            android:id="@+id/no_results_msg"
-            android:layout_width="241dp"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/wait"
-            android:layout_alignTop="@+id/wait"
-            android:layout_alignEnd="@+id/wait"
-            android:layout_alignBottom="@+id/wait"
-            android:layout_marginStart="-46dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="-57dp"
-            android:layout_marginBottom="38dp"
-            android:text="@string/no_new_requests"
-            android:textAlignment="center"
-            android:textColor="@color/hint_messages"
-            android:textSize="30sp"
-            android:visibility="invisible" />
-
+            <TextView
+                android:id="@+id/no_results_msg"
+                android:layout_width="241dp"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/wait"
+                android:layout_alignTop="@+id/wait"
+                android:layout_alignEnd="@+id/wait"
+                android:layout_alignBottom="@+id/wait"
+                android:layout_marginStart="-46dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="-57dp"
+                android:layout_marginBottom="38dp"
+                android:text="@string/no_new_requests"
+                android:textAlignment="center"
+                android:textColor="@color/hint_messages"
+                android:textSize="30sp"
+                android:visibility="invisible" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
