@@ -40,8 +40,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/connections_label">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/connections_grid"
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/connections_swipe_refresh"
                     android:layout_width="414dp"
                     android:layout_height="700dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -49,10 +49,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="parent">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/connections_grid"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

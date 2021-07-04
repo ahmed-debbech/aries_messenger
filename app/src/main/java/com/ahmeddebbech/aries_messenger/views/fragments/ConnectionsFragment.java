@@ -2,9 +2,12 @@ package com.ahmeddebbech.aries_messenger.views.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,7 +31,7 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView connections_grid;
     private ContactsGridAdapter adapter;
-
+    private SwipeRefreshLayout srl;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -67,8 +70,27 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        srl = (SwipeRefreshLayout) getActivity().findViewById(R.id.connections_swipe_refresh);
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pres.loadContacts(UserManager.getInstance().getUserModel().getUid());
+            }
+        });
+    }
+
+    @Override
     public void showContacts(List<ItemUser> list) {
         if(getActivity() != null) {
+            srl = (SwipeRefreshLayout) getActivity().findViewById(R.id.connections_swipe_refresh);
+            srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    pres.loadContacts(UserManager.getInstance().getUserModel().getUid());
+                }
+            });
             connections_grid = (RecyclerView) getActivity().findViewById(R.id.connections_grid);
             layoutManager = new GridLayoutManager(getActivity(), 3);
             connections_grid.setLayoutManager(layoutManager);
@@ -81,6 +103,7 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
                     return;
                 } else {
                     connections_grid.setAdapter(adapter);
+                    srl.setRefreshing(false);
                 }
             }
             //pres.checkNewMessages();

@@ -31,6 +31,7 @@ dependencies {
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "androidx.gridlayout:gridlayout:1.0.0"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
