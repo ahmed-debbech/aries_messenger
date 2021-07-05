@@ -10,6 +10,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,11 +31,12 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
 
     //ui components
     private ProgressBar wait;
-    private TextView no_results_msg;
+    private LinearLayout no_results_msg;
     private RecyclerView results;
     private UserItemAdapter adapter;
     private SwipeRefreshLayout srl;
     private RecyclerView.LayoutManager layoutManager;
+    private Button req_ref_but;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
         wait = findViewById(R.id.wait);
         no_results_msg = findViewById(R.id.no_results_msg);
         results = findViewById(R.id.results);
+        req_ref_but = findViewById(R.id.request_refresh_but);
         srl = findViewById(R.id.request_swipe_refresh);
         results.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -63,6 +67,14 @@ public class RequestsActivity extends AppCompatActivity implements ContractReque
             @Override
             public void onRefresh() {
                 pres.seekForPendingRequest();
+            }
+        });
+        req_ref_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pres.seekForPendingRequest();
+                no_results_msg.setVisibility(View.INVISIBLE);
+                wait.setVisibility(View.VISIBLE);
             }
         });
     }

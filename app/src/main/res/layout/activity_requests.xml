@@ -7,6 +7,7 @@
     tools:context=".views.activities.RequestsActivity">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="414dp"
         android:layout_height="685dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -14,19 +15,20 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id = "@+id/request_swipe_refresh"
-            android:layout_width = "match_parent"
-            android:layout_height = "match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/results"
+            android:id="@+id/request_swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false">
+            android:layout_height="match_parent">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/results"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
         <ProgressBar
             android:id="@+id/wait"
             style="?android:attr/progressBarStyle"
@@ -39,23 +41,43 @@
             android:layout_marginEnd="141dp"
             android:layout_marginBottom="328dp"
             android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/no_results_msg"
-                android:layout_width="241dp"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/wait"
-                android:layout_alignTop="@+id/wait"
-                android:layout_alignEnd="@+id/wait"
-                android:layout_alignBottom="@+id/wait"
-                android:layout_marginStart="-46dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="-57dp"
-                android:layout_marginBottom="38dp"
-                android:text="@string/no_new_requests"
-                android:textAlignment="center"
-                android:textColor="@color/hint_messages"
-                android:textSize="30sp"
-                android:visibility="invisible" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/no_results_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout">
+
+        <TextView
+            android:id="@+id/no_results_msg_string"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_alignStart="@+id/wait"
+            android:layout_alignTop="@+id/wait"
+            android:layout_alignEnd="@+id/wait"
+            android:layout_alignBottom="@+id/wait"
+            android:text="@string/no_new_requests"
+            android:textAlignment="center"
+            android:textColor="@color/hint_messages"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/request_refresh_but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_send_button"
+            android:background="@drawable/rounded_button"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/refresh_button" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
