@@ -72,11 +72,11 @@ public class UserManager {
         }
         userModel.getConnections().put(uid, UserManager.WAITING);
     }
-    public List<String> getPendingConnections(){
+    public List<String> getConnectionsByType(String x){
         Map<String, String> d = userModel.getConnections();
         List<String> l = new ArrayList<>();
         for(Map.Entry<String, String> entry : d.entrySet()){
-            if(entry.getValue().equals(UserManager.PENDING)){
+            if(entry.getValue().equals(x)){
                 l.add(entry.getKey());
             }
         }

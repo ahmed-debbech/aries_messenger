@@ -8,6 +8,7 @@ import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.model.Message;
+import com.ahmeddebbech.aries_messenger.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,14 +42,10 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
     public void returnData(DatabaseOutput dot) {
         if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
             Map<String, String> map = (Map<String, String>)dot.getObj();
-            if(map != null) {
-                if (map.size() > 0) {
-                    List<String> li = new ArrayList<>();
-                    for (Map.Entry<String, String> m : map.entrySet()) {
-                        li.add(m.getKey());
-                    }
-                    DbConnector.connectToConvertUidsToUsers(li, this);
-                }
+            UserManager.getInstance().getUserModel().setConnections(map);
+            if(map != null && map.size() > 0) {
+                List<String> li = UserManager.getInstance().getConnectionsByType(UserManager.CONNECTED);
+                DbConnector.connectToConvertUidsToUsers(li, this);
             }
         }else{
             if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CONVERT_TO_USERS){

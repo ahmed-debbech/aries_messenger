@@ -29,7 +29,7 @@ public class RequestsPresenter extends Presenter implements ContractRequests.Pre
             if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
                 Map<String, String> list = (Map<String, String>)o.getObj();
                 UserManager.getInstance().getUserModel().setConnections(list);
-                List<String> listPending = UserManager.getInstance().getPendingConnections();
+                List<String> listPending = UserManager.getInstance().getConnectionsByType(UserManager.PENDING);
                 DbConnector.connectToConvertUidsToUsers(listPending, this);
             }
         }
@@ -37,17 +37,6 @@ public class RequestsPresenter extends Presenter implements ContractRequests.Pre
 
     @Override
     public void seekForPendingRequest() {
-        /*we get all connections from the model if the list is not refreshed or
-        empty we go fetch from the database*/
-        /*Map<String, String> map = UserManager.getInstance().getUserModel().getConnections();
-        if((map == null) || (map.isEmpty())){
-            DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CONVERT_TO_USERS, new ArrayList<ItemUser>());
-            returnData(doo);
-        }else{
-            List<String> listPending = UserManager.getInstance().getPendingConnections();
-            //we convert the UIDs strings to actual user data from DB
-            DbConnector.connectToConvertUidsToUsers(listPending, this);
-        }*/
         DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
     }
 }
