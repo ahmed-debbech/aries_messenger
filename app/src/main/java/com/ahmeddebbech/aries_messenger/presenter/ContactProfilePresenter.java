@@ -23,21 +23,6 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
     public void fillUiWithData(String uid) {
         DbBasic.getUserData(uid,this);
     }
-    public void returnData(DatabaseOutput o){
-        if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA) {
-            User u = (User)o.getObj();
-            act.loadData(u.getDisplayName(),u.getPhotoURL(), u.getBio());
-        }else{
-            if(o.getDatabaseOutputkey() == DatabaseOutputKeys.REMOVE_CONTACT
-            || o.getDatabaseOutputkey() == DatabaseOutputKeys.ACCEPT_CONTACT
-            || o.getDatabaseOutputkey() == DatabaseOutputKeys.ADD_CONTACT){
-                Boolean b = (Boolean)o.getObj();
-                if(b == true){
-                    act.updateUi();
-                }
-            }
-        }
-    }
     @Override
     public void addToContact(String uid){
         UserManager.getInstance().addContact(uid);
@@ -52,7 +37,22 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
 
     @Override
     public void acceptContact(String uid) {
-        UserManager.getInstance().setConnectionStatusToConnected(uid);
+        UserManager.getInstance().setConnectionStatus(uid, UserManager.CONNECTED);
         DbConnector.connectToAcceptContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
+    }
+    public void returnData(DatabaseOutput o){
+        if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA) {
+            User u = (User)o.getObj();
+            act.loadData(u.getDisplayName(),u.getPhotoURL(), u.getBio());
+        }else{
+            if(o.getDatabaseOutputkey() == DatabaseOutputKeys.REMOVE_CONTACT
+                    || o.getDatabaseOutputkey() == DatabaseOutputKeys.ACCEPT_CONTACT
+                    || o.getDatabaseOutputkey() == DatabaseOutputKeys.ADD_CONTACT){
+                Boolean b = (Boolean)o.getObj();
+                if(b == true){
+                    act.updateUi();
+                }
+            }
+        }
     }
 }

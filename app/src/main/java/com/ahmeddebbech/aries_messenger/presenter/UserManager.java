@@ -99,9 +99,9 @@ public class UserManager {
         }
         return l.size();
     }
-    public void setConnectionStatusToConnected(String uid){
+    public void setConnectionStatus(String uid, String status){
         if(userModel.getConnections().containsKey(uid)){
-            userModel.getConnections().put(uid, UserManager.CONNECTED);
+            userModel.getConnections().put(uid, status);
         }
     }
 
