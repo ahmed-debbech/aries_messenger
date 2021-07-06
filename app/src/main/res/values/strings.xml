@@ -23,7 +23,7 @@
     <string name="edit_disp_hint2">Your contacts will see you primary with this name.</string>
 
     <!-- Profile activity -->
-    <string name="connection_number">Connections - %1$s</string>
+    <string name="connection_number">Connections • %1$s</string>
 
 
     <string name="title_activity_login">LoginActivity</string>
