@@ -26,7 +26,7 @@
     <string name="connection_number">Connections • %1$s</string>
 
 
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_main">Aries Messenger</string>
 
     <!-- activity titles -->
     <string name="title_activity_edit_disp_name">Edit Display Name</string>
