@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,8 +27,7 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
 
     private SearchPresenter presenter;
 
-    private ImageView back;
-    private  ImageView delete;
+    private ImageView delete;
     private TextView input;
     private ProgressBar wait;
     private TextView no_results_msg;
@@ -40,7 +40,10 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         presenter = new SearchPresenter(this);
 
@@ -48,7 +51,6 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
         addListeners();
     }
     public void setupUi(){
-        back = findViewById(R.id.searchact_back);
         delete = findViewById(R.id.searchact_delete);
         input = findViewById(R.id.searchact_input);
         results = findViewById(R.id.results);
@@ -60,12 +62,6 @@ public class SearchActivity extends AppCompatActivity implements ContractSearch.
     }
 
     public void addListeners(){
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

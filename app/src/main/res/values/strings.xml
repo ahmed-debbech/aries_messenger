@@ -54,4 +54,5 @@
     <string name="online_status">Online</string>
     <string name="offline_status">Not Online</string>
     <string name="refresh_button">Refresh</string>
+    <string name="title_search_activity">Search for friends</string>
 </resources>

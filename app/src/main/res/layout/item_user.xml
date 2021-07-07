@@ -3,82 +3,81 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="15dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="3dp"
     app:cardElevation="8dp">
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/photo"
-            android:layout_width="71dp"
-            android:layout_height="72dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="4dp"
-            android:padding="2dp" />
-
-        <TextView
-            android:id="@+id/displayName"
-            android:layout_width="251dp"
-            android:layout_height="39dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="9dp"
-            android:layout_marginTop="0dp"
-            android:layout_toEndOf="@+id/photo"
-            android:text="Line 1"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="179dp"
-            android:layout_height="32dp"
-            android:layout_below="@+id/displayName"
-            android:layout_alignStart="@+id/displayName"
-            android:layout_alignEnd="@+id/displayName"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="-1dp"
-            android:layout_marginEnd="-2dp"
-            android:text="Line 2"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/item_add"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="-8dp"
-            android:layout_marginTop="3dp"
-            android:layout_toEndOf="@+id/displayName"
-            android:background="@color/colorPrimary"
-            android:fontFamily="sans-serif-black"
-            android:includeFontPadding="false"
-            android:text="@string/add_button"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/uid"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/item_refuse"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_below="@+id/item_add"
-            android:layout_alignStart="@+id/item_add"
-            android:layout_alignEnd="@+id/item_add"
-            android:layout_marginStart="-1dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="1dp"
-            android:background="@color/disabled_button"
-            android:text="@string/refuse_button"
-            android:textColor="#FFFFFF"
-            android:textSize="10dp"
-            android:visibility="invisible" />
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_weight="1"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="4dp"/>
 
+            <LinearLayout
+                android:layout_weight="8"
+                android:paddingStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/displayName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Line 1"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Line 2"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/item_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/rounded_button"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/add_button"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/item_refuse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/rounded_button_secondary"
+                    android:text="@string/refuse_button"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/uid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+        </LinearLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -6,4 +6,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="ToolbarColorsButtons" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
 </resources>
