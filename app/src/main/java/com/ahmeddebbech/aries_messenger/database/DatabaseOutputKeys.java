@@ -27,4 +27,6 @@ public class DatabaseOutputKeys {
     public static int GET_NEW_MSG = 20;
     public static int GET_USER_TYPING_NAME = 21;
     public static int GET_CHANGED_MESSAGE = 22;
+    public static int GET_ONE_MESSAGE = 23;
+
 }

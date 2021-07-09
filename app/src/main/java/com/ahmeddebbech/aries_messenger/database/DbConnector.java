@@ -37,7 +37,9 @@ public class DbConnector {
     public static void connectToAcceptContact(String uidUser, String addedUid, Presenter pres){
         DbBasic.acceptContact( uidUser,  addedUid,  pres);
     }
-
+    public static void connectToGetOneMessage(String conv_id, String msg_id, Presenter pres){
+        DbConversations.getOneMessage(conv_id,msg_id, pres);
+    }
     public static void connectToGetOneConversation(String uidA, String uidB, Presenter pres){
         DbConversations.getConversation(uidA, uidB, pres);
     }

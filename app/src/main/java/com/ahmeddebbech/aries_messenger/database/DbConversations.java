@@ -343,4 +343,23 @@ public class DbConversations {
             ref.setValue(Message.SEEN);
         }
     }
+
+    public static void getOneMessage(String conv_id, final String msg_id, final Presenter pres) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/"+conv_id+"/"+msg_id);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Message m = snapshot.getValue(Message.class);
+                    DatabaseOutput dot = new DatabaseOutput(DatabaseOutputKeys.GET_ONE_MESSAGE, m);
+                    pres.returnData(dot);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Error","could not get one message with id: " + msg_id);
+            }
+        });
+    }
 }

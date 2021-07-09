@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.views.adapters;
 
+import android.os.Messenger;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +17,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
+import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.AriesCalendar;
 import com.squareup.picasso.Picasso;
@@ -121,7 +127,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MessageViewHolder holder, int position) {
         Message m = getList().get(position);
         holder.content.setText(m.getContent());
         holder.status.setImageDrawable(Message.toDrawable(holder.itemView, m.getStatus()));
@@ -138,7 +144,15 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             if(MessengerManager.getInstance().msgDoesExist(holder.ref.getId_reply_msg())) {
                 holder.reply_text.setText(MessengerManager.getInstance().getOneMessage(holder.ref.getId_reply_msg()).getContent());
             }else{
-                //TODO GET THE REPLY MESSAGE CONTENT BY THE DB
+                DbConnector.connectToGetOneMessage(holder.ref.getId_conv(), holder.ref.getId_reply_msg(), new Presenter() {
+                    @Override
+                    public void returnData(DatabaseOutput obj) {
+                        if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_ONE_MESSAGE){
+                            Message m = (Message)obj.getObj();
+                            holder.reply_text.setText(m.getContent());
+                        }
+                    }
+                });
             }
         }else{
             holder.reply_panel.setVisibility(View.INVISIBLE);
