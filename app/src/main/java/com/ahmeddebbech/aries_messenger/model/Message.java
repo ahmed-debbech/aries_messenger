@@ -51,7 +51,9 @@ public class Message {
     @NonNull
     @Override
     public String toString() {
-        return this.getContent();
+        return "Message{ id = " + id + " sender_uid = " + sender_uid + " id_conv = "
+                + id_conv + " date = " + date + " content = " + content + " rep_msg = "
+                + id_reply_msg+ " status = " + status + " index = " +index +" }";
     }
 
     @Override
@@ -143,4 +145,5 @@ public class Message {
     public void setId_reply_msg(String id_reply_msg) {
         this.id_reply_msg = id_reply_msg;
     }
+
 }
