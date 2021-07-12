@@ -91,7 +91,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             @Override
             public void onClick(View v) {
                 presenter.sendMessage(messageField.getText().toString(), correspondedUser.getUid());
-                reply_hlin.setVisibility(View.INVISIBLE);
+                reply_hlin.setVisibility(View.GONE);
             }
         });
         messageField.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +136,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         msg_reply_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reply_hlin.setVisibility(View.INVISIBLE);
+                reply_hlin.setVisibility(View.GONE);
             }
         });
         messageField.addTextChangedListener(new TextWatcher() {

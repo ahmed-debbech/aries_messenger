@@ -74,49 +74,50 @@
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
         android:layout_marginBottom="90dp"
-        app:layout_constraintBottom_toTopOf="@+id/msg_hlin"
+        app:layout_constraintBottom_toTopOf="@+id/msg_reply_hlin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/conv_toolbar" />
 
     <LinearLayout
-        android:visibility="invisible"
-        android:padding="4dp"
-        android:layout_margin="7dp"
         android:id="@+id/msg_reply_hlin"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:orientation="horizontal"
+        android:layout_height="40dp"
+        android:layout_margin="7dp"
         android:background="@drawable/linearlayout_rounded"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/msg_hlin"
         app:layout_constraintEnd_toEndOf="@+id/msg_hlin"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/msg_hlin"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/conv_toolbar"
+        app:layout_constraintVertical_bias="0.98">
 
         <TextView
             android:id="@+id/msg_reply_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="5dp"
-            android:layout_weight="10"
-            android:gravity="top|left"
+            android:layout_weight="15"
             android:hint="@string/type_msg"
             android:inputType="textPersonName"
             android:padding="5dp"
-            android:paddingLeft="10dp"
-            android:textColor="@color/white" />
+            android:textColor="@color/secondary_button_color"
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/msg_reply_exit"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_close"
-            android:background="@drawable/rounded_button"
-            />
+            android:background="@drawable/rounded_button_secondary"
+            app:srcCompat="@drawable/ic_close" />
 
 
     </LinearLayout>
+
     <LinearLayout
         android:padding="4dp"
         android:layout_margin="7dp"
@@ -184,9 +185,9 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/msg_hlin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/conv_list_messages"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/msg_reply_hlin"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
