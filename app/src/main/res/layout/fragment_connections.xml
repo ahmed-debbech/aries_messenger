@@ -25,7 +25,7 @@
                 android:layout_width="183dp"
                 android:layout_height="31dp"
                 android:text="Your connections"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.07"

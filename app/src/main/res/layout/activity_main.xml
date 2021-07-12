@@ -40,11 +40,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:fontFamily="sans-serif-condensed"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:text="Aries Messenger"
                     android:textAlignment="gravity"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25dp" />
+                    android:textColor="@color/white"
+                    android:textSize="25dp"
+                    android:typeface="sans" />
 
                 <Space
                     android:layout_width="wrap_content"
