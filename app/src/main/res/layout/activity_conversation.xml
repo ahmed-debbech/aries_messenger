@@ -143,7 +143,7 @@
             android:scrollbars="vertical"
             android:gravity="top|left"
             android:hint="@string/type_msg"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine"
             android:background="@drawable/editline_rounded"
             />
 
