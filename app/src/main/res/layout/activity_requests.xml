@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_send_button"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/rounded_button_secondary"
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:fontFamily="sans-serif-medium"

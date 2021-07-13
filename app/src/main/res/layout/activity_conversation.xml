@@ -7,75 +7,124 @@
     android:background="@color/general_background"
     tools:context=".views.activities.ConversationActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/conv_toolbar"
+    <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/conv_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/conv_return"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_arrow_back_24" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/conv_photo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp" />
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/conv_dispname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="sans-serif-black"
-                    android:padding="1dp"
-                    android:text="dispname"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
+                <ImageView
+                    android:id="@+id/conv_return"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_arrow_back_24" />
 
-                <TextView
-                    android:id="@+id/availability_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:padding="1dp"
-                    android:text="Online"
-                    android:textColor="@color/offline"
-                    android:textSize="10dp"
-                    android:textStyle="bold" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/conv_photo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/conv_dispname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif-black"
+                        android:padding="1dp"
+                        android:text="dispname"
+                        android:textColor="@color/white"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/availability_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:padding="1dp"
+                        android:text="Online"
+                        android:textColor="@color/offline"
+                        android:textSize="10dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
             </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/conv_list_messages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"/>
+
+        <TextView
+            android:id="@+id/is_typing_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ahmed is typing..."
+            android:textColor="@color/high_indication"
+            android:textStyle="bold"
+            android:layout_weight="0"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/msg_hlin"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/linearlayout_rounded"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <EditText
+                android:id="@+id/conv_message_field"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="10"
+                android:background="@drawable/editline_rounded"
+                android:gravity="top|left"
+                android:hint="@string/type_msg"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:padding="5dp"
+                android:paddingLeft="10dp"
+                android:scrollbars="vertical"
+                android:textColorHint="@color/colorAccent" />
+
+            <ImageButton
+                android:id="@+id/conv_send"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                app:srcCompat="@drawable/ic_send_button" />
+
 
         </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/conv_list_messages"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
-        android:layout_marginBottom="90dp"
-        app:layout_constraintBottom_toTopOf="@+id/msg_reply_hlin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/conv_toolbar" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/msg_reply_hlin"
@@ -86,12 +135,9 @@
         android:orientation="horizontal"
         android:padding="4dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/msg_hlin"
-        app:layout_constraintEnd_toEndOf="@+id/msg_hlin"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/msg_hlin"
-        app:layout_constraintTop_toBottomOf="@+id/conv_toolbar"
-        app:layout_constraintVertical_bias="0.98">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/msg_reply_text"
@@ -116,77 +162,18 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:padding="4dp"
-        android:layout_margin="7dp"
-        android:id="@+id/msg_hlin"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:background="@drawable/linearlayout_rounded"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/conv_list_messages"
-        app:layout_constraintStart_toStartOf="@+id/conv_list_messages"
-        >
-
-        <EditText
-            android:padding="5dp"
-            android:layout_marginRight="5dp"
-            android:paddingLeft="10dp"
-            android:id="@+id/conv_message_field"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:maxLines="3"
-            android:textColorHint="@color/colorAccent"
-            android:scrollbars="vertical"
-            android:gravity="top|left"
-            android:hint="@string/type_msg"
-            android:inputType="textMultiLine"
-            android:background="@drawable/editline_rounded"
-            />
-
-        <ImageButton
-            android:id="@+id/conv_send"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_send_button"
-            android:background="@drawable/rounded_button"
-            />
-
-
-    </LinearLayout>
-
     <TextView
         android:id="@+id/no_msg_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="303dp"
         android:text="No messages found."
         android:textColor="@color/hint_messages"
         android:textSize="18sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/conv_list_messages"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/conv_toolbar"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/is_typing_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ahmed is typing..."
-        android:textColor="@color/high_indication"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/msg_hlin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/msg_reply_hlin"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

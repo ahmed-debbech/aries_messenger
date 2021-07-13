@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--OFFICIAL COLORS-->
     <color name="colorPrimary">#ff7f50</color>
     <color name="colorPrimaryDark">#EA6A3B</color>
-    <!--<color name="colorAccent">#F6A486</color>-->
     <color name="colorAccent">#759176</color>
     <color name="colorAccent1">#d1dac4</color>
+    <!--END OFFICIAL-->
 
     <color name="naturalText">#000000</color>
     <color name="disabled_button">#E1E1E1</color>
     <color name="hint_messages">#B7B7B7</color>
     <color name="sender_message">#436044</color>
-    <!--<color name="sender_message">#EA6A3B</color>-->
-    <!--<color name="receiver_message">#9e9e9e</color>-->
     <color name="receiver_message">#759176</color>
     <color name="back_color_outline">#436044</color>
     <color name="white">#FFFFFF</color>

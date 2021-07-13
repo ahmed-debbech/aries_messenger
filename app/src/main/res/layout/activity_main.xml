@@ -12,63 +12,80 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/hamburger1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textLogo1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="sans-serif-condensed-medium"
-                    android:text="Aries Messenger"
-                    android:textAlignment="gravity"
-                    android:textColor="@color/white"
-                    android:textSize="25dp"
-                    android:typeface="sans" />
+                    <ImageView
+                        android:id="@+id/hamburger1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_menu" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
+                    <TextView
+                        android:id="@+id/textLogo1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:text="Aries Messenger"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:typeface="sans" />
 
-                <ImageView
-                    android:id="@+id/requests_main"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_baseline_people_24" />
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
 
-                <ImageView
-                    android:id="@+id/search_main"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_baseline_search_24" />
+                    <ImageView
+                        android:id="@+id/requests_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_baseline_people_24" />
 
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
+                    <ImageView
+                        android:id="@+id/search_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_baseline_search_24" />
 
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/frag_container"
+                android:paddingTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.fragment.app.FragmentContainerView>
+        </LinearLayout>
         <ProgressBar
             android:id="@+id/wait_loop"
             style="?android:attr/progressBarStyle"
@@ -78,7 +95,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add"
@@ -93,18 +110,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_baseline_add_24" />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/frag_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="64dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-        </androidx.fragment.app.FragmentContainerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView
