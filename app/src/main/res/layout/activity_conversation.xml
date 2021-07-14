@@ -83,6 +83,7 @@
             android:id="@+id/is_typing_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="ahmed is typing..."
             android:textColor="@color/high_indication"
             android:textStyle="bold"
