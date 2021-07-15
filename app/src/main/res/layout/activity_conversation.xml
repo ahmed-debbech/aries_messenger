@@ -79,6 +79,38 @@
             android:layout_height="wrap_content"
             android:layout_weight="8"/>
 
+        <LinearLayout
+            android:id="@+id/msg_reply_hlin"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="7dp"
+            android:background="@drawable/linearlayout_rounded"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/msg_reply_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_weight="15"
+                android:hint="@string/type_msg"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:textColor="@color/secondary_button_color"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/msg_reply_exit"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button_secondary"
+                app:srcCompat="@drawable/ic_close" />
+
+
+        </LinearLayout>
         <TextView
             android:id="@+id/is_typing_user"
             android:layout_width="wrap_content"
@@ -89,7 +121,6 @@
             android:textStyle="bold"
             android:layout_weight="0"
             android:visibility="invisible" />
-
         <LinearLayout
             android:id="@+id/msg_hlin"
             android:layout_width="match_parent"
@@ -125,42 +156,6 @@
 
 
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/msg_reply_hlin"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="7dp"
-        android:background="@drawable/linearlayout_rounded"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/msg_reply_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
-            android:layout_weight="15"
-            android:hint="@string/type_msg"
-            android:inputType="textPersonName"
-            android:padding="5dp"
-            android:textColor="@color/secondary_button_color"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/msg_reply_exit"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_button_secondary"
-            app:srcCompat="@drawable/ic_close" />
-
-
     </LinearLayout>
 
     <TextView
