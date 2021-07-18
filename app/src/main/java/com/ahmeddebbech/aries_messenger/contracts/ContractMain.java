@@ -7,5 +7,6 @@ public interface ContractMain {
     }
     interface Presenter{
         void fillViewsWithUserData();
+        void getConnections();
     }
 }

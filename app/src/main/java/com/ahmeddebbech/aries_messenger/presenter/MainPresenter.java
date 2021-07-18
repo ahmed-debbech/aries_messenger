@@ -29,6 +29,13 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         act.renderViewsWithData(disp,usr,photo);
     }
 
+    @Override
+    public void getConnections() {
+        if(UserManager.getInstance().getConnectionsNumber() != 0) {
+            DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
+        }
+    }
+
     public void getDatafromDatabase(String uid){
         DbConnector.connectToGetUserData(uid, this);
     }

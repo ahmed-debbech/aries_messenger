@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.views.activities;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
@@ -11,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,7 +28,7 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
     private TextView bio;
     private Button add;
     private Button refuse;
-
+    private ActionBar actionBar;
     private ContactProfilePresenter pres;
 
     @Override
@@ -34,6 +37,8 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
         setContentView(R.layout.activity_contact_profile);
 
         pres = new ContactProfilePresenter(this);
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent in = getIntent();
         this.username = in.getStringExtra("username");
@@ -48,6 +53,15 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
         updateUi();
         addClicks();
         pres.fillUiWithData(uid);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     public void addClicks(){
         add.setOnClickListener(new View.OnClickListener() {

@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
         DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
+        presenter.getConnections();
     }
     @Override
     public void onBackPressed() {
