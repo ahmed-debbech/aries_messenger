@@ -90,4 +90,8 @@ public class DbConnector {
     public static void connectToUpdateMessageState(String state, String convid, String msg_id){
         DbConversations.updateMessageState(state, convid, msg_id);
     }
+
+    public static void connectToGetUserConnectionsNumber(String uid, Presenter pres) {
+        DbBasic.getConnectionsNumber(uid, pres);
+    }
 }

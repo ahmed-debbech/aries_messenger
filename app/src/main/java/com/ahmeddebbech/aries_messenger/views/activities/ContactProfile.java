@@ -53,6 +53,7 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
         updateUi();
         addClicks();
         pres.fillUiWithData(uid);
+        pres.getConnectionsNumber(uid);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -120,5 +121,11 @@ public class ContactProfile extends AppCompatActivity implements ContractContact
                 }
             }
         }
+    }
+
+    @Override
+    public void updateConnections(int number) {
+        String o = getResources().getString(R.string.connection_number, String.valueOf(number));
+        this.connections.setText(o);
     }
 }

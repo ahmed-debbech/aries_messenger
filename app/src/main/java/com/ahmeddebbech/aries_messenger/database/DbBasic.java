@@ -233,4 +233,24 @@ public class DbBasic {
         DatabaseReference ref = database.getReference("/Users/"+uid+"/availability");
         ref.setValue(status);
     }
+
+    public static void getConnectionsNumber(String uid, final Presenter pres) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users_connections/").child(uid);
+        Query o = ref.orderByValue().equalTo(UserManager.CONNECTED);
+        o.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Long h = snapshot.getChildrenCount();
+                DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_CONNECTIONS_NUMBER,h);
+                pres.returnData(doo);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("ErrorDB","could not retrieve connections number");
+            }
+        });
+
+    }
 }

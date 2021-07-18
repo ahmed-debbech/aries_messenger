@@ -19,9 +19,15 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
     public ContactProfilePresenter(ContractContactProfile.View act){
         this.act = act;
     }
+
+    @Override
+    public void getConnectionsNumber(String uid) {
+        DbConnector.connectToGetUserConnectionsNumber(uid, this);
+    }
+
     @Override
     public void fillUiWithData(String uid) {
-        DbBasic.getUserData(uid,this);
+        DbConnector.connectToGetUserData(uid, this);
     }
     @Override
     public void addToContact(String uid){
@@ -51,6 +57,11 @@ public class ContactProfilePresenter extends Presenter implements ContractContac
                 Boolean b = (Boolean)o.getObj();
                 if(b == true){
                     act.updateUi();
+                }
+            }else{
+                if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS_NUMBER){
+                    Long h = (Long)o.getObj();
+                    act.updateConnections(h.intValue());
                 }
             }
         }

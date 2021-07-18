@@ -4,9 +4,11 @@ public interface ContractContactProfile {
     interface View{
         void loadData(String disp, String photo, String bio);
         void updateUi();
+        void updateConnections(int number);
     }
     interface Presenter{
         void fillUiWithData(String uid);
+        void getConnectionsNumber(String uid);
         void addToContact(String uid);
         void removeFromContact(String uid);
         void acceptContact(String uid);
