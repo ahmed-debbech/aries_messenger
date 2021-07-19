@@ -26,6 +26,7 @@ import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.FlagResolver;
 import com.ahmeddebbech.aries_messenger.views.adapters.MessagesListAdapter;
+import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -92,6 +93,24 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             public void onClick(View v) {
                 presenter.sendMessage(messageField.getText().toString(), correspondedUser.getUid());
                 reply_hlin.setVisibility(View.GONE);
+            }
+        });
+        this.displayName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(ConversationActivity.this, ContactProfile.class);
+                in.putExtra("uid", correspondedUser.getUid());
+                in.putExtra("username", correspondedUser.getUsername());
+                ConversationActivity.this.startActivity(in);
+            }
+        });
+        this.photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(ConversationActivity.this, ContactProfile.class);
+                in.putExtra("uid", correspondedUser.getUid());
+                in.putExtra("username", correspondedUser.getUsername());
+                ConversationActivity.this.startActivity(in);
             }
         });
         messageField.setOnClickListener(new View.OnClickListener() {

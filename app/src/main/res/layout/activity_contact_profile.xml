@@ -22,6 +22,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/conta_prof_disp"
             android:layout_width="339dp"
             android:layout_height="wrap_content"
@@ -29,7 +30,7 @@
             android:fontFamily="sans-serif"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
-            android:textSize="36sp"
+            android:textSize="38sp"
             app:layout_constraintEnd_toEndOf="@+id/conta_prof_img"
             app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="@+id/conta_prof_img"
