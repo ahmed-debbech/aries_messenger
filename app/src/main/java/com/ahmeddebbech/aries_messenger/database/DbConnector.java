@@ -58,19 +58,15 @@ public class DbConnector {
     public static void connectToGetConversationsIds(String uid, Presenter pres){
         DbConversations.getConversationsIds(uid, pres);
     }
-
     public static void connectToEditMsg(String id, String msg_id, String msg_cont) {
         DbConversations.editMsg(id, msg_id, msg_cont);
     }
-
     public static void connectToCreateConversation(Conversation cv, Presenter pres) {
         DbConversations.createConversation(cv,pres);
     }
-
-    public static void sendMessage(String id, Message m) {
+    public static void connectToSendMessage(String id, Message m) {
         DbConversations.sendMessage(id,m);
     }
-
     public static void connectToTrackWhosTyping(String id, ConversationPresenter conversationPresenter) {
         DbConversations.trackWhosTyping(id, conversationPresenter);
     }
@@ -80,7 +76,6 @@ public class DbConnector {
     public static void connectToSendTypingSignal(String uid, String convid, boolean signal){
         DbConversations.sendTypingSignal(uid, convid, signal);
     }
-
     public static void connectToSetAvailabilityStatus(String uid, int status) {
         DbBasic.setAvailabilityStatus(uid, status);
     }
@@ -90,7 +85,6 @@ public class DbConnector {
     public static void connectToUpdateMessageState(String state, String convid, String msg_id){
         DbConversations.updateMessageState(state, convid, msg_id);
     }
-
     public static void connectToGetUserConnectionsNumber(String uid, Presenter pres) {
         DbBasic.getConnectionsNumber(uid, pres);
     }

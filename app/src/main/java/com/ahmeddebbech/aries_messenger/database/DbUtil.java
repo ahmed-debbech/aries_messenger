@@ -24,7 +24,7 @@ public class DbUtil {
 
 
     public static void userExistsInSignIn(final Presenter loginPresenter){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users");
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -42,7 +42,7 @@ public class DbUtil {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+                Log.d(DatabaseOutputKeys.TAG_DB, "[userExistsInSignIn] operation cancelled due to " + databaseError.getCode());
                 founder = false;
             }
         });
@@ -66,7 +66,7 @@ public class DbUtil {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+                Log.d(DatabaseOutputKeys.TAG_DB, "[usernameExists] operation cancelled due to " + databaseError.getCode());
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.ahmeddebbech.aries_messenger.database;
 
 public class DatabaseOutputKeys {
+    public static String TAG_DB ="ErrorDB%";
 
     private  DatabaseOutputKeys(){}
 

@@ -84,7 +84,7 @@ public class MessengerManager {
         m.setDate(time.toString());
         m.setStatus(Message.SENT);
         m.setIndex(this.getCurrentConv().getCount() + 1);
-        DbConnector.sendMessage(this.getCurrentConv().getId(), m);
+        DbConnector.connectToSendMessage(this.getCurrentConv().getId(), m);
     }
     public void checkNewMessages(String uid , Presenter pres){
         DbConnector.connectToCheckNewMessages(uid, pres);

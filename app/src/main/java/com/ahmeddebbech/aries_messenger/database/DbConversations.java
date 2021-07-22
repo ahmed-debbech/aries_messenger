@@ -45,12 +45,12 @@ public class DbConversations {
                 }else {
                     DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_CONV, null);
                     pres.returnData(doo);
-                    Log.d("error", "Conversation doesn't exist");
+                    Log.d(DatabaseOutputKeys.TAG_DB, "[getConversation] Conversation doesn't exist");
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("Error","*%*$#%(#$%*#@$%(");
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getConversation] operation cancelled due to "+ error.getCode());
             }
         });
     }
@@ -68,15 +68,13 @@ public class DbConversations {
                     c.setId(id); c.setCount(count); c.setLatest_msg(latest_msg);
 
                     DbConversations.getMembers(c, pres);
-
-                    Log.d("#@e", "conv id " + id);
                 }else {
-                    Log.d("#@e", "convv null" + snapshot.getKey());
+                    Log.d(DatabaseOutputKeys.TAG_DB, "[convertToMeta] COnversation doesn't exist");
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("Error","could not convert to meta conversation");
+                Log.d(DatabaseOutputKeys.TAG_DB, "[convertToMeta] operation cancelled due to "+ error.getCode());
             }
         };
         DatabaseReferences.REF_CONV_META.addValueEventListener(DatabaseReferences.LIS_CONV_META);
@@ -99,7 +97,7 @@ public class DbConversations {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("Error","could not convert to meta conversation");
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getMembers] operation cancelled due to "+ error.getCode());
             }
         };
         DatabaseReferences.REF_CONV_MEMBERS.addValueEventListener(DatabaseReferences.LIS_CONV_MEMBERS);
@@ -130,7 +128,7 @@ public class DbConversations {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("Error","could not get messages for this conversation");
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getMessages] operation cancelled due to "+ error.getCode());
             }
         };
         ref.addListenerForSingleValueEvent(vv);
@@ -187,7 +185,7 @@ public class DbConversations {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("Error","could not convert to meta conversation");
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getLastSeenIndex] operation cancelled due to "+ error.getCode());
             }
         });
     }
@@ -234,7 +232,7 @@ public class DbConversations {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getNewMessages] operation cancelled due to "+ error.getCode());
             }
         };
         DatabaseReferences.REF_MSGS.addChildEventListener(DatabaseReferences.LIS_MSGS);
@@ -256,7 +254,7 @@ public class DbConversations {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Log.d("Error", "could not convert to meta conversation");
+                        Log.d(DatabaseOutputKeys.TAG_DB, "[checkNewMessages] operation cancelled due to "+ error.getCode());
                     }
                 };
                 DatabaseReferences.REF_ALL_CONVS[i].addValueEventListener(DatabaseReferences.LIS_ALL_CONVS[i]);
@@ -280,11 +278,10 @@ public class DbConversations {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("Error","could not get conversations ids");
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getConversationsIds] operation cancelled due to "+ error.getCode());
             }
         });
     }
-
     public static void editMsg(String id, String msg_id, String msg_cont) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Conversations/Conversations_data/"+id+"/"+msg_id+"/is_edited");
@@ -318,12 +315,11 @@ public class DbConversations {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.d(DatabaseOutputKeys.TAG_DB, "[trackWhostyping] operation cancelled due to "+ error.getCode());
             }
         };
         DatabaseReferences.REF_WHOS_TYPING.addValueEventListener(DatabaseReferences.LIS_WHOS_TYPING);
     }
-
     public static void sendTypingSignal(String uid, String convid, boolean signal) {
         if(signal == true) {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -335,7 +331,6 @@ public class DbConversations {
             ref.removeValue();
         }
     }
-
     public static void updateMessageState(String state, String convid, String msg_id) {
         if(state == Message.SEEN){
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -343,7 +338,6 @@ public class DbConversations {
             ref.setValue(Message.SEEN);
         }
     }
-
     public static void getOneMessage(String conv_id, final String msg_id, final Presenter pres) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Conversations/Conversations_data/"+conv_id+"/"+msg_id);
@@ -358,7 +352,7 @@ public class DbConversations {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("Error","could not get one message with id: " + msg_id);
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getOneMessage] operation cancelled due to "+ error.getCode());
             }
         });
     }

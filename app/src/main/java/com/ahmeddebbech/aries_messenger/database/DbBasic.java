@@ -42,18 +42,18 @@ public class DbBasic {
                     pres.returnData(doo);
                     //DbBasic.getConnections(uid, pres);
                 }else {
-                    Log.d("ERROR", "User doesn't exist");
+                    Log.d(DatabaseOutputKeys.TAG_DB, "[getUserData] User doesn't exist");
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getUserData] operation cancelled due" + databaseError.getCode());
             }
         };
         DatabaseReferences.REF_USER.addListenerForSingleValueEvent(DatabaseReferences.LIS_USER);
     }
     public static void getUserByUid(final String uid, final int flag, final Presenter pres, boolean isSingleEvent){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+uid);
         ValueEventListener val = new ValueEventListener() {
             @Override
@@ -71,12 +71,12 @@ public class DbBasic {
                     }
                     //DbBasic.getConnections(uid, pres);
                 }else {
-                    Log.d("ERROR", "User doesn't exist");
+                    Log.d(DatabaseOutputKeys.TAG_DB, "[getUserByUid] User by thid Uid doesn't exist");
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getUserByUid] operation cancelled due to " + databaseError.getCode());
             }
         };
         if(isSingleEvent == true){
@@ -91,27 +91,27 @@ public class DbBasic {
         ref.setValue(user);
     }
     public static void searchAllUsersByName(final String name, final Presenter pres){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final ArrayList<ItemUser> list = new ArrayList<>();
         DatabaseReference ref1 = database.getReference();
         Query o = ref1.child("Users").orderByChild("displayName").startAt(name.toUpperCase()).endAt(name.toLowerCase() + "\uf8ff");
         o.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for(DataSnapshot ds : snapshot.getChildren()) {
-                           if (ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name.toLowerCase())) {
-                               if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
-                                   list.add(new ItemUser(ds.getValue(User.class)));
-                               }
-                           }
-                        }
-                    }
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                   if (ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name.toLowerCase())) {
+                       if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
+                           list.add(new ItemUser(ds.getValue(User.class)));
+                       }
+                   }
+                }
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(DatabaseOutputKeys.TAG_DB, "[searchAllUsersByName] operation cancelled due to "+error.getCode());
+            }
+        });
         DatabaseReference ref2 = database.getReference();
         String nname = "";
         if(name.charAt(0) != '@') {
@@ -139,14 +139,13 @@ public class DbBasic {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.d(DatabaseOutputKeys.TAG_DB, "[searchAllUsersByName] operation cancelled due to "+error.getCode());
             }
         });
     }
     public static void convertUidsToUsers(final List<String> uids, final Presenter pres){
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         final List<ItemUser> users = new ArrayList<>();
-
         DatabaseReference ref = db.getReference("/Users");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -163,7 +162,7 @@ public class DbBasic {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("Can't read", "ERROR!");
+                Log.d(DatabaseOutputKeys.TAG_DB, "[convertUidsToUsers] operation cancelled due to "+error.getCode());
             }
         });
     }
@@ -211,7 +210,7 @@ public class DbBasic {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("ErrorDB","could not retrieve connections");
+                Log.d(DatabaseOutputKeys.TAG_DB,"[getConnections] operation cancelled due to "+ error.getCode());
             }
         });
     }
@@ -227,13 +226,11 @@ public class DbBasic {
         DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.REMOVE_CONTACT, b);
         pres.returnData(doo);
     }
-
     public static void setAvailabilityStatus(String uid, int status) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users/"+uid+"/availability");
         ref.setValue(status);
     }
-
     public static void getConnectionsNumber(String uid, final Presenter pres) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users_connections/").child(uid);
@@ -248,7 +245,7 @@ public class DbBasic {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("ErrorDB","could not retrieve connections number");
+                Log.d(DatabaseOutputKeys.TAG_DB,"[getConnectionsNumber] operation cancelled due to "+ error.getCode());
             }
         });
 
