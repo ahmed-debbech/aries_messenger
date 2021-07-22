@@ -89,7 +89,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         private EditText msg_edit;
         private TextView msg_edit_button;
         private TextView msg_cancel_button;
-        private ConstraintLayout msg_main_panel;
+        private LinearLayout msg_main_panel;
         private TextView reply_text;
         private LinearLayout reply_panel;
 
