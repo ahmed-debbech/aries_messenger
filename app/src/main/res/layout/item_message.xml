@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/msg_card"
@@ -20,8 +20,8 @@
         android:padding="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_gravity="start"
             android:id="@+id/msg_img"
-            android:layout_weight="1"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="2dp" />
@@ -78,14 +78,9 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/msg_status"
-            android:layout_width="17dp"
-            android:layout_height="12dp"
-            android:visibility="gone"/>
-
         <LinearLayout
             android:layout_weight="1"
+            android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -94,6 +89,7 @@
                 android:id="@+id/msg_edited_flag"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
+                app:srcCompat="@drawable/ic_baseline_edit_pencil"
                 android:layout_gravity="end"/>
 
             <TextView
@@ -162,4 +158,4 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

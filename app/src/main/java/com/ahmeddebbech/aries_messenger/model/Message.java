@@ -65,15 +65,6 @@ public class Message {
         return false;
     }
 
-    public static Drawable toDrawable(View v, String status){
-        Drawable imgId = null;
-        switch(status){
-            case Message.DELIVERED : imgId = v.getContext().getResources().getDrawable(R.drawable.ic_delivered); break;
-            case Message.SEEN : imgId = v.getContext().getResources().getDrawable(R.drawable.ic_seen); break;
-            case Message.SENT : imgId = v.getContext().getResources().getDrawable(R.drawable.ic_sent); break;
-        }
-        return imgId;
-    }
     public String getId() {
         return id;
     }

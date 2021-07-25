@@ -26,6 +26,7 @@ import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.AriesCalendar;
+import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,8 +39,8 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     private User corr;
 
     public MessagesListAdapter(List<Message> list, User corr){
-        this.setList(list);
-        this.setCorr(corr);
+        this.list = list;
+        this.corr = corr;
     }
 
     public List<Message> getList() {
@@ -77,12 +78,10 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
 
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
-        private ImageView status;
         private TextView date;
         private TextView content;
-        private CardView background;
+        private MaterialCardView background;
         private ImageView msg_image;
-        private ImageView msg_status;
         private ImageView msg_edited_flag;
         private Message ref;
         private RelativeLayout msg_edit_panel;
@@ -95,12 +94,10 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
-            status = itemView.findViewById(R.id.msg_status);
             date = itemView.findViewById(R.id.msg_date);
             content = itemView.findViewById(R.id.msg_content);
             background = itemView.findViewById(R.id.msg_card);
             msg_image = itemView.findViewById(R.id.msg_img);
-            msg_status = itemView.findViewById(R.id.msg_status);
             msg_edit_panel = itemView.findViewById(R.id.msg_edit_panel);
             msg_edit = itemView.findViewById(R.id.msg_edit);
             msg_main_panel = itemView.findViewById(R.id.msg_main_panel);
@@ -124,7 +121,6 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
     public void onBindViewHolder(@NonNull final MessageViewHolder holder, int position) {
         Message m = getRaw(position);
         holder.content.setText(m.getContent());
-        holder.status.setImageDrawable(Message.toDrawable(holder.itemView, m.getStatus()));
         AriesCalendar ac = new AriesCalendar(m.getDate());
         holder.date.setText(ac.toString());
         holder.ref = m;
@@ -133,6 +129,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         }else{
             holder.msg_edited_flag.setVisibility(View.INVISIBLE);
         }
+        // if it is a reply
         if(holder.ref.getId_reply_msg() != null){
             holder.reply_panel.setVisibility(View.VISIBLE);
             if(MessengerManager.getInstance().msgDoesExist(holder.ref.getId_reply_msg())) {
@@ -149,17 +146,17 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
                 });
             }
         }else{
-            holder.reply_panel.setVisibility(View.INVISIBLE);
+            holder.reply_panel.setVisibility(View.GONE);
         }
+
         if (holder.ref.getSender_uid().equals(UserManager.getInstance().getUserModel().getUid())) {
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.sender_message));
             Picasso.get().load(UserManager.getInstance().getUserModel().getPhotoURL()).into(holder.msg_image);
-            holder.msg_status.setVisibility(View.VISIBLE);
             holder.background.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     holder.msg_edit.setText(holder.content.getText());
-                    holder.msg_main_panel.setVisibility(View.INVISIBLE);
+                    holder.msg_main_panel.setVisibility(View.GONE);
                     holder.msg_edit_panel.setVisibility(View.VISIBLE);
                     return false;
                 }
@@ -168,7 +165,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
                 @Override
                 public void onClick(View v) {
                     holder.msg_main_panel.setVisibility(View.VISIBLE);
-                    holder.msg_edit_panel.setVisibility(View.INVISIBLE);
+                    holder.msg_edit_panel.setVisibility(View.GONE);
                     holder.msg_edit.setText("");
                 }
             });
@@ -178,6 +175,13 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
                     MessengerManager.getInstance().editMessage(holder.ref.getId(), holder.msg_edit.getText().toString());
                 }
             });
+            if(m.getStatus().equals(Message.SEEN)){
+                holder.background.setStrokeColor(holder.itemView.getResources().getColor(R.color.high_indication));
+                holder.background.setStrokeWidth(7);
+            }else{
+                holder.background.setStrokeColor(holder.itemView.getResources().getColor(R.color.white));
+                holder.background.setStrokeWidth(0);
+            }
         }else{
             holder.background.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -187,7 +191,8 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             });
             Picasso.get().load(getCorr().getPhotoURL()).into(holder.msg_image);
             holder.background.setCardBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.receiver_message));
-            holder.msg_status.setVisibility(View.INVISIBLE);
+            holder.background.setStrokeColor(holder.itemView.getResources().getColor(R.color.white));
+            holder.background.setStrokeWidth(0);
         }
     }
 
