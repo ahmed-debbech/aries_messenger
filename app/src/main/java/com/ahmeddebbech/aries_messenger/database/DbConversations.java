@@ -200,11 +200,11 @@ public class DbConversations {
     }
     public static void getNewMessages(String convid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReferences.REF_MSGS = database.getReference("/Conversations/Conversations_data/"+convid);
+        DatabaseReferences.REF_MSGS = database.getReference("/Conversations/Conversations_data/" + convid);
         DatabaseReferences.LIS_MSGS = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.exists()) {
+                if (snapshot.exists()) {
                     Message m = snapshot.getValue(Message.class);
                     DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_NEW_MSG, m);
                     pres.returnData(doo);
@@ -213,7 +213,7 @@ public class DbConversations {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.exists()) {
+                if (snapshot.exists()) {
                     Message m = snapshot.getValue(Message.class);
                     DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_CHANGED_MESSAGE, m);
                     pres.returnData(doo);
@@ -232,7 +232,7 @@ public class DbConversations {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d(DatabaseOutputKeys.TAG_DB, "[getNewMessages] operation cancelled due to "+ error.getCode());
+                Log.d(DatabaseOutputKeys.TAG_DB, "[getNewMessages] operation cancelled due to " + error.getCode());
             }
         };
         DatabaseReferences.REF_MSGS.addChildEventListener(DatabaseReferences.LIS_MSGS);
@@ -291,12 +291,12 @@ public class DbConversations {
     }
     public static void trackWhosTyping( String convid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReferences.REF_WHOS_TYPING = database.getReference("/Conversations/Conversations_members/"+convid);
-        DatabaseReferences.LIS_WHOS_TYPING = new ValueEventListener(){
+        DatabaseReferences.REF_WHOS_TYPING = database.getReference("/Conversations/Conversations_members/" + convid);
+        DatabaseReferences.LIS_WHOS_TYPING = new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
+                if (snapshot.exists()) {
                     List<String> typing_users = new ArrayList<>();
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         Log.d("type0-", ds.toString());
@@ -315,7 +315,7 @@ public class DbConversations {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d(DatabaseOutputKeys.TAG_DB, "[trackWhostyping] operation cancelled due to "+ error.getCode());
+                Log.d(DatabaseOutputKeys.TAG_DB, "[trackWhostyping] operation cancelled due to " + error.getCode());
             }
         };
         DatabaseReferences.REF_WHOS_TYPING.addValueEventListener(DatabaseReferences.LIS_WHOS_TYPING);

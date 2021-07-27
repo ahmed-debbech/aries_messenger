@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -200,11 +201,11 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         adapter.notifyItemChanged(adapter.indexOfMessage(m));
     }
 
-    @Override
+    /*@Override
     protected void onPostResume() {
         super.onPostResume();
         presenter.trackNewMessages();
-    }
+    }*/
 
     @Override
     public void showUserData(User u) {
