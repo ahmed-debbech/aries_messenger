@@ -53,7 +53,7 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
                 frag.showContacts(lis);
             }else{
                 if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CONVS_IDS_GETTER){
-                    UserManager.getInstance().getUserModel().setConversations((List<String>)dot.getObj());
+                    UserManager.getInstance().getUserModel().setConversations((Map<String, String>)dot.getObj());
                 }else{
                     if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY){
                         MessengerManager.getInstance().updateMessagesStatus(Message.DELIVERED);

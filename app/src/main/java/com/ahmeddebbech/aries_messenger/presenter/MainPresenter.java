@@ -50,7 +50,15 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
                 Map<String, String> l = (Map<String, String>)o.getObj();
                 if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
                     UserManager.getInstance().getUserModel().setConnections(l);
+                    DbConnector.connectToGetConversationsIds(UserManager.getInstance().getUserModel().getUid(), this);
                     act.setupUi();
+                }
+            }else{
+                if(o.getDatabaseOutputkey() == DatabaseOutputKeys.CONVS_IDS_GETTER){
+                    Map<String, String> l = (Map<String, String>)o.getObj();
+                    if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
+                        UserManager.getInstance().getUserModel().setConversations(l);
+                    }
                 }
             }
         }

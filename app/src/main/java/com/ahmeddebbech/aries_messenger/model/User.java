@@ -19,7 +19,7 @@ public class User {
     private String bio;
 
     private Map<String, String> connections;
-    private List<String> conversations;
+    private Map<String, String> conversations;
 
     public User(){
 
@@ -91,11 +91,11 @@ public class User {
         this.connections = connections;
     }
 
-    public List<String> getConversations() {
+    public Map<String, String> getConversations() {
         return conversations;
     }
 
-    public void setConversations(List<String> conversations) {
+    public void setConversations(Map<String, String> conversations) {
         this.conversations = conversations;
     }
 

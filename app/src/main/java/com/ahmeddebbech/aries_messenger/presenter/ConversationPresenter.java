@@ -26,6 +26,7 @@ import java.util.List;
 
 public class ConversationPresenter extends Presenter implements ContractConversation.Presenter {
     private ContractConversation.View activity;
+    private String convid;
 
     public ConversationPresenter(ContractConversation.View act){
         this.activity = act;
@@ -71,12 +72,11 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
-    public void trackNewMessages() {
+    public void trackNewMessages(String uid) {
         if(MessengerManager.getInstance() != null){
-            if (MessengerManager.getInstance().getCurrentConv() != null){
-                String id = MessengerManager.getInstance().getCurrentConv().getId();
-                DbConnector.connectToGetNewMessage(id, this);
-            }
+            String id = UserManager.getInstance().getConvId(uid);
+            Log.d("%$tese", id);
+            DbConnector.connectToGetNewMessage(id, this);
         }
     }
 
@@ -96,7 +96,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                 Message m = (Message)obj.getObj();
                 MessengerManager.getInstance().addNewMessage(m);
                 if(!m.getSender_uid().equals(UserManager.getInstance().getUserModel().getUid())) {
-                    MessengerManager.getInstance().updateMessageState(Message.SEEN, MessengerManager.getInstance().getCurrentConv().getId(), m.getId());
+                    MessengerManager.getInstance().updateMessageState(Message.SEEN, convid, m.getId());
                 }
                 activity.addNewMessage(m);
             }else{

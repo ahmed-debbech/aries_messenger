@@ -238,7 +238,7 @@ public class DbConversations {
         DatabaseReferences.REF_MSGS.addChildEventListener(DatabaseReferences.LIS_MSGS);
     }
     public static void checkNewMessages(String uid, final Presenter pres){
-        List<String> convslist = UserManager.getInstance().getAllConvsIds();
+        /*List<String> convslist = UserManager.getInstance().getAllConvsIds();
         if(convslist != null) {
             for (int i = 0; i <= convslist.size() - 1; i++) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -259,7 +259,7 @@ public class DbConversations {
                 };
                 DatabaseReferences.REF_ALL_CONVS[i].addValueEventListener(DatabaseReferences.LIS_ALL_CONVS[i]);
             }
-        }
+        }*/
     }
     public static void getConversationsIds(String uid, final Presenter pres) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -268,11 +268,11 @@ public class DbConversations {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    List<String> list = new ArrayList<>();
+                    Map<String, String> map = new HashMap<>();
                     for(DataSnapshot sp : snapshot.getChildren()) {
-                        list.add(sp.getValue(String.class));
+                        map.put(sp.getKey(), sp.getValue(String.class));
                     }
-                    DatabaseOutput dot = new DatabaseOutput(DatabaseOutputKeys.CONVS_IDS_GETTER, list);
+                    DatabaseOutput dot = new DatabaseOutput(DatabaseOutputKeys.CONVS_IDS_GETTER, map);
                     pres.returnData(dot);
                 }
             }

@@ -105,11 +105,15 @@ public class UserManager {
         }
     }
 
-    public List<String> getAllConvsIds(){
+    public Map<String, String> getAllConvsIds(){
         return userModel.getConversations();
     }
 
     public void setAvailabilityStatus(int status) {
         DbConnector.connectToSetAvailabilityStatus(FirebaseAuth.getInstance().getUid(), status);
+    }
+
+    public String getConvId(String uid) {
+        return this.userModel.getConversations().get(uid);
     }
 }

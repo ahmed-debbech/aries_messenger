@@ -187,10 +187,15 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         list_messages.setAdapter(adapter);
         presenter.loadUser(correspondedUser.getUid());
         presenter.getConversation(UserManager.getInstance().getUserModel().getUid(), correspondedUser.getUid());
+        Log.d("%$tese", UserManager.getInstance().getAllConvsIds().toString());
+        //if(MessengerManager.getInstance().getMessages() == null) {
+            presenter.trackNewMessages(correspondedUser.getUid());
+        //}
+        //presenter.trackIsTypingStatus();
     }
     private void showRest(){
         if(MessengerManager.getInstance().getMessages() == null) {
-            presenter.trackNewMessages();
+            //presenter.trackNewMessages();
         }
         presenter.trackIsTypingStatus();
     }
@@ -227,7 +232,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             no_msg_hint.setVisibility(View.VISIBLE);
         }else{
             no_msg_hint.setVisibility(View.INVISIBLE);
-            showRest();
+            //showRest();
         }
     }
 
