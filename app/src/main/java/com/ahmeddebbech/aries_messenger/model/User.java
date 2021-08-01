@@ -31,6 +31,7 @@ public class User {
         this.email = email;
         this.photoURL= photoURL;
         this.bio = bio;
+        this.conversations = new HashMap<>();
         this.connections = new HashMap<>();
         this.availability = av;
     }

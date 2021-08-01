@@ -21,7 +21,7 @@ public interface ContractConversation {
         void sendMessage(String msg, String receiver);
         void loadUser(String uid);
         void getConversation(String uidA, String uidB);
-        void trackIsTypingStatus();
+        void trackIsTypingStatus(String uid);
         void sendTypingSignal(boolean signal);
         void trackNewMessages(String uid);
         void closeConversation();

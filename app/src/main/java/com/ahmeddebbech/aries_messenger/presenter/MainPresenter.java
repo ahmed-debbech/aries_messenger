@@ -36,6 +36,11 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         }
     }
 
+    @Override
+    public void getConversations() {
+        DbConnector.connectToGetConversationsIds(UserManager.getInstance().getUserModel().getUid(), this);
+    }
+
     public void getDatafromDatabase(String uid){
         DbConnector.connectToGetUserData(uid, this);
     }
@@ -50,13 +55,12 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
                 Map<String, String> l = (Map<String, String>)o.getObj();
                 if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
                     UserManager.getInstance().getUserModel().setConnections(l);
-                    DbConnector.connectToGetConversationsIds(UserManager.getInstance().getUserModel().getUid(), this);
                     act.setupUi();
                 }
             }else{
-                if(o.getDatabaseOutputkey() == DatabaseOutputKeys.CONVS_IDS_GETTER){
-                    Map<String, String> l = (Map<String, String>)o.getObj();
-                    if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
+                if(o.getDatabaseOutputkey() == DatabaseOutputKeys.CONVS_IDS_GETTER) {
+                    Map<String, String> l = (Map<String, String>) o.getObj();
+                    if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConversations()) == false) {
                         UserManager.getInstance().getUserModel().setConversations(l);
                     }
                 }

@@ -187,17 +187,8 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         list_messages.setAdapter(adapter);
         presenter.loadUser(correspondedUser.getUid());
         presenter.getConversation(UserManager.getInstance().getUserModel().getUid(), correspondedUser.getUid());
-        Log.d("%$tese", UserManager.getInstance().getAllConvsIds().toString());
-        //if(MessengerManager.getInstance().getMessages() == null) {
-            presenter.trackNewMessages(correspondedUser.getUid());
-        //}
-        //presenter.trackIsTypingStatus();
-    }
-    private void showRest(){
-        if(MessengerManager.getInstance().getMessages() == null) {
-            //presenter.trackNewMessages();
-        }
-        presenter.trackIsTypingStatus();
+        presenter.trackNewMessages(correspondedUser.getUid());
+        presenter.trackIsTypingStatus(correspondedUser.getUid());
     }
 
     @Override
@@ -205,12 +196,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         adapter.updateMessage(m);
         adapter.notifyItemChanged(adapter.indexOfMessage(m));
     }
-
-    /*@Override
-    protected void onPostResume() {
-        super.onPostResume();
-        presenter.trackNewMessages();
-    }*/
 
     @Override
     public void showUserData(User u) {
@@ -232,7 +217,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             no_msg_hint.setVisibility(View.VISIBLE);
         }else{
             no_msg_hint.setVisibility(View.INVISIBLE);
-            //showRest();
         }
     }
 
@@ -292,7 +276,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         super.onDestroy();
         presenter.closeConversation();
         presenter = null;
-        correspondedUser = null;
     }
 
 }

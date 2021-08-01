@@ -56,8 +56,8 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
-    public void trackIsTypingStatus() {
-        DbConnector.connectToTrackWhosTyping(MessengerManager.getInstance().getCurrentConv().getId(),this);
+    public void trackIsTypingStatus(String uid) {
+        DbConnector.connectToTrackWhosTyping(UserManager.getInstance().getConvId(uid),this);
     }
 
     @Override
@@ -73,9 +73,8 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void trackNewMessages(String uid) {
-        if(MessengerManager.getInstance() != null){
-            String id = UserManager.getInstance().getConvId(uid);
-            Log.d("%$tese", id);
+        if(UserManager.getInstance().getUserModel().getConversations().containsKey(uid)){
+            String id = UserManager.getInstance().getUserModel().getConversations().get(uid);
             DbConnector.connectToGetNewMessage(id, this);
         }
     }

@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         pb.setVisibility(View.VISIBLE);
         DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
         presenter.getConnections();
+        presenter.getConversations();
+
     }
     @Override
     public void onBackPressed() {
