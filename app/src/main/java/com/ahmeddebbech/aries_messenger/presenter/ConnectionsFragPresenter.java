@@ -24,7 +24,11 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
     }
     @Override
     public void loadContacts(String uid) {
-        DbConnector.connectToGetConnections(uid, this);
+        Map<String, String> map = UserManager.getInstance().getUserModel().getConnections();
+        if(map != null && map.size() > 0) {
+            List<String> li = UserManager.getInstance().getConnectionsByType(UserManager.CONNECTED);
+            DbConnector.connectToConvertUidsToUsers(li, this);
+        }
     }
 
 
@@ -33,32 +37,15 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
         //MessengerManager.getInstance().checkNewMessages(UserManager.getInstance().getUserModel().getUid(), this);
     }
 
-    @Override
-    public void getConversationsIds() {
-        DbConnector.connectToGetConversationsIds(UserManager.getInstance().getUserModel().getUid(), this);
-    }
 
     @Override
     public void returnData(DatabaseOutput dot) {
-        if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
-            Map<String, String> map = (Map<String, String>)dot.getObj();
-            UserManager.getInstance().getUserModel().setConnections(map);
-            if(map != null && map.size() > 0) {
-                List<String> li = UserManager.getInstance().getConnectionsByType(UserManager.CONNECTED);
-                DbConnector.connectToConvertUidsToUsers(li, this);
-            }
+        if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CONVERT_TO_USERS){
+            List<ItemUser> lis = (List<ItemUser>)dot.getObj();
+            frag.showContacts(lis);
         }else{
-            if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CONVERT_TO_USERS){
-                List<ItemUser> lis = (List<ItemUser>)dot.getObj();
-                frag.showContacts(lis);
-            }else{
-                if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CONVS_IDS_GETTER){
-                    UserManager.getInstance().getUserModel().setConversations((Map<String, String>)dot.getObj());
-                }else{
-                    if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY){
-                        MessengerManager.getInstance().updateMessagesStatus(Message.DELIVERED);
-                    }
-                }
+            if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY) {
+                MessengerManager.getInstance().updateMessagesStatus(Message.DELIVERED);
             }
         }
     }

@@ -65,7 +65,6 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragments
         pres.loadContacts(UserManager.getInstance().getUserModel().getUid());
-        pres.getConversationsIds();
         return inflater.inflate(R.layout.fragment_connections, container, false);
     }
 

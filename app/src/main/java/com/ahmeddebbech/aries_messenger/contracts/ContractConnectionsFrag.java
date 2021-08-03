@@ -12,6 +12,5 @@ public interface ContractConnectionsFrag {
     interface Presenter{
         void loadContacts(String uid);
         void checkNewMessages();
-        void getConversationsIds();
     }
 }

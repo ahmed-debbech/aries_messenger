@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
+import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.MainPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
@@ -97,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         this.setClickListeners();
         wait_loop = findViewById(R.id.wait_loop);
         wait_loop.setVisibility(View.VISIBLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     public void setClickListeners(){
@@ -136,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     }
     @Override
     public void setupUi(){
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         wait_loop.setVisibility(View.INVISIBLE);
         header_nav = navigationView.getHeaderView(0);
         displayName_nav = (TextView) header_nav.findViewById(R.id.sideDisplayName);
@@ -160,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
         presenter.getConnections();
         presenter.getConversations();
-
     }
     @Override
     public void onBackPressed() {

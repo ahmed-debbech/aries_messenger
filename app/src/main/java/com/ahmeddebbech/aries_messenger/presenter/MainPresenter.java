@@ -10,6 +10,7 @@ import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.GeneralUtils;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 import java.util.Map;
@@ -31,14 +32,12 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
 
     @Override
     public void getConnections() {
-        if(UserManager.getInstance().getConnectionsNumber() != 0) {
-            DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
-        }
+        DbConnector.connectToGetConnections(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
     }
 
     @Override
     public void getConversations() {
-        DbConnector.connectToGetConversationsIds(UserManager.getInstance().getUserModel().getUid(), this);
+        DbConnector.connectToGetConversationsIds(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
     }
 
     public void getDatafromDatabase(String uid){
@@ -49,13 +48,12 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_DATA) {
             User u = (User)o.getObj();
             UserManager.getInstance().updateWithCopy(u);
-            DbConnector.connectToGetConnections(UserManager.getInstance().getUserModel().getUid(), this);
+            act.setupUi();
         }else{
             if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
                 Map<String, String> l = (Map<String, String>)o.getObj();
                 if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
                     UserManager.getInstance().getUserModel().setConnections(l);
-                    act.setupUi();
                 }
             }else{
                 if(o.getDatabaseOutputkey() == DatabaseOutputKeys.CONVS_IDS_GETTER) {
