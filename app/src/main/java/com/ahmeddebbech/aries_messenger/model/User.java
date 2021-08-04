@@ -93,7 +93,7 @@ public class User {
     }
 
     public Map<String, String> getConversations() {
-        return conversations;
+        return this.conversations;
     }
 
     public void setConversations(Map<String, String> conversations) {

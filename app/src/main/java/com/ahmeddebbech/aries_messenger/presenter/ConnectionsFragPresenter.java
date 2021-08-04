@@ -9,6 +9,7 @@ import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.util.GeneralUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

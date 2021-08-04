@@ -71,13 +71,6 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        srl = (SwipeRefreshLayout) getActivity().findViewById(R.id.connections_swipe_refresh);
-        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pres.loadContacts(UserManager.getInstance().getUserModel().getUid());
-            }
-        });
     }
 
     @Override
