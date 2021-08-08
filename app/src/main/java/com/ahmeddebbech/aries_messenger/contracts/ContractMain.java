@@ -4,6 +4,7 @@ public interface ContractMain {
     interface View{
         void renderViewsWithData(String disp, String usern, String image);
         void setupUi();
+        void setPendingBadge(boolean set);
     }
     interface Presenter{
         void fillViewsWithUserData();

@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     private ProgressBar wait_loop;
     private View header_nav;
     private NavigationView navigationView;
+    private ImageView requests_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,8 +125,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                 startActivity(i);
             }
         });
-        ImageView requests_main = findViewById(R.id.requests_main);
-        requests_main.setOnClickListener(new View.OnClickListener() {
+        this.requests_main = findViewById(R.id.requests_main);
+        this.requests_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, RequestsActivity.class);
@@ -143,6 +144,12 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         navigationView.setCheckedItem(R.id.connections_nav);
         presenter.fillViewsWithUserData();
     }
+
+    @Override
+    public void setPendingBadge(boolean set) {
+       this.requests_main.setImageIcon(getResources().getDrawable(R.drawable.ic_baseline_people_alt_24));
+    }
+
     @Override
     protected void onStart() {
         super.onStart();

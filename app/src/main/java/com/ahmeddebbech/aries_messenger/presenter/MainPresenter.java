@@ -12,6 +12,7 @@ import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.GeneralUtils;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,10 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
                 Map<String, String> l = (Map<String, String>)o.getObj();
                 if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
                     UserManager.getInstance().getUserModel().setConnections(l);
+                    List<String> penders = UserManager.getInstance().getConnectionsByType(UserManager.PENDING);
+                    if(!penders.isEmpty()) {
+                        act.setPendingBadge(true);
+                    }
                 }
             }else{
                 if(o.getDatabaseOutputkey() == DatabaseOutputKeys.CONVS_IDS_GETTER) {
