@@ -35,6 +35,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
@@ -133,6 +134,13 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                 startActivity(i);
             }
         });
+        getSupportFragmentManager().setFragmentResultListener("result", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                Boolean re = result.getBoolean("result");
+                setPendingBadge(re);
+            }
+        });
     }
     @Override
     public void setupUi(){
@@ -147,7 +155,11 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     @Override
     public void setPendingBadge(boolean set) {
-       this.requests_main.setImageIcon(getResources().getDrawable(R.drawable.ic_baseline_people_alt_24));
+        if(set == true) {
+            this.requests_main.setImageResource(R.drawable.ic_baseline_people_red_24);
+        }else{
+            this.requests_main.setImageResource(R.drawable.ic_baseline_people_alt_24);
+        }
     }
 
     @Override

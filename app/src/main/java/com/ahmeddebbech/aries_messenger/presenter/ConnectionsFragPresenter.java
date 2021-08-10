@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractConnectionsFrag;
@@ -10,6 +11,7 @@ import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.GeneralUtils;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,11 +27,7 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
     }
     @Override
     public void loadContacts(String uid) {
-        Map<String, String> map = UserManager.getInstance().getUserModel().getConnections();
-        if(map != null && map.size() > 0) {
-            List<String> li = UserManager.getInstance().getConnectionsByType(UserManager.CONNECTED);
-            DbConnector.connectToConvertUidsToUsers(li, this);
-        }
+        DbConnector.connectToGetConnections(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
     }
 
 
@@ -47,6 +45,24 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
         }else{
             if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY) {
                 MessengerManager.getInstance().updateMessagesStatus(Message.DELIVERED);
+            }else{
+                if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
+                    Map<String, String> l = (Map<String, String>)dot.getObj();
+                    //if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
+                    UserManager.getInstance().getUserModel().setConnections(l);
+                    List<String> penders = UserManager.getInstance().getConnectionsByType(UserManager.PENDING);
+                    if(!penders.isEmpty()) {
+                        Bundle result = new Bundle();
+                        result.putBoolean("result", true);
+                        frag.sendResult(result);
+                    }else{
+                        Bundle result = new Bundle();
+                        result.putBoolean("result", false);
+                        frag.sendResult(result);
+                    }
+                    DbConnector.connectToConvertUidsToUsers(UserManager.getInstance().getConnectionsByType(UserManager.CONNECTED), this);
+                    //}
+                }
             }
         }
     }
