@@ -87,6 +87,11 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                         FirebaseAuth.getInstance().signOut();
                         finish();
                         break;
+                    case R.id.blocked_nav:
+                        Intent i = new Intent(MainActivity.this, BlockedActivity.class);
+                        startActivity(i);
+                        navigationView.setCheckedItem(R.id.settings_nav);
+                        break;
                 }
                 DrawerLayout dl = findViewById(R.id.drawer_layout1);
                 dl.closeDrawer(GravityCompat.START);

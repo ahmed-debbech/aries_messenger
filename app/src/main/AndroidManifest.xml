@@ -5,21 +5,24 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".util.CoreApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".util.CoreApplication">
-
-        <activity android:name=".views.activities.ConversationActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".views.activities.BlockedActivity"
+            android:label="@string/title_activity_blocked"/>
+        <activity
+            android:name=".views.activities.ConversationActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".views.activities.RequestsActivity" />
         <activity android:name=".views.activities.ContactProfile" />
         <activity
             android:name=".views.activities.SearchActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_search_activity"/>
+            android:label="@string/title_search_activity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activities.EditBioActivity"
             android:label="@string/title_activity_edit_bio" />
@@ -43,7 +46,7 @@
         <activity
             android:name=".views.activities.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

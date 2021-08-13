@@ -25,12 +25,16 @@
     <!-- Profile activity -->
     <string name="connection_number">Connections • %1$s</string>
 
+    <!-- Blocked Activity -->
+    <string name="blocked_disc">This is the list of the people you blocked on Aries. \n Keep in mind that blocked people will not see your account on Aries and cannot connect to you until you unblock them.</string>
 
     <string name="title_activity_main">Aries Messenger</string>
 
     <!-- activity titles -->
     <string name="title_activity_edit_disp_name">Edit Display Name</string>
     <string name="title_activity_edit_bio">Edit Bio</string>
+    <string name="title_activity_blocked">Blocked Connections</string>
+
 
     <!--button texts -->
     <string name="add_button">Connect</string>
@@ -55,4 +59,14 @@
     <string name="offline_status">Not Online</string>
     <string name="refresh_button">Refresh</string>
     <string name="title_search_activity">Search for friends</string>
+    <string name="menu_blocked">Blocked</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
