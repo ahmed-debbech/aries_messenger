@@ -19,6 +19,7 @@ public class UserManager {
     public static final String CONNECTED = "connected";
     public static final String PENDING = "pending";
     public static final String WAITING = "waiting";
+    public static final String BLOCKED = "blocked";
 
     private User userModel;
     private static UserManager umInstance;

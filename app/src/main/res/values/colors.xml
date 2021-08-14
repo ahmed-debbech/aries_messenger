@@ -19,4 +19,5 @@
     <color name="high_indication">#35dae9</color>
     <color name="online">#54E935</color>
     <color name="offline">#EBEBEB</color>
+    <color name="high_indication_red">#FF1212</color>
 </resources>

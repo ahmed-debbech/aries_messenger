@@ -26,7 +26,7 @@
     <string name="connection_number">Connections • %1$s</string>
 
     <!-- Blocked Activity -->
-    <string name="blocked_disc">This is the list of the people you blocked on Aries. \n Keep in mind that blocked people will not see your account on Aries and cannot connect to you until you unblock them.</string>
+    <string name="blocked_disc">This is the list of the people you blocked on Aries. \n \n Keep in mind that blocked people will not see your account on Aries and cannot connect to you until you unblock them.</string>
 
     <string name="title_activity_main">Aries Messenger</string>
 
@@ -48,6 +48,7 @@
     <string name="but_edit_bio">Edit Bio</string>
     <string name="msg_edit">Edit</string>
     <string name="msg_cancel">Cancel</string>
+    <string name="blocked_item">Unblock</string>
 
     <!--messages popups -->
     <string name="no_res_msg">No Results!</string>

@@ -3,18 +3,31 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.ahmeddebbech.aries_messenger.contracts.ContractBlocked;
+import com.ahmeddebbech.aries_messenger.model.ItemUser;
+import com.ahmeddebbech.aries_messenger.presenter.BlockedPresenter;
+import com.ahmeddebbech.aries_messenger.views.adapters.BlockedUserAdapter;
+import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.ahmeddebbech.aries_messenger.R;
 
-public class BlockedActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class BlockedActivity extends AppCompatActivity implements ContractBlocked.View {
 
     private ActionBar actionBar;
+    private RecyclerView recycler;
+    private BlockedUserAdapter adapter;
+    private RecyclerView.LayoutManager lm;
+    private ContractBlocked.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +37,19 @@ public class BlockedActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        recycler = findViewById(R.id.blocked_recycler);
+        recycler.setHasFixedSize(true);
+        lm = new LinearLayoutManager(this);
+        recycler.setLayoutManager(lm);
+
+        presenter = new BlockedPresenter(this);
+
     }
     @Override
     public  void onStart() {
         super.onStart();
+
+        presenter.getBlockedConnections();
     }
 
     @Override
@@ -38,5 +60,11 @@ public class BlockedActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showBlockedConnections(ArrayList<ItemUser> result) {
+        adapter = new BlockedUserAdapter(result);
+        recycler.setAdapter(adapter);
     }
 }
