@@ -3,8 +3,7 @@
 xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/conv_more"
-        android:title=""
-        app:showAsAction="always"
+        android:title="@string/block_text"
         android:icon="@drawable/ic_baseline_more_vert_24"
         />
 </menu>

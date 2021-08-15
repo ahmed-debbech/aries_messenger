@@ -49,6 +49,7 @@
     <string name="msg_edit">Edit</string>
     <string name="msg_cancel">Cancel</string>
     <string name="blocked_item">Unblock</string>
+    <string name="block_text">Block</string>
 
     <!--messages popups -->
     <string name="no_res_msg">No Results!</string>

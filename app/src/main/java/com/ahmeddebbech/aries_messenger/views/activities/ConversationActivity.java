@@ -2,6 +2,7 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -53,6 +56,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     private MessagesListAdapter adapter;
     private ItemTouchHelper.SimpleCallback simpleSwipeCallback;
     private ItemTouchHelper ith;
+    private Toolbar toolbar;
     private TextView availability_status;
 
     @Override
@@ -60,6 +64,9 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         presenter = new ConversationPresenter(this);
+        toolbar = (Toolbar) findViewById(R.id.conv_toolbar);
+        setSupportActionBar(toolbar);
+
         setupUi();
         addListeners();
         Intent i = getIntent();
@@ -179,6 +186,14 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.converstation_menu, menu);
+        return true;
+    }
+
 
     @Override
     protected void onStart() {
