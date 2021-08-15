@@ -118,4 +118,10 @@ public class UserManager {
     public String getConvId(String uid) {
         return this.userModel.getConversations().get(uid);
     }
+
+    public void unblock(String uid) {
+        if(userModel.getConnections().containsKey(uid)){
+            userModel.getConnections().remove(uid);
+        }
+    }
 }

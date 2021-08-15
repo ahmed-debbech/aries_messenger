@@ -9,5 +9,6 @@ public interface ContractItemList {
         void updateConnectionsList(String uid);
         void removeFromContact(String uid);
         void acceptContact(String uid);
+        void unblockConnection(String uid);
     }
 }

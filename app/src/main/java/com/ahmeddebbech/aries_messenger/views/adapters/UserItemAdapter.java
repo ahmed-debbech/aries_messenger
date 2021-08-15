@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractItemList;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
-import com.ahmeddebbech.aries_messenger.presenter.SearchItemPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserItemPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
 import com.squareup.picasso.Picasso;
@@ -47,7 +47,7 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
 
             uid = itemView.findViewById(R.id.uid);
 
-            pres = new SearchItemPresenter(this);
+            pres = new UserItemPresenter(this);
             setClicks();
         }
         public void setClicks(){

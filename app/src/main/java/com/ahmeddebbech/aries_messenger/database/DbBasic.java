@@ -8,6 +8,7 @@ import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.presenter.UserItemPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -249,5 +250,13 @@ public class DbBasic {
             }
         });
 
+    }
+
+    public static void unblockConnection(String uid, String uid1, UserItemPresenter userItemPresenter) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/"+uid1);
+        ref.removeValue();
+        ref = database.getReference("/Users_connections/"+uid1+"/"+uid);
+        ref.removeValue();
     }
 }

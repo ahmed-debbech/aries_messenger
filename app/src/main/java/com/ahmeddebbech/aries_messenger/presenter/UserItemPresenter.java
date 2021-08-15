@@ -8,11 +8,11 @@ import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import java.util.List;
 import java.util.Map;
 
-public class RequestsItemPresenter extends Presenter implements ContractItemList.Presenter {
+public class UserItemPresenter extends Presenter implements ContractItemList.Presenter {
 
     private ContractItemList.View act;
 
-    public RequestsItemPresenter(ContractItemList.View act){
+    public UserItemPresenter(ContractItemList.View act){
         this.act = act;
     }
     @Override
@@ -22,8 +22,8 @@ public class RequestsItemPresenter extends Presenter implements ContractItemList
             UserManager.getInstance().getUserModel().setConnections(connections);
         } else {
             if (obj.getDatabaseOutputkey() == DatabaseOutputKeys.REMOVE_CONTACT
-            || obj.getDatabaseOutputkey() == DatabaseOutputKeys.ADD_CONTACT
-            || obj.getDatabaseOutputkey() == DatabaseOutputKeys.ACCEPT_CONTACT) {
+                    || obj.getDatabaseOutputkey() == DatabaseOutputKeys.ADD_CONTACT
+                    || obj.getDatabaseOutputkey() == DatabaseOutputKeys.ACCEPT_CONTACT) {
                 act.updateUi();
             }
         }
@@ -44,6 +44,12 @@ public class RequestsItemPresenter extends Presenter implements ContractItemList
     public void acceptContact(String uid) {
         UserManager.getInstance().setConnectionStatus(uid, UserManager.CONNECTED);
         DbConnector.connectToAcceptContact(UserManager.getInstance().getUserModel().getUid(), uid, this);
+    }
+
+    @Override
+    public void unblockConnection(String uid) {
+        UserManager.getInstance().unblock(uid);
+        DbConnector.connectToUnblockConnection(UserManager.getInstance().getUserModel().getUid(), uid, this);
     }
 
     @Override

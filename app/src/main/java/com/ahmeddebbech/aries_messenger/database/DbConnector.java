@@ -6,6 +6,7 @@ import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserItemPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 
 import java.util.List;
@@ -87,5 +88,9 @@ public class DbConnector {
     }
     public static void connectToGetUserConnectionsNumber(String uid, Presenter pres) {
         DbBasic.getConnectionsNumber(uid, pres);
+    }
+
+    public static void connectToUnblockConnection(String uid, String uid1, UserItemPresenter userItemPresenter) {
+        DbBasic.unblockConnection(uid, uid1, userItemPresenter);
     }
 }
