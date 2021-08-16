@@ -25,5 +25,6 @@ public interface ContractConversation {
         void sendTypingSignal(boolean signal);
         void trackNewMessages(String uid);
         void closeConversation();
+        void blockConnection(String uid);
     }
 }

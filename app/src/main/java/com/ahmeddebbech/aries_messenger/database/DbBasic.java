@@ -100,9 +100,10 @@ public class DbBasic {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()) {
+                    ItemUser item = new ItemUser(ds.getValue(User.class));
                    if (ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name.toLowerCase())) {
-                       if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
-                           list.add(new ItemUser(ds.getValue(User.class)));
+                       if((ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false) && (UserManager.getInstance().searchForConnection(item.getUid(), UserManager.BLOCKED) == false)){
+                           list.add(item);
                        }
                    }
                 }
@@ -127,9 +128,10 @@ public class DbBasic {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     if(ds.getValue(User.class).getUsername().toLowerCase().startsWith(str.toLowerCase())) {
-                        if (!list.contains(new ItemUser(ds.getValue(User.class)))) {
-                            if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
-                                list.add(new ItemUser(ds.getValue(User.class)));
+                        ItemUser item = new ItemUser(ds.getValue(User.class));
+                        if (!list.contains(item)) {
+                            if((ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false) && (UserManager.getInstance().searchForConnection(item.getUid(), UserManager.BLOCKED) == false)){
+                                list.add(item);
                             }
                         }
                     }
@@ -256,6 +258,14 @@ public class DbBasic {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/"+uid1);
         ref.removeValue();
+        ref = database.getReference("/Users_connections/"+uid1+"/"+uid);
+        ref.removeValue();
+    }
+
+    public static void blockConnection(String uid, String uid1) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/"+uid1);
+        ref.setValue("blocked");
         ref = database.getReference("/Users_connections/"+uid1+"/"+uid);
         ref.removeValue();
     }

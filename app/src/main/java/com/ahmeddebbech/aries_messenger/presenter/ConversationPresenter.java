@@ -86,6 +86,12 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     }
 
     @Override
+    public void blockConnection(String uid) {
+        UserManager.getInstance().setConnectionStatus(uid, UserManager.BLOCKED);
+        DbConnector.connectToBlockConnection(UserManager.getInstance().getUserModel().getUid(), uid);
+    }
+
+    @Override
     public void returnData(DatabaseOutput obj) {
         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_FROM_UID){
             User u = (User)obj.getObj();

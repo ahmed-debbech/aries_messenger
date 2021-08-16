@@ -93,4 +93,8 @@ public class DbConnector {
     public static void connectToUnblockConnection(String uid, String uid1, UserItemPresenter userItemPresenter) {
         DbBasic.unblockConnection(uid, uid1, userItemPresenter);
     }
+
+    public static void connectToBlockConnection(String uid, String uid1) {
+        DbBasic.blockConnection(uid, uid1);
+    }
 }
