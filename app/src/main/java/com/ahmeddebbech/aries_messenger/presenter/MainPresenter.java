@@ -41,6 +41,11 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
         DbConnector.connectToGetConversationsIds(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
     }
 
+    @Override
+    public void getBlocked(){
+        DbConnector.connectToGetBlockedUsers(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
+    }
+
     public void getDatafromDatabase(String uid){
         DbConnector.connectToGetUserData(uid, this);
     }
@@ -67,6 +72,11 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
                     Map<String, String> l = (Map<String, String>) o.getObj();
                     if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConversations()) == false) {
                         UserManager.getInstance().getUserModel().setConversations(l);
+                    }
+                }else{
+                    if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_BLOCKED) {
+                        List<String> l = (List<String>) o.getObj();
+                        UserManager.getInstance().getUserModel().setBlockedUsers(l);
                     }
                 }
             }

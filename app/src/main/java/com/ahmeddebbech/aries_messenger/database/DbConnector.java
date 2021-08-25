@@ -97,4 +97,7 @@ public class DbConnector {
     public static void connectToBlockConnection(String uid, String uid1) {
         DbBasic.blockConnection(uid, uid1);
     }
+    public static void connectToGetBlockedUsers(String uid, Presenter pres){
+        DbBasic.getBlockedUsers(uid, pres);
+    }
 }

@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class User {
 
     private Map<String, String> connections;
     private Map<String, String> conversations;
+    private List<String> blockedUsers;
 
     public User(){
 
@@ -33,6 +35,7 @@ public class User {
         this.bio = bio;
         this.conversations = new HashMap<>();
         this.connections = new HashMap<>();
+        this.blockedUsers = new ArrayList<>();
         this.availability = av;
     }
 
@@ -106,5 +109,13 @@ public class User {
 
     public void setAvailability(int availability) {
         this.availability = availability;
+    }
+
+    public List<String> getBlockedUsers() {
+        return blockedUsers;
+    }
+
+    public void setBlockedUsers(List<String> blockedUsers) {
+        this.blockedUsers = blockedUsers;
     }
 }

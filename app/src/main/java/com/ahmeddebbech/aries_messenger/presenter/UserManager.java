@@ -19,7 +19,6 @@ public class UserManager {
     public static final String CONNECTED = "connected";
     public static final String PENDING = "pending";
     public static final String WAITING = "waiting";
-    public static final String BLOCKED = "blocked";
 
     private User userModel;
     private static UserManager umInstance;
@@ -120,8 +119,8 @@ public class UserManager {
     }
 
     public void unblock(String uid) {
-        if(userModel.getConnections().containsKey(uid)){
-            userModel.getConnections().remove(uid);
+        if(userModel.getBlockedUsers().contains(uid)){
+            userModel.getBlockedUsers().remove(uid);
         }
     }
 }

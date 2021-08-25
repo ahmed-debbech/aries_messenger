@@ -87,7 +87,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void blockConnection(String uid) {
-        UserManager.getInstance().setConnectionStatus(uid, UserManager.BLOCKED);
+        UserManager.getInstance().removeContact(uid);
         DbConnector.connectToBlockConnection(UserManager.getInstance().getUserModel().getUid(), uid);
     }
 

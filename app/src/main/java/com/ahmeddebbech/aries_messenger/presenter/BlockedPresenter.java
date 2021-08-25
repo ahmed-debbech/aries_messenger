@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import android.util.Log;
+
 import com.ahmeddebbech.aries_messenger.contracts.ContractBlocked;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DatabaseReferences;
@@ -21,7 +23,7 @@ public class BlockedPresenter extends Presenter implements ContractBlocked.Prese
 
     @Override
     public void getBlockedConnections() {
-        List<String> list = UserManager.getInstance().getConnectionsByType(UserManager.BLOCKED);
+        List<String> list = UserManager.getInstance().getUserModel().getBlockedUsers();
         DbConnector.connectToConvertUidsToUsers(list, this);
     }
 

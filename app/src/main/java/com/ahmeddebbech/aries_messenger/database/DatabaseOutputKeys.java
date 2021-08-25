@@ -30,4 +30,5 @@ public class DatabaseOutputKeys {
     public static int GET_CHANGED_MESSAGE = 22;
     public static int GET_ONE_MESSAGE = 23;
     public static int GET_CONNECTIONS_NUMBER = 24;
+    public static int GET_BLOCKED = 25;
 }

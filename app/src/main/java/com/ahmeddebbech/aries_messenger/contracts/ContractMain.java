@@ -10,5 +10,6 @@ public interface ContractMain {
         void fillViewsWithUserData();
         void getConnections();
         void getConversations();
+        void getBlocked();
     }
 }

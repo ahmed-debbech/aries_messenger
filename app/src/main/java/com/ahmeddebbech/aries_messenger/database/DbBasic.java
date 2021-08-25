@@ -102,7 +102,7 @@ public class DbBasic {
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     ItemUser item = new ItemUser(ds.getValue(User.class));
                    if (ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name.toLowerCase())) {
-                       if((ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false) && (UserManager.getInstance().searchForConnection(item.getUid(), UserManager.BLOCKED) == false)){
+                       if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
                            list.add(item);
                        }
                    }
@@ -130,7 +130,7 @@ public class DbBasic {
                     if(ds.getValue(User.class).getUsername().toLowerCase().startsWith(str.toLowerCase())) {
                         ItemUser item = new ItemUser(ds.getValue(User.class));
                         if (!list.contains(item)) {
-                            if((ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false) && (UserManager.getInstance().searchForConnection(item.getUid(), UserManager.BLOCKED) == false)){
+                            if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
                                 list.add(item);
                             }
                         }
@@ -153,10 +153,12 @@ public class DbBasic {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(String uid : uids) {
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        if (uid.equals(ds.getValue(User.class).getUid())) {
-                            users.add(new ItemUser(ds.getValue(User.class)));
+                if(uids != null) {
+                    for (String uid : uids) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            if (uid.equals(ds.getValue(User.class).getUid())) {
+                                users.add(new ItemUser(ds.getValue(User.class)));
+                            }
                         }
                     }
                 }
@@ -256,17 +258,47 @@ public class DbBasic {
 
     public static void unblockConnection(String uid, String uid1, UserItemPresenter userItemPresenter) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/"+uid1);
+        DatabaseReference ref = database.getReference("/blocked_users/"+uid+"/"+uid1);
         ref.removeValue();
-        ref = database.getReference("/Users_connections/"+uid1+"/"+uid);
+        ref = database.getReference("/blocked_users/"+uid1+"/"+uid);
         ref.removeValue();
     }
 
     public static void blockConnection(String uid, String uid1) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Users_connections/"+uid+"/"+uid1);
-        ref.setValue("blocked");
+        DatabaseReference ref = database.getReference("/blocked_users/"+uid+"/"+uid1);
+        ref.setValue("block");
         ref = database.getReference("/Users_connections/"+uid1+"/"+uid);
         ref.removeValue();
+        ref = database.getReference("/Users_connections/"+uid+"/"+uid1);
+        ref.removeValue();
+        ref = database.getReference("/blocked_users/"+uid1+"/"+uid);
+        ref.setValue("blocked");
+    }
+
+    public static void getBlockedUsers(String uid, final Presenter pres) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("/blocked_users/"+ uid);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    List<String> ppl = new ArrayList<>();
+                    for(DataSnapshot ds : snapshot.getChildren()){
+                        String dat = (String) ds.getValue(String.class);
+                        if(dat.equals("block")){
+                            ppl.add(ds.getKey());
+                        }
+                    }
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_BLOCKED, ppl);
+                    pres.returnData(doo);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

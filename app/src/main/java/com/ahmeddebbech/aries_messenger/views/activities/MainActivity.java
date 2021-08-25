@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
         presenter.getConnections();
         presenter.getConversations();
+        presenter.getBlocked();
     }
     @Override
     public void onBackPressed() {
