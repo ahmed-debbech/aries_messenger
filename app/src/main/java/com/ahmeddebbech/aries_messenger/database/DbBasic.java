@@ -33,6 +33,7 @@ public class DbBasic {
     }
     public static void getUserData(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         DatabaseReferences.REF_USER = database.getReference("/Users/"+uid);
         DatabaseReferences.LIS_USER = new ValueEventListener() {
             @Override
@@ -41,7 +42,6 @@ public class DbBasic {
                     User u = dataSnapshot.getValue(User.class);
                     DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_DATA, u);
                     pres.returnData(doo);
-                    //DbBasic.getConnections(uid, pres);
                 }else {
                     Log.d(DatabaseOutputKeys.TAG_DB, "[getUserData] User doesn't exist");
                 }
@@ -94,11 +94,13 @@ public class DbBasic {
     public static void searchAllUsersByName(final String name, final Presenter pres){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final ArrayList<ItemUser> list = new ArrayList<>();
+
         DatabaseReference ref1 = database.getReference();
         Query o = ref1.child("Users").orderByChild("displayName").startAt(name.toUpperCase()).endAt(name.toLowerCase() + "\uf8ff");
         o.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     ItemUser item = new ItemUser(ds.getValue(User.class));
                    if (ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name.toLowerCase())) {
