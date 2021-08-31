@@ -3,6 +3,7 @@ package com.ahmeddebbech.aries_messenger.presenter;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
+import com.ahmeddebbech.aries_messenger.database.BackendServiceApi;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
@@ -16,12 +17,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainPresenter extends Presenter implements ContractMain.Presenter {
 
     private ContractMain.View act;
 
     public MainPresenter(ContractMain.View activity){
         this.act = activity;
+
+        Retrofit retro = new Retrofit.Builder()
+                .baseUrl("https://powerful-brushlands-08899.herokuapp.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        DbConnector.backendServiceApi = retro.create(BackendServiceApi.class);
     }
     @Override
     public void fillViewsWithUserData() {

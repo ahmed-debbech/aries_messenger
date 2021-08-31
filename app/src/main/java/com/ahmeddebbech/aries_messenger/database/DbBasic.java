@@ -22,6 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DbBasic {
     DbBasic(){
 
@@ -92,57 +96,28 @@ public class DbBasic {
         ref.setValue(user);
     }
     public static void searchAllUsersByName(final String name, final Presenter pres){
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final ArrayList<ItemUser> list = new ArrayList<>();
-        DatabaseReference ref1 = database.getReference();
-        Query o = ref1.child("Users").orderByChild("displayName").startAt(name.toUpperCase()).endAt(name.toLowerCase() + "\uf8ff");
-        o.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()) {
-                    ItemUser item = new ItemUser(ds.getValue(User.class));
-                   if (ds.getValue(User.class).getDisplayName().toLowerCase().startsWith(name.toLowerCase())) {
-                       if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
-                           list.add(item);
-                       }
-                   }
-                }
-            }
+        Call<ArrayList<ItemUser>> call = DbConnector.backendServiceApi.searchAllUsersByName(UserManager.getInstance().getUserModel().getUid(), name);
 
+        call.enqueue(new Callback<ArrayList<ItemUser>>() {
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d(DatabaseOutputKeys.TAG_DB, "[searchAllUsersByName] operation cancelled due to "+error.getCode());
-            }
-        });
-        DatabaseReference ref2 = database.getReference();
-        String nname = "";
-        if(name.charAt(0) != '@') {
-            StringBuilder stringBuilder = new StringBuilder(name);
-            stringBuilder.insert(0, '@');
-            nname = stringBuilder.toString();
-        }
-        Query o1 = ref2.child("Users").orderByChild("username").startAt(nname.toUpperCase()).endAt(nname.toLowerCase() + "\uf8ff");
-        final String str = nname;
-        o1.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()) {
-                    if(ds.getValue(User.class).getUsername().toLowerCase().startsWith(str.toLowerCase())) {
-                        ItemUser item = new ItemUser(ds.getValue(User.class));
-                        if (!list.contains(item)) {
-                            if(ds.getValue(User.class).getUid().equals(UserManager.getInstance().getUserModel().getUid()) == false){
-                                list.add(item);
-                            }
-                        }
-                    }
+            public void onResponse(Call<ArrayList<ItemUser>> call, Response<ArrayList<ItemUser>> response) {
+                if(!response.isSuccessful()){
+                    Log.d(DatabaseOutputKeys.TAG_DB, "[searchAllUsersByName] : the operation was not successful");
+                    return;
+                }
+                ArrayList<ItemUser> list = new ArrayList<>();
+                List<ItemUser> users = response.body();
+
+                for(ItemUser i : users){
+                    list.add(i);
                 }
                 DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.SEARCH_ALL_USERS_BY_NAME, list);
                 pres.returnData(doo);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d(DatabaseOutputKeys.TAG_DB, "[searchAllUsersByName] operation cancelled due to "+error.getCode());
+            public void onFailure(Call<ArrayList<ItemUser>> call, Throwable t) {
+                Log.d(DatabaseOutputKeys.TAG_DB, "[searchAllUsersByName] : could not get users");
             }
         });
     }

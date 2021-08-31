@@ -12,6 +12,8 @@ import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import java.util.List;
 
 public class DbConnector {
+
+    public static BackendServiceApi backendServiceApi;
     public static void connectToSignIn(LoginPresenter log) {
         DbUtil.userExistsInSignIn(log);
     }
