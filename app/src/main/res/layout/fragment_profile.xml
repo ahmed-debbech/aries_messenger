@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/profile_disp_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_marginTop="44dp"
             android:fontFamily="sans-serif-condensed"
@@ -33,14 +33,13 @@
             android:textColor="@color/colorPrimary"
             android:textSize="36sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/sidePhotoHolder"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/sidePhotoHolder"
+            app:layout_constraintEnd_toEndOf="@+id/profile_photo"
+            app:layout_constraintStart_toStartOf="@+id/profile_photo"
             app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
 
         <TextView
             android:id="@+id/profile_username"
-            android:layout_width="275dp"
+            android:layout_width="wrap_content"
             android:layout_height="31dp"
             android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-condensed"
@@ -56,8 +55,8 @@
 
         <TextView
             android:id="@+id/profile_numconnect"
-            android:layout_width="150dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:text="@string/connection_number"
             android:textAlignment="center"
@@ -69,7 +68,7 @@
 
         <TextView
             android:id="@+id/profile_bio"
-            android:layout_width="345dp"
+            android:layout_width="wrap_content"
             android:padding="6dp"
             android:layout_height="82dp"
             android:background="@drawable/textview_back"
@@ -83,7 +82,7 @@
 
         <Button
             android:id="@+id/profile_editDispName"
-            android:layout_width="374dp"
+            android:layout_width="match_parent"
             android:layout_height="47dp"
             android:layout_marginTop="28dp"
             android:background="@drawable/rounded_button_secondary"
@@ -97,7 +96,7 @@
 
         <Button
             android:id="@+id/profile_editBio"
-            android:layout_width="374dp"
+            android:layout_width="match_parent"
             android:layout_height="47dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/rounded_button_secondary"
