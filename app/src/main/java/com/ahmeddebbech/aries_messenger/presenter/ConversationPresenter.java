@@ -73,9 +73,11 @@ public class ConversationPresenter extends Presenter implements ContractConversa
 
     @Override
     public void trackNewMessages(String uid) {
-        if(UserManager.getInstance().getUserModel().getConversations().containsKey(uid)){
-            String id = UserManager.getInstance().getUserModel().getConversations().get(uid);
-            DbConnector.connectToGetNewMessage(id, this);
+        if(UserManager.getInstance().getUserModel().getConversations() != null) {
+            if (UserManager.getInstance().getUserModel().getConversations().containsKey(uid)) {
+                String id = UserManager.getInstance().getUserModel().getConversations().get(uid);
+                DbConnector.connectToGetNewMessage(id, this);
+            }
         }
     }
 

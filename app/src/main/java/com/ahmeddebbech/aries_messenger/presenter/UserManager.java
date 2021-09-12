@@ -115,7 +115,10 @@ public class UserManager {
     }
 
     public String getConvId(String uid) {
-        return this.userModel.getConversations().get(uid);
+        if(this.userModel.getConversations() != null ) {
+            return this.userModel.getConversations().get(uid);
+        }
+        return null;
     }
 
     public void unblock(String uid) {

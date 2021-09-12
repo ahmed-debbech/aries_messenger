@@ -57,8 +57,9 @@ public class MessengerManager {
 
     }
     public void sendMessage(String msg, String receiver, Presenter pres) {
+        Conversation cv = null;
         if (this.getCurrentConv() == null) {
-            Conversation cv = new Conversation();
+            cv = new Conversation();
             cv.setId(RandomIdGenerator.generateConversationId(UserManager.getInstance().getUserModel().getUid(), receiver));
             cv.setCount(0);
             List<String> mem = new ArrayList<>();
@@ -67,14 +68,13 @@ public class MessengerManager {
             cv.setMembers(mem);
             cv.setLatest_msg("");
             this.setCurrentConv(cv);
-            DbConnector.connectToCreateConversation(cv, pres);
         }
         Message m = new Message();
         m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
-        m.setId(RandomIdGenerator.generateMessageId(this.getCurrentConv().getId()));
         m.setId_conv(this.getCurrentConv().getId());
-        m.setContent(InputChecker.
-                makeMessageFine(msg));
+        m.setId(RandomIdGenerator.generateMessageId(this.getCurrentConv().getId()));
+        m.setIndex(this.getCurrentConv().getCount() + 1);
+        m.setContent(InputChecker.makeMessageFine(msg));
         if(msg_to_repply_to != null){
             m.setId_reply_msg(msg_to_repply_to.getId());
             msg_to_repply_to = null;
@@ -83,8 +83,7 @@ public class MessengerManager {
         Timestamp time = new Timestamp(date.getTime());
         m.setDate(time.toString());
         m.setStatus(Message.SENT);
-        m.setIndex(this.getCurrentConv().getCount() + 1);
-        DbConnector.connectToSendMessage(this.getCurrentConv().getId(), m);
+        DbConnector.connectToSendMessage(receiver, m, cv);
     }
     public void checkNewMessages(String uid , Presenter pres){
         DbConnector.connectToCheckNewMessages(uid, pres);
