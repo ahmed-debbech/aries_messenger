@@ -72,7 +72,11 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         Intent i = getIntent();
         correspondedUser = new User();
         correspondedUser.setUid(i.getStringExtra("uid"));
-        presenter = new ConversationPresenter(this, UserManager.getInstance().getUserModel().getConversations().get(correspondedUser.getUid()));
+        String cv = "";
+        if(UserManager.getInstance().getUserModel().getConversations() != null){
+            cv = UserManager.getInstance().getUserModel().getConversations().get(correspondedUser.getUid());
+        }
+        presenter = new ConversationPresenter(this, cv);
 
     }
     public void setupUi(){

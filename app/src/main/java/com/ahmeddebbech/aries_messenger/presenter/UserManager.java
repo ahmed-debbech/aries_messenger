@@ -106,8 +106,8 @@ public class UserManager {
         }
     }
 
-    public Map<String, String> getAllConvsIds(){
-        return userModel.getConversations();
+    public List<String> getAllConvsIds(){
+        return new ArrayList<String>(userModel.getConversations().values());
     }
 
     public void setAvailabilityStatus(int status) {

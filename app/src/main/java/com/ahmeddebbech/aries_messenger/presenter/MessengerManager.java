@@ -19,12 +19,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class MessengerManager {
+public class MessengerManager extends Presenter{
 
     private static MessengerManager instance;
     private Message msg_to_repply_to = null;
     private List<Message> msg_list;
     private Conversation currentConv = null;
+    private List<Conversation> latest_updated_convs = null;
 
     private MessengerManager(){
 
@@ -65,6 +66,7 @@ public class MessengerManager {
         m.setStatus(Message.SENT);
         DbConnector.connectToSendMessage(receiver, m, cv);
     }
+
     public void checkNewMessages(String uid , Presenter pres){
         DbConnector.connectToCheckNewMessages(uid, pres);
     }
@@ -72,35 +74,17 @@ public class MessengerManager {
     public void updateMessagesStatus(String status) {
         System.out.println("deliver detected!");
     }
+
     public void updateMessageState(String state, String convid, String msg_id){
         if(state == Message.SEEN){
             DbConnector.connectToUpdateMessageState(state, convid, msg_id);
         }
     }
+
     public void editMessage(String msg_id, String msg_cont) {
         DbConnector.connectToEditMsg(this.getCurrentConv().getId(), msg_id, msg_cont);
     }
-    public void setMsgToReplyTo(Message msg){
-        this.msg_to_repply_to = msg;
-    }
-    public Message getMsgToReplyTo(){
-        return msg_to_repply_to;
-    }
 
-    public void setMessages(List<Message> list) {
-        this.msg_list = list;
-    }
-    public List<Message> getMessages(){
-        if(this.msg_list != null){
-            Collections.sort(this.msg_list, new Comparator<Message>() {
-                @Override
-                public int compare(Message o1, Message o2) {
-                    return o1.getIndex() - o2.getIndex();
-                }
-            });
-        }
-        return this.msg_list;
-    }
     public boolean msgDoesExist(String id){
         for(Message m : msg_list){
             if(m.getId().equals(id)){
@@ -125,13 +109,6 @@ public class MessengerManager {
         }
         this.msg_list = null;
     }
-    public Conversation getCurrentConv() {
-        return currentConv;
-    }
-
-    public void setCurrentConv(Conversation currentConv) {
-        this.currentConv = currentConv;
-    }
 
     public void addNewMessage(Message m) {
         if(this.msg_list == null){
@@ -152,6 +129,87 @@ public class MessengerManager {
         if(this.msg_list.contains(m)){
             int g = this.msg_list.indexOf(m);
             this.msg_list.set(g,m);
+        }
+    }
+
+    public boolean hasNewMessages(String uid){
+        if(UserManager.getInstance().getUserModel().getConversations().containsKey(uid)){
+            String convid = UserManager.getInstance().getUserModel().getConversations().get(uid);
+
+            if(this.latest_updated_convs != null && this.latest_updated_convs.size() > 0) {
+                for (Conversation vv : this.latest_updated_convs) {
+                    if (vv.getId().equals(convid)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void addToLatestUpdatedConvs(Conversation cv){
+        if(this.latest_updated_convs == null){
+            this.latest_updated_convs = new ArrayList<>();
+        }
+        if(!this.latest_updated_convs.contains(cv)) {
+            this.latest_updated_convs.add(cv);
+        }
+    }
+
+    public void removeFromLatestUpdatedConvs(Conversation cv){
+        if(this.latest_updated_convs != null){
+            this.latest_updated_convs.remove(cv);
+        }
+    }
+    public void removeFromLatestUpdatedConvs(String uid){
+        if(UserManager.getInstance().getUserModel().getConversations().containsKey(uid)){
+            String convid = UserManager.getInstance().getUserModel().getConversations().get(uid);
+
+            Conversation cc = new Conversation();
+            cc.setId(convid);
+            if(this.latest_updated_convs != null && this.latest_updated_convs.size() > 0) {
+                this.latest_updated_convs.remove(cc);
+            }
+        }
+    }
+
+    public void setMsgToReplyTo(Message msg){
+        this.msg_to_repply_to = msg;
+    }
+
+    public Message getMsgToReplyTo(){
+        return msg_to_repply_to;
+    }
+
+    public void setMessages(List<Message> list) {
+        this.msg_list = list;
+    }
+
+    public List<Message> getMessages(){
+        if(this.msg_list != null){
+            Collections.sort(this.msg_list, new Comparator<Message>() {
+                @Override
+                public int compare(Message o1, Message o2) {
+                    return o1.getIndex() - o2.getIndex();
+                }
+            });
+        }
+        return this.msg_list;
+    }
+
+    public Conversation getCurrentConv() {
+        return currentConv;
+    }
+
+    public void setCurrentConv(Conversation currentConv) {
+        this.currentConv = currentConv;
+    }
+
+    @Override
+    public void returnData(DatabaseOutput obj) {
+        if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY){
+            Conversation cv = (Conversation) obj.getObj();
+            this.addToLatestUpdatedConvs(cv);
         }
     }
 }

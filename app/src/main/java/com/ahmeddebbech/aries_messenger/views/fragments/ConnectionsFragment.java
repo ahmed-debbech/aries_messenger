@@ -19,6 +19,7 @@ import com.ahmeddebbech.aries_messenger.contracts.ContractConnectionsFrag;
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.ConnectionsFragPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.MainActivity;
 import com.ahmeddebbech.aries_messenger.views.adapters.ContactsGridAdapter;
@@ -38,14 +39,6 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
     public ConnectionsFragment() {
         // Required empty public constructor
     }
-    public static ConnectionsFragment newInstance(String jj ) {
-        ConnectionsFragment fragment = new ConnectionsFragment();
-        Bundle args = new Bundle();
-        args.getString("string", jj);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +53,8 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragments
         pres.loadContacts(UserManager.getInstance().getUserModel().getUid());
+        //TODO fix the connection listener
+        MessengerManager.getInstance().checkNewMessages(UserManager.getInstance().getUserModel().getUid(), MessengerManager.getInstance());
         return inflater.inflate(R.layout.fragment_connections, container, false);
     }
 
@@ -93,13 +88,7 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
                     srl.setRefreshing(false);
                 }
             }
-            //pres.checkNewMessages();
         }
-    }
-
-    @Override
-    public void showNewMessageBadge() {
-
     }
 
     @Override

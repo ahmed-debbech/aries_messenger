@@ -1,5 +1,8 @@
 package com.ahmeddebbech.aries_messenger.model;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.List;
 
 public class Conversation {
@@ -47,5 +50,26 @@ public class Conversation {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        if(members == null) {
+            return "{id: " + id + ", latest_msg: " + latest_msg + ", count: " + count + " }";
+        }else{
+            return "{id: " + id + ", members: " + members.toString() + ", latest_msg: " + latest_msg + ", count: " + count + " }";
+        }
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj instanceof Conversation){
+            Conversation cv = (Conversation) obj;
+            if(cv.getId().equals(this.id)){
+                return true;
+            }
+        }
+        return false;
     }
 }

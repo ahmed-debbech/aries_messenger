@@ -9,11 +9,9 @@ import java.util.List;
 public interface ContractConnectionsFrag {
     interface View{
         void showContacts(List<ItemUser> list);
-        void showNewMessageBadge();
         void sendResult(Bundle result);
     }
     interface Presenter{
         void loadContacts(String uid);
-        void checkNewMessages();
     }
 }
