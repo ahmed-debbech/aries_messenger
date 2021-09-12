@@ -349,6 +349,7 @@ public class DbConversations {
     }
     public static void updateMessageState(String state, String convid, String msg_id) {
         if(state == Message.SEEN){
+            Log.d("xcc", "updateMessageState: " + msg_id + " " + convid);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convid + "/" + msg_id+ "/status");
             ref.setValue(Message.SEEN);

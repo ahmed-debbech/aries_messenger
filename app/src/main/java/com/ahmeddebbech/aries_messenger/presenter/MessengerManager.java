@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
+import android.util.Log;
+
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbConversations;
@@ -15,6 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class MessengerManager {
 
@@ -32,30 +35,6 @@ public class MessengerManager {
         }
         return instance;
     }
-    public void updateMessagesStatus(final String status, final String convid){
-        final List<Message> list = this.msg_list;
-        DbConnector.connectToGetLastSeenIndex(UserManager.getInstance().getUserModel().getUid(), convid, new Presenter(){
-            @Override
-            public void returnData(DatabaseOutput obj) {
-                if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_LAST_SEEN_INDEX) {
-                    Integer ind = (Integer)obj.getObj();
-                    List<Message> nlist = new ArrayList<>();
-                    for (int i=ind+1; i<=MessengerManager.getInstance().getCurrentConv().getCount(); i++) {
-                        for(int j=0; j<=list.size()-1; j++){
-                            if(list.get(j).getIndex() == i){
-                                if(list.get(j).getSender_uid() != UserManager.getInstance().getUserModel().getUid()) {
-                                    list.get(j).setStatus(status);
-                                    nlist.add(list.get(j));
-                                }
-                            }
-                        }
-                    }
-                    DbConnector.connectToSendListOfMessages(nlist, convid);
-                }
-            }
-        });
-
-    }
     public void sendMessage(String msg, String receiver, Presenter pres) {
         Conversation cv = null;
         if (this.getCurrentConv() == null) {
@@ -68,6 +47,7 @@ public class MessengerManager {
             cv.setMembers(mem);
             cv.setLatest_msg("");
             this.setCurrentConv(cv);
+            UserManager.getInstance().getUserModel().getConversations().put(receiver, cv.getId());
         }
         Message m = new Message();
         m.setSender_uid(UserManager.getInstance().getUserModel().getUid());

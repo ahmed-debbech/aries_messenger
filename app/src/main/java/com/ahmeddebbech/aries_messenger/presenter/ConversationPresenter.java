@@ -19,7 +19,6 @@ import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 import java.lang.reflect.Array;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,9 +27,10 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     private ContractConversation.View activity;
     private String convid;
 
-    public ConversationPresenter(ContractConversation.View act){
+    public ConversationPresenter(ContractConversation.View act, String conv){
         this.activity = act;
         MessengerManager.getInstance().setMessages(null);
+        this.convid = conv;
     }
 
     @Override

@@ -64,7 +64,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
-        presenter = new ConversationPresenter(this);
         toolbar = (Toolbar) findViewById(R.id.conv_toolbar);
         setSupportActionBar(toolbar);
 
@@ -73,6 +72,8 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         Intent i = getIntent();
         correspondedUser = new User();
         correspondedUser.setUid(i.getStringExtra("uid"));
+        presenter = new ConversationPresenter(this, UserManager.getInstance().getUserModel().getConversations().get(correspondedUser.getUid()));
+
     }
     public void setupUi(){
         back = findViewById(R.id.conv_return);
