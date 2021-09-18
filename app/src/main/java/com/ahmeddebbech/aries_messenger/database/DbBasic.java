@@ -37,6 +37,7 @@ public class DbBasic {
     }
     public static void getUserData(final String uid, final Presenter pres){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         DatabaseReferences.REF_USER = database.getReference("/Users/"+uid);
         DatabaseReferences.LIS_USER = new ValueEventListener() {
             @Override
@@ -45,7 +46,6 @@ public class DbBasic {
                     User u = dataSnapshot.getValue(User.class);
                     DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_USER_DATA, u);
                     pres.returnData(doo);
-                    //DbBasic.getConnections(uid, pres);
                 }else {
                     Log.d(DatabaseOutputKeys.TAG_DB, "[getUserData] User doesn't exist");
                 }

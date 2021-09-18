@@ -18,7 +18,7 @@ public class SearchPresenter extends Presenter implements ContractSearch.Present
 
     ContractSearch.View act;
     public SearchPresenter(ContractSearch.View act){
-        DbSync.syncUserConnections(UserManager.getInstance().getUserModel().getUid(), this);
+        //DbSync.syncUserConnections(UserManager.getInstance().getUserModel().getUid(), this);
         this.act = act;
     }
     @Override
