@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.solver.widgets.Snapshot;
 
+import com.ahmeddebbech.aries_messenger.database.model.MessagePersist;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
@@ -13,6 +14,7 @@ import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
+import com.ahmeddebbech.aries_messenger.views.activities.MainActivity;
 import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +32,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.Source;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DbConversations {
 
@@ -151,12 +157,22 @@ public class DbConversations {
         ref.setValue(cv.getId());
         convertToMeta(cv.getId(), pres);
     }
-    public static void sendMessage(final String convId, final Message msg){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convId + "/" + msg.getId() + "/");
-        ref.setValue(msg);
-        incrementConvCount(convId, msg.getId());
-        incrementContactSeenIndex(convId, msg.getSender_uid());
+    public static void sendMessage(final String recep_uid, final Message msg, final Conversation cv){
+
+        Log.d("arries", "sendMessage: " + msg.toString());
+        MessagePersist mper = new MessagePersist(msg, recep_uid, cv);
+        Call<Message> m = DbConnector.backendServiceApi.sendMessage(mper);
+        m.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+                Log.d(DatabaseOutputKeys.TAG_DB, "onResponse: " + response.body() );
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+                Log.d(DatabaseOutputKeys.TAG_DB, "[sendMessage] operation failed "+ t.getMessage() );
+            }
+        });
     }
     private static void incrementContactSeenIndex(String convId, String sender_uid) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -237,17 +253,20 @@ public class DbConversations {
         };
         DatabaseReferences.REF_MSGS.addChildEventListener(DatabaseReferences.LIS_MSGS);
     }
-    public static void checkNewMessages(String uid, final Presenter pres){
-        /*List<String> convslist = UserManager.getInstance().getAllConvsIds();
+    public static void checkNewMessages(String uid, List<String> convslist, final Presenter pres){
         if(convslist != null) {
             for (int i = 0; i <= convslist.size() - 1; i++) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReferences.REF_ALL_CONVS[i] = database.getReference("/Conversations/Conversations_data/" + convslist.get(i));
+                DatabaseReferences.REF_ALL_CONVS[i] = database.getReference("/Conversations/Conversations_meta/" + convslist.get(i));
                 DatabaseReferences.LIS_ALL_CONVS[i] = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY, true);
+                            String id = snapshot.child("id").getValue(String.class);
+                            int count = snapshot.child("count").getValue(Integer.class).intValue();
+                            String last_msg = snapshot.child("latest_msg").getValue(String.class);
+                            Conversation cv = new Conversation(id, null, last_msg, count);
+                            DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY, cv);
                             pres.returnData(doo);
                         }
                     }
@@ -259,7 +278,7 @@ public class DbConversations {
                 };
                 DatabaseReferences.REF_ALL_CONVS[i].addValueEventListener(DatabaseReferences.LIS_ALL_CONVS[i]);
             }
-        }*/
+        }
     }
     public static void getConversationsIds(String uid, final Presenter pres) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -333,6 +352,7 @@ public class DbConversations {
     }
     public static void updateMessageState(String state, String convid, String msg_id) {
         if(state == Message.SEEN){
+            Log.d("xcc", "updateMessageState: " + msg_id + " " + convid);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("/Conversations/Conversations_data/" + convid + "/" + msg_id+ "/status");
             ref.setValue(Message.SEEN);

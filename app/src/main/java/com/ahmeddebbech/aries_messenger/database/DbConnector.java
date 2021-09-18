@@ -12,6 +12,8 @@ import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import java.util.List;
 
 public class DbConnector {
+
+    public static BackendServiceApi backendServiceApi;
     public static void connectToSignIn(LoginPresenter log) {
         DbUtil.userExistsInSignIn(log);
     }
@@ -53,8 +55,8 @@ public class DbConnector {
     public static void connectToSendListOfMessages(List<Message> list, String conv){
         DbConversations.sendListOfMessages(list, conv);
     }
-    public static void connectToCheckNewMessages(String uid, Presenter pres){
-        DbConversations.checkNewMessages(uid, pres);
+    public static void connectToCheckNewMessages(String uid, List<String> convList, Presenter pres){
+        DbConversations.checkNewMessages(uid, convList, pres);
     }
     public static void connectToGetConversationsIds(String uid, Presenter pres){
         DbConversations.getConversationsIds(uid, pres);
@@ -65,8 +67,8 @@ public class DbConnector {
     public static void connectToCreateConversation(Conversation cv, Presenter pres) {
         DbConversations.createConversation(cv,pres);
     }
-    public static void connectToSendMessage(String id, Message m) {
-        DbConversations.sendMessage(id,m);
+    public static void connectToSendMessage(String id, Message m, Conversation cv) {
+        DbConversations.sendMessage(id,m, cv);
     }
     public static void connectToTrackWhosTyping(String id, ConversationPresenter conversationPresenter) {
         DbConversations.trackWhosTyping(id, conversationPresenter);

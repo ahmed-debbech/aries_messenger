@@ -4,6 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class CoreApplication extends Application {
 
     private static final String TAG = CoreApplication.class.getName();
@@ -14,5 +16,7 @@ public class CoreApplication extends Application {
 
         AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 }

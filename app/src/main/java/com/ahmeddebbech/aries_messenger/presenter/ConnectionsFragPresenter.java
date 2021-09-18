@@ -30,39 +30,28 @@ public class ConnectionsFragPresenter extends Presenter implements ContractConne
         DbConnector.connectToGetConnections(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
     }
 
-
-    @Override
-    public void checkNewMessages() {
-        //MessengerManager.getInstance().checkNewMessages(UserManager.getInstance().getUserModel().getUid(), this);
-    }
-
-
     @Override
     public void returnData(DatabaseOutput dot) {
         if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CONVERT_TO_USERS){
             List<ItemUser> lis = (List<ItemUser>)dot.getObj();
             frag.showContacts(lis);
         }else{
-            if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.CHECK_NEW_MESSAGES_KEY) {
-                MessengerManager.getInstance().updateMessagesStatus(Message.DELIVERED);
-            }else{
-                if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
-                    Map<String, String> l = (Map<String, String>)dot.getObj();
-                    //if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
-                    UserManager.getInstance().getUserModel().setConnections(l);
-                    List<String> penders = UserManager.getInstance().getConnectionsByType(UserManager.PENDING);
-                    if(!penders.isEmpty()) {
-                        Bundle result = new Bundle();
-                        result.putBoolean("result", true);
-                        frag.sendResult(result);
-                    }else{
-                        Bundle result = new Bundle();
-                        result.putBoolean("result", false);
-                        frag.sendResult(result);
-                    }
-                    DbConnector.connectToConvertUidsToUsers(UserManager.getInstance().getConnectionsByType(UserManager.CONNECTED), this);
-                    //}
+            if(dot.getDatabaseOutputkey() == DatabaseOutputKeys.GET_CONNECTIONS){
+                Map<String, String> l = (Map<String, String>)dot.getObj();
+                //if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConnections()) == false) {
+                UserManager.getInstance().getUserModel().setConnections(l);
+                List<String> penders = UserManager.getInstance().getConnectionsByType(UserManager.PENDING);
+                if(!penders.isEmpty()) {
+                    Bundle result = new Bundle();
+                    result.putBoolean("result", true);
+                    frag.sendResult(result);
+                }else{
+                    Bundle result = new Bundle();
+                    result.putBoolean("result", false);
+                    frag.sendResult(result);
                 }
+                DbConnector.connectToConvertUidsToUsers(UserManager.getInstance().getConnectionsByType(UserManager.CONNECTED), this);
+                //}
             }
         }
     }

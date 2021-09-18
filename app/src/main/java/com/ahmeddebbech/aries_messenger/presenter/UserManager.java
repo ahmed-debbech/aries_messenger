@@ -106,8 +106,12 @@ public class UserManager {
         }
     }
 
-    public Map<String, String> getAllConvsIds(){
-        return userModel.getConversations();
+    public List<String> getAllConvsIds(){
+        if(userModel.getConversations() != null) {
+            return new ArrayList<String>(userModel.getConversations().values());
+        }else{
+            return new ArrayList<String>();
+        }
     }
 
     public void setAvailabilityStatus(int status) {
@@ -115,7 +119,10 @@ public class UserManager {
     }
 
     public String getConvId(String uid) {
-        return this.userModel.getConversations().get(uid);
+        if(this.userModel.getConversations() != null ) {
+            return this.userModel.getConversations().get(uid);
+        }
+        return null;
     }
 
     public void unblock(String uid) {

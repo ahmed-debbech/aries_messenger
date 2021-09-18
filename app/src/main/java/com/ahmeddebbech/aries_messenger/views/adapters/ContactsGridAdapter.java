@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
+import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.views.activities.ConversationActivity;
 import com.ahmeddebbech.aries_messenger.views.activities.LoginActivity;
 import com.ahmeddebbech.aries_messenger.views.activities.MainActivity;
@@ -53,7 +54,7 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ContactViewHolder holder, int position) {
         //associate the data
         ItemUser i = list.get(position);
         final String uid = i.getUid();
@@ -65,11 +66,16 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                holder.cv.setBackground(null);
+                MessengerManager.getInstance().removeFromLatestUpdatedConvs(uid);
                 Intent i = new Intent(parent_activity, ConversationActivity.class);
                 i.putExtra("uid", uid);
                 parent_activity.startActivity(i);
             }
         });
+        if(MessengerManager.getInstance().hasNewMessages(uid)) {
+            holder.cv.setBackground(holder.itemView.getResources().getDrawable(R.drawable.background_gradient));
+        }
     }
 
     @Override

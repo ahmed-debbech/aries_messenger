@@ -145,7 +145,7 @@
                 android:padding="5dp"
                 android:paddingLeft="10dp"
                 android:scrollbars="vertical"
-                android:textColorHint="@color/colorAccent" />
+                android:textColorHint="@color/hint_messages" />
 
             <ImageButton
                 android:id="@+id/conv_send"

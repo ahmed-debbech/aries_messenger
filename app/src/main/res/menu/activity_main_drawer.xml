@@ -17,14 +17,14 @@
             android:icon="@drawable/ic_profile"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/logout_nav"
-            android:icon="@drawable/ic_logout"
-            android:title="@string/menu_logout" />
-    </group>
-    <group android:checkableBehavior="single">
-        <item
             android:id="@+id/blocked_nav"
             android:icon="@drawable/ic_baseline_person_off_24"
             android:title="@string/menu_blocked" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout_nav"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/menu_logout" />
     </group>
 </menu>
