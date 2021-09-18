@@ -253,8 +253,7 @@ public class DbConversations {
         };
         DatabaseReferences.REF_MSGS.addChildEventListener(DatabaseReferences.LIS_MSGS);
     }
-    public static void checkNewMessages(String uid, final Presenter pres){
-        List<String> convslist = UserManager.getInstance().getAllConvsIds();
+    public static void checkNewMessages(String uid, List<String> convslist, final Presenter pres){
         if(convslist != null) {
             for (int i = 0; i <= convslist.size() - 1; i++) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

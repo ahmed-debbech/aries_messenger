@@ -82,6 +82,7 @@ public class MainPresenter extends Presenter implements ContractMain.Presenter {
                     Map<String, String> l = (Map<String, String>) o.getObj();
                     if(GeneralUtils.twoStringMapsEqual(l, UserManager.getInstance().getUserModel().getConversations()) == false) {
                         UserManager.getInstance().getUserModel().setConversations(l);
+                        MessengerManager.getInstance().checkNewMessages(UserManager.getInstance().getUserModel().getUid(), MessengerManager.getInstance());
                     }
                 }else{
                     if(o.getDatabaseOutputkey() == DatabaseOutputKeys.GET_BLOCKED) {

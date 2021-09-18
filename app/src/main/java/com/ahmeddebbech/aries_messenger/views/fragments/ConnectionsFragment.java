@@ -53,8 +53,6 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragments
         pres.loadContacts(UserManager.getInstance().getUserModel().getUid());
-        //TODO fix the connection listener
-        MessengerManager.getInstance().checkNewMessages(UserManager.getInstance().getUserModel().getUid(), MessengerManager.getInstance());
         return inflater.inflate(R.layout.fragment_connections, container, false);
     }
 

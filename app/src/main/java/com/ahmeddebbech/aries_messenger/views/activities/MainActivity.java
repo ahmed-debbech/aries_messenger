@@ -1,35 +1,25 @@
 package com.ahmeddebbech.aries_messenger.views.activities;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
-import com.ahmeddebbech.aries_messenger.database.DbBasic;
-import com.ahmeddebbech.aries_messenger.database.DbConnector;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.MainPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
-import com.ahmeddebbech.aries_messenger.util.CoreApplication;
+import com.ahmeddebbech.aries_messenger.threads.InitialDataRetrieverThread;
 import com.ahmeddebbech.aries_messenger.views.fragments.ConnectionsFragment;
 import com.ahmeddebbech.aries_messenger.views.fragments.ProfileFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,11 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentResultListener;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.OnLifecycleEvent;
-
-import java.text.BreakIterator;
 
 public class MainActivity extends AppCompatActivity implements LifecycleObserver, ContractMain.View {
 
@@ -147,6 +133,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                 setPendingBadge(re);
             }
         });
+        InitialDataRetrieverThread runnable = new InitialDataRetrieverThread(FirebaseAuth.getInstance().getCurrentUser().getUid(), presenter);
+        new Thread(runnable).start();
     }
     @Override
     public void setupUi(){
@@ -171,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.getDatafromDatabase(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        //presenter.getDatafromDatabase(FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
     @Override
@@ -181,9 +169,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         /*ProgressBar pb = findViewById(R.id.wait_loop);
         pb.setVisibility(View.VISIBLE);
         DbSync.trackUserExistence(LoggedInUser.getInstance(), this);*/
-        presenter.getConnections();
+        /*presenter.getConnections();
         presenter.getConversations();
-        presenter.getBlocked();
+        presenter.getBlocked();*/
     }
     @Override
     public void onBackPressed() {

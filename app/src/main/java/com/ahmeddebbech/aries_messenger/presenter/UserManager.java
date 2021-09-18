@@ -107,7 +107,11 @@ public class UserManager {
     }
 
     public List<String> getAllConvsIds(){
-        return new ArrayList<String>(userModel.getConversations().values());
+        if(userModel.getConversations() != null) {
+            return new ArrayList<String>(userModel.getConversations().values());
+        }else{
+            return new ArrayList<String>();
+        }
     }
 
     public void setAvailabilityStatus(int status) {

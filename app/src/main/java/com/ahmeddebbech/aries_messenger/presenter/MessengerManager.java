@@ -8,6 +8,7 @@ import com.ahmeddebbech.aries_messenger.database.DbConversations;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
+import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 
@@ -33,6 +34,7 @@ public class MessengerManager extends Presenter{
     public static MessengerManager getInstance(){
         if(instance == null){
             instance = new MessengerManager();
+
         }
         return instance;
     }
@@ -68,7 +70,7 @@ public class MessengerManager extends Presenter{
     }
 
     public void checkNewMessages(String uid , Presenter pres){
-        DbConnector.connectToCheckNewMessages(uid, pres);
+        DbConnector.connectToCheckNewMessages(uid, UserManager.getInstance().getAllConvsIds(), pres);
     }
 
     public void updateMessagesStatus(String status) {
@@ -133,13 +135,15 @@ public class MessengerManager extends Presenter{
     }
 
     public boolean hasNewMessages(String uid){
-        if(UserManager.getInstance().getUserModel().getConversations().containsKey(uid)){
-            String convid = UserManager.getInstance().getUserModel().getConversations().get(uid);
+        if(UserManager.getInstance().getUserModel().getConversations() != null) {
+            if (UserManager.getInstance().getUserModel().getConversations().containsKey(uid)) {
+                String convid = UserManager.getInstance().getUserModel().getConversations().get(uid);
 
-            if(this.latest_updated_convs != null && this.latest_updated_convs.size() > 0) {
-                for (Conversation vv : this.latest_updated_convs) {
-                    if (vv.getId().equals(convid)) {
-                        return true;
+                if (this.latest_updated_convs != null && this.latest_updated_convs.size() > 0) {
+                    for (Conversation vv : this.latest_updated_convs) {
+                        if (vv.getId().equals(convid)) {
+                            return true;
+                        }
                     }
                 }
             }
