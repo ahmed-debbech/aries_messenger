@@ -8,10 +8,10 @@
             android:id="@+id/connections_nav"
             android:icon="@drawable/ic_your_connections"
             android:title="@string/menu_connections" />
-        <item
+        <!--<item
             android:id="@+id/settings_nav"
             android:icon="@drawable/ic_settings"
-            android:title="@string/menu_settings" />
+            android:title="@string/menu_settings" />-->
         <item
             android:id="@+id/profile_nav"
             android:icon="@drawable/ic_profile"
@@ -20,6 +20,10 @@
             android:id="@+id/blocked_nav"
             android:icon="@drawable/ic_baseline_person_off_24"
             android:title="@string/menu_blocked" />
+        <item
+            android:id="@+id/feedback_nav"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/menu_feedback" />
     </group>
     <group android:checkableBehavior="single">
         <item

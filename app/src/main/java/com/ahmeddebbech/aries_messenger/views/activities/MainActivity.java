@@ -65,10 +65,14 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                                 .commit();
                         navigationView.setCheckedItem(R.id.connections_nav);
                         break;
-                    case R.id.settings_nav:
+                    /*case R.id.settings_nav:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
                                 .commit();
                         navigationView.setCheckedItem(R.id.settings_nav);
+                        break;*/
+                    case R.id.feedback_nav:
+                        Intent iii = new Intent(MainActivity.this, FeedbackActivity.class);
+                        startActivity(iii);
                         break;
                     case R.id.logout_nav:
                         FirebaseAuth.getInstance().signOut();
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                     case R.id.blocked_nav:
                         Intent i = new Intent(MainActivity.this, BlockedActivity.class);
                         startActivity(i);
-                        navigationView.setCheckedItem(R.id.settings_nav);
+                        //navigationView.setCheckedItem(R.id.settings_nav);
                         break;
                 }
                 DrawerLayout dl = findViewById(R.id.drawer_layout1);
