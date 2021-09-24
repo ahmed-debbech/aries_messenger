@@ -55,4 +55,12 @@ public class InputChecker {
         nemsg = msg.trim();
         return nemsg;
     }
+    public static boolean isItEmail(String email_like){
+        boolean alt = email_like.contains("@");
+        boolean domain = email_like.contains(".");
+        if(alt == true && domain == true){
+            return true;
+        }
+        return false;
+    }
 }
