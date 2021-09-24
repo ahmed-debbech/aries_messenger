@@ -1,6 +1,7 @@
 package com.ahmeddebbech.aries_messenger.database;
 
 import com.ahmeddebbech.aries_messenger.database.model.MessagePersist;
+import com.ahmeddebbech.aries_messenger.model.Feedback;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.model.Message;
 
@@ -19,4 +20,7 @@ public interface BackendServiceApi {
 
     @POST("/send_msg")
     Call<Message> sendMessage(@Body MessagePersist msg);
+
+    @POST("/push_feedback")
+    Call<Boolean> pushFeedback(@Body Feedback fdb);
 }

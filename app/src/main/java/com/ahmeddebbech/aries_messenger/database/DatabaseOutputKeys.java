@@ -1,7 +1,7 @@
 package com.ahmeddebbech.aries_messenger.database;
 
 public class DatabaseOutputKeys {
-    public static String TAG_DB ="ErrorDB%";
+    public static String TAG_DB ="db_error";
 
     private  DatabaseOutputKeys(){}
 
@@ -31,4 +31,6 @@ public class DatabaseOutputKeys {
     public static int GET_ONE_MESSAGE = 23;
     public static int GET_CONNECTIONS_NUMBER = 24;
     public static int GET_BLOCKED = 25;
+    public static final int FEEDBACK_SENT_ACK = 26;
+
 }

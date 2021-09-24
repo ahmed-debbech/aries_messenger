@@ -4,8 +4,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.ahmeddebbech.aries_messenger.database.model.MessagePersist;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
+import com.ahmeddebbech.aries_messenger.model.Feedback;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
+import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.UserItemPresenter;
@@ -273,6 +276,26 @@ public class DbBasic {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+
+    public static void sendFeedback(Feedback fb, final Presenter pres) {
+
+        Call<Boolean> m = DbConnector.backendServiceApi.pushFeedback(fb);
+        m.enqueue(new Callback<Boolean>() {
+
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.FEEDBACK_SENT_ACK, true);
+                pres.returnData(doo);
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.d(DatabaseOutputKeys.TAG_DB, "[sendFeedback] operation failed "+ t.getMessage() );
+                DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.FEEDBACK_SENT_ACK, false);
+                pres.returnData(doo);
             }
         });
     }

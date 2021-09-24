@@ -1,9 +1,11 @@
 package com.ahmeddebbech.aries_messenger.database;
 
 import com.ahmeddebbech.aries_messenger.model.Conversation;
+import com.ahmeddebbech.aries_messenger.model.Feedback;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
+import com.ahmeddebbech.aries_messenger.presenter.FeedbackPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserItemPresenter;
@@ -101,5 +103,9 @@ public class DbConnector {
     }
     public static void connectToGetBlockedUsers(String uid, Presenter pres){
         DbBasic.getBlockedUsers(uid, pres);
+    }
+
+    public static void connectToSendFeedback(Feedback fb, Presenter pres) {
+        DbBasic.sendFeedback(fb, pres);
     }
 }

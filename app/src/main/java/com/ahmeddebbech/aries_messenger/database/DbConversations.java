@@ -159,7 +159,6 @@ public class DbConversations {
     }
     public static void sendMessage(final String recep_uid, final Message msg, final Conversation cv){
 
-        Log.d("arries", "sendMessage: " + msg.toString());
         MessagePersist mper = new MessagePersist(msg, recep_uid, cv);
         Call<Message> m = DbConnector.backendServiceApi.sendMessage(mper);
         m.enqueue(new Callback<Message>() {
