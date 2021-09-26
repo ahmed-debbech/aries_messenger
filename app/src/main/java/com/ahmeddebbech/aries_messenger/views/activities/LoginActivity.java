@@ -2,6 +2,7 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -58,7 +59,12 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
                 FirebaseUser fu = FirebaseAuth.getInstance().getCurrentUser();
-                User u  = new User(fu.getUid(),null, fu.getDisplayName(), fu.getEmail(), fu.getPhotoUrl().toString(), null, -1);
+                String photo = "";
+                if(fu.getPhotoUrl() != null){
+                    photo = fu.getPhotoUrl().toString();
+                }
+                User u  = new User(fu.getUid(),null, fu.getDisplayName(), fu.getEmail(), photo, null, -1);
+                Log.d("loggei", "onActivityResult: " + u.getUid());
                 presenter.fillModel(u);
                 Toast toast;
                 if(FirebaseAuth.getInstance().getCurrentUser().getDisplayName() == null) {

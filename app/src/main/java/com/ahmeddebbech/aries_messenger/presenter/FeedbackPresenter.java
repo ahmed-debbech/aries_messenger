@@ -21,7 +21,7 @@ public class FeedbackPresenter extends Presenter implements ContractFeedback.Pre
     @Override
     public void sendFeedback(String email, String desc) {
         boolean cor1 = InputChecker.isItEmail(email);
-        boolean cor2 = InputChecker.isLonger(desc, 10);
+        boolean cor2 = InputChecker.isLonger(desc, 1000);
         if(!cor1){
             activity.setError("Sorry, this doesn't look like an email!", ContractFeedback.View.EMAIL_FIELD);
             return;

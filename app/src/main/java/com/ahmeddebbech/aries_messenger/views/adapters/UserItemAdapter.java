@@ -136,7 +136,9 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
     @Override
     public void onBindViewHolder(@NonNull UserItemAdapter.MainViewHolder holder, int position) {
         ItemUser currentItem = list.get(position);
-        Picasso.get().load(currentItem.getPhoto()).into(holder.photo);
+        if(currentItem.getPhoto() != null){
+            Picasso.get().load(currentItem.getPhoto()).into(holder.photo);
+        }
         holder.disp.setText(currentItem.getDisplayName());
         holder.username.setText(currentItem.getUsername());
         holder.uid.setText(currentItem.getUid());

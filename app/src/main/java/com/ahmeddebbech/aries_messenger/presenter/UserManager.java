@@ -76,6 +76,9 @@ public class UserManager {
     public List<String> getConnectionsByType(String x){
         Map<String, String> d = userModel.getConnections();
         List<String> l = new ArrayList<>();
+        if(d == null || d.size() == 0){
+            return l;
+        }
         for(Map.Entry<String, String> entry : d.entrySet()){
             if(entry.getValue().equals(x)){
                 l.add(entry.getKey());

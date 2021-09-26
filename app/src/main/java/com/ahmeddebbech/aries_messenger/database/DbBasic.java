@@ -183,7 +183,6 @@ public class DbBasic {
                     if(connections.size() == 0){
                         connections = null;
                     }
-                    //Log.d("#@e" , "connections");
                     DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_CONNECTIONS, connections);
                     pres.returnData(doo);
                 }else {

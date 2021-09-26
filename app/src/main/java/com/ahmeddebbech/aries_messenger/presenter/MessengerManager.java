@@ -166,13 +166,15 @@ public class MessengerManager extends Presenter{
         }
     }
     public void removeFromLatestUpdatedConvs(String uid){
-        if(UserManager.getInstance().getUserModel().getConversations().containsKey(uid)){
-            String convid = UserManager.getInstance().getUserModel().getConversations().get(uid);
+        if(UserManager.getInstance().getUserModel().getConversations() != null) {
+            if (UserManager.getInstance().getUserModel().getConversations().containsKey(uid)) {
+                String convid = UserManager.getInstance().getUserModel().getConversations().get(uid);
 
-            Conversation cc = new Conversation();
-            cc.setId(convid);
-            if(this.latest_updated_convs != null && this.latest_updated_convs.size() > 0) {
-                this.latest_updated_convs.remove(cc);
+                Conversation cc = new Conversation();
+                cc.setId(convid);
+                if (this.latest_updated_convs != null && this.latest_updated_convs.size() > 0) {
+                    this.latest_updated_convs.remove(cc);
+                }
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.ahmeddebbech.aries_messenger.model;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
@@ -19,7 +21,11 @@ public class ItemUser {
     public ItemUser(User user){
         this.username = user.getUsername();
         this.displayName = user.getDisplayName();
-        this.photo = user.getPhotoURL();
+        if(!user.getPhotoURL().isEmpty()) {
+            this.photo = user.getPhotoURL();
+        }else{
+            this.photo = null;
+        }
         this.uid = user.getUid();
     }
     public String getPhoto() {
