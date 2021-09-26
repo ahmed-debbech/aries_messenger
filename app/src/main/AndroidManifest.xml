@@ -12,8 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".views.activities.AboutActivity"
+            android:label="@string/title_activity_about" />
+        <activity
             android:name=".views.activities.FeedbackActivity"
-            android:label="@string/title_activity_feedback"/>
+            android:label="@string/title_activity_feedback" />
         <activity
             android:name=".views.activities.BlockedActivity"
             android:label="@string/title_activity_blocked" />

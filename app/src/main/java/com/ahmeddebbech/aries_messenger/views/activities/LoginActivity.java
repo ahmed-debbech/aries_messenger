@@ -3,20 +3,26 @@ package com.ahmeddebbech.aries_messenger.views.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.Navigation;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractLogin;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
+import com.ahmeddebbech.aries_messenger.views.fragments.ConnectionsFragment;
+import com.ahmeddebbech.aries_messenger.views.fragments.ProfileFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -24,6 +30,7 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements ContractLogin.View {
     private LoginPresenter presenter;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,19 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
                 }
         });
 
+        navigationView = findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch(menuItem.getItemId()){
+                    case R.id.nav_about:
+                        Intent i = new Intent(LoginActivity.this, AboutActivity.class);
+                        startActivity(i);
+                        break;
+                }
+                return false;
+            }
+        });
     }
     @Override
     protected void onStart() {
@@ -89,7 +109,10 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
     public void googleProviderOnClick(View v){
         presenter.loginAsGoogle();
     }
-
+    public void facebookProviderOnClick(View v){
+        Toast to = Toast.makeText(this, "Available soon ~", Toast.LENGTH_SHORT);
+        to.show();
+    }
     @Override
     public void redirectRegisterActivity(){
         Intent intent = new Intent(this, RegisterActivity.class);
