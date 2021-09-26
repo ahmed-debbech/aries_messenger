@@ -62,7 +62,9 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
         final String username = i.getUsername();
         final String photo = i.getPhoto();
         holder.displayname.setText(i.getDisplayName());
-        //Picasso.get().load(i.getPhoto()).into(holder.iv);
+        if(i.getPhoto() != null) {
+            Picasso.get().load(i.getPhoto()).into(holder.iv);
+        }
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

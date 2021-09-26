@@ -234,7 +234,9 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         correspondedUser = u;
         adapter.setCorr(correspondedUser);
 
-        Picasso.get().load(u.getPhotoURL()).into(photo);
+        if(u.getPhotoURL() != null) {
+            Picasso.get().load(u.getPhotoURL()).into(photo);
+        }
         displayName.setText(u.getDisplayName());
         if(u.getAvailability() == 1) {
             availability_status.setTextColor(getResources().getColor(R.color.online));

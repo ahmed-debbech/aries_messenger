@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements ContractLogin.Vi
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
+                        .setIsSmartLockEnabled(false)
                         .build(),
                 1);
     }

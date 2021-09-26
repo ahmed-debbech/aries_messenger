@@ -75,4 +75,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="text_register1">It seems that you are new to Aries.</string>
+    <string name="text_register2">Register for free!</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_displayname">Display Name</string>
+    <string name="proceed_button">Create your new Account!</string>
 </resources>

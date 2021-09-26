@@ -118,7 +118,9 @@ public class UserManager {
     }
 
     public void setAvailabilityStatus(int status) {
-        DbConnector.connectToSetAvailabilityStatus(FirebaseAuth.getInstance().getUid(), status);
+        if(UserManager.getInstance().getUserModel().getUid() != null) {
+            DbConnector.connectToSetAvailabilityStatus(FirebaseAuth.getInstance().getUid(), status);
+        }
     }
 
     public String getConvId(String uid) {
