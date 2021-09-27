@@ -135,25 +135,21 @@
                 android:gravity="right"
                 android:orientation="horizontal">
 
-                <TextView
+                <ImageButton
                     android:id="@+id/msg_cancel_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
                     android:padding="1dp"
-                    android:text="@string/msg_cancel"
-                    android:textColor="#FE3737"
+                    android:src="@drawable/ic_baseline_cancel_24"
                     android:textStyle="bold" />
 
-                <TextView
+                <ImageButton
                     android:id="@+id/msg_edit_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:padding="1dp"
-                    android:text="@string/msg_edit"
-                    android:textColor="@color/secondary_button_color"
-                    android:textStyle="bold" />
+                    android:src="@drawable/edit_pencil_button"
+                    />
 
             </LinearLayout>
         </LinearLayout>

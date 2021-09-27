@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -86,8 +87,8 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         private Message ref;
         private RelativeLayout msg_edit_panel;
         private EditText msg_edit;
-        private TextView msg_edit_button;
-        private TextView msg_cancel_button;
+        private ImageButton msg_edit_button;
+        private ImageButton msg_cancel_button;
         private LinearLayout msg_main_panel;
         private TextView reply_text;
         private LinearLayout reply_panel;
