@@ -76,11 +76,14 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                         break;
                     case R.id.logout_nav:
                         FirebaseAuth.getInstance().signOut();
+                        UserManager.getInstance().getUserModel().setUid(null);
+                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(i);
                         finish();
                         break;
                     case R.id.blocked_nav:
-                        Intent i = new Intent(MainActivity.this, BlockedActivity.class);
-                        startActivity(i);
+                        Intent ii = new Intent(MainActivity.this, BlockedActivity.class);
+                        startActivity(ii);
                         //navigationView.setCheckedItem(R.id.settings_nav);
                         break;
                 }
