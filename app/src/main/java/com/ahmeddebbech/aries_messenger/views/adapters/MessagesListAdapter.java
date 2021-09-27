@@ -177,7 +177,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
             });
             if(m.getStatus().equals(Message.SEEN)){
                 holder.background.setStrokeColor(holder.itemView.getResources().getColor(R.color.high_indication));
-                holder.background.setStrokeWidth(7);
+                holder.background.setStrokeWidth(5);
             }else{
                 holder.background.setStrokeColor(holder.itemView.getResources().getColor(R.color.white));
                 holder.background.setStrokeWidth(0);

@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:text="A long text of message sent from aries"
-                android:textColor="@color/white"
+                android:textColor="@color/colorAccent2"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:text="2021 Apr 15 • 11:44"
                 android:textAlignment="center"
-                android:textColor="@color/disabled_button"
+                android:textColor="@color/colorAccent2"
                 android:textSize="10sp" />
         </LinearLayout>
 

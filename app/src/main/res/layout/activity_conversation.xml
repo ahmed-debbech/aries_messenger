@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/general_background"
+    android:background="@color/colorAccent2"
     tools:context=".views.activities.ConversationActivity">
 
     <LinearLayout
@@ -116,9 +116,9 @@
             android:id="@+id/is_typing_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:text="ahmed is typing..."
-            android:textColor="@color/high_indication"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:layout_weight="0"
             android:visibility="invisible" />
@@ -126,7 +126,8 @@
             android:id="@+id/msg_hlin"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:layout_margin="7dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/colorAccent1"
             android:background="@drawable/linearlayout_rounded"
             android:orientation="horizontal"
             android:padding="4dp">
@@ -141,11 +142,12 @@
                 android:gravity="top|left"
                 android:hint="@string/type_msg"
                 android:inputType="textMultiLine"
+                android:backgroundTint="@color/colorAccent2"
                 android:maxLines="3"
                 android:padding="5dp"
                 android:paddingLeft="10dp"
                 android:scrollbars="vertical"
-                android:textColorHint="@color/hint_messages" />
+                android:textColorHint="@color/colorAccent1" />
 
             <ImageButton
                 android:id="@+id/conv_send"

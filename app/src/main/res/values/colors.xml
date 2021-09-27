@@ -4,7 +4,8 @@
     <color name="colorPrimary">#ff7f50</color>
     <color name="colorPrimaryDark">#EA6A3B</color>
     <color name="colorAccent">#759176</color>
-    <color name="colorAccent1">#d1dac4</color>
+    <color name="colorAccent1">#829e83</color>
+    <color name="colorAccent2">#dff0e9</color>
     <!--END OFFICIAL-->
 
     <color name="naturalText">#000000</color>
@@ -16,7 +17,7 @@
     <color name="white">#FFFFFF</color>
     <color name="general_background">#EDEDED</color>
     <color name="secondary_button_color">#F1C40F</color>
-    <color name="high_indication">#35dae9</color>
+    <color name="high_indication">#54E935</color>
     <color name="online">#54E935</color>
     <color name="offline">#EBEBEB</color>
     <color name="high_indication_red">#FF1212</color>
