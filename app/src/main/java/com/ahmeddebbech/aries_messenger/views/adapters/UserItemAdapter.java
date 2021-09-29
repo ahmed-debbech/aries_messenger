@@ -1,11 +1,10 @@
 package com.ahmeddebbech.aries_messenger.views.adapters;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,8 +30,8 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
         private ImageView photo;
         private TextView disp;
         private TextView username;
-        private Button addbutton;
-        private Button refusebutton = null;
+        private ImageButton addbutton;
+        private ImageButton refusebutton = null;
         private TextView uid;
         private ItemUser refToModel;
         private ContractItemList.Presenter pres;
@@ -72,8 +71,8 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
             addbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addbutton.setText(R.string.wait_label);
-                    addbutton.setBackgroundColor(Color.WHITE);
+                    addbutton.setBackgroundResource(R.drawable.ic_waiting_connection);
+                    addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorAccent));
                     if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.CONNECTED)){
                         pres.removeFromContact(uid.getText().toString());
                     }else{
@@ -101,20 +100,20 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
         @Override
         public void updateUi() {
             if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.CONNECTED)) {
-                addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.disabled_button));
-                addbutton.setText(R.string.remove_button);
+                addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
+                addbutton.setBackgroundResource(R.drawable.ic_disconnect_connection);
             }else {
                 if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.PENDING)){
                     addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                    addbutton.setText(R.string.accept_button);
+                    addbutton.setBackgroundResource(R.drawable.ic_baseline_accept);
                     refusebutton.setVisibility(View.VISIBLE);
                 }else{
                     if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.WAITING)){
-                        addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.disabled_button));
-                        addbutton.setText(R.string.waiting_button);
+                        addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorAccent));
+                        addbutton.setBackgroundResource(R.drawable.ic_waiting_connection);
                     }else{
                         addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                        addbutton.setText(R.string.add_button);
+                        addbutton.setBackgroundResource(R.drawable.ic_add_connection);
                     }
                 }
             }
@@ -144,21 +143,21 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
         holder.uid.setText(currentItem.getUid());
         holder.refToModel = currentItem;
         //check how the button should be shown base on the existance of the connection
-        if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.CONNECTED)){
-            holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.disabled_button));
-            holder.addbutton.setText(R.string.remove_button);
-        }else{
+        if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.CONNECTED)) {
+            holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
+            holder.addbutton.setBackgroundResource(R.drawable.ic_disconnect_connection);
+        }else {
             if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.PENDING)){
                 holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                holder.addbutton.setText(R.string.accept_button);
+                holder. addbutton.setBackgroundResource(R.drawable.ic_baseline_accept);
                 holder.refusebutton.setVisibility(View.VISIBLE);
-            }else {
-                if (UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.WAITING)) {
-                    holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.disabled_button));
-                    holder.addbutton.setText(R.string.waiting_button);
-                } else {
+            }else{
+                if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.WAITING)){
+                    holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorAccent));
+                    holder.addbutton.setBackgroundResource(R.drawable.ic_waiting_connection);
+                }else{
                     holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                    holder.addbutton.setText(R.string.add_button);
+                    holder.addbutton.setBackgroundResource(R.drawable.ic_add_connection);
                 }
             }
         }

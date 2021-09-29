@@ -81,4 +81,5 @@
     <string name="hint_displayname">Display Name</string>
     <string name="proceed_button">Create your new Account!</string>
     <string name="title_activity_about">About</string>
+    <string name="menu_request">Pending Requests</string>
 </resources>

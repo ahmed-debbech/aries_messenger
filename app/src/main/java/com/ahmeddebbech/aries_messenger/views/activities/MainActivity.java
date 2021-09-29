@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
                         startActivity(ii);
                         //navigationView.setCheckedItem(R.id.settings_nav);
                         break;
+                    case R.id.requests_nav:
+                        Intent u = new Intent(MainActivity.this, RequestsActivity.class);
+                        startActivity(u);
+                        //navigationView.setCheckedItem(R.id.settings_nav);
+                        break;
                 }
                 DrawerLayout dl = findViewById(R.id.drawer_layout1);
                 dl.closeDrawer(GravityCompat.START);
