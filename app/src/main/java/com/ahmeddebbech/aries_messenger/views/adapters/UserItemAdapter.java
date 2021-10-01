@@ -1,6 +1,8 @@
 package com.ahmeddebbech.aries_messenger.views.adapters;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +19,10 @@ import com.ahmeddebbech.aries_messenger.contracts.ContractItemList;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.UserItemPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
+import com.ahmeddebbech.aries_messenger.util.ImageHelper;
 import com.ahmeddebbech.aries_messenger.views.activities.ContactProfile;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
@@ -133,31 +137,47 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserItemAdapter.MainViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final UserItemAdapter.MainViewHolder holder, int position) {
         ItemUser currentItem = list.get(position);
         if(currentItem.getPhoto() != null){
             Picasso.get().load(currentItem.getPhoto()).into(holder.photo);
+            Picasso.get().load(currentItem.getPhoto()).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Bitmap bt = ImageHelper.getRoundedCornerBitmap(bitmap);
+                    holder.photo.setImageBitmap(bt);
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                }
+            });
         }
         holder.disp.setText(currentItem.getDisplayName());
         holder.username.setText(currentItem.getUsername());
         holder.uid.setText(currentItem.getUid());
         holder.refToModel = currentItem;
-        //check how the button should be shown base on the existance of the connection
+        //check how the button should be shown base on the existence of the connection
         if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.CONNECTED)) {
             holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
             holder.addbutton.setBackgroundResource(R.drawable.ic_disconnect_connection);
         }else {
             if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.PENDING)){
                 holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                holder. addbutton.setBackgroundResource(R.drawable.ic_baseline_accept);
+                //holder. addbutton.setBackgroundResource(R.drawable.ic_baseline_accept);
                 holder.refusebutton.setVisibility(View.VISIBLE);
             }else{
                 if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.WAITING)){
                     holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorAccent));
-                    holder.addbutton.setBackgroundResource(R.drawable.ic_waiting_connection);
+                    //holder.addbutton.setBackgroundResource(R.drawable.ic_waiting_connection);
                 }else{
                     holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                    holder.addbutton.setBackgroundResource(R.drawable.ic_add_connection);
+                    //holder.addbutton.setBackgroundResource(R.drawable.ic_add_connection);
                 }
             }
         }
