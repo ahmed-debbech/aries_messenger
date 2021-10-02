@@ -75,7 +75,7 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
             addbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addbutton.setBackgroundResource(R.drawable.ic_waiting_connection);
+                    addbutton.setImageResource(R.drawable.ic_waiting_connection);
                     addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorAccent));
                     if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.CONNECTED)){
                         pres.removeFromContact(uid.getText().toString());
@@ -105,19 +105,19 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
         public void updateUi() {
             if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.CONNECTED)) {
                 addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                addbutton.setBackgroundResource(R.drawable.ic_disconnect_connection);
+                addbutton.setImageResource(R.drawable.ic_disconnect_connection);
             }else {
                 if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.PENDING)){
                     addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                    addbutton.setBackgroundResource(R.drawable.ic_baseline_accept);
+                    addbutton.setImageResource(R.drawable.ic_baseline_accept);
                     refusebutton.setVisibility(View.VISIBLE);
                 }else{
                     if(UserManager.getInstance().searchForConnection(refToModel.getUid(), UserManager.WAITING)){
                         addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorAccent));
-                        addbutton.setBackgroundResource(R.drawable.ic_waiting_connection);
+                        addbutton.setImageResource(R.drawable.ic_waiting_connection);
                     }else{
                         addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                        addbutton.setBackgroundResource(R.drawable.ic_add_connection);
+                        addbutton.setImageResource(R.drawable.ic_add_connection);
                     }
                 }
             }
@@ -165,19 +165,19 @@ public class UserItemAdapter extends RecyclerView.Adapter<UserItemAdapter.MainVi
         //check how the button should be shown base on the existence of the connection
         if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.CONNECTED)) {
             holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-            holder.addbutton.setBackgroundResource(R.drawable.ic_disconnect_connection);
+            holder.addbutton.setImageResource(R.drawable.ic_disconnect_connection);
         }else {
             if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.PENDING)){
                 holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                //holder. addbutton.setBackgroundResource(R.drawable.ic_baseline_accept);
+                holder. addbutton.setImageResource(R.drawable.ic_baseline_accept);
                 holder.refusebutton.setVisibility(View.VISIBLE);
             }else{
                 if(UserManager.getInstance().searchForConnection(holder.refToModel.getUid(), UserManager.WAITING)){
                     holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorAccent));
-                    //holder.addbutton.setBackgroundResource(R.drawable.ic_waiting_connection);
+                    holder.addbutton.setImageResource(R.drawable.ic_waiting_connection);
                 }else{
                     holder.addbutton.setBackgroundColor(UserItemAdapter.sa.getResources().getColor(R.color.colorPrimary));
-                    //holder.addbutton.setBackgroundResource(R.drawable.ic_add_connection);
+                    holder.addbutton.setImageResource(R.drawable.ic_add_connection);
                 }
             }
         }
