@@ -62,6 +62,12 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        pres.loadContacts(UserManager.getInstance().getUserModel().getUid());
+    }
+
+    @Override
     public void showContacts(List<ItemUser> list) {
         if(getActivity() != null) {
             srl = (SwipeRefreshLayout) getActivity().findViewById(R.id.connections_swipe_refresh);
@@ -76,14 +82,15 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
             connections_grid.setLayoutManager(layoutManager);
 
             adapter = new ContactsGridAdapter(list, getContext());
+            srl.setRefreshing(false);
+            srl.setRefreshing(false);
             if (list == null) {
                 return;
             } else {
                 if (list.isEmpty()) {
-                    return;
+                    connections_grid.setAdapter(adapter);
                 } else {
                     connections_grid.setAdapter(adapter);
-                    srl.setRefreshing(false);
                 }
             }
         }
