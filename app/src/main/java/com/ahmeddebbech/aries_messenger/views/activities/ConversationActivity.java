@@ -30,11 +30,15 @@ import com.ahmeddebbech.aries_messenger.presenter.ConversationPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.util.FlagResolver;
+import com.ahmeddebbech.aries_messenger.util.InputChecker;
+import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 import com.ahmeddebbech.aries_messenger.views.adapters.MessagesListAdapter;
 import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ConversationActivity extends AppCompatActivity implements ContractConversation.View {
@@ -107,6 +111,19 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
             public void onClick(View v) {
                 presenter.sendMessage(messageField.getText().toString(), correspondedUser.getUid());
                 reply_hlin.setVisibility(View.GONE);
+                no_msg_hint.setVisibility(View.INVISIBLE);
+                Message m = new Message();
+                m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
+                m.setId_conv(null);
+                m.setId("1111");
+                m.setIndex(1);
+                m.setContent(InputChecker.makeMessageFine(messageField.getText().toString()));
+                Date date = new Date();
+                Timestamp time = new Timestamp(date.getTime());
+                m.setDate(time.toString());
+                m.setStatus(Message.SENT);
+                adapter.addMessage(m);
+                adapter.notifyDataSetChanged();
             }
         });
         this.displayName.setOnClickListener(new View.OnClickListener() {
@@ -263,10 +280,9 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         list_messages.post(new Runnable() {
             @Override
             public void run() {
-                list_messages.smoothScrollToPosition(adapter.getItemCount());
+                list_messages.scrollToPosition(adapter.getItemCount());
             }
         });
-        //presenter.trackNewMessages();
     }
 
     @Override

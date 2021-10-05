@@ -9,7 +9,9 @@ import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.ahmeddebbech.aries_messenger.util.ConversationFactory;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
+import com.ahmeddebbech.aries_messenger.util.MessageFactory;
 import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 
 import java.sql.Timestamp;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,35 +41,28 @@ public class MessengerManager extends Presenter{
         }
         return instance;
     }
-    public void sendMessage(String msg, String receiver, Presenter pres) {
+    public Message sendMessage(String msg, String receiver, Presenter pres) {
         Conversation cv = null;
         if (this.getCurrentConv() == null) {
-            cv = new Conversation();
-            cv.setId(RandomIdGenerator.generateConversationId(UserManager.getInstance().getUserModel().getUid(), receiver));
-            cv.setCount(0);
             List<String> mem = new ArrayList<>();
             mem.add(UserManager.getInstance().getUserModel().getUid());
             mem.add(receiver);
-            cv.setMembers(mem);
-            cv.setLatest_msg("");
+            cv = ConversationFactory.getConversation(mem);
             this.setCurrentConv(cv);
+            if(UserManager.getInstance().getUserModel().getConversations() == null) {
+                UserManager.getInstance().getUserModel().setConversations(new HashMap<String, String>());
+            }
             UserManager.getInstance().getUserModel().getConversations().put(receiver, cv.getId());
         }
-        Message m = new Message();
-        m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
-        m.setId_conv(this.getCurrentConv().getId());
-        m.setId(RandomIdGenerator.generateMessageId(this.getCurrentConv().getId()));
-        m.setIndex(this.getCurrentConv().getCount() + 1);
-        m.setContent(InputChecker.makeMessageFine(msg));
-        if(msg_to_repply_to != null){
-            m.setId_reply_msg(msg_to_repply_to.getId());
+        Message m = null;
+        if(msg_to_repply_to != null) {
+            m = MessageFactory.getMessage(this.getCurrentConv(), InputChecker.makeMessageFine(msg), msg_to_repply_to.getId());
             msg_to_repply_to = null;
+        }else{
+            m = MessageFactory.getMessage(this.getCurrentConv(), InputChecker.makeMessageFine(msg), null);
         }
-        Date date = new Date();
-        Timestamp time = new Timestamp(date.getTime());
-        m.setDate(time.toString());
-        m.setStatus(Message.SENT);
-        DbConnector.connectToSendMessage(receiver, m, cv);
+        DbConnector.connectToSendMessage(receiver, m, this.getCurrentConv());
+        return m;
     }
 
     public void checkNewMessages(String uid , Presenter pres){

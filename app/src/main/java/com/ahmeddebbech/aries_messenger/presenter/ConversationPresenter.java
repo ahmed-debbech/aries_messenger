@@ -37,7 +37,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     public void sendMessage(String msg, String receiver) {
         if (!msg.equals("")) {
             if (!InputChecker.isLonger(msg, 1000)) {
-                MessengerManager.getInstance().sendMessage(msg, receiver, this);
+                Message mm = MessengerManager.getInstance().sendMessage(msg, receiver, this);
                 activity.clearField();
             } else {
                 activity.showError("Your Message is too long");

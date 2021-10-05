@@ -1,7 +1,5 @@
 package com.ahmeddebbech.aries_messenger.views.adapters;
 
-import android.os.Messenger;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeddebbech.aries_messenger.R;
@@ -30,7 +26,6 @@ import com.ahmeddebbech.aries_messenger.util.AriesCalendar;
 import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -54,6 +49,11 @@ public class MessagesListAdapter extends RecyclerView.Adapter<MessagesListAdapte
         return list;
     }
 
+    public void addMessage(Message m){
+        if(this.list != null){
+            this.list.add(m);
+        }
+    }
     public void setList(List<Message> list) {
         this.list = list;
     }
