@@ -112,18 +112,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                 presenter.sendMessage(messageField.getText().toString(), correspondedUser.getUid());
                 reply_hlin.setVisibility(View.GONE);
                 no_msg_hint.setVisibility(View.INVISIBLE);
-                Message m = new Message();
-                m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
-                m.setId_conv(null);
-                m.setId("1111");
-                m.setIndex(1);
-                m.setContent(InputChecker.makeMessageFine(messageField.getText().toString()));
-                Date date = new Date();
-                Timestamp time = new Timestamp(date.getTime());
-                m.setDate(time.toString());
-                m.setStatus(Message.SENT);
-                adapter.addMessage(m);
-                adapter.notifyDataSetChanged();
             }
         });
         this.displayName.setOnClickListener(new View.OnClickListener() {
@@ -244,6 +232,17 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
     public void updateMessage(Message m) {
         adapter.updateMessage(m);
         adapter.notifyItemChanged(adapter.indexOfMessage(m));
+    }
+
+    @Override
+    public void pushMessageToScreen(Message m) {
+        adapter.addMessage(m);
+        list_messages.post(new Runnable() {
+            @Override
+            public void run() {
+                list_messages.smoothScrollToPosition(adapter.getItemCount());
+            }
+        });
     }
 
     @Override
