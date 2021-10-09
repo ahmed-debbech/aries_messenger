@@ -1,6 +1,8 @@
 package com.ahmeddebbech.aries_messenger.views.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,12 +16,14 @@ import com.ahmeddebbech.aries_messenger.presenter.MainPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.threads.InitialDataRetrieverThread;
+import com.ahmeddebbech.aries_messenger.util.ImageHelper;
 import com.ahmeddebbech.aries_messenger.views.fragments.ConnectionsFragment;
 import com.ahmeddebbech.aries_messenger.views.fragments.ProfileFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,8 +40,10 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     private TextView username_nav;
     private TextView displayName_nav;
     private ImageView photo_nav;
+    private ImageView main_photo_bar;
     private ProgressBar wait_loop;
     private View header_nav;
+    private TextView fragment_title_var;
     private NavigationView navigationView;
     private ImageView requests_main;
 
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        fragment_title_var = findViewById(R.id.fragment_title_var);
 
         presenter = new MainPresenter(this);
         navigationView = findViewById(R.id.nav_view);
@@ -56,11 +63,13 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch(menuItem.getItemId()){
                     case R.id.profile_nav:
+                        fragment_title_var.setText(R.string.your_profile_title);
                         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ProfileFragment())
                                 .commit();
                         navigationView.setCheckedItem(R.id.profile_nav);
                         break;
                     case R.id.connections_nav:
+                        fragment_title_var.setText(R.string.your_connection_title);
                         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment())
                                 .commit();
                         navigationView.setCheckedItem(R.id.connections_nav);
@@ -108,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
     public void setClickListeners(){
         final DrawerLayout dl = findViewById(R.id.drawer_layout1);
-        findViewById(R.id.hamburger1).setOnClickListener(new View.OnClickListener(){
+        findViewById(R.id.main_photo_bar).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 dl.openDrawer(GravityCompat.START);
@@ -155,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         displayName_nav = (TextView) header_nav.findViewById(R.id.sideDisplayName);
         username_nav = (TextView) header_nav.findViewById(R.id.sideUsername);
         photo_nav = header_nav.findViewById(R.id.sidePhoto);
+        main_photo_bar = findViewById(R.id.main_photo_bar);
         navigationView.setCheckedItem(R.id.connections_nav);
         presenter.fillViewsWithUserData();
     }
@@ -206,8 +216,26 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         username_nav.setText(usern);
         if(image != null) {
             Picasso.get().load(image).resize(200, 200).into(photo_nav);
+            Picasso.get().load(image).resize(92, 92).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Bitmap bt = ImageHelper.getRoundedCornerBitmap(bitmap);
+                    main_photo_bar.setImageBitmap(bt);
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new ConnectionsFragment()).commit();
+        fragment_title_var.setText(R.string.your_connection_title);
         navigationView.setCheckedItem(R.id.connections_nav);
     }
 

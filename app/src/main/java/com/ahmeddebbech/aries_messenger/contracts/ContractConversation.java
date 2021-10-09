@@ -20,7 +20,7 @@ public interface ContractConversation {
     }
     interface Presenter{
         void sendMessage(String msg, String receiver);
-        void loadUser(String uid);
+        void initChat(String uidB);
         void getConversation(String uidA, String uidB);
         void trackIsTypingStatus(String uid);
         void sendTypingSignal(boolean signal);

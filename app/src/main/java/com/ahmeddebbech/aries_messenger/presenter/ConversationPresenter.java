@@ -46,12 +46,10 @@ public class ConversationPresenter extends Presenter implements ContractConversa
         }
     }
 
-    @Override
-    public void loadUser(String uid) {
+    private void loadUser(String uid) {
         DbConnector.connectToGetUserByUid(uid, DatabaseOutputKeys.GET_USER_FROM_UID, this, false);
     }
 
-    @Override
     public void getConversation(String uidA, String uidB) {
         DbConnector.connectToGetOneConversation(uidA, uidB, this);
     }
@@ -61,7 +59,6 @@ public class ConversationPresenter extends Presenter implements ContractConversa
         DbConnector.connectToTrackWhosTyping(UserManager.getInstance().getConvId(uid),this);
     }
 
-    @Override
     public void sendTypingSignal(boolean signal) {
         if(MessengerManager.getInstance().getCurrentConv() != null) {
             if (signal == true) {
@@ -72,7 +69,6 @@ public class ConversationPresenter extends Presenter implements ContractConversa
         }
     }
 
-    @Override
     public void trackNewMessages(String uid) {
         if(UserManager.getInstance().getUserModel().getConversations() != null) {
             if (UserManager.getInstance().getUserModel().getConversations().containsKey(uid)) {
@@ -92,6 +88,14 @@ public class ConversationPresenter extends Presenter implements ContractConversa
     public void blockConnection(String uid) {
         UserManager.getInstance().removeContact(uid);
         DbConnector.connectToBlockConnection(UserManager.getInstance().getUserModel().getUid(), uid);
+    }
+
+    @Override
+    public void initChat( String uidB) {
+        this.loadUser(uidB);
+        this.getConversation(UserManager.getInstance().getUserModel().getUid(), uidB);
+        this.trackNewMessages(uidB);
+        this.trackIsTypingStatus(uidB);
     }
 
     @Override

@@ -222,10 +222,7 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
         super.onStart();
         adapter = new MessagesListAdapter(new ArrayList<Message>(), correspondedUser);
         list_messages.setAdapter(adapter);
-        presenter.loadUser(correspondedUser.getUid());
-        presenter.getConversation(UserManager.getInstance().getUserModel().getUid(), correspondedUser.getUid());
-        presenter.trackNewMessages(correspondedUser.getUid());
-        presenter.trackIsTypingStatus(correspondedUser.getUid());
+        presenter.initChat(correspondedUser.getUid());
     }
 
     @Override

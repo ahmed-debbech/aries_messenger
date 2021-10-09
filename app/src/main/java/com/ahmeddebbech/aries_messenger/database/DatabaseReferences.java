@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class DatabaseReferences {
+
     public static int MAX_CONVS_LISTENERS = 2000;
     public static DatabaseReference REF_USER;
     public static ValueEventListener LIS_USER;
