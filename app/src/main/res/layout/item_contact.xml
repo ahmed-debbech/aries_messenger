@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
-    android:layout_width="wrap_content"
+    android:layout_width="100dp"
     android:layout_height="160dp"
     android:layout_margin="5dp"
+    android:layout_weight="1"
     app:cardBackgroundColor="#ffffff"
     app:cardCornerRadius="10dp"
     app:cardElevation="8dp">
@@ -14,18 +15,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="10dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/ct_photo"
-            android:layout_width="104dp"
-            android:layout_height="76dp"
-            android:scaleType="centerCrop" />
+            android:layout_width="64dp"
+            android:layout_gravity="center"
+            android:layout_height="64dp"/>
 
         <TextView
             android:id="@+id/ct_displayname"
-            android:layout_width="104dp"
-            android:text="wegojweuighijrifkerfu"
+            android:layout_width="match_parent"
+            android:text="name_of_contact"
+            android:maxLines="1"
             android:textAlignment="center"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
@@ -34,12 +36,13 @@
 
         <TextView
             android:id="@+id/last_message"
-            android:layout_width="104dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
+            android:maxLines="3"
             android:text="Hello, how are you? :)"
             android:textAlignment="center"
-            android:textColor="@color/hint_messages"
+            android:textColor="@color/colorAccent"
             android:textSize="10sp" />
     </LinearLayout>
 

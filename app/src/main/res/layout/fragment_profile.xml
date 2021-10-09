@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollview1"
     android:layout_width="match_parent"
+    android:background="@color/colorAccent2"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -20,7 +20,7 @@ public class ImageHelper {
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         final RectF rectF = new RectF(rect);
-        final float roundPx = 50;
+        final float roundPx = 100;
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
