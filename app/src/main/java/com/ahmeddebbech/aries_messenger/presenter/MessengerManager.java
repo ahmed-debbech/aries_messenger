@@ -69,10 +69,6 @@ public class MessengerManager extends Presenter{
         DbConnector.connectToCheckNewMessages(uid, UserManager.getInstance().getAllConvsIds(), pres);
     }
 
-    public void updateMessagesStatus(String status) {
-        System.out.println("deliver detected!");
-    }
-
     public void updateMessageState(String state, String convid, String msg_id){
         if(state == Message.SEEN){
             DbConnector.connectToUpdateMessageState(state, convid, msg_id);
@@ -156,11 +152,6 @@ public class MessengerManager extends Presenter{
         }
     }
 
-    public void removeFromLatestUpdatedConvs(Conversation cv){
-        if(this.latest_updated_convs != null){
-            this.latest_updated_convs.remove(cv);
-        }
-    }
     public void removeFromLatestUpdatedConvs(String uid){
         if(UserManager.getInstance().getUserModel().getConversations() != null) {
             if (UserManager.getInstance().getUserModel().getConversations().containsKey(uid)) {

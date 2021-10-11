@@ -83,8 +83,7 @@ public class ConnectionsFragment extends Fragment implements ContractConnections
 
             adapter = new ContactsGridAdapter(list, getContext());
             srl.setRefreshing(false);
-            srl.setRefreshing(false);
-            if (list == null) {
+             if (list == null) {
                 return;
             } else {
                 if (list.isEmpty()) {

@@ -98,6 +98,10 @@ public class ConversationPresenter extends Presenter implements ContractConversa
         this.trackIsTypingStatus(uidB);
     }
 
+    private void updateSeenIndex(Conversation cv){
+        DbConnector.connectToUpdateConversation(cv, UserManager.getInstance().getUserModel().getUid());
+    }
+
     @Override
     public void returnData(DatabaseOutput obj) {
         if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_USER_FROM_UID){
@@ -118,6 +122,7 @@ public class ConversationPresenter extends Presenter implements ContractConversa
                         Conversation cv = (Conversation) obj.getObj();
                         MessengerManager.getInstance().setCurrentConv(cv);
                         activity.showHint(true);
+                        updateSeenIndex(cv);
                     }else{
                         MessengerManager.getInstance().setCurrentConv(null);
                         activity.showHint(false);

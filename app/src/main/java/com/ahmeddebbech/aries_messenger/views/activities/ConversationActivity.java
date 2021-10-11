@@ -167,7 +167,6 @@ public class ConversationActivity extends AppCompatActivity implements ContractC
                         break;
                 }
             }
-
         };
         ith = new ItemTouchHelper(simpleSwipeCallback);
         ith.attachToRecyclerView(list_messages);

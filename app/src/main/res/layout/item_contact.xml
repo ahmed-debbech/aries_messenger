@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
-    android:layout_width="100dp"
+    android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     android:layout_weight="1"
     app:cardBackgroundColor="#ffffff"
     app:cardCornerRadius="10dp"
@@ -26,12 +26,15 @@
         <TextView
             android:id="@+id/ct_displayname"
             android:layout_width="match_parent"
-            android:text="name_of_contact"
-            android:maxLines="1"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="sans-serif"
-            android:textColor="@color/naturalText" />
+            android:maxLines="2"
+            android:text="name_of_contact"
+            android:textAlignment="center"
+            android:textColor="@color/naturalText"
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
 
         <TextView

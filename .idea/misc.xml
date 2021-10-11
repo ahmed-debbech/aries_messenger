@@ -32,7 +32,7 @@
         <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/textview_back.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/activity_about.xml" value="0.35989583333333336" />
+        <entry key="app/src/main/res/layout/activity_about.xml" value="0.31563421828908556" />
         <entry key="app/src/main/res/layout/activity_blocked.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_contact_profile.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/activity_conversation.xml" value="0.4585714285714286" />
@@ -48,7 +48,7 @@
         <entry key="app/src/main/res/layout/fragment_connections.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/item_blocked_user.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/item_contact.xml" value="0.75" />
+        <entry key="app/src/main/res/layout/item_contact.xml" value="0.4310998735777497" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/item_user.xml" value="0.5" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.35989583333333336" />

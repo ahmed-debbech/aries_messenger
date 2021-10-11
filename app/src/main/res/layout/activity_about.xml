@@ -25,5 +25,5 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Version name: 0.1" />
+        android:text="Version name: 0.2" />
 </LinearLayout>
