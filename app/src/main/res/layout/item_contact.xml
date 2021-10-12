@@ -6,10 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="160dp"
     android:layout_margin="10dp"
+
     android:layout_weight="1"
     app:cardBackgroundColor="#ffffff"
     app:cardCornerRadius="10dp"
-    app:cardElevation="8dp">
+    app:cardElevation="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,9 +20,9 @@
 
         <ImageView
             android:id="@+id/ct_photo"
-            android:layout_width="64dp"
-            android:layout_gravity="center"
-            android:layout_height="64dp"/>
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/ct_displayname"
@@ -32,7 +33,7 @@
             android:maxLines="2"
             android:text="name_of_contact"
             android:textAlignment="center"
-            android:textColor="@color/naturalText"
+            android:textColor="@color/sender_message"
             android:textSize="12dp"
             android:textStyle="bold" />
 
@@ -42,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:maxLines="3"
+            android:maxLines="2"
             android:text="Hello, how are you? :)"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"

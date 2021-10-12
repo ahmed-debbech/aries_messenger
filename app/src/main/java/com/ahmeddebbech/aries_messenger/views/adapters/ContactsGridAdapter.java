@@ -101,7 +101,6 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
             holder.cv.setBackground(holder.itemView.getResources().getDrawable(R.drawable.background_gradient));
         }else{
             holder.cv.setBackground(holder.itemView.getResources().getDrawable(R.drawable.default_background_contact_item));
-            holder.displayname.setTextColor(holder.itemView.getResources().getColor(R.color.naturalText));
             holder.last_message.setTextColor(holder.itemView.getResources().getColor(R.color.colorAccent));
         }
     }

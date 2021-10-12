@@ -48,7 +48,7 @@
         <entry key="app/src/main/res/layout/fragment_connections.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/item_blocked_user.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/item_contact.xml" value="0.4310998735777497" />
+        <entry key="app/src/main/res/layout/item_contact.xml" value="0.9" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/item_user.xml" value="0.5" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.35989583333333336" />
