@@ -3,7 +3,9 @@ package com.ahmeddebbech.aries_messenger.threads;
 import android.util.Log;
 
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
+import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
+import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class InitialDataRetrieverThread implements Runnable{
@@ -21,5 +23,6 @@ public class InitialDataRetrieverThread implements Runnable{
         DbConnector.connectToGetConnections(user_uid, calling_presenter);
         DbConnector.connectToGetConversationsIds(user_uid, calling_presenter);
         DbConnector.connectToGetBlockedUsers(user_uid, calling_presenter);
+        UserManager.getInstance().getAccessTokenFromDb();
     }
 }

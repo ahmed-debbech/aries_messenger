@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -99,7 +100,7 @@ public class DbBasic {
         ref.setValue(user);
     }
     public static void searchAllUsersByName(final String name, final Presenter pres){
-        Call<ArrayList<ItemUser>> call = DbConnector.backendServiceApi.searchAllUsersByName(UserManager.getInstance().getUserModel().getUid(), name);
+        Call<ArrayList<ItemUser>> call = DbConnector.backendServiceApi.searchAllUsersByName(UserManager.getInstance().getAccessToken(), name);
 
         call.enqueue(new Callback<ArrayList<ItemUser>>() {
             @Override

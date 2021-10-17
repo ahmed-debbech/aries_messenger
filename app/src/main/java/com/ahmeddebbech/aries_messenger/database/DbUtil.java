@@ -3,6 +3,8 @@ package com.ahmeddebbech.aries_messenger.database;
 import android.util.Log;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
@@ -10,7 +12,11 @@ import com.ahmeddebbech.aries_messenger.presenter.RegisterPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.views.activities.LoginActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -69,5 +75,24 @@ public class DbUtil {
                 Log.d(DatabaseOutputKeys.TAG_DB, "[usernameExists] operation cancelled due to " + databaseError.getCode());
             }
         });
+    }
+    public static void getUserAccessToken(final Presenter p){
+        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(mUser != null) {
+            mUser.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                @Override
+                public void onComplete(@NonNull Task<GetTokenResult> task) {
+                    if (task.isSuccessful()) {
+                        String idToken = task.getResult().getToken();
+                        // Send token to your backend via HTTPS
+                        DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.GET_ACCESS_TOKEN, idToken);
+                        p.returnData(doo);
+                    } else {
+                        // Handle error -> task.getException();
+                        Log.d(DatabaseOutputKeys.TAG_DB, "[getUserAccessToken] operation failed due to an error");
+                    }
+                }
+            });
+        }
     }
 }

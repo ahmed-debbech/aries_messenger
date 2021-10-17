@@ -111,4 +111,7 @@ public class DbConnector {
     public static void connectToSendFeedback(Feedback fb, Presenter pres) {
         DbBasic.sendFeedback(fb, pres);
     }
+    public static void connectToGetUserAccessToken(Presenter p ){
+        DbUtil.getUserAccessToken(p);
+    }
 }

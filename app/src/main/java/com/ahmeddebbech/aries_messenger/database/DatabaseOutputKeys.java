@@ -32,5 +32,6 @@ public class DatabaseOutputKeys {
     public static int GET_CONNECTIONS_NUMBER = 24;
     public static int GET_BLOCKED = 25;
     public static final int FEEDBACK_SENT_ACK = 26;
+    public static final int GET_ACCESS_TOKEN = 27;
 
 }

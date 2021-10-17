@@ -3,9 +3,11 @@ package com.ahmeddebbech.aries_messenger.presenter;
 import android.util.ArrayMap;
 import android.util.Log;
 
+import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DatabaseReferences;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
+import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,13 +17,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserManager {
+public class UserManager extends Presenter{
     public static final String CONNECTED = "connected";
     public static final String PENDING = "pending";
     public static final String WAITING = "waiting";
 
     private User userModel;
     private static UserManager umInstance;
+    private String accessToken;
 
     private UserManager(){
         userModel = new User();
@@ -134,5 +137,20 @@ public class UserManager {
         if(userModel.getBlockedUsers().contains(uid)){
             userModel.getBlockedUsers().remove(uid);
         }
+    }
+
+    @Override
+    public void returnData(DatabaseOutput obj) {
+        if(obj.getDatabaseOutputkey() == DatabaseOutputKeys.GET_ACCESS_TOKEN){
+            this.accessToken = (String) obj.getObj();
+            Log.d("tooken", "returnData: " + accessToken);
+        }
+    }
+
+    public void getAccessTokenFromDb() {
+        DbConnector.connectToGetUserAccessToken(this);
+    }
+    public String getAccessToken(){
+        return this.accessToken;
     }
 }
