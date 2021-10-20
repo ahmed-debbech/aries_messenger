@@ -4,11 +4,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.ahmeddebbech.aries_messenger.database.model.MessagePersist;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
+import com.ahmeddebbech.aries_messenger.model.AriesError;
 import com.ahmeddebbech.aries_messenger.model.Feedback;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
-import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.UserItemPresenter;
@@ -107,6 +106,8 @@ public class DbBasic {
             public void onResponse(Call<ArrayList<ItemUser>> call, Response<ArrayList<ItemUser>> response) {
                 if(!response.isSuccessful()){
                     Log.d(DatabaseOutputKeys.TAG_DB, "[searchAllUsersByName] : the operation was not successful");
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.ANY_ERROR, new AriesError("The search operation was not successful"));
+                    pres.returnData(doo);
                     return;
                 }
                 ArrayList<ItemUser> list = new ArrayList<>();
@@ -122,6 +123,8 @@ public class DbBasic {
             @Override
             public void onFailure(Call<ArrayList<ItemUser>> call, Throwable t) {
                 Log.d(DatabaseOutputKeys.TAG_DB, "[searchAllUsersByName] : could not get users");
+                DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.ANY_ERROR, new AriesError("The search operation was not successful"));
+                pres.returnData(doo);
             }
         });
     }

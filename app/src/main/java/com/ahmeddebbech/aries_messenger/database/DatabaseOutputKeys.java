@@ -5,6 +5,8 @@ public class DatabaseOutputKeys {
 
     private  DatabaseOutputKeys(){}
 
+    public static int ANY_ERROR = -1;
+
     public static int CONVS_IDS_GETTER = 0;
     public static int CHECK_NEW_MESSAGES_KEY = 1;
     public static int CONNECTIONS_UIDS = 2;
