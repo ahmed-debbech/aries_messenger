@@ -157,10 +157,10 @@ public class DbConversations {
         ref.setValue(cv.getId());
         convertToMeta(cv.getId(), pres);
     }
-    public static void sendMessage(final String recep_uid, final Message msg, final Conversation cv){
+    public static void sendMessage(String token, final String recep_uid, final Message msg, final Conversation cv){
 
         MessagePersist mper = new MessagePersist(msg, recep_uid, cv);
-        Call<Message> m = DbConnector.backendServiceApi.sendMessage(mper);
+        Call<Message> m = DbConnector.backendServiceApi.sendMessage(token, mper);
         m.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {

@@ -20,7 +20,7 @@ public interface BackendServiceApi {
     Call<ArrayList<ItemUser>> searchAllUsersByName(@Header("authorization") String token, @Path("text") String text);
 
     @POST("/send_msg")
-    Call<Message> sendMessage(@Body MessagePersist msg);
+    Call<Message> sendMessage(@Header("authorization") String token, @Body MessagePersist msg);
 
     @POST("/push_feedback")
     Call<Boolean> pushFeedback(@Body Feedback fdb);

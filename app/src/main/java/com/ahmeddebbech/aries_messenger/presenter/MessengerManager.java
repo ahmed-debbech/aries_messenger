@@ -61,7 +61,7 @@ public class MessengerManager extends Presenter{
         }else{
             m = MessageFactory.getMessage(this.getCurrentConv(), InputChecker.makeMessageFine(msg), null);
         }
-        DbConnector.connectToSendMessage(receiver, m, this.getCurrentConv());
+        DbConnector.connectToSendMessage(UserManager.getInstance().getAccessToken(), receiver, m, this.getCurrentConv());
         return m;
     }
 
