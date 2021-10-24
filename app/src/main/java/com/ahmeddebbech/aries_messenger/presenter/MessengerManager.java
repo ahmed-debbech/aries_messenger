@@ -5,6 +5,7 @@ import android.util.Log;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.database.DbConversations;
+import com.ahmeddebbech.aries_messenger.model.AriesError;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
@@ -41,7 +42,7 @@ public class MessengerManager extends Presenter{
         }
         return instance;
     }
-    public Message sendMessage(String msg, String receiver, Presenter pres) {
+    public Message buildMessage(String msg, String receiver) {
         Conversation cv = null;
         if (this.getCurrentConv() == null) {
             List<String> mem = new ArrayList<>();
@@ -61,7 +62,6 @@ public class MessengerManager extends Presenter{
         }else{
             m = MessageFactory.getMessage(this.getCurrentConv(), InputChecker.makeMessageFine(msg), null);
         }
-        DbConnector.connectToSendMessage(UserManager.getInstance().getAccessToken(), receiver, m, this.getCurrentConv());
         return m;
     }
 

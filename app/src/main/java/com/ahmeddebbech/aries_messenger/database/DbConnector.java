@@ -69,8 +69,8 @@ public class DbConnector {
     public static void connectToCreateConversation(Conversation cv, Presenter pres) {
         DbConversations.createConversation(cv,pres);
     }
-    public static void connectToSendMessage(String token, String id, Message m, Conversation cv) {
-        DbConversations.sendMessage(token, id,m, cv);
+    public static void connectToSendMessage(String token, String id, Message m, Conversation cv, Presenter pres) {
+        DbConversations.sendMessage(token, id,m, cv, pres);
     }
     public static void connectToTrackWhosTyping(String id, ConversationPresenter conversationPresenter) {
         DbConversations.trackWhosTyping(id, conversationPresenter);

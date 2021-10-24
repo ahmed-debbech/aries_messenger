@@ -1,5 +1,6 @@
 package com.ahmeddebbech.aries_messenger.contracts;
 
+import com.ahmeddebbech.aries_messenger.model.AriesError;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
 
@@ -11,6 +12,7 @@ public interface ContractConversation {
         void showHint(Boolean res);
         void loadMessages(List<Message> list);
         void showError(String error);
+        void showError(AriesError err);
         void clearField();
         void showTypingLabel(String id);
         void hideTypingLabel();

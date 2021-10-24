@@ -11,7 +11,7 @@ public class MessageFactory {
 
     public static Message getMessage(Conversation conv, String content, String msg_to_reply_to_id){
         Message m = new Message();
-        m.setSender_uid(UserManager.getInstance().getUserModel().getUid());
+        m.setSender_uid("gggg");
         m.setId_conv(conv.getId());
         m.setId(RandomIdGenerator.generateMessageId(conv.getId()));
         m.setIndex(conv.getCount() + 1);

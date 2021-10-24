@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.solver.widgets.Snapshot;
 
 import com.ahmeddebbech.aries_messenger.database.model.MessagePersist;
+import com.ahmeddebbech.aries_messenger.model.AriesError;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
@@ -157,19 +158,28 @@ public class DbConversations {
         ref.setValue(cv.getId());
         convertToMeta(cv.getId(), pres);
     }
-    public static void sendMessage(String token, final String recep_uid, final Message msg, final Conversation cv){
+    public static void sendMessage(String token, final String recep_uid, final Message msg, final Conversation cv, final Presenter pres){
 
         MessagePersist mper = new MessagePersist(msg, recep_uid, cv);
         Call<Message> m = DbConnector.backendServiceApi.sendMessage(token, mper);
         m.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
+                if(response.code() == 406){
+                    Log.d(DatabaseOutputKeys.TAG_DB, "onResponse: " + response.body() );
+                    DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.ANY_ERROR, new AriesError("The sending operation was not successful"));
+                    pres.returnData(doo);
+                    return;
+                }
                 Log.d(DatabaseOutputKeys.TAG_DB, "onResponse: " + response.body() );
             }
 
             @Override
             public void onFailure(Call<Message> call, Throwable t) {
                 Log.d(DatabaseOutputKeys.TAG_DB, "[sendMessage] operation failed "+ t.getMessage() );
+                DatabaseOutput doo = new DatabaseOutput(DatabaseOutputKeys.ANY_ERROR, new AriesError("The sending operation was not successful"));
+                pres.returnData(doo);
+                return;
             }
         });
     }
