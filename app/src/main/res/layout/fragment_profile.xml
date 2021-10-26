@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:padding="6dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/textview_back"
+            android:background="@drawable/editline_rounded"
             android:layout_marginTop="40dp"
             android:text="BIO... this is my bio guys i am ahmed i created aries for fun."
             android:textColor="@color/naturalText"

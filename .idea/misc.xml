@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-anydpi/ic_logout.xml" value="0.26564102564102565" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_profile.xml" value="0.375" />
         <entry key="app/src/main/res/drawable-anydpi/ic_settings.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/drawable/background_gradient.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/background_gradient_2.xml" value="0.21822916666666667" />
@@ -12,26 +13,41 @@
         <entry key="app/src/main/res/drawable/editline_rounded.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/ic_add_connection.xml" value="0.19427083333333334" />
         <entry key="app/src/main/res/drawable/ic_baseline_accept.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_accessibility_new_24.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/ic_baseline_block_24.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/ic_baseline_edit_pencil.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/drawable/ic_baseline_edit_pencil_button.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/ic_baseline_feedback_24.xml" value="0.3770833333333333" />
+        <entry key="app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/ic_baseline_people_24.xml" value="0.26564102564102565" />
         <entry key="app/src/main/res/drawable/ic_baseline_people_alt_24.xml" value="0.11388888888888889" />
         <entry key="app/src/main/res/drawable/ic_baseline_people_red_24.xml" value="0.17037037037037037" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_off_24.xml" value="0.11388888888888889" />
+        <entry key="app/src/main/res/drawable/ic_baseline_refuse_24.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable/ic_clear_black.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/drawable/ic_delivered.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable/ic_disconnect_connection.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable/ic_logout.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/ic_people_nav_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.375" />
+        <entry key="app/src/main/res/drawable/ic_seen.xml" value="0.375" />
         <entry key="app/src/main/res/drawable/ic_send_button.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/ic_sent.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/linearlayout_rounded.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/notification_badge.xml" value="0.26564102564102565" />
+        <entry key="app/src/main/res/drawable/null_background.xml" value="0.2171875" />
         <entry key="app/src/main/res/drawable/rounded_button.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/rounded_button_secondary.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/drawable/textview_back.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/drawable/textview_background.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.31563421828908556" />
         <entry key="app/src/main/res/layout/activity_blocked.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_contact_profile.xml" value="0.35989583333333336" />
@@ -49,7 +65,7 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/item_blocked_user.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_contact.xml" value="0.9" />
-        <entry key="app/src/main/res/layout/item_message.xml" value="0.35989583333333336" />
+        <entry key="app/src/main/res/layout/item_message.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_user.xml" value="0.5" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/menu/activity_login_menu.xml" value="0.35989583333333336" />

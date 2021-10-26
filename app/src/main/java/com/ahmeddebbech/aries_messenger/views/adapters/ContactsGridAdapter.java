@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,8 +19,6 @@ import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.util.ImageHelper;
 import com.ahmeddebbech.aries_messenger.views.activities.ConversationActivity;
-import com.ahmeddebbech.aries_messenger.views.activities.LoginActivity;
-import com.ahmeddebbech.aries_messenger.views.activities.MainActivity;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -98,7 +94,7 @@ public class ContactsGridAdapter extends RecyclerView.Adapter<ContactsGridAdapte
             }
         });
         if(MessengerManager.getInstance().hasNewMessages(uid)) {
-            holder.cv.setBackground(holder.itemView.getResources().getDrawable(R.drawable.background_gradient));
+            holder.cv.setBackground(holder.itemView.getResources().getDrawable(R.drawable.green_background_gradient));
         }else{
             holder.cv.setBackground(holder.itemView.getResources().getDrawable(R.drawable.default_background_contact_item));
             holder.last_message.setTextColor(holder.itemView.getResources().getColor(R.color.colorAccent));
