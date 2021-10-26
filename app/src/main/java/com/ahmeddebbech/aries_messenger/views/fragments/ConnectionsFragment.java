@@ -9,23 +9,17 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractConnectionsFrag;
-import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.ConnectionsFragPresenter;
-import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
-import com.ahmeddebbech.aries_messenger.views.activities.MainActivity;
 import com.ahmeddebbech.aries_messenger.views.adapters.ContactsGridAdapter;
-import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ConnectionsFragment extends Fragment implements ContractConnectionsFrag.View {

@@ -1,13 +1,10 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
-import android.util.Log;
-
 import com.ahmeddebbech.aries_messenger.contracts.ContractRequests;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
-import com.ahmeddebbech.aries_messenger.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

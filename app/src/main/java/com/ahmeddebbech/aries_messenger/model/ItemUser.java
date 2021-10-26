@@ -1,10 +1,6 @@
 package com.ahmeddebbech.aries_messenger.model;
 
-import android.util.Log;
-
 import androidx.annotation.Nullable;
-
-import com.ahmeddebbech.aries_messenger.database.DbConnector;
 
 public class ItemUser {
     private String photo;

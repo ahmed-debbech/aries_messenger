@@ -5,7 +5,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractRegistration;
-import com.ahmeddebbech.aries_messenger.database.DbConnector;
-import com.ahmeddebbech.aries_messenger.database.DbUtil;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.RegisterPresenter;
-import com.ahmeddebbech.aries_messenger.presenter.UserManager;
-import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 public class RegisterActivity extends AppCompatActivity implements ContractRegistration.View {
     private RegisterPresenter presenter;

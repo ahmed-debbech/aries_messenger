@@ -1,13 +1,10 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
-import android.util.Log;
-
 import com.ahmeddebbech.aries_messenger.contracts.ContractFeedback;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Feedback;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 public class FeedbackPresenter extends Presenter implements ContractFeedback.Presenter{

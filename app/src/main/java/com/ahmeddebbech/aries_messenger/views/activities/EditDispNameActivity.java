@@ -4,15 +4,11 @@ import android.os.Bundle;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractDNameEdit;
-import com.ahmeddebbech.aries_messenger.database.DbBasic;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.EditDNamePresenter;
-import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.MenuItem;
 import android.view.View;

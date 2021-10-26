@@ -1,11 +1,8 @@
 package com.ahmeddebbech.aries_messenger.database;
 
-import android.util.Log;
-
 import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class DatabaseReferences {

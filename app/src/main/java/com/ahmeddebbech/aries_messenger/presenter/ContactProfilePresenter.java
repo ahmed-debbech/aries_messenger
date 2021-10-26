@@ -1,16 +1,10 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
-import android.util.Log;
-
 import com.ahmeddebbech.aries_messenger.contracts.ContractContactProfile;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
-import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
-import com.ahmeddebbech.aries_messenger.database.DbUtil;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.User;
-
-import java.sql.Connection;
 
 public class ContactProfilePresenter extends Presenter implements ContractContactProfile.Presenter {
 

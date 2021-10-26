@@ -16,12 +16,7 @@ import android.widget.Toast;
 
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractBioEdit;
-import com.ahmeddebbech.aries_messenger.database.DbBasic;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.presenter.EditBioPresenter;
-import com.ahmeddebbech.aries_messenger.util.InputChecker;
-
-import org.w3c.dom.Text;
 
 public class EditBioActivity extends AppCompatActivity implements ContractBioEdit.View {
 

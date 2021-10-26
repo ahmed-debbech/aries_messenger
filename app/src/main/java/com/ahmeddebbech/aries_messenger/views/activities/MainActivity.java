@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.presenter.MainPresenter;
-import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 import com.ahmeddebbech.aries_messenger.threads.InitialDataRetrieverThread;
 import com.ahmeddebbech.aries_messenger.util.ImageHelper;

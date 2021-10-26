@@ -1,7 +1,6 @@
 package com.ahmeddebbech.aries_messenger.util;
 
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;

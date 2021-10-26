@@ -1,16 +1,6 @@
 package com.ahmeddebbech.aries_messenger.database;
 
-import androidx.annotation.NonNull;
-
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class DbSync {
 

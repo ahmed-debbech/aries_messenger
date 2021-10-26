@@ -1,16 +1,12 @@
 package com.ahmeddebbech.aries_messenger.database;
 
 import android.util.Log;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
-import com.ahmeddebbech.aries_messenger.presenter.LoginPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.Presenter;
-import com.ahmeddebbech.aries_messenger.presenter.RegisterPresenter;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
-import com.ahmeddebbech.aries_messenger.views.activities.LoginActivity;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,9 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DbUtil {
 

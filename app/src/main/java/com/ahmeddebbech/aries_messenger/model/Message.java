@@ -1,13 +1,8 @@
 package com.ahmeddebbech.aries_messenger.model;
 
 
-import android.graphics.drawable.Drawable;
-import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.ahmeddebbech.aries_messenger.R;
 
 public class Message {
     public static final String SENT ="sent";

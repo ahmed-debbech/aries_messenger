@@ -5,7 +5,6 @@ import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 
-import java.util.List;
 import java.util.Map;
 
 public class UserItemPresenter extends Presenter implements ContractItemList.Presenter {

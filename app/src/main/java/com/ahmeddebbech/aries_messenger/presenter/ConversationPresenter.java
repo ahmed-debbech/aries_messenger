@@ -1,30 +1,16 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
-import android.os.Messenger;
-import android.util.Log;
-
 import com.ahmeddebbech.aries_messenger.contracts.ContractConversation;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
 import com.ahmeddebbech.aries_messenger.database.DatabaseReferences;
-import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
-import com.ahmeddebbech.aries_messenger.database.DbConversations;
 import com.ahmeddebbech.aries_messenger.model.AriesError;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.Message;
 import com.ahmeddebbech.aries_messenger.model.User;
-import com.ahmeddebbech.aries_messenger.util.ConversationFactory;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
-import com.ahmeddebbech.aries_messenger.util.MessageFactory;
-import com.ahmeddebbech.aries_messenger.util.RandomIdGenerator;
 
-import java.lang.reflect.Array;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public class ConversationPresenter extends Presenter implements ContractConversation.Presenter {

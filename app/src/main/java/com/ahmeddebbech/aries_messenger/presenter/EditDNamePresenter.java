@@ -1,12 +1,8 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
-import android.widget.Toast;
-
 import com.ahmeddebbech.aries_messenger.contracts.ContractDNameEdit;
-import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
-import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.InputChecker;
 
 public class EditDNamePresenter extends Presenter implements ContractDNameEdit.Presenter {

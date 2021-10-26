@@ -1,11 +1,5 @@
 package com.ahmeddebbech.aries_messenger.util;
 
-import android.util.Log;
-
-import com.ahmeddebbech.aries_messenger.presenter.UserManager;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class GeneralUtils {

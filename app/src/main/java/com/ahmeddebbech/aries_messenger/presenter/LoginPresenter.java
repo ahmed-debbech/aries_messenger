@@ -1,7 +1,6 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ahmeddebbech.aries_messenger.contracts.ContractLogin;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;

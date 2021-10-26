@@ -1,7 +1,5 @@
 package com.ahmeddebbech.aries_messenger.model;
 
-import java.nio.file.Path;
-
 public class Feedback {
 
     private String user_id;

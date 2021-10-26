@@ -1,21 +1,14 @@
 package com.ahmeddebbech.aries_messenger.presenter;
 
-import android.util.Log;
-
-import com.ahmeddebbech.aries_messenger.R;
 import com.ahmeddebbech.aries_messenger.contracts.ContractMain;
 import com.ahmeddebbech.aries_messenger.database.BackendServiceApi;
 import com.ahmeddebbech.aries_messenger.database.DatabaseOutputKeys;
-import com.ahmeddebbech.aries_messenger.database.DbBasic;
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
-import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.model.DatabaseOutput;
 import com.ahmeddebbech.aries_messenger.model.User;
 import com.ahmeddebbech.aries_messenger.util.GeneralUtils;
-import com.ahmeddebbech.aries_messenger.views.fragments.ConnectionsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

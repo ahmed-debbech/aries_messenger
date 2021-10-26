@@ -8,10 +8,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.ahmeddebbech.aries_messenger.database.DbConnector;
 import com.ahmeddebbech.aries_messenger.model.User;
-import com.ahmeddebbech.aries_messenger.presenter.MessengerManager;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
-import com.ahmeddebbech.aries_messenger.threads.InitialDataRetrieverThread;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class AppLifecycleObserver implements LifecycleObserver {
     public static final String TAG = AppLifecycleObserver.class.getName();

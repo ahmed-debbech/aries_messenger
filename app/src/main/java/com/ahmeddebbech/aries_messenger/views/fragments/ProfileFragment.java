@@ -2,7 +2,6 @@ package com.ahmeddebbech.aries_messenger.views.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.ahmeddebbech.aries_messenger.contracts.ContractProfileF;
 import com.ahmeddebbech.aries_messenger.presenter.ProfilePresenter;
 import com.ahmeddebbech.aries_messenger.views.activities.EditBioActivity;
 import com.ahmeddebbech.aries_messenger.views.activities.EditDispNameActivity;
-import com.firebase.ui.auth.data.model.Resource;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment implements ContractProfileF.View {

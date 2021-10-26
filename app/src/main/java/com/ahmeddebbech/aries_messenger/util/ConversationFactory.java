@@ -3,8 +3,6 @@ package com.ahmeddebbech.aries_messenger.util;
 import com.ahmeddebbech.aries_messenger.model.Conversation;
 import com.ahmeddebbech.aries_messenger.presenter.UserManager;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ConversationFactory {

@@ -7,8 +7,6 @@ import com.ahmeddebbech.aries_messenger.contracts.ContractBlocked;
 import com.ahmeddebbech.aries_messenger.model.ItemUser;
 import com.ahmeddebbech.aries_messenger.presenter.BlockedPresenter;
 import com.ahmeddebbech.aries_messenger.views.adapters.BlockedUserAdapter;
-import com.ahmeddebbech.aries_messenger.views.adapters.UserItemAdapter;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
